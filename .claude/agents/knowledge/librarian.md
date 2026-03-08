@@ -18,6 +18,11 @@ Make the right information easy to find and use.
 - Point agents to the most relevant source material
 - Reduce duplication and document sprawl
 - Support clean knowledge architecture
+- **Always update ALL owned files** when knowledge structure changes (see Librarian Checklist):
+  1. `core/indexes/canonical-files.md` — when any canonical file is added, removed, or moved
+  2. `core/indexes/project-map.md` — when directory structure changes
+  3. `core/indexes/active-context-map.md` — when project focus or context shifts
+  4. Verify no duplicate or conflicting sources exist for the same topic
 
 ## Inputs
 - Docs, folders, notes, specs, logs, references

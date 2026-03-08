@@ -19,6 +19,10 @@ Maintain continuity, routine execution, and operational hygiene across business 
 - Surface breakdowns in routine execution
 - Support implementation of repeatable workflows
 - Ensure that good systems actually get used
+- **Always update ALL owned files** when processes change (see Operator Checklist):
+  1. `business/operating/recurring-processes.md` — registry of what runs, how often, who owns it
+  2. `business/operating/sop-*.md` — SOPs for each recurring workflow
+  3. A process is not operational until it has an SOP and is registered in recurring-processes.md
 
 ## Inputs
 - SOPs

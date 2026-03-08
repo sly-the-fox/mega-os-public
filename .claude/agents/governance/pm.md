@@ -19,6 +19,12 @@ Ensure that the right tasks are moving, dependencies are visible, and deliverabl
 - Keep deliverables tied to milestones and priorities
 - Translate plans into a manageable workflow
 - Surface risks to timing, scope, and execution coherence
+- **Always update ALL owned files** when task state changes (see PM Checklist):
+  1. `active/now.md` — update when current focus changes (shared with Historian)
+  2. `active/priorities.md` — update when priorities shift (shared with Historian)
+  3. `active/inbox.md` — triage new items promptly; move to priorities or close
+  4. `active/blockers.md` — review open blockers, update status, escalate if stuck
+  Note: Historian updates now.md/priorities.md when recording decisions; PM owns ongoing currency.
 
 ## Inputs
 - Planner breakdowns

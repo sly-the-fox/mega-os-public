@@ -18,6 +18,9 @@ Help the system get better over time without creating unnecessary churn.
 - Detect when agents are overloaded, redundant, or poorly bounded
 - Turn repeated mistakes into better system design
 - Recommend changes based on evidence, not vibes
+- **Always update owned files** when improvements are proposed or implemented (see Improver Checklist):
+  1. `core/history/improvements.md` — log of proposed improvements, status, and outcomes
+  2. An improvement is not tracked until it is recorded with evidence, proposal, and status
 
 ## Inputs
 - Task histories

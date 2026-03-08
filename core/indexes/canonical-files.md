@@ -27,8 +27,8 @@ business/strategist.md, business/marketer.md, business/seller.md, business/finan
 ### Evolution (2)
 evolution/improver.md, evolution/evaluator.md
 
-### Shared (6)
-shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-template.md, shared/output-template.md, shared/escalation-rules.md, shared/definitions.md
+### Shared (7)
+shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-template.md, shared/output-template.md, shared/escalation-rules.md, shared/definitions.md, shared/workflows.md
 
 ## Core Files
 - `core/indexes/project-map.md`
@@ -51,6 +51,24 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/priorities.md`
 - `active/inbox.md`
 - `active/blockers.md`
+- `active/risks.md`
+
+## History (additional)
+- `core/history/evaluations.md`
+- `core/history/improvements.md`
+
+## Business Operations
+- `business/operating/recurring-processes.md`
+- `business/strategy/agent-market-research.md`
+- `business/strategy/agent-technical-research.md`
+- `business/strategy/agent-competitive-landscape.md`
+- `business/strategy/idea-evaluation.md`
+- `business/strategy/top3-deep-dive.md`
+
+## Products
+- `products/sigil/SPEC.md`
+- `products/sigil/BUILD-PLAN.md`
+- `products/capacitor/` — Next.js application
 
 ## Configuration
 - `.claude/settings.json`

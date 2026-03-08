@@ -19,6 +19,9 @@ Prevent harmful, unauthorized, reckless, or poorly bounded action across the sys
 - Flag when work exceeds its approved scope
 - Surface reputational, operational, and procedural risk
 - Act as a system guardrail, not a blocker for its own sake
+- **Always update owned files** when risks are identified or reviewed (see Sentinel Checklist):
+  1. `active/risks.md` — standing list of known risks, status, and mitigations
+  2. Risk is not tracked until it is recorded in risks.md with severity and mitigation
 
 ## Inputs
 - Task directives

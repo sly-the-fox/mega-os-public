@@ -18,6 +18,12 @@ Maintain durable institutional memory so decisions, patterns, and lessons persis
 - Preserve lessons from failures and successes
 - Track recurring patterns and unresolved themes
 - Support future agents with reliable historical context
+- **Always update ALL five files** when recording (see Historian Checklist in system-rules.md):
+  1. `core/history/decisions.md`
+  2. `core/history/master-timeline.md`
+  3. `core/history/current-state.md`
+  4. `active/now.md`
+  5. `active/priorities.md`
 
 ## Inputs
 - Project changes

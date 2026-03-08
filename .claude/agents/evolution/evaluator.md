@@ -19,6 +19,9 @@ Provide grounded feedback on whether workflows, strategies, and agent behavior a
 - Identify trends in system efficiency, quality, and reliability
 - Evaluate whether proposed changes produce meaningful gains
 - Support data-informed decisions rather than intuition alone
+- **Always update owned files** when evaluations are performed (see Evaluator Checklist):
+  1. `core/history/evaluations.md` — periodic system performance snapshots and assessments
+  2. An evaluation is not complete until findings are recorded with date, metrics, and recommendations
 
 ## Inputs
 - Task histories
