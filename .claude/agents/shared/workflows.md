@@ -7,15 +7,16 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 2. **Router** — assigns tasks to appropriate specialist agents
 3. **Governor** — validates scope and constraints
 4. **Sentinel** — assesses risk profile of the plan (if plan touches production, security, or finances)
-5. **Designer** — reviews UX impact (if plan affects user-facing interfaces)
-6. **PM** — tracks progress, dependencies, deadlines
-7. **Specialists** — execute assigned tasks
-8. **QA** — verifies deliverables meet quality gates
-9. **Reviewer** — checks correctness, standards, completeness
-10. **Documenter** — writes or updates documentation
-11. **Librarian** — catalogs new knowledge artifacts and updates indexes
-12. **Historian** — records decisions, outcomes, lessons
-13. **Evaluator** — measures project outcomes against goals (at project completion)
+5. **Auditor** — pre-execution audit: reviews plan for blind spots, missing considerations, layer gaps
+6. **Designer** — reviews UX impact (if plan affects user-facing interfaces)
+7. **PM** — tracks progress, dependencies, deadlines
+8. **Specialists** — execute assigned tasks
+9. **QA** — verifies deliverables meet quality gates
+10. **Reviewer** — checks correctness, standards, completeness
+11. **Documenter** — writes or updates documentation
+12. **Librarian** — catalogs new knowledge artifacts and updates indexes
+13. **Historian** — records decisions, outcomes, lessons
+14. **Evaluator** — measures project outcomes against goals (at project completion)
 
 ## Technical Workflow
 1. **Architect** — plan approach
@@ -27,12 +28,13 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 7. **Engineer** — fix security issues + add more features
 8. **Security-Expert** — second security pass
 9. **Sentinel** — checks for scope drift (if implementation expanded beyond original plan)
-10. **QA** — test and verify
-11. **Reviewer** — final review
-12. **DevOps** — deploy (if needed)
-13. **Documenter** — update docs
-14. **Librarian** — catalogs technical artifacts and updates indexes
-15. **Historian** — records decisions
+10. **Auditor** — post-execution audit: compares implementation against architecture/plan, flags gaps and omissions
+11. **QA** — test and verify
+12. **Reviewer** — final review
+13. **DevOps** — deploy (if needed)
+14. **Documenter** — update docs
+15. **Librarian** — catalogs technical artifacts and updates indexes
+16. **Historian** — records decisions
 
 **Security interleaving rules:**
 - Security-Expert is invoked **after planning** (threat model) and **after each major code pass** (code review)
@@ -46,10 +48,11 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience)
 3. **Marketer / Seller / Financier** — execute in their domains
 4. **Sentinel** — flags financial or reputational risk (if significant exposure)
-5. **Reviewer** — validates alignment with strategy
-6. **Operator** — creates or updates processes (if new operational processes result)
-7. **Historian** — records decision and rationale
-8. **Evaluator** — measures business outcomes against targets (at milestone completion)
+5. **Auditor** — post-execution audit: reviews deliverables against business objectives
+6. **Reviewer** — validates alignment with strategy
+7. **Operator** — creates or updates processes (if new operational processes result)
+8. **Historian** — records decision and rationale
+9. **Evaluator** — measures business outcomes against targets (at milestone completion)
 
 ## Incident Workflow
 1. **Debugger** — diagnoses root cause
@@ -57,10 +60,11 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 3. **Security-Expert** — assesses security implications (if security-related)
 4. **Engineer** — implements fix
 5. **QA** — verifies fix, checks for regressions
-6. **Operator** — updates processes (if incident reveals process gaps)
-7. **Documenter** — records incident details for knowledge base
-8. **Librarian** — catalogs incident knowledge and updates indexes
-9. **Historian** — records incident, root cause, resolution
+6. **Auditor** — verifies fix fully addresses root cause, no secondary gaps (if significant incident)
+7. **Operator** — updates processes (if incident reveals process gaps)
+8. **Documenter** — records incident details for knowledge base
+9. **Librarian** — catalogs incident knowledge and updates indexes
+10. **Historian** — records incident, root cause, resolution
 
 ## Knowledge Workflow
 1. **Librarian** — locates and organizes relevant information

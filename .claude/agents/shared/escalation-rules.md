@@ -49,6 +49,15 @@ Escalate to Overseer when:
 - **Boundary violations** — an agent needs to act outside its defined role
 - **Resource conflicts** — multiple priorities compete for the same capacity
 
+## Plan-Delivery Mismatch — Auditor Triggers
+
+Escalate to Auditor when:
+- **Planned items not delivered** — work items from the approved plan were not implemented
+- **Significant plan deviation** — implementation diverges materially from the plan without documented approval
+- **Unstated assumptions** discovered post-implementation that affect correctness
+- **Layer gaps** — persistence or injection misalignment (results won't survive to future sessions)
+- **Scope contraction** — planned work silently dropped without explicit decision
+
 ## Escalation Process
 
 1. The escalating agent states the issue clearly with evidence

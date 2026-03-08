@@ -57,5 +57,14 @@ A change affecting fewer than 3 files that does not touch authentication, crypto
 ## Improvement Proposal
 A documented suggestion for system improvement based on evidence (Evaluator data, recurring blockers, defect patterns). Tracked in `active/improvements.md` with status: proposed, approved, in-progress, rejected, verified, or ineffective.
 
+## Pre-Execution Audit
+A systematic plan review conducted by the Auditor before execution begins. Checks for blind spots, unstated assumptions, missing dependencies, edge cases, and layer gaps across all four Mega-OS layers (Orchestration, Agents, Persistence, Injection).
+
+## Post-Execution Audit
+A plan-vs-delivery comparison conducted by the Auditor after implementation. Identifies planned-but-not-delivered items, delivered-but-not-planned additions, and scope contraction.
+
+## Scope Contraction
+Planned work dropped without explicit approval — the opposite of scope drift. Where drift adds unplanned work, contraction silently removes planned work. Both require detection: Sentinel catches drift, Auditor catches contraction.
+
 ## Workflow Checkpoint
 A conditional step in a workflow where an agent is consulted only if specific conditions are met (e.g., "Designer if UX-impacting", "Sentinel if production risk"). Checkpoints are skipped when their conditions are not met.

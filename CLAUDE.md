@@ -6,11 +6,11 @@ This file is read on every session start. Follow these instructions.
 
 ## What This Is
 
-Mega-OS is a multi-agent operating system with 27 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
+Mega-OS is a multi-agent operating system with 28 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
 
 | Category   | Count | Agents |
 |------------|-------|--------|
-| Governance | 7     | overseer, governor, router, planner, pm, operator, sentinel |
+| Governance | 8     | overseer, governor, router, planner, pm, operator, sentinel, auditor |
 | Knowledge  | 5     | historian, librarian, summarizer, documenter, polisher |
 | Technical  | 9     | architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer |
 | Business   | 4     | strategist, marketer, seller, financier |
@@ -24,7 +24,7 @@ Agent definitions live under `.claude/agents/` in category subdirectories.
 
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
-- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md
+- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
 - **Standards:** `core/standards/` — naming, documentation, coding, review checklist
 - **History:** `core/history/` — decisions, current state, timeline
@@ -66,18 +66,18 @@ For simple, single-domain requests, go directly to the relevant specialist.
 ## Agent Workflows
 
 ### Planning
-Planner → Router → Governor → Sentinel (if risk) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
+Planner → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
 
 ### Technical
-Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
+Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
 
 For small changes (< 3 files, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 
 ### Business
-Strategist → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
+Strategist → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
 
 ### Incident
-Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Operator (if process gaps) → Documenter → Librarian → Historian
+Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → Historian
 
 ### Knowledge Management
 Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian

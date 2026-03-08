@@ -53,3 +53,4 @@ Catch defects, omissions, regressions, and requirement mismatches before work is
 - Historian logs quality incidents
 - Improver receives recurring defect patterns (triggers improvement proposals)
 - Designer validates UX quality for user-facing deliverables
+- Auditor handles plan-vs-delivery comparison; QA handles requirement-vs-output validation

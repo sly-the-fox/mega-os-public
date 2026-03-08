@@ -15,6 +15,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | PM | `governance/pm.md` | Manages progress, coordination, and accountability |
 | Operator | `governance/operator.md` | Maintains SOPs, process clarity, and operational consistency |
 | Sentinel | `governance/sentinel.md` | Watches for risk, governance, safety, and permission issues |
+| Auditor | `governance/auditor.md` | Reviews plans for blind spots and audits delivery against plans |
 
 ## Knowledge / Memory
 
@@ -70,9 +71,9 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 
 ## Agent Count
 
-- **Governance:** 7
+- **Governance:** 8
 - **Knowledge:** 5
 - **Technical:** 9
 - **Business:** 4
 - **Evolution:** 2
-- **Total:** 27
+- **Total:** 28

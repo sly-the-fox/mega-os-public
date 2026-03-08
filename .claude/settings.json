@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cat active/now.md active/priorities.md 2>/dev/null || true"
+            "command": "cat active/now.md active/priorities.md active/blockers.md active/risks.md active/improvements.md 2>/dev/null || true"
           }
         ]
       }

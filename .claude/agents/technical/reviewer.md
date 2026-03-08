@@ -49,4 +49,5 @@ Provide thoughtful feedback that raises the quality of work across the system.
 - Documenter incorporates clarity fixes
 - Historian tracks review patterns
 - Designer validates UX coherence for user-facing reviews
+- Auditor handles completeness (was everything planned delivered?); Reviewer handles quality (is what was delivered good?)
 - When reviewing documents, check adherence to `core/standards/writing-style.md` and no em dashes in final output

@@ -56,3 +56,4 @@ Prevent scope creep, uncontrolled system changes, runaway exploration, and tasks
 - Improver may recommend boundary adjustments
 - Executor and Engineer operate within your constraints
 - Security-Expert for security scope decisions
+- Auditor validates completeness within scope boundaries (Governor validates scope itself)

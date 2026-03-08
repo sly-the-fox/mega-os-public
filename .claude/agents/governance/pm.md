@@ -60,3 +60,4 @@ Ensure that the right tasks are moving, dependencies are visible, and deliverabl
 - Historian records outcomes
 - Improver receives blocker patterns (3+ repeated blockers trigger Improver)
 - Evaluator receives task completion data for performance measurement
+- Auditor findings feed into task tracking (plan-delivery gaps become tracked items)
