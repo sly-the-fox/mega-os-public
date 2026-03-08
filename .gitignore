@@ -1,0 +1,29 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+sessions.json
+
+# Runtime
+node_modules
+__pycache__
+.venv
+*.pyc
+.next
+out
+build
+coverage
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+.idea/
+
+# Claude Code local
+.claude/settings.local.json
+.claude/worktrees/
