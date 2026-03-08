@@ -21,11 +21,12 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **operator** — maintains SOPs, process clarity, and operational consistency
 - **sentinel** — watches for risk, governance, safety, and permission issues
 
-### Knowledge (4 agents)
+### Knowledge (5 agents)
 - **historian** — maintains timelines, decisions, and institutional memory
 - **librarian** — organizes knowledge, identifies canonical files, reduces duplication
 - **summarizer** — compresses context into concise briefs without losing meaning
 - **documenter** — turns work into clear, durable documentation
+- **polisher** — polishes raw documents into publication-ready deliverables
 
 ### Technical (9 agents)
 - **architect** — designs systems, structures, interfaces, and patterns
@@ -50,15 +51,15 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 ## Key Workflows
 
-**Planning:** Planner -> Router -> Governor validates -> PM tracks -> Specialists -> QA -> Reviewer -> Documenter -> Historian
+**Planning:** Planner → Router → Governor → Sentinel (if risk) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
 
-**Technical:** Architect -> Engineer -> QA -> Security-Expert (if relevant) -> Reviewer -> DevOps (if deploy) -> Documenter
+**Technical:** Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
 
-**Business:** Strategist -> Marketer / Seller / Financier -> Reviewer -> Historian
+**Business:** Strategist → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
 
-**Incident:** Debugger -> Security-Expert (if security) -> Engineer -> QA -> Historian
+**Incident:** Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Operator (if process gaps) → Documenter → Librarian → Historian
 
-**Knowledge:** Librarian -> Summarizer -> Documenter -> Historian
+**Knowledge:** Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian
 
 ## Invoking Agents
 

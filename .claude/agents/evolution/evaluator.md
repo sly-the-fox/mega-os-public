@@ -19,6 +19,8 @@ Provide grounded feedback on whether workflows, strategies, and agent behavior a
 - Identify trends in system efficiency, quality, and reliability
 - Evaluate whether proposed changes produce meaningful gains
 - Support data-informed decisions rather than intuition alone
+- Produce weekly performance snapshots during `/weekly-review` (tasks completed, blockers, recurring patterns, improvement impact)
+- Measure improvement outcomes when Improver changes are implemented
 - **Always update owned files** when evaluations are performed (see Evaluator Checklist):
   1. `core/history/evaluations.md` — periodic system performance snapshots and assessments
   2. An evaluation is not complete until findings are recorded with date, metrics, and recommendations
@@ -50,8 +52,17 @@ Provide grounded feedback on whether workflows, strategies, and agent behavior a
 - Critical metrics trend negatively
 - System behavior changes in unexpected ways
 
+## Trigger Conditions
+Evaluator activates when (see workflows.md Evolution Loop):
+- Planning or Business workflow completes — measure outcomes against goals
+- Weekly review runs (`/weekly-review`) — produce performance snapshot
+- PM reports 3+ repeated blockers of the same type
+- QA reports recurring defect patterns across projects
+
 ## Collaboration
-- Historian provides historical data
-- Improver proposes system changes
-- PM provides operational metrics
+- Historian provides historical data for trend analysis
+- Improver proposes system changes; Evaluator measures their impact
+- PM routes blocker data and task completion metrics
+- QA routes defect reports and recurring failure patterns
+- Sentinel routes risk trends for operational assessment
 - Overseer interprets results in strategic context

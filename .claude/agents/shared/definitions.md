@@ -50,3 +50,12 @@ The scope of impact if something goes wrong — how many systems, users, or proc
 
 ## Guardrail
 A constraint or check that prevents agents from taking harmful, unauthorized, or out-of-scope actions.
+
+## Small Change (Security Context)
+A change affecting fewer than 3 files that does not touch authentication, cryptography, input validation, secrets management, API boundaries, or data access controls. Small changes require only a single Security-Expert pass after coding.
+
+## Improvement Proposal
+A documented suggestion for system improvement based on evidence (Evaluator data, recurring blockers, defect patterns). Tracked in `active/improvements.md` with status: proposed, approved, in-progress, rejected, verified, or ineffective.
+
+## Workflow Checkpoint
+A conditional step in a workflow where an agent is consulted only if specific conditions are met (e.g., "Designer if UX-impacting", "Sentinel if production risk"). Checkpoints are skipped when their conditions are not met.

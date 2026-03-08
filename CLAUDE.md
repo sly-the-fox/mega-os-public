@@ -6,12 +6,12 @@ This file is read on every session start. Follow these instructions.
 
 ## What This Is
 
-Mega-OS is a multi-agent operating system with 26 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
+Mega-OS is a multi-agent operating system with 27 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
 
 | Category   | Count | Agents |
 |------------|-------|--------|
 | Governance | 7     | overseer, governor, router, planner, pm, operator, sentinel |
-| Knowledge  | 4     | historian, librarian, summarizer, documenter |
+| Knowledge  | 5     | historian, librarian, summarizer, documenter, polisher |
 | Technical  | 9     | architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer |
 | Business   | 4     | strategist, marketer, seller, financier |
 | Evolution  | 2     | improver, evaluator |
@@ -66,21 +66,21 @@ For simple, single-domain requests, go directly to the relevant specialist.
 ## Agent Workflows
 
 ### Planning
-Planner → Router → Governor validates → PM tracks → Specialists → QA → Reviewer → Documenter → Historian
+Planner → Router → Governor → Sentinel (if risk) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
 
 ### Technical
-Architect → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → QA → Reviewer → DevOps (if deploy) → Documenter
+Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
 
-For small changes (< 3 files, no auth/crypto/input handling), a single security pass after coding suffices. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
+For small changes (< 3 files, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 
 ### Business
-Strategist → Marketer / Seller / Financier → Reviewer → Historian
+Strategist → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
 
 ### Incident
-Debugger → Security-Expert (if security) → Engineer → QA → Historian
+Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Operator (if process gaps) → Documenter → Librarian → Historian
 
 ### Knowledge Management
-Librarian → Summarizer → Documenter → Historian
+Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian
 
 ---
 

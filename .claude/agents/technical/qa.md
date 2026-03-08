@@ -51,3 +51,5 @@ Catch defects, omissions, regressions, and requirement mismatches before work is
 - Reviewer improves clarity
 - Sentinel may intervene if risk is significant
 - Historian logs quality incidents
+- Improver receives recurring defect patterns (triggers improvement proposals)
+- Designer validates UX quality for user-facing deliverables

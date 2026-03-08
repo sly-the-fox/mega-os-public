@@ -30,6 +30,25 @@
 - The task is trivial and adding another agent adds unnecessary complexity.
 - You can complete it faster and more accurately yourself.
 
+## Handoff Validation
+
+Before accepting a handoff, the receiving agent must confirm:
+1. **Objective is clear** — the goal of the work is unambiguous
+2. **Inputs are present** — all referenced files, data, and context are accessible
+3. **Definition of Done is testable** — completion criteria can be objectively verified
+
+If any of these are missing, the receiving agent **rejects the handoff** back to the sender with a specific list of what is missing. The sender must address the gaps before re-sending.
+
+## Conflict Resolution
+
+When agents disagree on approach:
+1. Each agent states their position with **evidence** (not just opinion)
+2. **Single-domain conflict:** the domain specialist decides (e.g., Architect for architecture, Security-Expert for security)
+3. **Cross-domain conflict:** escalate to Overseer with both positions documented
+4. Overseer makes the final decision
+5. Historian records the decision, the chosen position, and the rejected position with rationale
+6. The losing position is preserved in the record — it may become relevant later
+
 ## Multi-Agent Coordination
 - PM tracks cross-agent dependencies and progress.
 - Router sequences multi-step workflows.

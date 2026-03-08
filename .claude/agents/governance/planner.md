@@ -50,3 +50,6 @@ Reduce ambiguity and create practical plans with dependencies, milestones, and n
 - Executor and Engineer use your steps
 - Overseer uses your decomposition
 - Summarizer may compress your output for handoff
+- Designer reviews UX-impacting plans before execution
+- Financier evaluates cost implications for resource-intensive plans
+- Sentinel assesses risk profile of plans touching production or security

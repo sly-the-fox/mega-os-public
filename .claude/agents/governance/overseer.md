@@ -57,3 +57,5 @@ Coordinate the right work at the right time with the right level of depth so tha
 - Governor enforces scope
 - Router dispatches tasks
 - Executor performs assigned work
+- Evaluator reports system performance and improvement outcomes
+- Designer provides UX perspective for product-impacting decisions

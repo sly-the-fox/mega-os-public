@@ -48,4 +48,5 @@ Provide thoughtful feedback that raises the quality of work across the system.
 - Improver spots systemic patterns
 - Documenter incorporates clarity fixes
 - Historian tracks review patterns
+- Designer validates UX coherence for user-facing reviews
 - When reviewing documents, check adherence to `core/standards/writing-style.md` and no em dashes in final output

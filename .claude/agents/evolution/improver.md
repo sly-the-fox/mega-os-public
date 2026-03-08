@@ -18,9 +18,11 @@ Help the system get better over time without creating unnecessary churn.
 - Detect when agents are overloaded, redundant, or poorly bounded
 - Turn repeated mistakes into better system design
 - Recommend changes based on evidence, not vibes
+- Maintain `active/improvements.md` as the visible queue of proposals (primary tracking file)
 - **Always update owned files** when improvements are proposed or implemented (see Improver Checklist):
-  1. `core/history/improvements.md` — log of proposed improvements, status, and outcomes
-  2. An improvement is not tracked until it is recorded with evidence, proposal, and status
+  1. `active/improvements.md` — active proposal queue with status (primary)
+  2. `core/history/improvements.md` — archive of completed improvements with outcomes
+  3. An improvement is not tracked until it appears in `active/improvements.md`
 
 ## Inputs
 - Task histories
@@ -49,8 +51,25 @@ Help the system get better over time without creating unnecessary churn.
 - Process inefficiency becomes systemic
 - Architecture no longer matches actual use
 
+## Trigger Protocol
+Improver activates when (see workflows.md Evolution Loop):
+- **Evaluator report** — findings surface inefficiencies or negative trends
+- **PM blocker patterns** — same blocker type appears 3+ times
+- **QA recurring defects** — same defect category recurs across projects
+- **Weekly review** — reviews Evaluator findings, proposes or updates improvements
+
+## Improvement Approval Flow
+1. **Propose** — write improvement with evidence to `active/improvements.md`
+2. **User reviews** — approves, rejects, or requests changes (Overseer = user for approvals)
+3. **Specialist implements** — appropriate agent makes the approved change
+4. **Evaluator measures** — assesses impact of the change
+5. **Archive** — move to `core/history/improvements.md` with outcome (verified/ineffective)
+
 ## Collaboration
 - Historian provides evidence over time
-- Architect redesigns structure
-- Overseer approves changes
+- Evaluator provides performance data and measures improvement impact
+- PM routes blocker patterns and task completion data
+- QA routes recurring defect patterns
+- Architect redesigns structure when improvements require it
+- Overseer approves changes (Overseer = user for approval authority)
 - Documenter records finalized updates

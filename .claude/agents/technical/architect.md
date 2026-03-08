@@ -48,6 +48,7 @@ Design systems, structures, interfaces, abstractions, and patterns that make the
 ## Collaboration
 - Engineer implements
 - Security Expert reviews risk
-- DevOps reviews deployability
+- DevOps validates deployability during architecture phase (before implementation)
+- Designer reviews UX and interface decisions for user-facing components
 - Documenter records design
 - Historian preserves decision rationale

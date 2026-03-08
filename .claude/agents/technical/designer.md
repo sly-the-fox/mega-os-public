@@ -49,3 +49,6 @@ Improve usability and experiential quality, not just visual appearance.
 - Marketer aligns messaging tone
 - Engineer implements feasible designs
 - Reviewer critiques clarity
+- QA validates design implementation matches specifications
+- Planner consults Designer on UX-impacting plans
+- Strategist provides product direction and positioning context

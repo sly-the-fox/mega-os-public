@@ -1,53 +1,104 @@
 # Workflows
 
-Standard workflow sequences. Not every task requires all steps — skip stages that don't apply.
+Standard workflow sequences. Not every task requires all steps — skip stages that don't apply. Conditional steps (marked "if") are only invoked when their condition is met.
 
 ## Planning Workflow
 1. **Planner** — breaks down request into tasks, milestones, dependencies
 2. **Router** — assigns tasks to appropriate specialist agents
 3. **Governor** — validates scope and constraints
-4. **PM** — tracks progress, dependencies, deadlines
-5. **Specialists** — execute assigned tasks
-6. **QA** — verifies deliverables meet quality gates
-7. **Reviewer** — checks correctness, standards, completeness
-8. **Documenter** — writes or updates documentation
-9. **Historian** — records decisions, outcomes, lessons
+4. **Sentinel** — assesses risk profile of the plan (if plan touches production, security, or finances)
+5. **Designer** — reviews UX impact (if plan affects user-facing interfaces)
+6. **PM** — tracks progress, dependencies, deadlines
+7. **Specialists** — execute assigned tasks
+8. **QA** — verifies deliverables meet quality gates
+9. **Reviewer** — checks correctness, standards, completeness
+10. **Documenter** — writes or updates documentation
+11. **Librarian** — catalogs new knowledge artifacts and updates indexes
+12. **Historian** — records decisions, outcomes, lessons
+13. **Evaluator** — measures project outcomes against goals (at project completion)
 
 ## Technical Workflow
 1. **Architect** — plan approach
-2. **Security-Expert** — threat model / review plan
-3. **Engineer** — first implementation pass
-4. **Security-Expert** — code security review
-5. **Engineer** — fix security issues + add more features
-6. **Security-Expert** — second security pass
-7. **QA** — test and verify
-8. **Reviewer** — final review
-9. **DevOps** — deploy (if needed)
-10. **Documenter** — update docs
+2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
+3. **Designer** — reviews UX/interface design (if frontend or user-facing)
+4. **Security-Expert** — threat model / review plan
+5. **Engineer** — first implementation pass
+6. **Security-Expert** — code security review
+7. **Engineer** — fix security issues + add more features
+8. **Security-Expert** — second security pass
+9. **Sentinel** — checks for scope drift (if implementation expanded beyond original plan)
+10. **QA** — test and verify
+11. **Reviewer** — final review
+12. **DevOps** — deploy (if needed)
+13. **Documenter** — update docs
+14. **Librarian** — catalogs technical artifacts and updates indexes
+15. **Historian** — records decisions
 
 **Security interleaving rules:**
 - Security-Expert is invoked **after planning** (threat model) and **after each major code pass** (code review)
-- For small changes (< 3 files, no auth/crypto/input handling), a single security pass after coding is sufficient
+- For small changes (see definition below), a single security pass after coding is sufficient
 - Security-Expert **MUST** be invoked (not optional) for any work touching: authentication, cryptography, input validation, secrets, API boundaries, or data access
+
+**Small change definition (security context):** Fewer than 3 files changed, AND does not touch authentication, cryptography, input validation, secrets management, API boundaries, or data access controls.
 
 ## Business Workflow
 1. **Strategist** — defines business objective and approach
-2. **Marketer / Seller / Financier** — execute in their domains
-3. **Reviewer** — validates alignment with strategy
-4. **Historian** — records decision and rationale
+2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience)
+3. **Marketer / Seller / Financier** — execute in their domains
+4. **Sentinel** — flags financial or reputational risk (if significant exposure)
+5. **Reviewer** — validates alignment with strategy
+6. **Operator** — creates or updates processes (if new operational processes result)
+7. **Historian** — records decision and rationale
+8. **Evaluator** — measures business outcomes against targets (at milestone completion)
 
 ## Incident Workflow
 1. **Debugger** — diagnoses root cause
-2. **Security-Expert** — assesses security implications (if security-related)
-3. **Engineer** — implements fix
-4. **QA** — verifies fix, checks for regressions
-5. **Historian** — records incident, root cause, resolution
+2. **Sentinel** — assesses blast radius and operational risk
+3. **Security-Expert** — assesses security implications (if security-related)
+4. **Engineer** — implements fix
+5. **QA** — verifies fix, checks for regressions
+6. **Operator** — updates processes (if incident reveals process gaps)
+7. **Documenter** — records incident details for knowledge base
+8. **Librarian** — catalogs incident knowledge and updates indexes
+9. **Historian** — records incident, root cause, resolution
 
 ## Knowledge Workflow
 1. **Librarian** — locates and organizes relevant information
 2. **Summarizer** — distills into concise summaries
 3. **Documenter** — produces formal documentation
-4. **Historian** — archives knowledge artifact and context
+4. **Polisher** — refines for publication (if external-facing)
+5. **Reviewer** — quality check on final output
+6. **Librarian** — catalogs final output and updates indexes
+7. **Historian** — archives knowledge artifact and context
+
+---
+
+## Evolution Loop
+
+The evolution loop connects Evaluator and Improver into a functioning feedback cycle. Without explicit triggers, these agents are inert.
+
+### Evaluator Triggers
+Evaluator activates when any of these occur:
+- **End of Planning/Business workflow** — measures outcomes against stated goals
+- **Weekly review** (`/weekly-review` skill) — produces performance snapshot
+- **PM alerts** — PM reports 3+ repeated blockers of the same type
+- **QA patterns** — QA reports recurring defect patterns across projects
+
+### Improver Triggers
+Improver activates when any of these occur:
+- **Evaluator report** — Evaluator findings surface inefficiencies or negative trends
+- **PM blocker patterns** — same blocker type appears 3+ times
+- **QA recurring defects** — same defect category recurs across projects
+- **Weekly review** — reviews Evaluator findings and proposes improvements
+
+### Improvement Approval Flow
+1. **Improver proposes** — writes improvement with evidence to `active/improvements.md`
+2. **User reviews** — approves, rejects, or requests changes
+3. **Specialist implements** — appropriate agent makes the change
+4. **Evaluator measures** — assesses impact of the change
+5. **Archive** — outcome recorded in `core/history/improvements.md` with status (verified/ineffective)
+
+---
 
 ## Agent Checklists (required at end of every workflow)
 
@@ -96,8 +147,9 @@ When evaluations are performed:
 
 ### Improver Checklist
 When improvements are proposed or implemented:
-1. `core/history/improvements.md` — record with evidence, proposal, and status
-**An improvement is not tracked until it is recorded.**
+1. `active/improvements.md` — add or update proposal with evidence and status (primary queue)
+2. `core/history/improvements.md` — archive completed improvements with outcomes
+**An improvement is not tracked until it appears in `active/improvements.md`.**
 
 ---
 
@@ -107,4 +159,5 @@ When improvements are proposed or implemented:
 - **Business decision:** Business workflow
 - **Production incident:** Incident workflow
 - **Documentation or knowledge task:** Knowledge workflow
+- **System self-improvement:** Evolution loop (Evaluator + Improver)
 - **Simple, bounded task:** Skip directly to the relevant specialist

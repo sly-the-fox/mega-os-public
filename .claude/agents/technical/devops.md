@@ -50,3 +50,5 @@ Ensure that systems can be built, deployed, run, monitored, and maintained safel
 - Security Expert reviews exposure
 - Debugger investigates runtime faults
 - Documenter creates runbooks
+- Architect consults DevOps during architecture phase for deployability constraints
+- Sentinel monitors deployment risk and operational exposure

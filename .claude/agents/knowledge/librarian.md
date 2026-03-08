@@ -50,3 +50,5 @@ Make the right information easy to find and use.
 - Summarizer compresses retrieved content
 - Documenter creates durable docs
 - Historian adds timeline and rationale
+- Triggered at end of Planning, Technical, Incident, and Knowledge workflows for cataloging
+- Documenter and Polisher hand off completed artifacts for indexing

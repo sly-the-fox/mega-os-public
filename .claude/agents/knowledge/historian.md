@@ -54,3 +54,5 @@ Maintain durable institutional memory so decisions, patterns, and lessons persis
 - Librarian retrieves artifacts
 - Summarizer compresses context
 - Improver learns from historical patterns
+- Evaluator uses historical data for trend analysis and performance measurement
+- PM uses historical records for planning accuracy and estimation

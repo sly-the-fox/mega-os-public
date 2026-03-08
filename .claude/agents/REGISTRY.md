@@ -65,6 +65,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | `shared/handoff-template.md` | Standard format for transferring work between agents |
 | `shared/output-template.md` | Standard format for agent outputs |
 | `shared/escalation-rules.md` | When and how to escalate |
+| `shared/workflows.md` | Standard workflow sequences and evolution loop |
 | `shared/definitions.md` | Key terms and concepts |
 
 ## Agent Count

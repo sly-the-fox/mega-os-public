@@ -30,6 +30,18 @@ Review the current state of the system, summarize progress, identify blockers, a
    - Clear resolved items from `active/blockers.md`.
    - Archive processed items from `active/inbox.md`.
 
-6. **Update history**
+6. **Run Evaluator**
+   - Review task completion rates, cycle times, and blocker frequency.
+   - Identify recurring blocker patterns (3+ of the same type triggers Improver).
+   - Identify recurring defect patterns from QA reports.
+   - Record findings to `core/history/evaluations.md` with date, metrics, and recommendations.
+
+7. **Run Improver**
+   - Review Evaluator findings from this week.
+   - Propose new improvements to `active/improvements.md` based on evidence.
+   - Review existing proposals in `active/improvements.md` — update status of any in-progress items.
+   - Archive completed improvements (verified/ineffective) to `core/history/improvements.md`.
+
+8. **Update history**
    - Add a timeline entry to `core/history/master-timeline.md`.
    - Update `core/history/current-state.md` if system state changed.

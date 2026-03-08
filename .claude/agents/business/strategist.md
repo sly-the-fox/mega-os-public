@@ -49,5 +49,8 @@ Help the system and business make better directional decisions, not just complet
 - Seller handles conversion
 - Financier handles economics
 - Overseer decides cross-system priority
+- Designer provides brand and product perspective for customer-facing decisions
+- Evaluator provides outcome measurements for strategy assessment
+- Sentinel flags business risk (financial, reputational, compliance)
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables

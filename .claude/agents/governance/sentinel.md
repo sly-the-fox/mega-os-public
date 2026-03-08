@@ -56,3 +56,5 @@ Prevent harmful, unauthorized, reckless, or poorly bounded action across the sys
 - PM and Operator respond to process risk
 - Historian records major incidents
 - Governor for scope enforcement
+- Checkpoint role in workflows: after Governor (planning), after implementation (technical), after execution (business), after diagnosis (incident)
+- Evaluator receives risk trend data for performance assessment

@@ -49,6 +49,7 @@ Build clear, functional, maintainable solutions.
 - Architect designs
 - Debugger diagnoses failures
 - QA validates
+- Designer provides UX guidance for frontend and user-facing work
 - Documenter records implementation
 - Historian records implementation decisions
 - Governor constrains scope
