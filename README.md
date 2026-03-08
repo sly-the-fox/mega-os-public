@@ -28,19 +28,17 @@ mega-os/
   business/            # assets, clients, finance, marketing, operations
 ```
 
-## Setup
+## Quick Start
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/YOUR_USERNAME/mega-os.git
-   cd mega-os
-   ```
+```bash
+git clone https://github.com/YOUR_USERNAME/mega-os.git
+cd mega-os
+claude
+```
 
-2. Ensure [Claude Code](https://claude.ai/code) is installed.
+That's it. Claude Code reads `CLAUDE.md` on startup, discovers all 26 agents, and is ready to work.
 
-3. Launch Claude Code in the project directory. Agent teams and all 26 agents are pre-configured via `.claude/settings.json`.
-
-4. Agents are available via the Agent tool with `subagent_type` matching the agent filename (e.g., `architect`, `engineer`, `pm`).
+**New here?** Read [GETTING_STARTED.md](GETTING_STARTED.md) for a full walkthrough — first task, adding products, customizing agents, Telegram bridge setup, and MCP server usage.
 
 ## Agent Teams
 
