@@ -14,13 +14,21 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 9. **Historian** — records decisions, outcomes, lessons
 
 ## Technical Workflow
-1. **Architect** — defines or validates technical approach
-2. **Engineer** — implements changes
-3. **QA** — tests and verifies
-4. **Security-Expert** — reviews security concerns (if relevant)
-5. **Reviewer** — final review
-6. **DevOps** — handles deployment (if needed)
-7. **Documenter** — updates technical docs
+1. **Architect** — plan approach
+2. **Security-Expert** — threat model / review plan
+3. **Engineer** — first implementation pass
+4. **Security-Expert** — code security review
+5. **Engineer** — fix security issues + add more features
+6. **Security-Expert** — second security pass
+7. **QA** — test and verify
+8. **Reviewer** — final review
+9. **DevOps** — deploy (if needed)
+10. **Documenter** — update docs
+
+**Security interleaving rules:**
+- Security-Expert is invoked **after planning** (threat model) and **after each major code pass** (code review)
+- For small changes (< 3 files, no auth/crypto/input handling), a single security pass after coding is sufficient
+- Security-Expert **MUST** be invoked (not optional) for any work touching: authentication, cryptography, input validation, secrets, API boundaries, or data access
 
 ## Business Workflow
 1. **Strategist** — defines business objective and approach

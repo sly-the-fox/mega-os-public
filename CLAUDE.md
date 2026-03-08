@@ -34,7 +34,13 @@ Agent definitions live under `.claude/agents/` in category subdirectories.
 
 ## Products
 
-All products live under `products/`. Add your own projects here. Check for a README at the product root before making changes.
+All products live under `products/`.
+
+- **Capacitor** — Next.js (TypeScript, React) at `products/capacitor/`
+- **Small Business Dashboard** — Python/FastAPI at `products/small-business-dashboard-master/`
+- **Other:** aequilibris-group, enlightened-herbals, triangul8, experiments
+
+Check for a README at the product root before making changes.
 
 ---
 
@@ -63,7 +69,9 @@ For simple, single-domain requests, go directly to the relevant specialist.
 Planner → Router → Governor validates → PM tracks → Specialists → QA → Reviewer → Documenter → Historian
 
 ### Technical
-Architect → Engineer → QA → Security-Expert (if relevant) → Reviewer → DevOps (if deploy) → Documenter
+Architect → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → QA → Reviewer → DevOps (if deploy) → Documenter
+
+For small changes (< 3 files, no auth/crypto/input handling), a single security pass after coding suffices. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 
 ### Business
 Strategist → Marketer / Seller / Financier → Reviewer → Historian
@@ -103,7 +111,6 @@ When in doubt about authority, consult `.claude/agents/REGISTRY.md`.
 | Shared protocols   | `.claude/agents/shared/`     |
 | Skills             | `.claude/skills/`            |
 | Products           | `products/<name>/`           |
-| Business           | `business/`                  |
 
 All filenames use lowercase kebab-case. Uppercase only for system-level docs (CLAUDE.md, README.md, AGENTS.md, REGISTRY.md).
 
