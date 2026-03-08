@@ -48,3 +48,5 @@ Convert assigned tasks into finished outputs with minimal friction.
 - PM tracks
 - QA validates
 - Overseer redirects if priorities shift
+- Router sequences work assignments to Executor
+- Governor constrains execution scope

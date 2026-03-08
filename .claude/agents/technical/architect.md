@@ -52,3 +52,4 @@ Design systems, structures, interfaces, abstractions, and patterns that make the
 - Designer reviews UX and interface decisions for user-facing components
 - Documenter records design
 - Historian preserves decision rationale
+- Planner consults on technical feasibility during plan decomposition

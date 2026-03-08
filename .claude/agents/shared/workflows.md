@@ -155,6 +155,13 @@ When improvements are proposed or implemented:
 2. `core/history/improvements.md` — archive completed improvements with outcomes
 **An improvement is not tracked until it appears in `active/improvements.md`.**
 
+### Auditor Checklist
+When a pre-execution or post-execution audit is performed:
+1. Record findings in the handoff to the next workflow step (PM, QA, or Planner)
+2. For significant gaps, ensure Historian records the finding in `core/history/decisions.md`
+3. For scope contraction, ensure PM updates `active/now.md` with what was dropped and why
+**An audit is not complete until findings are communicated to the responsible agent.**
+
 ---
 
 ## When to Use Which Workflow

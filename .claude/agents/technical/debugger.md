@@ -51,3 +51,4 @@ Restore correct behavior by identifying root causes rather than treating symptom
 - QA retests
 - DevOps checks environment-related issues
 - Historian records incidents and lessons
+- Sentinel assesses blast radius for production incidents

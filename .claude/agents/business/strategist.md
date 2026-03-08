@@ -54,3 +54,4 @@ Help the system and business make better directional decisions, not just complet
 - Sentinel flags business risk (financial, reputational, compliance)
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables
+- Planner consults on strategy-impacting plan decisions

@@ -12,11 +12,11 @@ Protected files that should not be deleted or structurally modified without revi
 - `.claude/agents/REGISTRY.md` — canonical agent directory
 - `.claude/agents/README.md` — agent system overview
 
-### Governance (7)
-governance/overseer.md, governance/governor.md, governance/router.md, governance/planner.md, governance/pm.md, governance/operator.md, governance/sentinel.md
+### Governance (8)
+governance/overseer.md, governance/governor.md, governance/router.md, governance/planner.md, governance/pm.md, governance/operator.md, governance/sentinel.md, governance/auditor.md
 
-### Knowledge (4)
-knowledge/historian.md, knowledge/librarian.md, knowledge/summarizer.md, knowledge/documenter.md
+### Knowledge (5)
+knowledge/historian.md, knowledge/librarian.md, knowledge/summarizer.md, knowledge/documenter.md, knowledge/polisher.md
 
 ### Technical (9)
 technical/architect.md, technical/engineer.md, technical/executor.md, technical/reviewer.md, technical/qa.md, technical/debugger.md, technical/devops.md, technical/security-expert.md, technical/designer.md
@@ -52,6 +52,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/inbox.md`
 - `active/blockers.md`
 - `active/risks.md`
+- `active/improvements.md`
 
 ## History (additional)
 - `core/history/evaluations.md`

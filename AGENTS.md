@@ -62,6 +62,8 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 **Knowledge:** Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian
 
+**Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
+
 ## Invoking Agents
 
 Use the Agent tool with `subagent_type` set to the agent's filename (without `.md`):

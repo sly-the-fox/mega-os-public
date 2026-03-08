@@ -82,6 +82,12 @@ Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engin
 ### Knowledge Management
 Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian
 
+### Evolution Loop
+Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
+Improver triggers: Evaluator findings, PM blocker patterns, QA recurring defects, weekly review.
+Flow: Improver proposes → User approves → Specialist implements → Evaluator measures → Archive outcome.
+State: `active/improvements.md` (queue) → `core/history/improvements.md` (archive).
+
 ---
 
 ## Coordination Rules
