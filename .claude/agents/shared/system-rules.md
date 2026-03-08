@@ -17,3 +17,5 @@
 9. Escalate when scope, permissions, security, or major tradeoffs are unclear.
 10. Do not create unnecessary complexity.
 11. Optimize for clarity, durability, and maintainability.
+12. Security-Expert must review all code changes touching auth, crypto, secrets, input handling, or API boundaries. For larger features, invoke Security-Expert after planning and after each major implementation pass — not just at the end.
+13. When producing written deliverables for human readers, read and apply `core/standards/writing-style.md` if it exists. Match the described tone, structure, and vocabulary. Do not use em dashes in final documents, use commas, parentheses, or restructure the sentence instead.

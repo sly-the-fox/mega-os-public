@@ -49,3 +49,5 @@ Create documentation that reduces confusion, speeds onboarding, and preserves op
 - Engineer provides implementation facts
 - Librarian organizes docs
 - Historian preserves rationale
+- Follow `core/standards/writing-style.md` for tone and structure
+- Hand off to Polisher for final deliverables

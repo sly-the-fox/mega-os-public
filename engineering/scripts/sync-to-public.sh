@@ -28,6 +28,12 @@ SAFE_PATHS=(
   "engineering/scripts/telegram-bridge/README.md"
   "engineering/scripts/telegram-bridge/requirements.txt"
   "engineering/scripts/telegram-bridge/.env.example"
+  "engineering/scripts/md-to-polished.py"
+)
+
+# Files to SKIP during sync (private data)
+SKIP_FILES=(
+  "core/standards/writing-style.md"
 )
 
 # Files/dirs to NEVER sync (personal data)
@@ -57,7 +63,16 @@ for path in "${SAFE_PATHS[@]}"; do
       rel="${file#$src}"
       dst_file="${dst}${rel}"
 
-      # Skip shared/ originals (symlinks handle discovery)
+      # Skip private files
+      skip=false
+      for skip_file in "${SKIP_FILES[@]}"; do
+        if [[ "${path}${rel}" == "$skip_file" ]]; then
+          skip=true
+          break
+        fi
+      done
+      [[ "$skip" == "true" ]] && continue
+
       if [[ ! -f "$dst_file" ]]; then
         echo -e "${GREEN}  NEW${NC}  ${path}${rel}"
         changed_files+=("${path}${rel}")

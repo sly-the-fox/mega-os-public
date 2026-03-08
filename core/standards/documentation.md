@@ -24,6 +24,14 @@
 - Focus on "why" over "what" (code shows what)
 - Document non-obvious tradeoffs and constraints
 
+## Polished Deliverables
+- Use `engineering/scripts/md-to-polished.py` to convert markdown to DOCX/PDF
+- Output goes to `deliverables/` with date-prefixed filenames
+- Invoke via `/polish <file-path>` skill
+- Polisher agent handles end-to-end document polishing
+- All final deliverables must follow `core/standards/writing-style.md` if populated
+- No em dashes in final output
+
 ## Review Documentation
 - Reviewer agent checks for doc completeness
 - Documenter agent creates/updates docs

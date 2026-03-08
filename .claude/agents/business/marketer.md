@@ -49,3 +49,5 @@ Communicate value clearly and attract the right people with the right message.
 - Seller handles close/conversion
 - Designer supports presentation
 - Financier may pressure-test economics
+- Follow `core/standards/writing-style.md` for tone and structure
+- Hand off to Polisher for final deliverables

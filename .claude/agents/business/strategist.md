@@ -49,3 +49,5 @@ Help the system and business make better directional decisions, not just complet
 - Seller handles conversion
 - Financier handles economics
 - Overseer decides cross-system priority
+- Follow `core/standards/writing-style.md` for tone and structure
+- Hand off to Polisher for final deliverables

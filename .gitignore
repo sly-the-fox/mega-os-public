@@ -24,6 +24,13 @@ Thumbs.db
 .vscode/settings.json
 .idea/
 
+# Generated deliverables
+deliverables/*.pdf
+deliverables/*.docx
+
+# Style samples (private)
+style-samples/
+
 # Claude Code local
 .claude/settings.local.json
 .claude/worktrees/

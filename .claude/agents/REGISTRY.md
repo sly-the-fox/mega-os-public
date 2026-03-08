@@ -24,6 +24,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | Librarian | `knowledge/librarian.md` | Organizes knowledge, identifies canonical files, reduces duplication |
 | Summarizer | `knowledge/summarizer.md` | Compresses context into concise briefs without losing meaning |
 | Documenter | `knowledge/documenter.md` | Turns work into clear, durable, usable documentation |
+| Polisher | `knowledge/polisher.md` | Polishes raw documents into publication-ready deliverables |
 
 ## Build / Technical
 
@@ -69,8 +70,8 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 ## Agent Count
 
 - **Governance:** 7
-- **Knowledge:** 4
+- **Knowledge:** 5
 - **Technical:** 9
 - **Business:** 4
 - **Evolution:** 2
-- **Total:** 26
+- **Total:** 27

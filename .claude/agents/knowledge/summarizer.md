@@ -49,3 +49,5 @@ Preserve signal while reducing noise so agents and users can work from concise, 
 - Librarian retrieves
 - Summarizer compresses
 - Executor and PM consume
+- Follow `core/standards/writing-style.md` for tone and structure
+- Hand off to Polisher for final deliverables
