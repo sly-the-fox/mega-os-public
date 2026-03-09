@@ -59,3 +59,4 @@ Help the system and business make better directional decisions, not just complet
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables
 - Planner consults on strategy-impacting plan decisions
+- Codex reviews Strategist output at Business workflow checkpoint (step 1b). Parallax translates Codex perspective; Planner refines into alternative. User chooses between original strategy, Codex-informed alternative, or blend (see Codex Checkpoint Protocol in `workflows.md`).

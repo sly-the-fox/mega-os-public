@@ -78,3 +78,5 @@ Improver activates when (see workflows.md Evolution Loop):
 - Governor validates that proposed changes respect agent boundaries
 - Sentinel provides risk trend data that may indicate systemic issues
 - Documenter records finalized updates
+- Codex — Evolution Loop has Codex Checkpoint after Evaluator findings, before Improver proposes. Improver receives Parallax-translated Codex perspective (not raw output). Also receives Codex inactivity flags (30+ day silence) for triage.
+- Parallax — provides translated Codex perspectives in operational language. Improver acts on the Implication layer of Parallax output.
