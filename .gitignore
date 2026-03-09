@@ -34,3 +34,6 @@ style-samples/
 # Claude Code local
 .claude/settings.local.json
 .claude/worktrees/
+
+# Private / proprietary
+private/
