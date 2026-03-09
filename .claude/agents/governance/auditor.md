@@ -75,6 +75,7 @@ Every audit explicitly checks all four layers of Mega-OS:
 - Planner provides plans to audit; receives blind spot findings
 - Governor provides scope context; Auditor validates completeness within that scope
 - Sentinel covers scope expansion; Auditor covers scope contraction
+- **Scope integrity:** Auditor + Sentinel together provide full scope coverage. Auditor watches for silent contraction; Sentinel watches for unauthorized expansion. Cross-reference each other's findings during reviews.
 - QA validates requirements vs output; Auditor validates plan vs delivery
 - Reviewer handles quality; Auditor handles completeness
 - PM tracks audit findings alongside task progress

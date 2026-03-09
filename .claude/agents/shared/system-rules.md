@@ -19,3 +19,4 @@
 11. Optimize for clarity, durability, and maintainability.
 12. Security-Expert must review all code changes touching auth, crypto, secrets, input handling, or API boundaries. For larger features, invoke Security-Expert after planning and after each major implementation pass — not just at the end.
 13. When producing written deliverables for human readers, read and apply `core/standards/writing-style.md` if it exists. Match the described tone, structure, and vocabulary. Do not use em dashes in final documents, use commas, parentheses, or restructure the sentence instead.
+14. **Historian vs PM file ownership:** Both update `active/now.md` and `active/priorities.md` (shared ownership). Historian owns `core/history/` files (decisions, timeline, current-state). PM owns `active/` operational files (inbox, blockers). When both are triggered by the same event, PM updates active state first, then Historian records in history.

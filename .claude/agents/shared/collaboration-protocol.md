@@ -49,6 +49,19 @@ When agents disagree on approach:
 5. Historian records the decision, the chosen position, and the rejected position with rationale
 6. The losing position is preserved in the record — it may become relevant later
 
+## QA vs Reviewer Classification
+
+When both QA and Reviewer could be involved, use this rubric:
+
+| Criterion | QA | Reviewer |
+|-----------|-----|----------|
+| **Focus** | Does it work? (functional correctness) | Is it good? (quality, standards, maintainability) |
+| **Method** | Tests, verification, acceptance criteria | Code review, standards compliance, architectural fit |
+| **Blocks on** | Failing tests, broken functionality, unmet requirements | Style violations, missed edge cases, unclear logic |
+| **Output** | Pass/fail with evidence | Approve/request changes with reasoning |
+
+**Rule:** QA runs first (does it work?), then Reviewer (is it good?). If QA fails, fix before Reviewer sees it.
+
 ## Multi-Agent Coordination
 - PM tracks cross-agent dependencies and progress.
 - Router sequences multi-step workflows.

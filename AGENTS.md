@@ -56,11 +56,11 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 ## Key Workflows
 
-**Planning:** Planner → **Codex Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
+**Planning:** Planner → **Codex+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
 
-**Technical:** Architect → **Codex Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
+**Technical:** Architect → **Codex+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
 
-**Business:** Strategist → **Codex Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
+**Business:** Strategist → **Codex+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
 
 **Incident:** Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → Historian
 
@@ -68,7 +68,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 **Content:** Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → Historian
 
-**Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → **Codex Checkpoint** → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
+**Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → **Codex+Parallax Checkpoint** → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
 
 ## Invoking Agents
 

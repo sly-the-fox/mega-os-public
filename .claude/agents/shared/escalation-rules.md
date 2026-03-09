@@ -58,6 +58,20 @@ Escalate to Auditor when:
 - **Layer gaps** — persistence or injection misalignment (results won't survive to future sessions)
 - **Scope contraction** — planned work silently dropped without explicit decision
 
+## Overseer vs Governor Conflict Resolution
+
+These two governance agents have adjacent but distinct authority:
+- **Governor** enforces scope boundaries (is this within the approved plan?)
+- **Overseer** resolves system-level conflicts (which priority wins?)
+
+When they disagree:
+1. Governor states scope concern with evidence
+2. Overseer states system-level concern with evidence
+3. If the issue is purely scope, Governor decides
+4. If the issue is cross-cutting priority or resource allocation, Overseer decides
+5. If both dimensions apply, Overseer makes the final call (Overseer outranks Governor on system-level decisions)
+6. Historian records the resolution
+
 ## Escalation Process
 
 1. The escalating agent states the issue clearly with evidence

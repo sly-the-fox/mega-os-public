@@ -24,8 +24,8 @@ technical/architect.md, technical/engineer.md, technical/executor.md, technical/
 ### Business (4)
 business/strategist.md, business/marketer.md, business/seller.md, business/financier.md
 
-### Evolution (2)
-evolution/improver.md, evolution/evaluator.md
+### Evolution (4)
+evolution/improver.md, evolution/evaluator.md, evolution/codex.md, evolution/parallax.md
 
 ### Shared (7)
 shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-template.md, shared/output-template.md, shared/escalation-rules.md, shared/definitions.md, shared/workflows.md
@@ -38,6 +38,9 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `core/standards/documentation.md`
 - `core/standards/coding-standards.md`
 - `core/standards/review-checklist.md`
+- `core/standards/passive-agent-ownership.md`
+- `core/standards/codex-checkpoint-protocol.md`
+- `core/standards/skills-reference.md`
 - `core/templates/decision-template.md`
 - `core/templates/spec-template.md`
 - `core/templates/sop-template.md`
@@ -55,6 +58,8 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/improvements.md`
 - `active/audits.md`
 - `active/daily-digest.md`
+- `active/news-briefing.md`
+- `active/codex-metrics.md`
 
 ## History (additional)
 - `core/history/evaluations.md`

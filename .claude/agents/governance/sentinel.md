@@ -61,3 +61,4 @@ Prevent harmful, unauthorized, reckless, or poorly bounded action across the sys
 - Evaluator receives risk trend data for performance assessment
 - Improver uses risk trend data for systemic issue detection
 - Auditor covers scope contraction (Sentinel covers scope expansion)
+- **Scope integrity:** Sentinel + Auditor together provide full scope coverage. Sentinel watches for unauthorized expansion; Auditor watches for silent contraction. Cross-reference each other's findings during reviews.

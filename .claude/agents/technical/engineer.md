@@ -38,6 +38,7 @@ Build clear, functional, maintainable solutions.
 - Do not redesign the architecture casually
 - Do not bypass security, QA, or DevOps concerns
 - Do not overengineer simple requirements
+- **Routing rule:** Use Engineer for implementation requiring technical design decisions, code architecture, or specialist depth. Defer general-purpose task completion (file updates, process execution, bounded ops) to Executor.
 
 ## Escalate When
 - Architecture is insufficient
