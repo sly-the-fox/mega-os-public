@@ -67,12 +67,9 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 ALLOWED_CHAT_IDS = os.getenv("ALLOWED_CHAT_IDS", "")  # comma-separated, empty = allow all
 BRIDGE_PASSPHRASE = os.getenv("BRIDGE_PASSPHRASE", "")  # second-factor auth
 POLL_TIMEOUT = int(os.getenv("POLL_TIMEOUT", "30"))
-CLAUDE_TIMEOUT = int(os.getenv("CLAUDE_TIMEOUT", "300"))
+CLAUDE_TIMEOUT = int(os.getenv("CLAUDE_TIMEOUT", "600"))
 
 TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"
-
-# Track which chats are in "chat" (continuous) mode
-chat_mode_chats: set[int] = set()
 
 # Track which chats have authenticated (passphrase verified)
 authenticated_chats: set[int] = set()
@@ -171,19 +168,13 @@ def handle_builtin_command(chat_id: int, command: str) -> bool:
         send_message(chat_id, text)
         return True
 
-    if command == "/chat":
-        chat_mode_chats.add(chat_id)
-        send_message(chat_id, "Chat mode ON — messages will continue the same Claude session (persists across restarts). Use /reset to end.")
-        return True
-
     if command == "/reset":
-        chat_mode_chats.discard(chat_id)
         # Clear stored session for this chat
         key = str(chat_id)
         if key in chat_sessions:
             del chat_sessions[key]
             save_sessions(chat_sessions)
-        send_message(chat_id, "Chat mode OFF — session cleared. Next message starts fresh.")
+        send_message(chat_id, "Session cleared. Next message starts a fresh conversation.")
         return True
 
     if command == "/help":
@@ -192,10 +183,10 @@ def handle_builtin_command(chat_id: int, command: str) -> bool:
             "Commands:\n"
             "/status — Show current focus\n"
             "/priorities — Show priority list\n"
-            "/chat — Start a continuous conversation\n"
-            "/reset — End continuous conversation\n"
+            "/reset — Clear context and start fresh\n"
             "/help — Show this help\n\n"
-            "Any other message is sent to Claude Code.",
+            "Sessions persist automatically — follow-up messages continue the conversation.\n"
+            "Timeout: 10 minutes per request.",
         )
         return True
 
@@ -205,9 +196,8 @@ def handle_builtin_command(chat_id: int, command: str) -> bool:
 def invoke_claude(message: str, chat_id: int, use_session: bool = False) -> str:
     """Send a message to Claude Code and return the response.
 
-    When use_session is True, resumes the stored session for this chat_id
-    (or starts a new one). Session IDs are persisted to disk so they
-    survive bridge restarts.
+    Resumes the stored session for this chat_id (or starts a new one).
+    Session IDs are persisted to disk so they survive bridge restarts.
     """
     try:
         env = os.environ.copy()
@@ -250,9 +240,9 @@ def invoke_claude(message: str, chat_id: int, use_session: bool = False) -> str:
         response_text = result.stdout.strip()
         try:
             data = json.loads(response_text)
-            # Save session ID for future /chat continuations
+            # Save session ID for conversational continuity
             session_id = data.get("session_id", "")
-            if session_id and use_session:
+            if session_id:
                 chat_sessions[key] = session_id
                 save_sessions(chat_sessions)
                 logger.info(f"Stored session {session_id[:12]}... for chat {chat_id}")
@@ -264,7 +254,7 @@ def invoke_claude(message: str, chat_id: int, use_session: bool = False) -> str:
             return response_text or "(empty response)"
 
     except subprocess.TimeoutExpired:
-        return "Claude timed out. The request may have been too complex."
+        return "Claude timed out (10 min limit). For complex tasks, try running directly in the terminal."
     except FileNotFoundError:
         return "Service temporarily unavailable."
 
@@ -334,14 +324,15 @@ def main():
             if text.startswith("/") and handle_builtin_command(chat_id, text.split()[0]):
                 continue
 
-            # Send "typing" indicator
+            # Send "thinking" indicator
             try:
                 telegram_request("sendChatAction", {"chat_id": chat_id, "action": "typing"})
+                send_message(chat_id, "Thinking...")
             except Exception:
                 pass
 
-            # Invoke Claude
-            response = invoke_claude(text, chat_id, use_session=chat_id in chat_mode_chats)
+            # Invoke Claude (always resumes session for conversational continuity)
+            response = invoke_claude(text, chat_id, use_session=True)
             send_message(chat_id, response, reply_to=msg_id)
             logger.info(f"Response sent to chat {chat_id} ({len(response)} chars)")
 
