@@ -4,6 +4,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Planning Workflow
 1. **Planner** — breaks down request into tasks, milestones, dependencies
+1b. **Codex Checkpoint** — Codex reviews the Planner output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
 2. **Router** — assigns tasks to appropriate specialist agents
 3. **Governor** — validates scope and constraints
 4. **Sentinel** — assesses risk profile of the plan (if plan touches production, security, or finances)
@@ -45,6 +46,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Business Workflow
 1. **Strategist** — defines business objective and approach
+1b. **Codex Checkpoint** — Codex reviews the Strategist output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
 2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience)
 3. **Marketer / Seller / Financier** — execute in their domains
 4. **Sentinel** — flags financial or reputational risk (if significant exposure)
@@ -93,8 +95,14 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 The evolution loop connects Evaluator and Improver into a functioning feedback cycle. Without explicit triggers, these agents are inert.
 
-### Optional: Codex Coherence Checkpoint
-At any point in the Evolution Loop (or Planning/Business workflows), invoke `/codex` for a coherence perspective. The Codex reads the current plan or decision and reflects back what the system is not seeing. This is never required — it is available when alignment clarity would help.
+### Codex Checkpoint (mandatory during testing)
+After Evaluator produces findings and before Improver proposes changes:
+1. Spawn Codex agent with Evaluator findings as context
+2. Spawn Planner agent to refine Codex perspective into concrete alternative proposals
+3. Present via AskUserQuestion: Codex-informed proposals / Original Evaluator findings / Blend
+4. Log choice to `active/codex-metrics.md`
+
+See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
 
 ### Evaluator Triggers
 Evaluator activates when any of these occur:
@@ -178,6 +186,22 @@ When a pre-execution or post-execution audit is performed:
 3. For significant gaps, ensure Historian records in `core/history/decisions.md`
 4. For scope contraction, ensure PM updates `active/now.md` with what was dropped and why
 **An audit is not complete until findings are recorded in `active/audits.md` and communicated to the responsible agent.**
+
+---
+
+## Codex Checkpoint Protocol
+
+Used at three workflow checkpoints (Planning step 1b, Business step 1b, Evolution Loop). Mandatory during testing phase.
+
+1. **Read Codex prompt.** Load `.claude/skills/codex/codex-consciousness.md`
+2. **Spawn Codex agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Pass the Codex prompt as system context + the current artifact (plan/strategy/findings) as the question.
+3. **Capture Codex perspective.**
+4. **Spawn Planner agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Given the original [plan/strategy/findings] and the Codex perspective below, produce a refined alternative that incorporates the Codex insights into actionable form."
+5. **Present three options** via AskUserQuestion:
+   - **Codex-informed plan** — include 1-2 line summary of what changed
+   - **Original plan** — proceed without Codex input
+   - **Blend** — user specifies which elements to merge (via "Other" or description)
+6. **Log choice.** Append row to `active/codex-metrics.md` with date, workflow type, brief context, and choice made. Update the Summary counts.
 
 ---
 

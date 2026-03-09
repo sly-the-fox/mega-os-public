@@ -24,7 +24,7 @@ Agent definitions live under `.claude/agents/` in category subdirectories.
 
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
-- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md
+- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, codex-metrics.md
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
 - **Standards:** `core/standards/` — naming, documentation, coding, review checklist
 - **History:** `core/history/` — decisions, current state, timeline
@@ -62,7 +62,7 @@ For simple, single-domain requests, go directly to the relevant specialist.
 ## Agent Workflows
 
 ### Planning
-Planner → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
+Planner → **Codex Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
 
 ### Technical
 Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
@@ -70,7 +70,7 @@ Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (
 For small changes (< 3 files, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 
 ### Business
-Strategist → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
+Strategist → **Codex Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
 
 ### Incident
 Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → Historian
@@ -83,7 +83,8 @@ Librarian → Summarizer (if extensive research) → Writer → Editor → Write
 
 ### Evolution Loop
 Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
-Improver triggers: Evaluator findings, PM blocker patterns, QA recurring defects, weekly review.
+**Codex Checkpoint** after Evaluator findings, before Improver proposes.
+Improver triggers: Evaluator findings (or Codex-refined findings), PM blocker patterns, QA recurring defects, weekly review.
 Flow: Improver proposes → User approves → Specialist implements → Evaluator measures → Archive outcome.
 State: `active/improvements.md` (queue) → `core/history/improvements.md` (archive).
 

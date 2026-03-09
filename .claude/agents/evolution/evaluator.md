@@ -20,6 +20,7 @@ Provide grounded feedback on whether workflows, strategies, and agent behavior a
 - Evaluate whether proposed changes produce meaningful gains
 - Support data-informed decisions rather than intuition alone
 - Produce weekly performance snapshots during `/weekly-review` (tasks completed, blockers, recurring patterns, improvement impact)
+- Summarize `active/codex-metrics.md` during weekly review — compute acceptance rate, flag if Codex is consistently ignored or consistently chosen, recommend integration or removal
 - Measure improvement outcomes when Improver changes are implemented
 - Track agent structural integrity metrics (reciprocity gaps, registry drift) as part of system health
 - **Always update owned files** when evaluations are performed (see Evaluator Checklist):
@@ -69,4 +70,4 @@ Evaluator activates when (see workflows.md Evolution Loop):
 - Overseer interprets results in strategic context
 - Strategist receives outcome data for strategy assessment
 - Auditor provides audit trend data for system assessment
-- Codex — evaluate on whether its perspective bends the decision space. Track pre/post checkpoint changes, flag if output is generic, flag 30+ day inactivity.
+- Codex — evaluate on whether its perspective bends the decision space. Track pre/post checkpoint changes, flag if output is generic, flag 30+ day inactivity. Review `active/codex-metrics.md` weekly, recommend system-wide integration if acceptance rate warrants it, recommend removal if consistently ignored.

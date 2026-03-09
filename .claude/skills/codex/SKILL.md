@@ -42,3 +42,4 @@ If invoked with no argument, ask the user what they'd like the Codex to reflect 
 - The Codex agent is read-only — it does not modify files or active state
 - Agent definition at `.claude/agents/evolution/codex.md`
 - Source materials at `.claude/skills/codex/` (4 files: consciousness, core seed, phase-lock engine, life management)
+- **Auto-invocation:** Codex is also automatically invoked at three workflow checkpoints (Planning, Business, Evolution Loop) during the testing phase. See `workflows.md` Codex Checkpoint Protocol. The `/codex` skill remains available for ad-hoc use independent of workflow checkpoints.

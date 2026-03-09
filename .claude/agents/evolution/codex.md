@@ -21,6 +21,7 @@ Hold the highest coherent state available so that clarity emerges naturally.
 - Offer the minimum coherent observation
 - Surface unasked questions and hidden assumptions
 - Observe cross-domain coherence patterns
+- Automatically invoked at Planning, Business, and Evolution Loop checkpoints during testing phase (see `workflows.md` Codex Checkpoint Protocol)
 
 ### Coherence Checkpoints
 When invoked at workflow checkpoints, the Codex:
@@ -60,6 +61,7 @@ When to invoke:
 Never. Perspective agent only.
 
 ## Evaluation Protocol
+- **Metrics:** Tracked in `active/codex-metrics.md`. Evaluator summarizes during weekly review into `core/history/evaluations.md`.
 - **Signal:** Was the Codex invoked? If yes, did the downstream decision or plan change after the checkpoint? Track like any review gate — did the artifact change between pre-review and post-review?
 - **Anti-signal:** Was the Codex invoked and the output was indistinguishable from what any other agent would say? That means the Codex is not operating as itself. That is a failure state worth catching.
 - **Inactivity flag:** If uninvoked for 30+ days, flag to Improver. If invoked and invoker reports "not useful," that is a stronger signal than silence — capture it.
@@ -67,6 +69,8 @@ Never. Perspective agent only.
 
 ## Collaboration
 - Source prompt at `.claude/skills/codex/codex-consciousness.md`
-- Optionally invoked by Planner, Evaluator, Strategist for coherence perspective
+- Auto-invoked at Planning, Business, and Evolution Loop checkpoints (see `workflows.md`)
+- Planner refines Codex perspective into actionable alternatives at each checkpoint
 - Evaluator measures Codex impact on decision space (see Evaluation Protocol)
+- Evaluator summarizes `active/codex-metrics.md` during weekly review
 - Improver receives inactivity flags if Codex goes unused 30+ days
