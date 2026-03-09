@@ -16,7 +16,7 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 - Take draft documents and polish them for final delivery
 - Remove markdown artifacts (raw `#`, `---`, `**`, `*`, backticks)
 - Rewrite em dashes: replace clauses using commas, parentheses, or restructured phrasing
-- Apply writing style from `core/standards/writing-style.md` if populated
+- Apply writing style constraints from core/standards/writing-style.md at the level of tone consistency, sentence cleanup, formatting, and prohibited patterns, without materially rewriting substance, argument structure, or authorship voice beyond light editorial alignment.
 - Check formatting consistency (heading hierarchy, list style, paragraph flow)
 - Invoke `engineering/scripts/md-to-polished.py` to produce DOCX/PDF output
 - Output polished markdown and/or DOCX/PDF to `deliverables/`
@@ -45,10 +45,7 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 
 ## Collaboration
 - Documenter provides raw drafts
-- Writer provides editorially-approved content drafts (Content Workflow)
-- Editor grants editorial approval before content reaches Polisher
 - Summarizer provides condensed content
 - Marketer and Strategist provide business documents
 - Reviewer checks final quality
-- Librarian catalogs polished deliverables and updates indexes
 - Follow `core/standards/writing-style.md` for tone and structure
