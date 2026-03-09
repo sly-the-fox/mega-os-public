@@ -58,9 +58,11 @@ Scan all passive agent outputs and active state files for items needing attentio
    - If file unchanged for 7+ days → **Needs Review** (focus may be stale).
    - Otherwise → **Informational** (list unchecked count).
 
-10. **Agent structure quick-check**
+10. **Agent and doc consistency quick-check**
     - Count agent files in `.claude/agents/` subdirectories (governance/, knowledge/, technical/, business/, evolution/) vs count in REGISTRY.md. Flag if counts differ.
     - Count symlinks at `.claude/agents/*.md` (top level) vs agent files in subdirectories. Flag if mismatched.
+    - Count agents referenced in README.md, AGENTS.md, CLAUDE.md. Flag if any differ from actual count.
+    - Count skills listed in README.md vs actual `.claude/skills/` directories. Flag mismatches.
     - This is a fast count-only check. Full integrity analysis runs in weekly review.
 
 11. **Write digest**

@@ -2,6 +2,8 @@
 
 This guide walks you through your first session. Read this once, then you can forget about it — the system is self-documenting from here.
 
+**Recommended:** Run `/setup` after launching Claude Code for a guided interactive onboarding that handles everything below automatically.
+
 ---
 
 ## Prerequisites
@@ -30,7 +32,7 @@ claude
 That's it. On startup, Claude Code will:
 - Read `CLAUDE.md` (master instructions for every session)
 - Run the SessionStart hook (loads `active/now.md` and `active/priorities.md`)
-- Discover all 26 agents via symlinks in `.claude/agents/`
+- Discover all 30 agents via symlinks in `.claude/agents/`
 - Enable agent teams via `.claude/settings.json`
 
 You're ready to work.
@@ -65,7 +67,7 @@ This is documented in `CLAUDE.md` under "Agent Teams — Required Patterns" and 
 Create a new Next.js project under products/my-app and set it up with TypeScript and Tailwind.
 ```
 
-Products live under `products/`. Each product should have its own README.
+Products live under `products/`. Each product should have its own README. You can also use `/project-kickoff` for guided scaffolding.
 
 ---
 
@@ -73,7 +75,9 @@ Products live under `products/`. Each product should have its own README.
 
 ### Add a new agent
 
-Create a file at `.claude/agents/<category>/my-agent.md`:
+Use `/add-agent` for a guided flow that creates the file, symlink, and updates all references automatically.
+
+Or do it manually — create a file at `.claude/agents/<category>/my-agent.md`:
 
 ```markdown
 ---
@@ -127,6 +131,16 @@ Send messages to Claude Code from your phone via Telegram.
    .venv/bin/python3 telegram_bridge.py
    ```
 
+### Key features
+
+- **Session persistence:** Conversations continue where you left off. Each chat maintains its own session automatically, saved to `sessions.json`.
+- **10-minute timeout:** Claude has up to 10 minutes (600s) to respond to complex requests.
+- **Thinking indicator:** A "thinking..." message appears while Claude processes your request.
+- **Passphrase auth:** Set `BRIDGE_PASSPHRASE` in `.env` for second-factor authentication (recommended for public bots). Authenticate once per session.
+- **Rate limiting:** Configurable per-chat rate limit (default: 10 messages per 60 seconds).
+- **`/reset`:** Clears your session context and starts fresh.
+- **`/status`** and **`/priorities`:** Quick views of your current state.
+
 See `engineering/scripts/telegram-bridge/README.md` for full details.
 
 ---
@@ -140,6 +154,21 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 **With other AI coding tools:** Point the tool at `CLAUDE.md` as a system prompt or project instructions file. The agent definitions in `.claude/agents/` can be adapted as prompt templates.
 
 **As an MCP server:** The file structure (active state, standards, history) can be exposed via an MCP server. Create tools that read/write to `active/`, `core/`, and agent files. The Telegram bridge is a working example of external integration.
+
+---
+
+## Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| `/setup` | Interactive onboarding wizard (recommended first step) |
+| `/add-agent` | Create a new agent with all references in sync |
+| `/project-kickoff` | Scaffold a new product with docs and registration |
+| `/bug-triage` | Triage and investigate a bug report |
+| `/daily-scan` | Scan active state for stale or overdue items |
+| `/weekly-review` | Full system review with cross-referencing |
+| `/polish` | Convert markdown to polished DOCX/PDF |
+| `/write` | Write original long-form content |
 
 ---
 

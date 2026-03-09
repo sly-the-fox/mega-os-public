@@ -34,11 +34,7 @@ Agent definitions live under `.claude/agents/` in category subdirectories.
 
 ## Products
 
-All products live under `products/`.
-
-- **Capacitor** — Next.js (TypeScript, React) at `products/capacitor/`
-- **Small Business Dashboard** — Python/FastAPI at `products/small-business-dashboard-master/`
-- **Other:** aequilibris-group, enlightened-herbals, triangul8, experiments
+All products live under `products/`. Run `/setup` or `/project-kickoff` to add your first product.
 
 Check for a README at the product root before making changes.
 
