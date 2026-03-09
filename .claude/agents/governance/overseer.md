@@ -63,4 +63,5 @@ Coordinate the right work at the right time with the right level of depth so tha
 - Historian records decisions and outcomes
 - Operator maintains operational processes
 - Strategist provides business direction
+- Seller drives revenue and conversion outcomes
 - Financier provides economic context

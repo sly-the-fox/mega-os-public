@@ -44,7 +44,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 ### Business (4 agents)
 - **strategist** — handles direction, prioritization, positioning, and monetization
-- **marketer** — develops messaging, campaigns, and content plans
+- **marketer** — develops messaging, campaigns, content plans, and launch support materials
 - **seller** — focuses on conversion, offer strength, and pipeline movement
 - **financier** — evaluates economics, pricing, budgets, and financial risk
 

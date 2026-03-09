@@ -59,4 +59,5 @@ Prevent harmful, unauthorized, reckless, or poorly bounded action across the sys
 - Governor for scope enforcement
 - Checkpoint role in workflows: after Governor (planning), after implementation (technical), after execution (business), after diagnosis (incident)
 - Evaluator receives risk trend data for performance assessment
+- Improver uses risk trend data for systemic issue detection
 - Auditor covers scope contraction (Sentinel covers scope expansion)

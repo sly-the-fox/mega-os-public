@@ -15,8 +15,8 @@ Protected files that should not be deleted or structurally modified without revi
 ### Governance (8)
 governance/overseer.md, governance/governor.md, governance/router.md, governance/planner.md, governance/pm.md, governance/operator.md, governance/sentinel.md, governance/auditor.md
 
-### Knowledge (5)
-knowledge/historian.md, knowledge/librarian.md, knowledge/summarizer.md, knowledge/documenter.md, knowledge/polisher.md
+### Knowledge (7)
+knowledge/historian.md, knowledge/librarian.md, knowledge/summarizer.md, knowledge/documenter.md, knowledge/polisher.md, knowledge/writer.md, knowledge/editor.md
 
 ### Technical (9)
 technical/architect.md, technical/engineer.md, technical/executor.md, technical/reviewer.md, technical/qa.md, technical/debugger.md, technical/devops.md, technical/security-expert.md, technical/designer.md

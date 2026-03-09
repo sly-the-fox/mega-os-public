@@ -27,7 +27,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | Documenter | `knowledge/documenter.md` | Turns work into clear, durable, usable documentation |
 | Polisher | `knowledge/polisher.md` | Polishes raw documents into publication-ready deliverables |
 | Writer | `knowledge/writer.md` | Writes original long-form content in the user's voice |
-| Editor | `knowledge/editor.md` | Editorial specialist for structure, citations, fact-checking, voice |
+| Editor | `knowledge/editor.md` | Editorial specialist for structure, citations, fact-checking, and voice consistency |
 
 ## Build / Technical
 
@@ -48,7 +48,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | Agent | File | Description |
 |-------|------|-------------|
 | Strategist | `business/strategist.md` | Handles direction, prioritization, positioning, and monetization |
-| Marketer | `business/marketer.md` | Develops messaging, campaigns, and content plans |
+| Marketer | `business/marketer.md` | Develops messaging, campaigns, content plans, and launch support materials |
 | Seller | `business/seller.md` | Focuses on conversion, offer strength, and pipeline movement |
 | Financier | `business/financier.md` | Evaluates economics, pricing, budgets, and financial risk |
 

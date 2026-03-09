@@ -56,3 +56,4 @@ Design systems, structures, interfaces, abstractions, and patterns that make the
 - Documenter records design
 - Historian preserves decision rationale
 - Planner consults on technical feasibility during plan decomposition
+- Improver may propose architectural changes; Architect validates before implementation

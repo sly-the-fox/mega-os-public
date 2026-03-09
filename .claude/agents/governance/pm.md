@@ -63,4 +63,5 @@ Ensure that the right tasks are moving, dependencies are visible, and deliverabl
 - QA and Reviewer feed findings back into task tracking
 - Improver receives blocker patterns (3+ repeated blockers trigger Improver)
 - Evaluator receives task completion data for performance measurement
+- Summarizer provides compressed context briefs for planning
 - Auditor findings feed into task tracking (plan-delivery gaps become tracked items)

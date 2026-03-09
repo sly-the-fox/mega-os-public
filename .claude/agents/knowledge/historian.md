@@ -58,4 +58,5 @@ Maintain durable institutional memory so decisions, patterns, and lessons persis
 - Auditor escalates significant audit findings for historical recording
 - Improver learns from historical patterns
 - Evaluator uses historical data for trend analysis and performance measurement
+- Debugger provides incident root cause analyses for historical recording
 - PM uses historical records for planning accuracy and estimation

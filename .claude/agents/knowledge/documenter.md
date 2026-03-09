@@ -40,16 +40,20 @@ Create documentation that reduces confusion, speeds onboarding, and preserves op
 - Do not become the Historian's decision log
 
 ## Escalate When
-- Source material is inconsistent
-- Critical implementation details are missing
-- The actual system differs from existing docs
+- Source material is inconsistent — escalate to Architect, Engineer, or Reviewer
+- Critical implementation details are missing — escalate to Engineer or Architect
+- The actual system differs from existing docs — escalate to QA or Engineer
 
 ## Collaboration
 - Architect provides structure
 - Engineer provides implementation facts
 - Librarian organizes docs
 - Historian preserves rationale
+- Summarizer provides compressed briefs as input (Knowledge Workflow step 2)
 - Polisher formats documentation for external publication (Knowledge Workflow)
 - Reviewer performs quality check on documentation output
 - QA provides validation feedback incorporated into documentation
+- Operator owns SOP creation and persistence; Documenter writes SOP content
+- Debugger provides incident details for knowledge base (Incident Workflow)
+- Improver requests documentation of finalized system changes
 - Follow `core/standards/writing-style.md` for tone and structure

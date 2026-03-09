@@ -55,4 +55,5 @@ Reduce ambiguity and create practical plans with dependencies, milestones, and n
 - Designer reviews UX-impacting plans before execution
 - Financier evaluates cost implications for resource-intensive plans
 - Sentinel assesses risk profile of plans touching production or security
+- Architect provides technical feasibility context for plan decomposition
 - Auditor reviews plans for blind spots and missing considerations before execution
