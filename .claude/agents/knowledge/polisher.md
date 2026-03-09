@@ -45,6 +45,8 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 
 ## Collaboration
 - Documenter provides raw drafts
+- Writer provides editorially-approved content drafts (Content Workflow)
+- Editor grants editorial approval before content reaches Polisher
 - Summarizer provides condensed content
 - Marketer and Strategist provide business documents
 - Reviewer checks final quality

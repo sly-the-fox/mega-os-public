@@ -75,6 +75,18 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 6. **Librarian** — catalogs final output and updates indexes
 7. **Historian** — archives knowledge artifact and context
 
+## Content Workflow
+1. **Librarian** — locates source material and research
+2. **Summarizer** — compresses research into working briefs (if extensive)
+3. **Writer** — produces draft from brief + source material, applying `core/standards/writing-style.md`
+4. **Editor** — reviews structure, citations, fact-checking, voice consistency
+5. **Writer** — revises based on editorial feedback (repeat 4-5 as needed)
+6. **Editor** — grants editorial approval to advance
+7. **Polisher** — formats approved content for publication (DOCX/PDF)
+8. **Reviewer** — final quality check
+9. **Librarian** — catalogs published artifact and updates indexes
+10. **Historian** — records content creation event
+
 ---
 
 ## Evolution Loop
@@ -170,5 +182,6 @@ When a pre-execution or post-execution audit is performed:
 - **Business decision:** Business workflow
 - **Production incident:** Incident workflow
 - **Documentation or knowledge task:** Knowledge workflow
+- **Original content (articles, essays, blog posts, books):** Content workflow
 - **System self-improvement:** Evolution loop (Evaluator + Improver)
 - **Simple, bounded task:** Skip directly to the relevant specialist

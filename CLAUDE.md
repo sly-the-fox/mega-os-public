@@ -6,12 +6,12 @@ This file is read on every session start. Follow these instructions.
 
 ## What This Is
 
-Mega-OS is a multi-agent operating system with 28 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
+Mega-OS is a multi-agent operating system with 30 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
 
 | Category   | Count | Agents |
 |------------|-------|--------|
 | Governance | 8     | overseer, governor, router, planner, pm, operator, sentinel, auditor |
-| Knowledge  | 5     | historian, librarian, summarizer, documenter, polisher |
+| Knowledge  | 7     | historian, librarian, summarizer, documenter, polisher, writer, editor |
 | Technical  | 9     | architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer |
 | Business   | 4     | strategist, marketer, seller, financier |
 | Evolution  | 2     | improver, evaluator |
@@ -81,6 +81,9 @@ Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engin
 
 ### Knowledge Management
 Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian
+
+### Content Creation
+Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → Historian
 
 ### Evolution Loop
 Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.

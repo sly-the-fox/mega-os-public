@@ -22,12 +22,14 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **sentinel** — watches for risk, governance, safety, and permission issues
 - **auditor** — reviews plans for blind spots and audits delivery against plans
 
-### Knowledge (5 agents)
+### Knowledge (7 agents)
 - **historian** — maintains timelines, decisions, and institutional memory
 - **librarian** — organizes knowledge, identifies canonical files, reduces duplication
 - **summarizer** — compresses context into concise briefs without losing meaning
 - **documenter** — turns work into clear, durable documentation
 - **polisher** — polishes raw documents into publication-ready deliverables
+- **writer** — writes original long-form content (articles, essays, books) in the user's voice
+- **editor** — editorial specialist for structure, citations, fact-checking, and voice consistency
 
 ### Technical (9 agents)
 - **architect** — designs systems, structures, interfaces, and patterns
@@ -61,6 +63,8 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 **Incident:** Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → Historian
 
 **Knowledge:** Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → Historian
+
+**Content:** Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → Historian
 
 **Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
 

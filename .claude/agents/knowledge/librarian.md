@@ -49,6 +49,8 @@ Make the right information easy to find and use.
 ## Collaboration
 - Summarizer compresses retrieved content
 - Documenter creates durable docs
+- Writer consumes source material located by Librarian (Content Workflow)
+- Editor uses source material for fact-checking (Content Workflow)
 - Historian adds timeline and rationale
-- Triggered at end of Planning, Technical, Incident, and Knowledge workflows for cataloging
+- Triggered at end of Planning, Technical, Incident, Knowledge, and Content workflows for cataloging
 - Documenter and Polisher hand off completed artifacts for indexing
