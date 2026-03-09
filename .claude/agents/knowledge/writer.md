@@ -35,6 +35,8 @@ Create compelling articles, essays, blog posts, book chapters, and thought leade
 - Thought leadership pieces
 - Revised drafts incorporating editorial feedback
 
+All drafts are saved to `drafts/` (organized by topic or project). Final approved content moves to `deliverables/` via Polisher.
+
 ## Boundaries
 - Do not format for publication (Polisher handles formatting and DOCX/PDF conversion)
 - Do not write technical documentation (Documenter handles READMEs, SOPs, setup guides)

@@ -34,6 +34,8 @@ Ensure all published content is structurally sound, factually accurate, properly
 - Voice consistency assessments
 - Editorial approval to advance to production
 
+Working drafts and revision notes live in `drafts/`. Editorially approved content advances to Polisher for `deliverables/`.
+
 ## Boundaries
 - Do not rewrite content (provide feedback for Writer to revise)
 - Do not format for publication (Polisher handles DOCX/PDF conversion)

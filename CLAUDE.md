@@ -115,6 +115,8 @@ When in doubt about authority, consult `.claude/agents/REGISTRY.md`.
 | Agent definitions  | `.claude/agents/<category>/` |
 | Shared protocols   | `.claude/agents/shared/`     |
 | Skills             | `.claude/skills/`            |
+| Drafts (WIP)       | `drafts/`                    |
+| Deliverables       | `deliverables/`              |
 | Products           | `products/<name>/`           |
 
 All filenames use lowercase kebab-case. Uppercase only for system-level docs (CLAUDE.md, README.md, AGENTS.md, REGISTRY.md).
