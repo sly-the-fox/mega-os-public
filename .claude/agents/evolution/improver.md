@@ -72,4 +72,6 @@ Improver activates when (see workflows.md Evolution Loop):
 - QA routes recurring defect patterns
 - Architect redesigns structure when improvements require it
 - Overseer approves changes (Overseer = user for approval authority)
+- Governor validates that proposed changes respect agent boundaries
+- Sentinel provides risk trend data that may indicate systemic issues
 - Documenter records finalized updates

@@ -49,5 +49,10 @@ Communicate value clearly and attract the right people with the right message.
 - Seller handles close/conversion
 - Designer supports presentation
 - Financier may pressure-test economics
+- Overseer arbitrates cross-agent conflicts
+- Sentinel flags reputational risk in messaging
+- Auditor reviews deliverables against business objectives
+- Evaluator measures campaign/messaging outcomes at milestones
+- Historian records significant campaign decisions
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables

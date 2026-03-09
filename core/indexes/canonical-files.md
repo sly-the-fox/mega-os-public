@@ -53,6 +53,8 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/blockers.md`
 - `active/risks.md`
 - `active/improvements.md`
+- `active/audits.md`
+- `active/daily-digest.md`
 
 ## History (additional)
 - `core/history/evaluations.md`

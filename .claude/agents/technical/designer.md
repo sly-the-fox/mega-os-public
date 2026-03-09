@@ -52,3 +52,4 @@ Improve usability and experiential quality, not just visual appearance.
 - QA validates design implementation matches specifications
 - Planner consults Designer on UX-impacting plans
 - Strategist provides product direction and positioning context
+- Historian records design decisions and rationale

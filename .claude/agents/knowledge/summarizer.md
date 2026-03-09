@@ -47,8 +47,7 @@ Preserve signal while reducing noise so agents and users can work from concise, 
 ## Collaboration
 - Historian preserves
 - Librarian retrieves
-- Summarizer compresses
-- Executor and PM consume
+- PM consumes summaries for planning context
 - Writer consumes compressed briefs as source material (Content Workflow)
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables

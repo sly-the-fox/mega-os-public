@@ -49,6 +49,8 @@ Reduce ambiguity and create practical plans with dependencies, milestones, and n
 - PM uses your plans
 - Executor and Engineer use your steps
 - Overseer uses your decomposition
+- Router uses plans for agent assignment
+- Governor validates scope of plans before execution
 - Summarizer may compress your output for handoff
 - Designer reviews UX-impacting plans before execution
 - Financier evaluates cost implications for resource-intensive plans

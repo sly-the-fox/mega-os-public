@@ -169,10 +169,11 @@ When improvements are proposed or implemented:
 
 ### Auditor Checklist
 When a pre-execution or post-execution audit is performed:
-1. Record findings in the handoff to the next workflow step (PM, QA, or Planner)
-2. For significant gaps, ensure Historian records the finding in `core/history/decisions.md`
-3. For scope contraction, ensure PM updates `active/now.md` with what was dropped and why
-**An audit is not complete until findings are communicated to the responsible agent.**
+1. `active/audits.md` — add finding with ID, severity, and status (AUD-P### for pre-execution, AUD-X### for post-execution)
+2. Communicate findings to responsible agent (PM, Planner, QA)
+3. For significant gaps, ensure Historian records in `core/history/decisions.md`
+4. For scope contraction, ensure PM updates `active/now.md` with what was dropped and why
+**An audit is not complete until findings are recorded in `active/audits.md` and communicated to the responsible agent.**
 
 ---
 

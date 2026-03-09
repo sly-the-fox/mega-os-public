@@ -49,3 +49,10 @@ Ensure decisions make economic sense and support sustainability.
 - Seller and Marketer drive revenue logic
 - Operator informs operational costs
 - Overseer arbitrates tradeoffs
+- Designer provides product/brand context for pricing and positioning decisions
+- Sentinel flags financial risk for workflow-level assessment
+- Auditor reviews financial deliverables against business objectives
+- Evaluator measures financial outcomes at milestones
+- Historian records financial decisions and rationale
+- Follow `core/standards/writing-style.md` for tone and structure
+- Hand off to Polisher for final deliverables

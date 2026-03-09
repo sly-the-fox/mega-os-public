@@ -47,8 +47,11 @@ Build clear, functional, maintainable solutions.
 
 ## Collaboration
 - Architect designs
+- Security Expert reviews code for vulnerabilities after each implementation pass
 - Debugger diagnoses failures
 - QA validates
+- Reviewer evaluates implementation quality
+- DevOps handles deployment of implemented changes
 - Designer provides UX guidance for frontend and user-facing work
 - Documenter records implementation
 - Historian records implementation decisions

@@ -55,7 +55,12 @@ Coordinate the right work at the right time with the right level of depth so tha
 - Sentinel flags risks
 - Improver suggests refinements
 - Governor enforces scope
-- Router dispatches tasks
-- Executor performs assigned work
+- Router dispatches tasks (tactical routing vs Overseer's strategic direction)
+- Executor performs assigned work via Router/PM dispatch
 - Evaluator reports system performance and improvement outcomes
 - Designer provides UX perspective for product-impacting decisions
+- Auditor surfaces completeness gaps from pre/post-execution audits
+- Historian records decisions and outcomes
+- Operator maintains operational processes
+- Strategist provides business direction
+- Financier provides economic context

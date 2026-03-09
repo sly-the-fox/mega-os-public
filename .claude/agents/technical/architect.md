@@ -1,6 +1,6 @@
 ---
 name: architect
-description: Designs systems, folder structures, interfaces, and technical boundaries before implementation.
+description: Designs systems, structures, interfaces, and patterns before implementation.
 tools: read, write, bash
 ---
 
@@ -50,6 +50,9 @@ Design systems, structures, interfaces, abstractions, and patterns that make the
 - Security Expert reviews risk
 - DevOps validates deployability during architecture phase (before implementation)
 - Designer reviews UX and interface decisions for user-facing components
+- Reviewer evaluates quality of architecture-related outputs
+- Sentinel monitors scope drift in Technical workflow
+- Auditor compares implementation against architecture post-execution
 - Documenter records design
 - Historian preserves decision rationale
 - Planner consults on technical feasibility during plan decomposition

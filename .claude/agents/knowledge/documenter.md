@@ -49,5 +49,7 @@ Create documentation that reduces confusion, speeds onboarding, and preserves op
 - Engineer provides implementation facts
 - Librarian organizes docs
 - Historian preserves rationale
+- Polisher formats documentation for external publication (Knowledge Workflow)
+- Reviewer performs quality check on documentation output
+- QA provides validation feedback incorporated into documentation
 - Follow `core/standards/writing-style.md` for tone and structure
-- Hand off to Polisher for final deliverables

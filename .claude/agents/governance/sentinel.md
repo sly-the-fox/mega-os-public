@@ -54,6 +54,7 @@ Prevent harmful, unauthorized, reckless, or poorly bounded action across the sys
 - Security Expert handles technical security
 - Overseer resolves system-level decisions
 - PM and Operator respond to process risk
+- Planner provides plans for risk assessment
 - Historian records major incidents
 - Governor for scope enforcement
 - Checkpoint role in workflows: after Governor (planning), after implementation (technical), after execution (business), after diagnosis (incident)

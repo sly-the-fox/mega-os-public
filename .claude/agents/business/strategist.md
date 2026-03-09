@@ -52,6 +52,10 @@ Help the system and business make better directional decisions, not just complet
 - Designer provides brand and product perspective for customer-facing decisions
 - Evaluator provides outcome measurements for strategy assessment
 - Sentinel flags business risk (financial, reputational, compliance)
+- Auditor reviews deliverables against business objectives (post-execution)
+- Reviewer validates alignment with strategy
+- Historian records decisions and rationale
+- Operator creates or updates processes when new operational needs arise
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables
 - Planner consults on strategy-impacting plan decisions

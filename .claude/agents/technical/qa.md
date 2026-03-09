@@ -49,6 +49,8 @@ Catch defects, omissions, regressions, and requirement mismatches before work is
 - Engineer fixes
 - Debugger investigates failures
 - Reviewer improves clarity
+- Architect consulted when defects trace to design-level issues
+- DevOps notified of deployment-blocking defects
 - Sentinel may intervene if risk is significant
 - Historian logs quality incidents
 - Improver receives recurring defect patterns (triggers improvement proposals)

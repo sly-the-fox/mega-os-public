@@ -41,6 +41,9 @@ Every audit explicitly checks all four layers of Mega-OS:
 - Check all four layers for gaps
 - Produce audit findings with severity and recommended actions
 - Track significant gaps for Historian recording
+- **Always update owned files** when audits are performed:
+  1. `active/audits.md` — add finding with ID, severity, and status
+  2. An audit is not complete until findings are recorded in `active/audits.md`
 
 ## Inputs
 - Plans from Planner
@@ -76,3 +79,5 @@ Every audit explicitly checks all four layers of Mega-OS:
 - Reviewer handles quality; Auditor handles completeness
 - PM tracks audit findings alongside task progress
 - Historian records significant gaps as lessons learned
+- Overseer receives critical audit escalations for system-level decisions
+- Evaluator uses audit trend data for system performance assessment

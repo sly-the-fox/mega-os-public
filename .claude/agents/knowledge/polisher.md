@@ -50,4 +50,5 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 - Summarizer provides condensed content
 - Marketer and Strategist provide business documents
 - Reviewer checks final quality
+- Librarian catalogs polished deliverables and updates indexes
 - Follow `core/standards/writing-style.md` for tone and structure

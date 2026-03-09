@@ -54,3 +54,7 @@ Reduce exploitable weaknesses without creating unnecessary paralysis.
 - Engineer implements mitigations
 - DevOps applies deployment hardening
 - Governor for boundary enforcement
+- Debugger escalates security-sensitive failures (Incident Workflow)
+- QA routes security-adjacent defects for assessment
+- Historian records security decisions
+- Documenter captures security guidelines

@@ -52,3 +52,4 @@ Ensure that systems can be built, deployed, run, monitored, and maintained safel
 - Documenter creates runbooks
 - Architect consults DevOps during architecture phase for deployability constraints
 - Sentinel monitors deployment risk and operational exposure
+- Historian records deployment decisions and infrastructure changes

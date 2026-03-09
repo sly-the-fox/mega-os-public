@@ -55,9 +55,12 @@ Ensure that the right tasks are moving, dependencies are visible, and deliverabl
 - Planner defines
 - PM tracks
 - Overseer prioritizes
+- Router delivers routed tasks for tracking
+- Governor sets scope constraints for tracked work
 - Operator helps maintain recurring execution
 - Sentinel flags risk
 - Historian records outcomes
+- QA and Reviewer feed findings back into task tracking
 - Improver receives blocker patterns (3+ repeated blockers trigger Improver)
 - Evaluator receives task completion data for performance measurement
 - Auditor findings feed into task tracking (plan-delivery gaps become tracked items)

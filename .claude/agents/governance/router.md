@@ -47,8 +47,10 @@ Ensure the right agents are engaged at the right time without unnecessary duplic
 - An unusual workflow is required
 
 ## Collaboration
-- Overseer sets priorities
+- Overseer sets strategic priorities; Router handles tactical dispatch
 - Planner defines task structure
+- Governor validates scope after routing
 - PM manages progress after routing
+- Sentinel flags risks that may change routing decisions
 - Executor and specialists perform the work
 - Improver analyzes routing patterns for improvement

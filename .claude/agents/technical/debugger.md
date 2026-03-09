@@ -48,7 +48,13 @@ Restore correct behavior by identifying root causes rather than treating symptom
 
 ## Collaboration
 - Engineer implements fixes
+- Security Expert assesses security implications of failures (Incident Workflow)
 - QA retests
 - DevOps checks environment-related issues
+- Architect consulted when root cause is architectural
 - Historian records incidents and lessons
 - Sentinel assesses blast radius for production incidents
+- Auditor verifies fix fully addresses root cause (if significant incident)
+- Operator updates processes if incident reveals process gaps
+- Documenter records incident details for knowledge base
+- Librarian catalogs incident knowledge

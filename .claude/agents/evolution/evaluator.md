@@ -66,3 +66,5 @@ Evaluator activates when (see workflows.md Evolution Loop):
 - QA routes defect reports and recurring failure patterns
 - Sentinel routes risk trends for operational assessment
 - Overseer interprets results in strategic context
+- Strategist receives outcome data for strategy assessment
+- Auditor provides audit trend data for system assessment

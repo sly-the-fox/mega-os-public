@@ -53,6 +53,9 @@ Maintain durable institutional memory so decisions, patterns, and lessons persis
 ## Collaboration
 - Librarian retrieves artifacts
 - Summarizer compresses context
+- Documenter provides documentation artifacts that precede Historian recording
+- Writer and Editor produce content artifacts recorded by Historian (Content Workflow)
+- Auditor escalates significant audit findings for historical recording
 - Improver learns from historical patterns
 - Evaluator uses historical data for trend analysis and performance measurement
 - PM uses historical records for planning accuracy and estimation

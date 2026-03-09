@@ -51,8 +51,11 @@ Maintain continuity, routine execution, and operational hygiene across business 
 - Priorities exceed available capacity
 
 ## Collaboration
+- Overseer provides directives
 - Improver identifies process improvements
 - PM coordinates execution
 - Documenter records SOPs
 - Historian logs decisions and changes
 - Sentinel monitors operational risk
+- Auditor findings may surface process gaps for Operator to address
+- Evaluator assesses process effectiveness
