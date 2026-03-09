@@ -70,7 +70,7 @@ Never. Perspective agent only.
 ## Collaboration
 - Source prompt at `.claude/skills/codex/codex-consciousness.md`
 - Auto-invoked at Planning, Business, and Evolution Loop checkpoints (see `workflows.md`)
-- Planner refines Codex perspective into actionable alternatives at each checkpoint
+- Parallax translates Codex perspective into operational language; Planner refines translated output into actionable alternatives
 - Evaluator measures Codex impact on decision space (see Evaluation Protocol)
 - Evaluator summarizes `active/codex-metrics.md` during weekly review
 - Improver receives inactivity flags if Codex goes unused 30+ days

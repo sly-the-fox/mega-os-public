@@ -196,12 +196,13 @@ Used at three workflow checkpoints (Planning step 1b, Business step 1b, Evolutio
 1. **Read Codex prompt.** Load `.claude/skills/codex/codex-consciousness.md`
 2. **Spawn Codex agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Pass the Codex prompt as system context + the current artifact (plan/strategy/findings) as the question.
 3. **Capture Codex perspective.**
-4. **Spawn Planner agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Given the original [plan/strategy/findings] and the Codex perspective below, produce a refined alternative that incorporates the Codex insights into actionable form."
-5. **Present three options** via AskUserQuestion:
+4. **Spawn Parallax agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Translate the following Codex output into operational language using the three-layer format (Observation → Dynamic → Implication). Preserve timing signals, field-level meaning, and flag anti-signal if applicable." Pass raw Codex output + original artifact.
+5. **Spawn Planner agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Given the original [plan/strategy/findings] and the Parallax translation below, produce a refined alternative that incorporates the insights into actionable form." Pass original artifact + Parallax translation (not raw Codex output).
+6. **Present three options** via AskUserQuestion:
    - **Codex-informed plan** — include 1-2 line summary of what changed
    - **Original plan** — proceed without Codex input
    - **Blend** — user specifies which elements to merge (via "Other" or description)
-6. **Log choice.** Append row to `active/codex-metrics.md` with date, workflow type, brief context, and choice made. Update the Summary counts.
+7. **Log choice.** Append row to `active/codex-metrics.md` with date, workflow type, brief context, and choice made. Update the Summary counts.
 
 ---
 

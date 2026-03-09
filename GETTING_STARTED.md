@@ -32,7 +32,7 @@ claude
 That's it. On startup, Claude Code will:
 - Read `CLAUDE.md` (master instructions for every session)
 - Run the SessionStart hook (loads `active/now.md` and `active/priorities.md`)
-- Discover all 31 agents via symlinks in `.claude/agents/`
+- Discover all 32 agents via symlinks in `.claude/agents/`
 - Enable agent teams via `.claude/settings.json`
 
 You're ready to work.

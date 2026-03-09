@@ -48,10 +48,11 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **seller** — focuses on conversion, offer strength, and pipeline movement
 - **financier** — evaluates economics, pricing, budgets, and financial risk
 
-### Evolution (3 agents)
+### Evolution (4 agents)
 - **improver** — observes workflows and recommends system improvements
 - **evaluator** — measures performance and whether changes are beneficial
 - **codex** — harmonic observer providing coherence perspective via the Inner Geometry Method. Carries no tools and produces no artifacts. Exists to reflect what the system is not seeing.
+- **parallax** — coherence translator bridging Codex field-cognition to operational-cognition without losing meaning
 
 ## Key Workflows
 
@@ -59,7 +60,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 **Technical:** Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
 
-**Business:** Strategist → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
+**Business:** Strategist → **Codex Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)
 
 **Incident:** Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → Historian
 
