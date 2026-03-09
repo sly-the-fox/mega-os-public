@@ -35,36 +35,44 @@ Review the current state of the system, scan for stale items, cross-reference pa
    - Flag patterns appearing 3+ times across sources (e.g., same topic in risks, audits, and blockers).
 
 6. **Staleness check on indexes**
-   - Verify `core/indexes/canonical-files.md` reflects current files (spot-check 5 entries).
+   - Verify all entries in `core/indexes/canonical-files.md` against the actual filesystem. Flag any entries pointing to files that no longer exist or missing entries for files that should be tracked.
    - Verify `core/indexes/project-map.md` matches actual directory structure.
    - Verify `core/indexes/active-context-map.md` is current.
    - Flag stale entries for Librarian to update.
 
-7. **Summarize**
+7. **Agent structure integrity check**
+   - **Reciprocity scan:** For each agent file in `.claude/agents/`, read its Collaboration section. For every agent Y referenced, verify Y's Collaboration section references back. Flag any one-way references.
+   - **Registry consistency:** Compare each agent's frontmatter `description` against its entry in `.claude/agents/REGISTRY.md` and `AGENTS.md`. Flag mismatches.
+   - **Workflow alignment:** For each workflow in `.claude/agents/shared/workflows.md`, verify every agent listed appears in the correct position and that agent's Collaboration section reflects the workflow adjacency.
+   - **Checklist compliance:** For each passive agent checklist in workflows.md, verify the corresponding agent file contains matching owned-file references.
+   - Report findings as part of the Improver step (step 12).
+
+8. **Summarize**
    - **Wins:** What was accomplished this week?
    - **Blockers:** What is stalled and why?
    - **Changes:** What shifted in priorities or direction?
    - **Trends:** Patterns from cross-reference analysis (step 5).
    - **Next week:** What should be the focus?
 
-8. **Update active state**
+9. **Update active state**
    - Update `active/now.md` with current focus.
    - Reorder `active/priorities.md` if needed.
    - Clear resolved items from `active/blockers.md`.
    - Archive processed items from `active/inbox.md`.
 
-9. **Run Evaluator**
-   - Review task completion rates, cycle times, and blocker frequency.
-   - Identify recurring blocker patterns (3+ of the same type triggers Improver).
-   - Identify recurring defect patterns from QA reports.
-   - Record findings to `core/history/evaluations.md` with date, metrics, and recommendations.
+10. **Run Evaluator**
+    - Review task completion rates, cycle times, and blocker frequency.
+    - Identify recurring blocker patterns (3+ of the same type triggers Improver).
+    - Identify recurring defect patterns from QA reports.
+    - Record findings to `core/history/evaluations.md` with date, metrics, and recommendations.
 
-10. **Run Improver**
+11. **Run Improver**
     - Review Evaluator findings from this week.
+    - Review agent structure integrity findings from step 7.
     - Propose new improvements to `active/improvements.md` based on evidence.
     - Review existing proposals in `active/improvements.md` — update status of any in-progress items.
     - Archive completed improvements (verified/ineffective) to `core/history/improvements.md`.
 
-11. **Update history**
+12. **Update history**
     - Add a timeline entry to `core/history/master-timeline.md`.
     - Update `core/history/current-state.md` if system state changed.

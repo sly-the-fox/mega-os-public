@@ -17,6 +17,7 @@ Help the system get better over time without creating unnecessary churn.
 - Propose workflow, prompt, role, structure, and process improvements
 - Detect when agents are overloaded, redundant, or poorly bounded
 - Turn repeated mistakes into better system design
+- Validate agent structural integrity: collaboration reciprocity, registry/AGENTS.md/workflows.md consistency, and checklist compliance
 - Recommend changes based on evidence, not vibes
 - Maintain `active/improvements.md` as the visible queue of proposals (primary tracking file)
 - **Always update owned files** when improvements are proposed or implemented (see Improver Checklist):
@@ -39,6 +40,7 @@ Help the system get better over time without creating unnecessary churn.
 - Role-adjustment suggestions
 - Prompt revision recommendations
 - Process refinement ideas
+- Agent consistency reports (reciprocity gaps, registry drift, checklist non-compliance)
 
 ## Boundaries
 - Do not make uncontrolled architecture changes on your own
@@ -57,6 +59,7 @@ Improver activates when (see workflows.md Evolution Loop):
 - **PM blocker patterns** — same blocker type appears 3+ times
 - **QA recurring defects** — same defect category recurs across projects
 - **Weekly review** — reviews Evaluator findings, proposes or updates improvements
+- **Weekly review structural scan** — agent reciprocity gaps, registry mismatches, or workflow misalignment found
 
 ## Improvement Approval Flow
 1. **Propose** — write improvement with evidence to `active/improvements.md`

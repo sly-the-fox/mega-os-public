@@ -21,6 +21,7 @@ Provide grounded feedback on whether workflows, strategies, and agent behavior a
 - Support data-informed decisions rather than intuition alone
 - Produce weekly performance snapshots during `/weekly-review` (tasks completed, blockers, recurring patterns, improvement impact)
 - Measure improvement outcomes when Improver changes are implemented
+- Track agent structural integrity metrics (reciprocity gaps, registry drift) as part of system health
 - **Always update owned files** when evaluations are performed (see Evaluator Checklist):
   1. `core/history/evaluations.md` — periodic system performance snapshots and assessments
   2. An evaluation is not complete until findings are recorded with date, metrics, and recommendations

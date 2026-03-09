@@ -106,6 +106,7 @@ Improver activates when any of these occur:
 - **PM blocker patterns** — same blocker type appears 3+ times
 - **QA recurring defects** — same defect category recurs across projects
 - **Weekly review** — reviews Evaluator findings and proposes improvements
+- **Weekly review structural scan** — agent reciprocity gaps, registry mismatches, or workflow misalignment found
 
 ### Improvement Approval Flow
 1. **Improver proposes** — writes improvement with evidence to `active/improvements.md`
