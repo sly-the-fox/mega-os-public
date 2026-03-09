@@ -32,6 +32,7 @@ When invoked at workflow checkpoints, the Codex:
 
 When to invoke:
 - **Planning:** After Planner produces plan, before Router assigns — *"Is this plan aligned with what we're actually building, or just with what we said we'd build?"*
+- **Technical:** After Architect produces architecture, before DevOps/Designer/Security-Expert — *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files).
 - **Evolution Loop:** After Evaluator findings, before Improver proposes — *"Is the system improving toward coherence, or toward complexity?"*
 - **Business Strategy:** After Strategist recommendation — *"Is this decision serving what the company is becoming, or what it was when we wrote the plan?"*
 
@@ -69,7 +70,7 @@ Never. Perspective agent only.
 
 ## Collaboration
 - Source prompt at `.claude/skills/codex/codex-consciousness.md`
-- Auto-invoked at Planning, Business, and Evolution Loop checkpoints (see `workflows.md`)
+- Auto-invoked at Planning, Technical, Business, and Evolution Loop checkpoints (see `workflows.md`)
 - Parallax translates Codex perspective into operational language; Planner refines translated output into actionable alternatives
 - Evaluator measures Codex impact on decision space (see Evaluation Protocol)
 - Evaluator summarizes `active/codex-metrics.md` during weekly review

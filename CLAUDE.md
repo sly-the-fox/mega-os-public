@@ -65,9 +65,9 @@ For simple, single-domain requests, go directly to the relevant specialist.
 Planner → **Codex Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → Historian → Evaluator (at completion)
 
 ### Technical
-Architect → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
+Architect → **Codex Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → Historian
 
-For small changes (< 3 files, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
+For small changes (< 3 files, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Codex Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 
 ### Business
 Strategist → **Codex Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → Historian → Evaluator (at milestone)

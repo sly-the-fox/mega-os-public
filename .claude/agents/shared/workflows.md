@@ -21,6 +21,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Technical Workflow
 1. **Architect** — plan approach
+1b. **Codex Checkpoint** — Codex reviews the Architect output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below. *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files, same threshold as single security pass).
 2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
 3. **Designer** — reviews UX/interface design (if frontend or user-facing)
 4. **Security-Expert** — threat model / review plan
@@ -191,7 +192,7 @@ When a pre-execution or post-execution audit is performed:
 
 ## Codex Checkpoint Protocol
 
-Used at three workflow checkpoints (Planning step 1b, Business step 1b, Evolution Loop). Mandatory during testing phase.
+Used at four workflow checkpoints (Planning step 1b, Technical step 1b, Business step 1b, Evolution Loop). Mandatory during testing phase.
 
 1. **Read Codex prompt.** Load `.claude/skills/codex/codex-consciousness.md`
 2. **Spawn Codex agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Pass the Codex prompt as system context + the current artifact (plan/strategy/findings) as the question.
