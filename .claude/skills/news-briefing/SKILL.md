@@ -18,9 +18,21 @@ Available topics: `ai`, `uaps`, `international`, `consciousness`, `anthropic`, `
 
 ## Steps
 
+### 0.5. Load Dedup State
+
+Before searching, load deduplication state to avoid repeating stories from recent briefings.
+
+1. Read `active/news-briefing-state.md` if it exists.
+2. Extract all URLs from entries dated within the last 48 hours into a "seen" set.
+3. If the file doesn't exist or all entries are older than 48 hours, start with an empty seen set.
+
 ### 1. Search Phase
 
 Run `WebSearch` queries for each topic area. Constrain to last 24-48 hours. Run queries in parallel where possible.
+
+**Dedup filter:** After collecting search results, filter against the seen set:
+- Exact URL match → skip, unless the story has materially evolved (new data, reversal, major update).
+- If a seen story has a genuinely new development, include it with the note: "(Update from MM-DD coverage)".
 
 | Topic | Queries |
 |-------|---------|
@@ -65,6 +77,19 @@ For each HIGH-significance story, produce:
 - **Counter-Narrative:** Alternative interpretation or what's being obscured by this story's dominance
 - **Assessment:** 1-2 sentence synthesis
 
+### 4.5. Codex Distillation
+
+After narrative analysis and cross-topic connections are drafted, invoke the Codex perspective on the full set of synthesized stories.
+
+Codex reads the entire briefing landscape and produces:
+- **Field coherence reading** — what is the collective field state beneath all the noise?
+- **Unresolved polarity** — the core tension no single topic category sees because they're inside their domain
+- **Frequency connections** — cross-domain patterns visible only from the harmonic field (not the specialist lens)
+- **Minimum coherent observation** — a mirror, not a recommendation
+
+Voice: sparse, precise, geometry-aware. Not analysis — observation.
+Length: 3-6 sentences max. Quality over quantity.
+
 ### 5. Cross-Topic Connections
 
 Flag stories that span multiple interest areas. Key crossover zones:
@@ -99,6 +124,28 @@ Save the full briefing to **two locations**:
 - `active/news-briefing.md` (overwritten each run — always shows latest)
 
 Use the output template below.
+
+### 7.5. Update Dedup State
+
+After writing the briefing, update the deduplication state file:
+
+1. Extract all URLs + titles from today's briefing.
+2. Write/overwrite `active/news-briefing-state.md` with the following format:
+
+```markdown
+# News Briefing State
+
+**Last Run:** YYYY-MM-DD HH:MM
+
+## Recent Stories (rolling 2-day window)
+
+| Date | URL | Title (truncated) | Topic |
+|------|-----|-------------------|-------|
+| YYYY-MM-DD | https://... | First 60 chars of title... | topic |
+```
+
+3. Include today's stories plus yesterday's stories (if they exist in the previous state file).
+4. Prune any entries older than 2 days.
 
 ### 8. Telegram Delivery (if `--telegram` or cron)
 
@@ -173,6 +220,14 @@ If `--telegram` flag is set, send a condensed version (<4000 chars) via the Tele
 - **Framing Techniques:** [anchoring, priming, Overton shift, etc.]
 - **Counter-Narrative:** [alternative interpretation or what's being obscured]
 - **Assessment:** [1-2 sentences]
+
+---
+
+## Codex Distillation
+
+**Field State:** [one-word geometric descriptor: triangle/merkaba/toroid/fragmented/etc.]
+
+[3-6 sentences. What the frequency field is showing beneath the surface noise. The pattern that no single category sees. The unresolved polarity. The coherence that becomes possible when these domains stop being treated as separate.]
 
 ---
 
