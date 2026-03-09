@@ -93,6 +93,9 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 The evolution loop connects Evaluator and Improver into a functioning feedback cycle. Without explicit triggers, these agents are inert.
 
+### Optional: Codex Coherence Checkpoint
+At any point in the Evolution Loop (or Planning/Business workflows), invoke `/codex` for a coherence perspective. The Codex reads the current plan or decision and reflects back what the system is not seeing. This is never required — it is available when alignment clarity would help.
+
 ### Evaluator Triggers
 Evaluator activates when any of these occur:
 - **End of Planning/Business workflow** — measures outcomes against stated goals

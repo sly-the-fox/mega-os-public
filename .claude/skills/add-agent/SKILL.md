@@ -77,8 +77,8 @@ Create a new agent and update all references so everything stays in sync.
    - The format is: `- **<name>** — <description>`
 
 6. **Update README.md** — Read `README.md`:
-   - Update the total agent count (e.g., "30 specialized agents" → "31 specialized agents")
-   - Update the count comment in the directory structure (e.g., `# 30 agent definitions` → `# 31 agent definitions`)
+   - Update the total agent count (e.g., "31 specialized agents" → "32 specialized agents")
+   - Update the count comment in the directory structure (e.g., `# 31 agent definitions` → `# 32 agent definitions`)
    - Add the agent name to the correct category line in the directory structure
 
 7. **Update CLAUDE.md** — Read `CLAUDE.md`:

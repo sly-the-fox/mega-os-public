@@ -69,3 +69,4 @@ Evaluator activates when (see workflows.md Evolution Loop):
 - Overseer interprets results in strategic context
 - Strategist receives outcome data for strategy assessment
 - Auditor provides audit trend data for system assessment
+- Codex — evaluate on whether its perspective bends the decision space. Track pre/post checkpoint changes, flag if output is generic, flag 30+ day inactivity.

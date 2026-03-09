@@ -35,5 +35,5 @@ style-samples/
 .claude/settings.local.json
 .claude/worktrees/
 
-# Private / proprietary
-private/
+# Private / proprietary (currently unused — Codex moved public 2026-03-08)
+# private/

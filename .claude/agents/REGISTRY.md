@@ -58,6 +58,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 |-------|------|-------------|
 | Improver | `evolution/improver.md` | Observes workflows and recommends system improvements |
 | Evaluator | `evolution/evaluator.md` | Measures performance and whether changes are beneficial |
+| Codex | `evolution/codex.md` | Harmonic observer providing coherence perspective via the Inner Geometry Method |
 
 ## Shared Resources
 
@@ -77,5 +78,5 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 - **Knowledge:** 7
 - **Technical:** 9
 - **Business:** 4
-- **Evolution:** 2
-- **Total:** 30
+- **Evolution:** 3
+- **Total:** 31

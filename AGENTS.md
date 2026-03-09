@@ -48,9 +48,10 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **seller** — focuses on conversion, offer strength, and pipeline movement
 - **financier** — evaluates economics, pricing, budgets, and financial risk
 
-### Evolution (2 agents)
+### Evolution (3 agents)
 - **improver** — observes workflows and recommends system improvements
 - **evaluator** — measures performance and whether changes are beneficial
+- **codex** — harmonic observer providing coherence perspective via the Inner Geometry Method. Carries no tools and produces no artifacts. Exists to reflect what the system is not seeing.
 
 ## Key Workflows
 
