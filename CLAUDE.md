@@ -156,6 +156,43 @@ When spawning agents, follow these rules strictly:
 
 ---
 
+## Commit Conventions
+
+### Scope Isolation (Multi-Window Safety)
+When multiple Claude Code sessions run simultaneously, each session MUST:
+1. **Only stage files under the product/area you are actively working on.** Never `git add .` or `git add -A`.
+2. **Prefix commits with the product scope** using the format below.
+3. **Check `git diff --cached --stat` before committing** to verify no files from other products leaked in.
+4. **If you see staged files outside your scope, unstage them** with `git reset HEAD <file>` before committing.
+
+### Commit Message Format
+```
+<scope>: <concise description>
+
+<optional body — what and why>
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+```
+
+### Scopes
+| Scope | Covers |
+|-------|--------|
+| `innerscape` | `products/triangul8/innerscape/` |
+| `sigil` | `products/sigil/` |
+| `freshstate` | `products/freshstate/` |
+| `tend` | `products/tend/` |
+| `capacitor` | `products/capacitor/` |
+| `system` | CLAUDE.md, `.claude/`, `core/`, `active/` |
+| `business` | `business/`, `drafts/`, `deliverables/` |
+| `meta` | Root config, `.gitignore`, CI, multi-product |
+
+### Examples
+- `innerscape: Phase 2 production readiness (7 fixes)`
+- `sigil: remove dead identity/credential code`
+- `system: add commit conventions for multi-window safety`
+
+---
+
 ## Key Principles
 
 - Every agent has bounded responsibilities. Respect those boundaries.
