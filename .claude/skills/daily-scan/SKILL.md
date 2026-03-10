@@ -58,18 +58,32 @@ Scan all passive agent outputs and active state files for items needing attentio
    - If file unchanged for 7+ days → **Needs Review** (focus may be stale).
    - Otherwise → **Informational** (list unchecked count).
 
-10. **Agent and doc consistency quick-check**
+10. **Incorporate improvement audit** (`active/improvement-audit.md`)
+    - Check if file exists and was generated today (compare `Generated:` date).
+    - If today's audit exists:
+      - Read the Executive Summary and Improvement Proposals sections.
+      - Count proposals by severity (High, Medium, Low).
+      - High-severity proposals -> **Critical** (promote to Action Plan with concrete next steps).
+      - Medium-severity proposals -> **Needs Review**.
+      - Low-severity proposals -> **Informational**.
+      - Include the focus area name and executive summary in the digest.
+    - If file is missing or stale (not today's date):
+      - Log as **Informational**: "No improvement audit available for today."
+    - Do NOT modify `active/improvement-audit.md` — read-only input.
+    - Do NOT auto-promote IA- items to `active/improvements.md` — requires user review.
+
+11. **Agent and doc consistency quick-check**
     - Count agent files in `.claude/agents/` subdirectories (governance/, knowledge/, technical/, business/, evolution/) vs count in REGISTRY.md. Flag if counts differ.
     - Count symlinks at `.claude/agents/*.md` (top level) vs agent files in subdirectories. Flag if mismatched.
     - Count agents referenced in README.md, AGENTS.md, CLAUDE.md. Flag if any differ from actual count.
     - Count skills listed in README.md vs actual `.claude/skills/` directories. Flag mismatches.
     - This is a fast count-only check. Full integrity analysis runs in weekly review.
 
-11. **Write digest**
+12. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-12. **Propose solutions**
+13. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |
@@ -83,7 +97,8 @@ Scan all passive agent outputs and active state files for items needing attentio
     | Processes | Operator | PM | Schedule fix or SOP creation |
     | Decisions | Explore (context) | Planner | Decision path: what info is needed, who decides |
     | Focus | PM | Planner | Priority sequencing of unchecked items |
-    | Agent structure | Improver | Planner | Remediation steps for structural fixes |
+    | Improvement audit | Auditor | Improver | Verify finding, propose implementation |
+| Agent structure | Improver | Planner | Remediation steps for structural fixes |
 
     **How it works at runtime:**
     - For each item, spawn the appropriate research agent (Explore for codebase questions, or the domain specialist for domain questions) to gather context.
@@ -105,6 +120,7 @@ Scan all passive agent outputs and active state files for items needing attentio
 | Overdue processes | 1 day past due | Critical |
 | Pending decisions | 7 days | Needs Review |
 | Stale now.md focus | 7 days | Needs Review |
+| Missing improvement audit | 0 tolerance | Informational |
 | Agent count mismatch | 0 tolerance | Critical |
 
 ## Output Template
@@ -140,6 +156,7 @@ Generated: YYYY-MM-DD HH:MM
 | Processes | | | | |
 | Decisions | | | | |
 | Focus | | | | |
+| Improvement Audit | | | | |
 | **Total** | | | | |
 
 ## Action Plan
