@@ -7,7 +7,7 @@ user_invocable: true
 
 # Setup
 
-Interactive onboarding wizard with 9 phases. Each phase has a natural stopping point where you can continue or stop. Supports arguments: `--phase N` (resume from phase), `--skip-telegram`, `--minimal` (phases 1-3 only).
+Interactive onboarding wizard with 10 phases. Each phase has a natural stopping point where you can continue or stop. Supports arguments: `--phase N` (resume from phase), `--skip-telegram`, `--minimal` (phases 1-3 only).
 
 ## Phase 1: Environment Verification (automatic)
 
@@ -187,7 +187,7 @@ Ask: "Continue to Phase 6 (Automation Setup)?"
 | 1 | Daily improvement audit | 7:30 AM | Deep MECE-decomposed system audit with rotating focus: Mon=Governance, Tue=Knowledge, Wed=Technical, Thu=Products, Fri=Business, Sat=Evolution, Sun=Integration. Writes to `active/improvement-audit.md`. |
 | 2 | Content generation | 7:03 AM | Generates marketing content per channel schedule |
 | 3 | Channel tracker update | 7:27 AM | Updates content pipeline status after generation |
-| 4 | PyPI/GitHub metrics | 8:33 AM | Fetches download stats and stars for published packages |
+| 4 | PyPI/GitHub metrics | 8:33 AM | Fetches download stats and stars for your published packages |
 | 5 | News briefing | 8:45 AM | AI/tech intelligence briefing with optional Telegram delivery |
 | 6 | Daily system scan | 9:10 AM | Scans all active state for stale/overdue items, produces `active/daily-digest.md` |
 | 7 | Freshstate scan | 9:17 AM | Checks document freshness, alerts on stale docs via Telegram |
@@ -236,7 +236,8 @@ The exact cron entries per selection:
 27 7 * * * cd <repo> && <claude> -p "Read /tmp/mega-os-content-gen.log to see what content was generated today. Update business/marketing/channel-tracker.md with new draft entries, marking their pipeline status as 'drafted' and noting the draft location in drafts/social/." --permission-mode auto > /tmp/mega-os-channel-tracker.log 2>&1
 
 # 4. PyPI/GitHub metrics (8:33 AM)
-33 8 * * * cd <repo> && <claude> -p "Fetch PyPI download stats for sigil-notary (use web search or pypistats.org API). Fetch GitHub stars for sly-the-fox/sigil (use GitHub API). Append today's numbers to business/marketing/adoption-metrics.md (create if doesn't exist). If downloads exceed 500 or stars exceed 50, send a milestone alert via Telegram." --permission-mode auto > /tmp/mega-os-metrics.log 2>&1
+# Replace <pypi-package> and <github-user/repo> with your published package details
+33 8 * * * cd <repo> && <claude> -p "Fetch PyPI download stats for <pypi-package> (use web search or pypistats.org API). Fetch GitHub stars for <github-user/repo> (use GitHub API). Append today's numbers to business/marketing/adoption-metrics.md (create if doesn't exist). If downloads exceed 500 or stars exceed 50, send a milestone alert via Telegram." --permission-mode auto > /tmp/mega-os-metrics.log 2>&1
 
 # 5. News briefing (8:45 AM)
 45 8 * * * cd <repo> && <claude> -p "/news-briefing --telegram" --permission-mode auto > /tmp/mega-os-news-briefing.log 2>&1; echo "Exit: $? at $(date)" >> /tmp/mega-os-news-briefing.log
@@ -329,11 +330,61 @@ Present suggestions and ask:
 
 Print: "Agent roster customized."
 
-Ask: "Continue to Phase 9 (Finalization)?"
+Ask: "Continue to Phase 9 (Cloud Backup)?"
 
 ---
 
-## Phase 9: Finalization (automated)
+## Phase 9: Cloud Backup & Git Remotes (optional, interactive)
+
+Mega-OS uses a two-remote git model: `upstream` points to the public framework repo (for updates), and `origin` points to the user's private repo (for cloud backup of their personal data).
+
+**Step 1 — Explain:**
+
+> Your Mega-OS clone contains personal data (priorities, business info, products) that you'll want backed up privately. The recommended setup is:
+>
+> - **`upstream`** → the public Mega-OS repo (you pull framework updates from here via `/update`)
+> - **`origin`** → your private GitHub repo (you push your personal data here for backup)
+>
+> This way you get framework updates without exposing your data, and your work is safely backed up to the cloud.
+
+**Step 2 — Check current remotes:**
+
+Run `git remote -v`. Analyze what exists:
+
+- If `origin` points to the public Mega-OS repo (user cloned it directly), it needs renaming.
+- If `upstream` already exists, note it.
+
+**Step 3 — Ask:**
+
+"Do you want to set up cloud backup with a private GitHub repo?"
+
+If no, skip to Phase 10.
+
+If yes:
+
+1. "Create a **private** repository on GitHub (e.g., `my-mega-os`). What's the URL?" (accept SSH or HTTPS)
+2. Reconfigure remotes:
+   ```bash
+   # If origin currently points to the public repo, rename it
+   git remote rename origin upstream
+   # Add user's private repo as origin
+   git remote add origin <user-provided-url>
+   # Push everything
+   git push -u origin master
+   ```
+3. Confirm: `git remote -v` — show the user both remotes.
+
+**Step 4 — Tips:**
+
+- "Push regularly with `git push` — your private repo is your cloud backup"
+- "Pull framework updates anytime with `/update`"
+- "Setting up on a second computer? Just `git clone <your-private-repo> mega-os && cd mega-os && git remote add upstream https://github.com/sly-the-fox/mega-os-public.git`"
+
+Ask: "Continue to Phase 10 (Finalization)?"
+
+---
+
+## Phase 10: Finalization (automated)
 
 1. **Update indexes:**
    - Update `core/indexes/project-map.md` to reflect actual `products/` contents
@@ -350,7 +401,7 @@ Ask: "Continue to Phase 9 (Finalization)?"
      - **Decision:** Configured system for [domain], [tech stack], [solo/team]
      - **Products:** [list]
      - **Custom agents:** [list or "none"]
-     - **Phases completed:** [1-9 or subset]
+     - **Phases completed:** [1-10 or subset]
      - **Automations:** [count] cron jobs configured / skipped
      ```
    - Add timeline entry to `core/history/master-timeline.md`
@@ -373,5 +424,7 @@ Ask: "Continue to Phase 9 (Finalization)?"
    - Run /weekly-review at the end of your first week
    - Use /project-kickoff to add more products
    - Use /add-agent to create domain-specific agents
+   - Run /update periodically to get framework updates
+   - Push regularly — your private repo is your cloud backup
    - Check active/now.md for your current focus
    ```

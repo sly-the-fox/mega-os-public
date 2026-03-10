@@ -44,9 +44,11 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 
 ## Products
 
+<!-- USER CONFIG START: products -->
 All products live under `products/`. Run `/setup` or `/project-kickoff` to add your first product.
 
 Check for a README and CLAUDE.md at the product root before making changes. Product-level CLAUDE.md files override general standards for that product.
+<!-- USER CONFIG END: products -->
 
 ---
 
@@ -211,6 +213,20 @@ When in doubt about authority, consult `.claude/agents/REGISTRY.md`.
 
 ---
 
+## Data Classification
+
+Mega-OS has a public distribution (framework) and private user data. This classification governs what syncs to the public repo via `engineering/scripts/sync-to-public.sh`.
+
+| Category | Paths | Syncs to public? |
+|----------|-------|------------------|
+| Framework | `.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/settings.json`, `core/standards/`, `core/templates/`, `engineering/scripts/`, `CLAUDE.md`, `AGENTS.md`, `README.md`, `GETTING_STARTED.md`, `.gitignore`, `LICENSE` | YES |
+| User data | `active/`, `business/`, `products/`, `drafts/`, `deliverables/`, `archive/`, `core/history/`, `core/indexes/`, `style-samples/`, `.claude/projects/*/memory/` | NEVER |
+| Sensitive | `.env*`, `*.pem`, `*.key`, `sessions.json` | NEVER (gitignored) |
+
+**Rule:** When creating a new file, if it contains personal data (names, emails, revenue, client info, project-specific state), it belongs in user data paths. If it's a reusable system component (agent, skill, standard, template), it belongs in framework paths. When uncertain, default to user data.
+
+---
+
 ## File Conventions
 
 | Purpose            | Location                     |
@@ -295,6 +311,7 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 ### Scopes
+<!-- USER CONFIG START: commit-scopes -->
 | Scope | Covers |
 |-------|--------|
 | `innerscape` | `products/triangul8/innerscape/` |
@@ -305,6 +322,7 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 | `system` | CLAUDE.md, `.claude/`, `core/`, `active/` |
 | `business` | `business/`, `drafts/`, `deliverables/` |
 | `meta` | Root config, `.gitignore`, CI, multi-product |
+<!-- USER CONFIG END: commit-scopes -->
 
 ### Examples
 - `innerscape: Phase 2 production readiness (7 fixes)`

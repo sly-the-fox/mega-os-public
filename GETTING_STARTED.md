@@ -17,7 +17,7 @@ This guide walks you through your first session. Read this once, then you can fo
 ## 1. Clone and Enter
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mega-os.git
+git clone https://github.com/sly-the-fox/mega-os-public.git mega-os
 cd mega-os
 ```
 
@@ -32,10 +32,50 @@ claude
 That's it. On startup, Claude Code will:
 - Read `CLAUDE.md` (master instructions for every session)
 - Run the SessionStart hook (loads `active/now.md` and `active/priorities.md`)
-- Discover all 32 agents via symlinks in `.claude/agents/`
+- Discover all 33 agents via symlinks in `.claude/agents/`
 - Enable agent teams via `.claude/settings.json`
 
 You're ready to work.
+
+---
+
+## 2.5. Set Up Cloud Backup (Recommended)
+
+Your Mega-OS clone will contain personal data (priorities, business info, products). Back it up to a private repo:
+
+1. Create a **private** repository on GitHub (e.g., `my-mega-os`)
+2. Reconfigure remotes:
+   ```bash
+   git remote rename origin upstream    # public repo becomes "upstream"
+   git remote add origin git@github.com:YOUR_USERNAME/my-mega-os.git
+   git push -u origin master
+   ```
+
+Now you have two remotes:
+- **`origin`** → your private repo (push here for backup)
+- **`upstream`** → public Mega-OS repo (pull framework updates from here)
+
+The `/setup` wizard (Phase 9) walks you through this interactively.
+
+### Setting up on a second computer
+
+```bash
+git clone git@github.com:YOUR_USERNAME/my-mega-os.git mega-os
+cd mega-os
+git remote add upstream https://github.com/sly-the-fox/mega-os-public.git
+claude  # SessionStart hook loads your state, everything works
+```
+
+### Getting framework updates
+
+Run `/update` in Claude Code, or manually:
+
+```bash
+git fetch upstream
+git merge upstream/master
+```
+
+Framework updates (agents, skills, standards) merge cleanly because upstream has only empty stubs for personal data paths (`active/`, `business/`, `products/`).
 
 ---
 
@@ -162,11 +202,14 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 | Skill | Description |
 |-------|-------------|
 | `/setup` | Interactive onboarding wizard (recommended first step) |
+| `/update` | Pull framework updates from upstream |
+| `/publish` | Sync framework changes to the public repo (maintainer only) |
 | `/add-agent` | Create a new agent with all references in sync |
 | `/project-kickoff` | Scaffold a new product with docs and registration |
 | `/bug-triage` | Triage and investigate a bug report |
 | `/daily-scan` | Scan active state for stale or overdue items |
 | `/weekly-review` | Full system review with cross-referencing |
+| `/deep-research` | Tiered research with MECE decomposition |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 | `/write` | Write original long-form content |
 

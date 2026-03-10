@@ -17,13 +17,15 @@ SAFE_PATHS=(
   "AGENTS.md"
   "README.md"
   "GETTING_STARTED.md"
+  "LICENSE"
   ".gitignore"
   ".claude/agents/"
   ".claude/skills/"
+  ".claude/hooks/"
   ".claude/settings.json"
   "core/standards/"
   "core/templates/"
-  "core/indexes/canonical-files.md"
+  "engineering/scripts/sync-to-public.sh"
   "engineering/scripts/telegram-bridge/telegram_bridge.py"
   "engineering/scripts/telegram-bridge/README.md"
   "engineering/scripts/telegram-bridge/requirements.txt"
@@ -34,6 +36,8 @@ SAFE_PATHS=(
 # Files to SKIP during sync (private data)
 SKIP_FILES=(
   "core/standards/writing-style.md"
+  ".claude/skills/news-briefing/SKILL.md"
+  ".claude/skills/improvement-audit/SKILL.md"
 )
 
 # Files/dirs to NEVER sync (personal data)

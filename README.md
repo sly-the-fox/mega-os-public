@@ -28,22 +28,48 @@ mega-os/
   business/            # assets, clients, finance, marketing, operations
 ```
 
-## Setup
+## Installation
 
-1. Clone the repository:
-   ```
-   git clone <repo-url> mega-os
-   cd mega-os
-   ```
+### First install
 
-2. Ensure Claude Code is installed.
+```bash
+git clone https://github.com/sly-the-fox/mega-os-public.git mega-os
+cd mega-os
+claude
+```
 
-3. Enable agent teams:
-   ```
-   export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
-   ```
+Claude Code will auto-load the system. Run `/setup` for guided interactive onboarding (environment check, personalization, cloud backup, automations, and more).
 
-4. Launch Claude Code and run `/setup` for guided interactive onboarding. Or jump straight in — agents are available via the Agent tool with `subagent_type` matching the agent filename (e.g., `architect`, `engineer`, `pm`).
+### Cloud backup (recommended)
+
+Mega-OS uses a two-remote model so you can receive framework updates while keeping your personal data private:
+
+```bash
+# Inside your mega-os directory after /setup, or manually:
+git remote rename origin upstream
+git remote add origin git@github.com:YOUR_USERNAME/my-mega-os.git  # private repo
+git push -u origin master
+```
+
+- **`upstream`** → public Mega-OS repo (framework updates via `/update`)
+- **`origin`** → your private repo (cloud backup of everything including personal data)
+
+### Second computer
+
+```bash
+git clone git@github.com:YOUR_USERNAME/my-mega-os.git mega-os
+cd mega-os
+git remote add upstream https://github.com/sly-the-fox/mega-os-public.git
+claude  # everything just works
+```
+
+### Getting framework updates
+
+```
+/update
+```
+
+Or manually: `git fetch upstream && git merge upstream/master`
 
 See [GETTING_STARTED.md](GETTING_STARTED.md) for a detailed walkthrough.
 
