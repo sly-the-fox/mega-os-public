@@ -34,6 +34,10 @@ style-samples/
 # Claude Code local
 .claude/settings.local.json
 .claude/worktrees/
+.claude/scheduled_tasks.lock
+
+# Nested repos (upstream PR forks)
+products/sigil/public-repo/servers/
 
 # Private / proprietary (currently unused — Codex moved public 2026-03-08)
 # private/
