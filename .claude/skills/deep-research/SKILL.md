@@ -3,7 +3,7 @@ name: deep-research
 description: Tiered deep research — assesses query complexity, selects appropriate tier (light/standard/deep), decomposes into MECE partitions when needed, runs parallel explorer agents, synthesizes findings, and appends a Codex+Parallax coherence reading.
 invocation: /deep-research
 user_invocable: true
-arguments: "<query> [--tier auto|light|standard|deep] [--depth scan|standard|deep] [--axis topic|source|temporal] [--legs N] [--output path] [--no-codex]"
+arguments: "<query> [--tier auto|light|standard|deep] [--depth scan|standard|deep] [--axis topic|source|temporal] [--source web|local|hybrid] [--legs N] [--output path] [--no-codex]"
 ---
 
 # Tiered Deep Research
@@ -18,6 +18,7 @@ Assess query complexity, select an appropriate research tier, decompose into MEC
 | `--tier` | `auto` | Research tier: `auto` (assessor decides), `light`, `standard`, or `deep` |
 | `--depth` | `standard` | Per-agent search intensity: `scan`, `standard`, or `deep` |
 | `--axis` | auto-select | Decomposition axis: `topic`, `source`, or `temporal` (standard/deep tiers only) |
+| `--source` | `web` | Research source: `web` (WebSearch/WebFetch), `local` (Grep/Glob/Read), or `hybrid` (both) |
 | `--legs` | auto (3-6) | Number of partitions (standard/deep tiers only) |
 | `--output` | `drafts/research/YYYY-MM-DD-<slug>.md` | Output file path |
 | `--no-codex` | false | Skip the Codex+Parallax coherence reading |
@@ -25,11 +26,12 @@ Assess query complexity, select an appropriate research tier, decompose into MEC
 **Orthogonal controls:**
 - `--tier` controls **how many agents** are used (0, 1-2, or 3-6)
 - `--depth` controls **per-agent search intensity** (queries and fetches per agent)
+- `--source` controls **where** agents search (web, local codebase, or both)
 - These are independent: `--tier light --depth deep` = main context doing thorough research with many searches
 
 ## Phase 0: Parse Arguments
 
-Extract query, tier (default: `auto`), depth (default: `standard`), axis (default: auto-select), leg count (default: auto 3-6), output path (default: `drafts/research/YYYY-MM-DD-<slug>.md`), no-codex flag (default: false).
+Extract query, tier (default: `auto`), depth (default: `standard`), axis (default: auto-select), source (default: `web`), leg count (default: auto 3-6), output path (default: `drafts/research/YYYY-MM-DD-<slug>.md`), no-codex flag (default: false).
 
 Generate a slug from the query (lowercase, hyphens, max 40 chars).
 
@@ -47,6 +49,15 @@ Evaluate the query on 4 dimensions, scoring each 1-3:
 | **Stakes** | Is this feeding a specific decision or just background context? | 1 = casual/background, 2 = informs a decision, 3 = high-stakes decision with consequences |
 
 **To assess Novelty:** Use Glob to check `drafts/research/*.md` for existing research that overlaps with the query. Skim titles and executive summaries of any matches.
+
+**Local source scoring (`--source local`):**
+
+| Dimension | Local Scoring |
+|-----------|---------------|
+| **Breadth** | 1 = single file/dir, 2 = 2-3 dirs, 3 = cross-cutting whole codebase |
+| **Novelty** | 1 = recently audited (check `active/audits.md`), 2 = partial coverage, 3 = never systematically searched |
+| **Ambiguity** | Same as web |
+| **Stakes** | Same as web |
 
 **Score → Tier mapping:**
 - Total 4-5 → **Light** (no team, main context only)
@@ -88,10 +99,32 @@ Analyze the query and produce a partition plan. Three decomposition axes:
 | `source` | Source-type split (academic, industry, OSS, regulatory) | "State of X" questions ("current AI governance landscape") |
 | `temporal` | Time-period split (historical, current, emerging) | Evolution/trend questions ("how has X changed") |
 
-**Auto-selection heuristic:**
+**Auto-selection heuristic (web):**
 - Query contains "state of", "landscape", "ecosystem" → `source`
 - Query contains "evolution", "history", "trend", "changed" → `temporal`
 - Default → `topic`
+
+### Local Decomposition Axes (`--source local`)
+
+When `--source local` is set, use these axes instead of topic/source/temporal:
+
+| Axis | How It Splits | Best For |
+|------|---------------|----------|
+| `directory` | By top-level directory or product | "How does X work across the codebase?" |
+| `layer` | By agent category (governance/knowledge/technical/business/evolution) | "Is rule Y consistently applied?" |
+| `concern` | By cross-cutting concern (rules/workflows/checklists/protocols/templates) | "Are all references to X consistent?" |
+| `security` | By OWASP/attack surface (auth, input validation, secrets, API boundaries, dependencies, config) | "Security hardening pass", "find all injection vectors" |
+
+**Auto-selection heuristic (local):**
+- Query mentions specific directories/products → `directory`
+- Query mentions agents, categories, roles → `layer`
+- Query mentions consistency, cross-reference, rules, follow-through → `concern`
+- Query mentions security, hardening, vulnerability, auth, injection, OWASP, attack → `security`
+- Default → `concern`
+
+**Partition format:** Instead of "Suggested queries" (WebSearch), use "Suggested searches" — Grep patterns, Glob patterns, key files to Read.
+
+**Note:** `--source local` with `--axis topic|source|temporal` is ignored — local axes are used instead. A warning is printed.
 
 For each partition, define:
 - **Name** — short label
@@ -114,6 +147,18 @@ Perform research directly in the main context without creating any team:
 3. If `--depth deep`: increase to 8-12 WebSearches and 5-8 WebFetches
 4. If `--depth scan`: reduce to 2-3 WebSearches and 1 WebFetch
 5. Synthesize findings directly — skip to Phase 5L
+
+### Phase 1L-Local: Light Tier Local Research (main context)
+
+When `--source local`, perform codebase research directly in the main context:
+
+1. Run 3-5 Grep searches covering key aspects of the query
+2. Read 1-2 most relevant files found
+3. If `--depth deep`: increase to 8-12 Greps and 5-8 Reads
+4. If `--depth scan`: reduce to 2-3 Greps and 1 Read
+5. Synthesize findings directly — skip to Phase 5L
+
+For `--source hybrid`: run both Phase 1L (web) and Phase 1L-Local (local), then merge findings in Phase 5L.
 
 ## Phase 2: Create Agent Team (standard/deep tiers)
 
@@ -141,6 +186,14 @@ All Explorers work in parallel.
 | `scan` | 3-5 | 1-2 | 200-400 words |
 | `standard` | 5-8 | 3-5 | 400-800 words |
 | `deep` | 8-12 | 5-8 | 800-1500 words |
+
+#### Local Depth Levels (`--source local`)
+
+| Level | Grep/Glob per agent | Full file reads per agent | Target output per agent |
+|-------|--------------------|-----------------------------|------------------------|
+| `scan` | 3-5 | 1-2 (key sections) | 200-400 words |
+| `standard` | 5-8 | 3-5 | 400-800 words |
+| `deep` | 8-12 | 5-8 + cross-reference | 800-1500 words |
 
 ### Explorer Report Format (sent back via SendMessage)
 
@@ -170,6 +223,17 @@ What was researched and explicit boundaries.
 | 1 | ... | ... | academic/industry/news/OSS/gov | HIGH/MED/LOW |
 ```
 
+#### Local Explorer Report Format (`--source local`)
+
+Same structure as web, but "Sources" becomes "Files Examined":
+
+```markdown
+### Files Examined
+| # | Path | Type | Relevance | Key Content |
+|---|------|------|-----------|-------------|
+| 1 | .claude/agents/shared/system-rules.md | rule | HIGH | Rules 7, 15, 22 |
+```
+
 ## Phase 4: Director Validates Coverage (standard/deep tiers)
 
 Director reviews each Explorer's report:
@@ -189,7 +253,7 @@ Synthesize findings gathered in Phase 1L into the same output format as Phase 6,
 ```markdown
 # Deep Research: [Query]
 
-**Generated:** YYYY-MM-DD | **Tier:** Light | **Depth:** scan/standard/deep
+**Generated:** YYYY-MM-DD | **Tier:** Light | **Depth:** scan/standard/deep | **Source:** web/local/hybrid
 **Total Sources:** [count]
 
 ## Executive Summary
@@ -257,7 +321,7 @@ After synthesis is complete (Phase 5, 5L) and before writing the final output fi
 ```markdown
 # Deep Research: [Query]
 
-**Generated:** YYYY-MM-DD | **Tier:** Light/Standard/Deep | **Depth:** scan/standard/deep
+**Generated:** YYYY-MM-DD | **Tier:** Light/Standard/Deep | **Depth:** scan/standard/deep | **Source:** web/local/hybrid
 **Decomposition:** [N] partitions ([axis] axis) | **Total Sources:** [count]
 
 ## Executive Summary
@@ -288,6 +352,9 @@ After synthesis is complete (Phase 5, 5L) and before writing the final output fi
 | # | Title | URL | Partition | Type | Relevance |
 |---|-------|-----|-----------|------|-----------|
 
+For `--source local`: Replace "Source Index" with "File Index" (paths instead of URLs).
+For `--source hybrid`: Include both "Source Index" and "File Index" sections.
+
 ---
 *Generated by mega-os /deep-research — [tier] tier, [N] partitions via [axis] axis with [M] explorers*
 ```
@@ -311,6 +378,8 @@ After synthesis is complete (Phase 5, 5L) and before writing the final output fi
 - **`--legs` with light tier:** Ignored. Light tier always uses 0 agents.
 - **`--legs` with standard tier:** Respected up to 2. Values >2 are clamped to 2.
 - **`--tier` explicit + `--legs`:** `--legs` overrides the tier's default agent count (within the tier's range).
+- **`--source local` with `--axis topic|source|temporal`:** Web axes are ignored; local axes are used instead. Print warning.
+- **`--source hybrid`:** Partitions are tagged `[web]` or `[local]`, with at least one of each.
 
 ## Example Usage
 
@@ -338,8 +407,21 @@ After synthesis is complete (Phase 5, 5L) and before writing the final output fi
 
 /deep-research "Evolution of AI governance frameworks" --axis temporal --legs 4
   → Assessor runs → if confirmed, uses temporal axis with 4 partitions
+
+# System procedure audit (local)
+/deep-research "are all system rules consistently enforced" --source local
+/deep-research "how does the auditor interact with other agents" --source local --tier standard
+
+# Code audit & security hardening (local)
+/deep-research "security hardening pass for sigil public-repo" --source local --axis security --tier deep
+/deep-research "find all input validation gaps in capacitor app" --source local --axis security
+/deep-research "audit auth flow and session handling" --source local --axis security --depth deep
+
+# Hybrid (compare against best practices)
+/deep-research "MCP best practices vs our implementation" --source hybrid --tier deep
+/deep-research "OWASP top 10 compliance for sigil API" --source hybrid --axis security
 ```
 
 ## Integration
 
-This skill is auto-invoked by system rule 19 whenever any workflow step requires web research. It can also be invoked manually. The `/news-briefing` skill is exempt (it has its own specialized search structure). For follow-up deep dives on high-significance stories from `/news-briefing`, pipe them to `/deep-research`.
+This skill is auto-invoked by system rule 19 whenever any workflow step requires web research. It can also be invoked manually. The `/news-briefing` skill is exempt (it has its own specialized search structure). For follow-up deep dives on high-significance stories from `/news-briefing`, pipe them to `/deep-research`. For codebase-only research, use `/deep-research --source local`. For hybrid research (web + codebase), use `/deep-research --source hybrid`.

@@ -9,7 +9,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 2. **Router** — assigns tasks to appropriate specialist agents
 3. **Governor** — validates scope and constraints
 4. **Sentinel** — assesses risk profile of the plan (if plan touches production, security, or finances)
-5. **Auditor** — pre-execution audit: reviews plan for blind spots, missing considerations, layer gaps. **Invocation:** PM or Planner invokes Auditor with: (a) the approved plan, (b) Governor's scope constraints, (c) Sentinel's risk assessment (if any). Auditor returns findings to Planner for remediation before execution begins.
+5. **Auditor** — pre-execution audit: reviews plan for blind spots, missing considerations, layer gaps. **Invocation:** PM or Planner invokes Auditor with: (a) the approved plan, (b) Governor's scope constraints, (c) Sentinel's risk assessment (if any). Auditor returns findings to Planner for remediation before execution begins. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 6. **Designer** — reviews UX impact (if plan affects user-facing interfaces). Designer work is complete when the requesting workflow owner (Planner for Planning, Architect for Technical, Strategist for Business) confirms the design addresses their requirements.
 7. **PM** — tracks progress, dependencies, deadlines
 8. **Specialists** — execute assigned tasks
@@ -26,13 +26,13 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 1b. **Codex+Parallax Checkpoint** — Codex reviews the Architect output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below. *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files, same threshold as single security pass).
 2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
 3. **Designer** — reviews UX/interface design (if frontend or user-facing). Architect confirms design completion before proceeding.
-4. **Security-Expert** — threat model / review plan
+4. **Security-Expert** — threat model / review plan. For full security hardening, Security-Expert may invoke `/deep-research --source local --axis security` before threat modeling.
 5. **Engineer** — first implementation pass
-6. **Security-Expert** — code security review
+6. **Security-Expert** — code security review. For comprehensive code review, may use `/deep-research --source local --axis security`.
 7. **Engineer** — fix security issues + add more features
 8. **Security-Expert** — second security pass
 9. **Sentinel** — checks for scope drift (if implementation expanded beyond original plan)
-10. **Auditor** — post-execution audit: compares implementation against architecture/plan, flags gaps and omissions
+10. **Auditor** — post-execution audit: compares implementation against architecture/plan, flags gaps and omissions. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 11. **QA** — test and verify
 12. **Reviewer** — final review
 13. **DevOps** — deploy (if needed)
@@ -55,7 +55,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience). Strategist confirms design completion before proceeding.
 3. **Marketer / Seller / Financier** — execute in their domains
 4. **Sentinel** — flags financial or reputational risk (if significant exposure)
-5. **Auditor** — post-execution audit: reviews deliverables against business objectives
+5. **Auditor** — post-execution audit: reviews deliverables against business objectives. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 6. **Reviewer** — validates alignment with strategy
 7. **Operator** — creates or updates processes (if new operational processes result)
 8. **Custodian** — verifies all agent checklists completed and cross-references are consistent
@@ -77,7 +77,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 3. **Security-Expert** — assesses security implications (if security-related)
 4. **Engineer** — implements fix
 5. **QA** — verifies fix, checks for regressions
-6. **Auditor** — verifies fix fully addresses root cause, no secondary gaps (if significant incident)
+6. **Auditor** — verifies fix fully addresses root cause, no secondary gaps (if significant incident). For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 7. **Operator** — updates processes (if incident reveals process gaps). **SOP ownership:** Operator creates the SOP and owns the file. Documenter writes/polishes content. Operator retains final authority over process accuracy.
 8. **Documenter** — records incident details for knowledge base
 9. **Librarian** — catalogs incident knowledge and updates indexes

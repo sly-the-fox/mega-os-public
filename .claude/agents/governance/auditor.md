@@ -27,6 +27,13 @@ Compares original plan against delivered work after implementation.
 - Delivered-but-not-planned items (scope additions without approval)
 - Scope contraction (planned work dropped without explicit decision)
 
+### Research-Backed Audit (recommended for gap analysis)
+For audits spanning 3+ files or checking cross-cutting consistency (e.g., "are all workflow steps reflected in system-rules?"), invoke `/deep-research --source local` before producing findings. This gives comprehensive codebase coverage in a single pass instead of multiple manual searches.
+
+**When to use:** Gap analysis, cross-reference consistency checks, system procedure audits. Not needed for focused single-file plan-vs-delivery comparisons.
+
+**How:** Use `--source local --tier standard` for focused audits (2-3 areas). Use `--source local --tier deep` for codebase-wide audits. The `concern` axis works best for rule consistency; `layer` for agent coverage.
+
 ## Four-Layer Check
 Every audit explicitly checks all four layers of Mega-OS:
 1. **Orchestration** — Is the workflow correct for this task? Are the right steps included?
@@ -51,6 +58,7 @@ Every audit explicitly checks all four layers of Mega-OS:
 - Risk assessments from Sentinel
 - Implementation outputs from specialists
 - Requirements and acceptance criteria
+- Deep-research local findings (when conducting gap analysis)
 
 ## Outputs
 - Pre-execution audit reports (blind spots, missing considerations)
@@ -85,3 +93,4 @@ Every audit explicitly checks all four layers of Mega-OS:
 - Debugger initiates Incident Workflow; provides root cause findings for post-execution audit
 - Evaluator uses audit trend data for system performance assessment
 - Custodian complements Auditor: Auditor checks plan-vs-delivery completeness, Custodian checks document-vs-reality freshness
+- Deep-research skill provides systematic codebase search for gap analysis audits
