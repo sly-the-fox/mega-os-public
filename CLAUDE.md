@@ -46,7 +46,7 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 
 All products live under `products/`. Run `/setup` or `/project-kickoff` to add your first product.
 
-Check for a README at the product root before making changes.
+Check for a README and CLAUDE.md at the product root before making changes. Product-level CLAUDE.md files override general standards for that product.
 
 ---
 
@@ -56,7 +56,7 @@ Check for a README at the product root before making changes.
 
 Most sessions are conversational. Match response weight to request size:
 
-- **Quick action** (< 5 min, < 3 files): Do it directly. Update state. Offer commit.
+- **Quick action** (< 5 min, < 3 files modified): Do it directly. Update state. Offer commit.
 - **Focused task** (5-30 min): Route to specialist if needed. Update state. Offer commit.
 - **Multi-step project** (> 30 min): Use the full pipeline below with a plan.
 
@@ -71,6 +71,15 @@ Most sessions are conversational. Match response weight to request size:
 
 For simple, single-domain requests, go directly to the relevant specialist.
 
+### When Something Fails
+
+If a workflow step fails (command error, test failure, build break, agent error):
+
+1. **Diagnose** the root cause — don't blindly retry.
+2. **Fix and retry once.** If it fails again, try an alternative approach.
+3. **Escalate** to Debugger (for technical) or Overseer (for workflow/coordination) if still blocked.
+4. **Never silently skip a failed step** — it will cascade downstream.
+
 ---
 
 ## Conversational Protocols
@@ -81,7 +90,7 @@ When the user signals something is done (verbally, checkbox, or evidence):
 
 1. Update the checkbox in `active/now.md` and `active/priorities.md`
 2. If milestone: move to "What's Done" in `active/now.md`
-3. If significant (see Importance Classification, system-rules.md rule 20): update `MEMORY.md`
+3. If significant — impacts architecture, revenue, or product direction (see system-rules.md rule 20): update `MEMORY.md`
 4. Offer to commit the state change — don't commit silently
 
 ### External Event Protocol
@@ -146,13 +155,14 @@ When you complete a coding task (new feature, bug fix, refactor, or any change t
 
 On the first non-trivial request of any session:
 
-1. **Check for existing teams** — if teams from a previous session exist, reuse them.
-2. **Create standing teams if needed** — refer to `core/templates/team-roster.md`. Only create teams relevant to the current task type.
-3. **Do not create all teams preemptively** — only bootstrap what the session needs.
+1. **Create standing teams as needed** — refer to `core/templates/team-roster.md`. Only create teams relevant to the current task type.
+2. **Do not create all teams preemptively** — only bootstrap what the session needs.
 
 ---
 
 ## Agent Workflows
+
+Workflow summaries are below. Full definitions with triggers, severity classification, and detailed steps are in `.claude/agents/shared/workflows.md`.
 
 ### Planning
 Planner → **Codex+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
@@ -160,7 +170,9 @@ Planner → **Codex+Parallax Checkpoint** → Router → Governor → Sentinel (
 ### Technical
 Architect → **Codex+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
-For small changes (< 3 files, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Codex Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
+For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Codex Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
+
+For all technical work, follow `core/standards/coding-standards.md`. Reviewer uses `core/standards/review-checklist.md` as the gate checklist.
 
 ### Business
 Strategist → **Codex+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
@@ -245,7 +257,7 @@ When spawning agents, follow these rules strictly:
 
 4. **The only exception for standalone Agent tool:** Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). Even then, prefer teams when multiple agents need to coordinate.
 
-4. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). The category subdirectories have symlinks at the top level — do not remove them.
+5. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). The category subdirectories have symlinks at the top level — do not remove them.
 
 ---
 
