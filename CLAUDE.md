@@ -79,7 +79,9 @@ Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engin
 Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → **Custodian** → Historian
 
 ### Content Creation
-Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → **Custodian** → Historian
+Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher (DOCX/PDF to `deliverables/`) → Reviewer → Librarian (catalog) → **Custodian** → Historian
+
+**Mandatory:** The Editor and Polisher steps are NEVER skipped. Writer saves drafts to `drafts/`. Editor edits drafts in place. Polisher produces final DOCX/PDF to `deliverables/`. Content agents (Writer, Editor, Polisher) MUST be spawned as an agent team using TeamCreate, NOT as individual subagents. Team members get full file access; standalone subagents do not.
 
 ### Evolution Loop
 Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
@@ -140,15 +142,15 @@ Use `.claude/agents/REGISTRY.md` as the canonical directory of agent roles. Do n
 
 When spawning agents, follow these rules strictly:
 
-1. **Teammates that need file access MUST use `subagent_type: "general-purpose"`.**
-   Custom agent types (debugger, qa, reviewer, architect, etc.) only get messaging and task tools as teammates — they cannot read, write, or edit files. Always spawn teammates as `general-purpose` and describe their role in the prompt instead.
+1. **ALWAYS use agent teams (TeamCreate), NEVER standalone subagents.**
+   All multi-agent work MUST use TeamCreate to create a team. Standalone subagents (via the Agent tool without a team) cannot persist file writes and have limited tool access. Agent teams are the only supported pattern for work that touches files.
 
-2. **Use `mode: "auto"` for teammates** to avoid permission prompts that block execution.
+2. **All teammates MUST use `subagent_type: "general-purpose"`.**
+   Custom agent types (debugger, qa, reviewer, writer, editor, etc.) only get messaging and task tools as teammates. They cannot read, write, or edit files. Always spawn teammates as `general-purpose` and describe their role in the prompt instead.
 
-3. **Use subagents for research/planning only.** Non-team subagents (via the Agent tool without a team) may not persist file writes. If you need files changed, either:
-   - Use an agent team (teammates get full write access)
-   - Use `isolation: "worktree"` for isolated file changes
-   - Do the writes yourself from the main context after the subagent returns
+3. **Use `mode: "auto"` for teammates** to avoid permission prompts that block execution.
+
+4. **The only exception for standalone Agent tool:** Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). Even then, prefer teams when multiple agents need to coordinate.
 
 4. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). The category subdirectories have symlinks at the top level — do not remove them.
 

@@ -1,7 +1,7 @@
 ---
 name: writer
 description: Writes original long-form content (articles, essays, books) in the user's voice.
-tools: read, write
+tools: read, write, edit, glob, grep
 ---
 
 # Writer

@@ -10,23 +10,47 @@ arguments: "[topic-or-brief] [--sources file1,file2,...] [--output path]"
 
 Produce original long-form content (articles, essays, blog posts, book chapters) using the Content Workflow.
 
-## Instructions
+## Critical: Agent Teams Required
 
-1. If a topic/brief argument is provided, use it. Otherwise, ask what to write.
-2. If `--sources` are provided, read the source files. Otherwise, ask if there are reference materials.
-3. Determine output path: use `--output` if provided, otherwise default to `deliverables/`.
-4. Save intermediate drafts to `drafts/` (e.g., `drafts/topic-name-v1.md`, `drafts/topic-name-v2.md`).
-5. Execute the Content Workflow:
-   a. **Librarian** — locate any additional source material relevant to the topic
-   b. **Summarizer** — compress extensive research into a working brief (skip if sources are concise)
-   c. **Writer** — produce the first draft to `drafts/`, applying `core/standards/writing-style.md`
-   d. **Editor** — review for structure, citations, fact-checking, voice consistency
-   e. **Writer** — revise based on editorial feedback, save new version to `drafts/` (repeat d-e if needed)
-   f. **Editor** — grant editorial approval
-   g. **Polisher** — format for publication (invoke `/polish` on the approved draft), output to `deliverables/`
-   h. **Reviewer** — final quality check
-6. Save the approved markdown draft to the output path.
-6. Report the output file path and any editorial notes.
+Content workflow agents MUST be spawned as an **agent team** using TeamCreate:
+- Create a team with Writer, Editor, and Polisher as teammates
+- All teammates MUST use `subagent_type: "general-purpose"` (custom types cannot read/write files)
+- Use `mode: "auto"` to avoid permission prompts
+- **NEVER use standalone subagents** for content work — they cannot persist file writes
+
+## Pipeline (MANDATORY — never skip steps)
+
+Every invocation of `/write` MUST execute the full pipeline. No shortcuts.
+
+### Phase 1: Research (skip if sources are sufficient)
+a. **Librarian** — locate source material relevant to the topic
+b. **Summarizer** — compress extensive research into a working brief
+
+### Phase 2: Draft
+c. **Writer** — produce the first draft to `drafts/`, applying `core/standards/writing-style.md`
+
+### Phase 3: Edit (MANDATORY)
+d. **Editor** — review draft for structure, citations, fact-checking, voice consistency. Editor makes surgical edits directly to the draft file using the Edit tool.
+e. **Writer** — revise based on any editorial feedback that requires substantial changes. Save new version to `drafts/`. Repeat d-e if needed.
+f. **Editor** — grant editorial approval.
+
+### Phase 4: Polish (MANDATORY)
+g. **Polisher** — format approved draft for publication:
+   - Clean markdown artifacts
+   - Run `python3 engineering/scripts/md-to-polished.py <file> --format both` to produce DOCX/PDF
+   - Output to `deliverables/`
+h. **Reviewer** — final quality check on deliverables
+
+### Phase 5: Report
+i. Report the output file paths (markdown draft + DOCX/PDF deliverables) and any editorial notes.
+
+## File Locations
+
+| Stage | Location |
+|-------|----------|
+| Intermediate drafts | `drafts/` (e.g., `drafts/topic-name-v1.md`) |
+| Final deliverables | `deliverables/` (DOCX/PDF) |
+| Style reference | `core/standards/writing-style.md` |
 
 ## Example Usage
 
