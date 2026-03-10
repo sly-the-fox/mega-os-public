@@ -7,6 +7,8 @@ user_invocable: true
 
 # Daily Intelligence Briefing
 
+> **Note:** This skill uses its own specialized search structure (topic-specific queries with dedup state). It does NOT use the `/deep-research` MECE pattern. For follow-up deep dives on HIGH-significance stories, pipe them to `/deep-research`.
+
 Generate a comprehensive daily briefing across tracked topic areas with narrative analysis and brand monitoring.
 
 ## Arguments

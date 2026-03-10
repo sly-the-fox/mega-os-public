@@ -22,9 +22,11 @@ Content workflow agents MUST be spawned as an **agent team** using TeamCreate:
 
 Every invocation of `/write` MUST execute the full pipeline. No shortcuts.
 
-### Phase 1: Research (skip if sources are sufficient)
-a. **Librarian** — locate source material relevant to the topic
-b. **Summarizer** — compress extensive research into a working brief
+### Phase 1: Research
+a. **If the topic requires web research** — invoke `/deep-research <topic>` (MECE pattern). This creates an agent team that does parallel deep-dive research. Output at `drafts/research/` becomes source material.
+b. **If sources are already provided** (`--sources`) — skip to Phase 2.
+c. **Librarian** — locate any additional local source material
+d. **Summarizer** — compress research into a working brief (if extensive)
 
 ### Phase 2: Draft
 c. **Writer** — produce the first draft to `drafts/`, applying `core/standards/writing-style.md`

@@ -4,6 +4,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Planning Workflow
 1. **Planner** — breaks down request into tasks, milestones, dependencies
+1a. **MECE Research** — if the plan requires external research (feasibility, prior art, ecosystem), invoke `/deep-research <query>` before routing. Output at `drafts/research/` feeds into planning.
 1b. **Codex+Parallax Checkpoint** — Codex reviews the Planner output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
 2. **Router** — assigns tasks to appropriate specialist agents
 3. **Governor** — validates scope and constraints
@@ -49,6 +50,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Business Workflow
 1. **Strategist** — defines business objective and approach
+1a. **MECE Research** — if the business objective requires market/competitive/trend research, invoke `/deep-research <query>` before proceeding. Output at `drafts/research/` feeds into strategy.
 1b. **Codex+Parallax Checkpoint** — Codex reviews the Strategist output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
 2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience). Strategist confirms design completion before proceeding.
 3. **Marketer / Seller / Financier** — execute in their domains
@@ -84,6 +86,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 
 ## Knowledge Workflow
 1. **Librarian** — locates and organizes relevant information
+1a. **MECE Research** — if information gathering requires web sources, invoke `/deep-research <query>`. Output at `drafts/research/` feeds into Summarizer.
 2. **Summarizer** — distills into concise summaries
 3. **Documenter** — produces formal documentation
 4. **Polisher** — refines for publication (if external-facing)
@@ -94,6 +97,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 
 ## Content Workflow
 1. **Librarian** — locates source material and research
+1a. **MECE Research** — if the topic requires web research, invoke `/deep-research <topic>` to produce a comprehensive research brief at `drafts/research/`. Output becomes source material for Writer.
 2. **Summarizer** — compresses research into working briefs (if extensive)
 3. **Writer** — produces draft from brief + source material, applying `core/standards/writing-style.md`
 4. **Editor** — reviews structure, citations, fact-checking, voice consistency
