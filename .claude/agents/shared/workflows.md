@@ -16,8 +16,9 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 10. **Reviewer** — checks correctness, standards, completeness
 11. **Documenter** — writes or updates documentation
 12. **Librarian** — catalogs new knowledge artifacts and updates indexes
-13. **Historian** — records decisions, outcomes, lessons
-14. **Evaluator** — measures project outcomes against goals (at project completion)
+13. **Custodian** — verifies all agent checklists completed and cross-references are consistent
+14. **Historian** — records decisions, outcomes, lessons
+15. **Evaluator** — measures project outcomes against goals (at project completion)
 
 ## Technical Workflow
 1. **Architect** — plan approach
@@ -36,7 +37,8 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 13. **DevOps** — deploy (if needed)
 14. **Documenter** — update docs
 15. **Librarian** — catalogs technical artifacts and updates indexes
-16. **Historian** — records decisions
+16. **Custodian** — verifies all agent checklists completed and cross-references are consistent
+17. **Historian** — records decisions
 
 **Security interleaving rules:**
 - Security-Expert is invoked **after planning** (threat model) and **after each major code pass** (code review)
@@ -54,8 +56,9 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 5. **Auditor** — post-execution audit: reviews deliverables against business objectives
 6. **Reviewer** — validates alignment with strategy
 7. **Operator** — creates or updates processes (if new operational processes result)
-8. **Historian** — records decision and rationale
-9. **Evaluator** — measures business outcomes against targets (at milestone completion)
+8. **Custodian** — verifies all agent checklists completed and cross-references are consistent
+9. **Historian** — records decision and rationale
+10. **Evaluator** — measures business outcomes against targets (at milestone completion)
 
 ## Incident Workflow
 
@@ -76,7 +79,8 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 7. **Operator** — updates processes (if incident reveals process gaps). **SOP ownership:** Operator creates the SOP and owns the file. Documenter writes/polishes content. Operator retains final authority over process accuracy.
 8. **Documenter** — records incident details for knowledge base
 9. **Librarian** — catalogs incident knowledge and updates indexes
-10. **Historian** — records incident, root cause, resolution
+10. **Custodian** — verifies all agent checklists completed and cross-references are consistent
+11. **Historian** — records incident, root cause, resolution
 
 ## Knowledge Workflow
 1. **Librarian** — locates and organizes relevant information
@@ -85,7 +89,8 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 4. **Polisher** — refines for publication (if external-facing)
 5. **Reviewer** — quality check on final output
 6. **Librarian** — catalogs final output and updates indexes
-7. **Historian** — archives knowledge artifact and context
+7. **Custodian** — verifies all agent checklists completed and cross-references are consistent
+8. **Historian** — archives knowledge artifact and context
 
 ## Content Workflow
 1. **Librarian** — locates source material and research
@@ -97,7 +102,8 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 7. **Polisher** — formats approved content for publication (DOCX/PDF)
 8. **Reviewer** — final quality check
 9. **Librarian** — catalogs published artifact and updates indexes
-10. **Historian** — records content creation event
+10. **Custodian** — verifies all agent checklists completed and cross-references are consistent
+11. **Historian** — records content creation event
 
 ---
 
@@ -191,6 +197,15 @@ When improvements are proposed or implemented:
 1. `active/improvements.md` — add or update proposal with evidence and status (primary queue)
 2. `core/history/improvements.md` — archive completed improvements with outcomes
 **An improvement is not tracked until it appears in `active/improvements.md`.**
+
+### Custodian Checklist
+When a workflow completes:
+1. `active/freshness-log.md` — log findings (what was checked, what was stale, what was remediated)
+2. Verify all triggered agent checklists completed (Historian, Librarian, PM, etc.)
+3. Verify cross-references are consistent (decisions ↔ timeline, now.md ↔ priorities.md)
+4. Auto-remediate minor issues (move resolved blockers, update status fields)
+5. Escalate critical staleness to PM and Sentinel
+**A workflow is not clean until Custodian verifies all checklists completed.**
 
 ### Auditor Checklist
 When a pre-execution or post-execution audit is performed:

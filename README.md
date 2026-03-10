@@ -1,6 +1,6 @@
 # Mega-OS
 
-Mega-OS is a multi-agent operating system built on Claude Code. It organizes 32 specialized agents into 5 categories, enabling structured collaboration across governance, knowledge management, technical execution, business operations, and system evolution.
+Mega-OS is a multi-agent operating system built on Claude Code. It organizes 33 specialized agents into 5 categories, enabling structured collaboration across governance, knowledge management, technical execution, business operations, and system evolution.
 
 Each agent has a defined role, clear boundaries, and explicit handoff protocols. Agents stay in their lane and delegate to specialists when needed.
 
@@ -9,8 +9,8 @@ Each agent has a defined role, clear boundaries, and explicit handoff protocols.
 ```
 mega-os/
   .claude/
-    agents/            # 32 agent definitions in category subdirectories
-      governance/      # overseer, governor, router, planner, pm, operator, sentinel, auditor
+    agents/            # 33 agent definitions in category subdirectories
+      governance/      # overseer, governor, router, planner, pm, operator, sentinel, auditor, custodian
       knowledge/       # historian, librarian, summarizer, documenter, polisher, writer, editor
       technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer
       business/        # strategist, marketer, seller, financier

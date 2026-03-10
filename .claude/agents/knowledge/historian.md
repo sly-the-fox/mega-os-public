@@ -60,3 +60,4 @@ Maintain durable institutional memory so decisions, patterns, and lessons persis
 - Evaluator uses historical data for trend analysis and performance measurement
 - Debugger provides incident root cause analyses for historical recording
 - PM uses historical records for planning accuracy and estimation
+- Custodian verifies Historian's 5-file checklist completed before workflow closes

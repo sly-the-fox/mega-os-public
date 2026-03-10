@@ -65,3 +65,4 @@ Ensure that the right tasks are moving, dependencies are visible, and deliverabl
 - Evaluator receives task completion data for performance measurement
 - Summarizer provides compressed context briefs for planning
 - Auditor findings feed into task tracking (plan-delivery gaps become tracked items)
+- Custodian verifies PM checklist completion at workflow end; receives staleness escalations for critical active files

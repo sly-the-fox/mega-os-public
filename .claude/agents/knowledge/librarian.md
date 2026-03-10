@@ -54,3 +54,4 @@ Make the right information easy to find and use.
 - Historian adds timeline and rationale
 - Triggered at end of Planning, Technical, Incident, Knowledge, and Content workflows for cataloging
 - Documenter and Polisher hand off completed artifacts for indexing
+- Custodian verifies Librarian's 3 index files are current at workflow end

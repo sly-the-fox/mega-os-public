@@ -72,3 +72,4 @@ Evaluator activates when (see workflows.md Evolution Loop):
 - Auditor provides audit trend data for system assessment
 - Codex — evaluate whether its perspective bends the decision space. Track pre/post checkpoint changes, flag if output is generic, flag 30+ day inactivity. Review `active/codex-metrics.md` weekly, recommend system-wide integration if acceptance rate warrants it, recommend removal if consistently ignored.
 - Parallax — measures translation quality. Did downstream agents (Planner, Improver) act on the translated insight? Flag if Parallax output loses directionality or flattens Codex nuance. Parallax anti-signal flags feed into codex-metrics assessment.
+- Custodian provides freshness metrics (staleness incidents, checklist completion rate, mean time to freshness) for system performance assessment
