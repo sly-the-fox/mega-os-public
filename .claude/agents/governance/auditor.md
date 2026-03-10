@@ -84,3 +84,4 @@ Every audit explicitly checks all four layers of Mega-OS:
 - Operator addresses process gaps surfaced by audit findings
 - Debugger initiates Incident Workflow; provides root cause findings for post-execution audit
 - Evaluator uses audit trend data for system performance assessment
+- Custodian complements Auditor: Auditor checks plan-vs-delivery completeness, Custodian checks document-vs-reality freshness

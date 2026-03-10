@@ -59,3 +59,4 @@ Maintain continuity, routine execution, and operational hygiene across business 
 - Sentinel monitors operational risk
 - Auditor findings may surface process gaps for Operator to address
 - Evaluator assesses process effectiveness
+- Custodian flags recurring staleness patterns that may indicate process gaps needing SOP updates

@@ -12,8 +12,8 @@ Protected files that should not be deleted or structurally modified without revi
 - `.claude/agents/REGISTRY.md` — canonical agent directory
 - `.claude/agents/README.md` — agent system overview
 
-### Governance (8)
-governance/overseer.md, governance/governor.md, governance/router.md, governance/planner.md, governance/pm.md, governance/operator.md, governance/sentinel.md, governance/auditor.md
+### Governance (9)
+governance/overseer.md, governance/governor.md, governance/router.md, governance/planner.md, governance/pm.md, governance/operator.md, governance/sentinel.md, governance/auditor.md, governance/custodian.md
 
 ### Knowledge (7)
 knowledge/historian.md, knowledge/librarian.md, knowledge/summarizer.md, knowledge/documenter.md, knowledge/polisher.md, knowledge/writer.md, knowledge/editor.md
@@ -60,6 +60,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/daily-digest.md`
 - `active/news-briefing.md`
 - `active/codex-metrics.md`
+- `active/freshness-log.md`
 
 ## History (additional)
 - `core/history/evaluations.md`
@@ -77,6 +78,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `products/sigil/SPEC.md`
 - `products/sigil/BUILD-PLAN.md`
 - `products/capacitor/` — Next.js application
+- `products/freshstate/` — Document freshness tracker CLI + MCP server
 
 ## Configuration
 - `.claude/settings.json`
