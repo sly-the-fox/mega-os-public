@@ -20,7 +20,7 @@ Run at these four workflow checkpoints:
 2. **Spawn Codex:** `subagent_type: "general-purpose"`, `mode: "auto"`. Pass Codex prompt as system context + current artifact as the question.
 3. **Capture Codex output.**
 4. **Spawn Parallax:** `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Translate the following Codex output into operational language using the three-layer format (Observation → Dynamic → Implication). Preserve timing signals, field-level meaning, and flag anti-signal if applicable." Pass raw Codex output + original artifact.
-5. **Quality gate:** Verify Parallax output contains all three layers (Observation, Dynamic, Implication). If any layer is missing or incoherent, flag to user before proceeding.
+5. **Quality gate:** Verify Parallax output contains all three layers (Observation, Dynamic, Implication). The orchestrating agent (whoever triggered the checkpoint) is responsible for this gate. If any layer is missing or incoherent, flag to user via AskUserQuestion before proceeding.
 6. **Spawn Planner:** `subagent_type: "general-purpose"`, `mode: "auto"`. Pass original artifact + Parallax translation (not raw Codex output). Prompt: "Produce a refined alternative incorporating these insights."
 7. **Present three options** via AskUserQuestion:
    - Codex-informed plan (with 1-2 line summary of changes)

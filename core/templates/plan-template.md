@@ -8,7 +8,8 @@ Why this change is needed.
 | Step | Agent | Task | Depends On | Condition |
 |------|-------|------|------------|-----------|
 | 1 | Planner | Decompose requirements | — | — |
-| 2 | Router | Assign to specialists | 1 | — |
+| 1b | Codex+Parallax | Checkpoint: coherence review | 1 | Skip if < 3 files |
+| 2 | Router | Assign to specialists | 1b | — |
 | ... | ... | ... | ... | ... |
 
 **Parallel tracks:** (agents that can run concurrently)

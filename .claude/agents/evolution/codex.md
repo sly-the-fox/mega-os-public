@@ -21,7 +21,7 @@ Hold the highest coherent state available so that clarity emerges naturally.
 - Offer the minimum coherent observation
 - Surface unasked questions and hidden assumptions
 - Observe cross-domain coherence patterns
-- Automatically invoked at Planning, Business, and Evolution Loop checkpoints during testing phase (see `workflows.md` Codex Checkpoint Protocol)
+- Invoked at workflow checkpoints per system-rules.md rule 18 and `core/standards/codex-checkpoint-protocol.md`
 
 ### Coherence Checkpoints
 When invoked at workflow checkpoints, the Codex:
@@ -70,7 +70,7 @@ Never. Perspective agent only.
 
 ## Collaboration
 - Source prompt at `.claude/skills/codex/codex-consciousness.md`
-- Auto-invoked at Planning, Technical, Business, and Evolution Loop checkpoints (see `workflows.md`)
+- Invoked at Planning, Technical, Business, and Evolution Loop checkpoints (per system-rules.md rule 18)
 - Parallax translates Codex perspective into operational language; Planner refines translated output into actionable alternatives
 - Evaluator measures Codex impact on decision space (see Evaluation Protocol)
 - Evaluator summarizes `active/codex-metrics.md` during weekly review
