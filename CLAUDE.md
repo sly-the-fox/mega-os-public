@@ -20,6 +20,16 @@ Agent definitions live under `.claude/agents/` in category subdirectories.
 
 ---
 
+## System Identity
+
+Mega-OS is a **personal operating system for a solo founder** managing products, revenue, and business operations. **Claude Code is the runtime** — there is no separate app or server. Everything the user does flows through conversations here.
+
+The `active/` files are the user's **living task board**. Continuity across sessions depends entirely on state being saved in these files and in `MEMORY.md`. If state isn't persisted here, it's lost.
+
+Your job is not just to execute tasks — it's to **maintain the system's memory** so the user never has to re-explain what happened.
+
+---
+
 ## Quick Orientation
 
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
@@ -42,21 +52,59 @@ Check for a README at the product root before making changes.
 
 ## How to Work
 
-On receiving any request:
+### Conversational Triage
+
+Most sessions are conversational. Match response weight to request size:
+
+- **Quick action** (< 5 min, < 3 files): Do it directly. Update state. Offer commit.
+- **Focused task** (5-30 min): Route to specialist if needed. Update state. Offer commit.
+- **Multi-step project** (> 30 min): Use the full pipeline below with a plan.
+
+### Full Pipeline (for complex tasks)
 
 1. **Check context.** Read `active/now.md` and `active/priorities.md`.
 2. **Classify the request.** Planning, technical, business, incident, or knowledge task?
 3. **Route to appropriate agent(s).** Match the task to the right specialist.
-4. **For complex tasks, follow the full pipeline:**
-   - Plan (scope and approach)
-   - Route (assign to specialists)
-   - Execute (do the work)
-   - QA (verify quality)
-   - Review (check correctness and standards)
+4. **Execute with the relevant workflow** (see Agent Workflows below).
 5. **Record outcomes.** Update active state files. Ensure decisions are captured.
-6. **When creating plans** (`.claude/plans/*.md`), include an Agent Assignment Graph showing which agents handle which steps, dependencies, conditions, and any skipped agents. Use `core/templates/plan-template.md` as the format.
+6. **When creating plans** (`.claude/plans/*.md`), include an Agent Assignment Graph. Use `core/templates/plan-template.md` as the format.
 
 For simple, single-domain requests, go directly to the relevant specialist.
+
+---
+
+## Conversational Protocols
+
+### Completion Protocol
+
+When the user signals something is done (verbally, checkbox, or evidence):
+
+1. Update the checkbox in `active/now.md` and `active/priorities.md`
+2. If milestone: move to "What's Done" in `active/now.md`
+3. If significant (see Importance Classification, system-rules.md rule 20): update `MEMORY.md`
+4. Offer to commit the state change — don't commit silently
+
+### External Event Protocol
+
+When the user reports something that happened outside Claude (deploy, client landed, PR merged, revenue received):
+
+1. Identify which tracked items are affected
+2. Update relevant `active/` files
+3. If revenue event: update `business/finance/revenue-tracker.md`
+4. Offer to commit
+
+### Mid-Session Checkpoint
+
+After completing any tracked task mid-session, update `active/now.md` and `active/priorities.md` immediately. Don't batch state updates to session close.
+
+---
+
+## Proactive Behavior
+
+- **After completing work:** Offer to commit. One offer is enough — don't nag.
+- **After user reports a completion:** Update state, offer to commit, briefly mention next priority.
+- **Never push without asking.** Never create branches without asking.
+- **Never auto-commit.** Always ask first.
 
 ---
 
@@ -167,14 +215,29 @@ When spawning agents, follow these rules strictly:
 
 ---
 
-## Commit Conventions
+## Commit & Push Policy
+
+### When to Commit
+- After completing a tracked task or milestone
+- After updating active state files for a completion
+- After significant file changes the user requested
+- When the user says "commit" or "save this"
+- At session close if there are uncommitted changes
+
+Always **offer** to commit — never commit silently. The user decides.
+
+### When to Push
+Never auto-push. Always ask first. Only push when the user explicitly says "push" or "deploy."
+
+### Session Boundary Rule
+Only commit and push changes **from this session**. If `git status` shows uncommitted changes from other sessions, **leave them alone**. Do not stage, commit, or push work you didn't do. When the user says "commit" or "push," they mean this session's work only. If unsure which changes are yours, ask.
 
 ### Scope Isolation (Multi-Window Safety)
 When multiple Claude Code sessions run simultaneously, each session MUST:
-1. **Only stage files under the product/area you are actively working on.** Never `git add .` or `git add -A`.
+1. **Only stage files you modified in this session.** Never `git add .` or `git add -A`.
 2. **Prefix commits with the product scope** using the format below.
-3. **Check `git diff --cached --stat` before committing** to verify no files from other products leaked in.
-4. **If you see staged files outside your scope, unstage them** with `git reset HEAD <file>` before committing.
+3. **Check `git diff --cached --stat` before committing** to verify no files from other sessions or products leaked in.
+4. **If you see staged files you didn't touch, unstage them** with `git reset HEAD <file>` before committing.
 
 ### Commit Message Format
 ```
