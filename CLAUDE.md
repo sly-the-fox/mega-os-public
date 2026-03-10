@@ -54,8 +54,19 @@ On receiving any request:
    - QA (verify quality)
    - Review (check correctness and standards)
 5. **Record outcomes.** Update active state files. Ensure decisions are captured.
+6. **When creating plans** (`.claude/plans/*.md`), include an Agent Assignment Graph showing which agents handle which steps, dependencies, conditions, and any skipped agents. Use `core/templates/plan-template.md` as the format.
 
 For simple, single-domain requests, go directly to the relevant specialist.
+
+---
+
+## Session Bootstrap
+
+On the first non-trivial request of any session:
+
+1. **Check for existing teams** — if teams from a previous session exist, reuse them.
+2. **Create standing teams if needed** — refer to `core/templates/team-roster.md`. Only create teams relevant to the current task type.
+3. **Do not create all teams preemptively** — only bootstrap what the session needs.
 
 ---
 
@@ -190,6 +201,18 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 - `innerscape: Phase 2 production readiness (7 fixes)`
 - `sigil: remove dead identity/credential code`
 - `system: add commit conventions for multi-window safety`
+
+---
+
+## Session Close Protocol
+
+Before ending any session where work was done:
+
+1. **Quick triage:** Did this session produce any decisions, file changes, priority shifts, or milestone completions?
+2. **If yes:** Run the Historian Checklist (system-rules.md rule 7) — update all 5 files.
+3. **Add a session entry** to `core/history/master-timeline.md`:
+   `- **YYYY-MM-DD [session]** — Brief summary of what was accomplished and what's next.`
+4. **If no significant work:** Acknowledge the Stop hook reminder and skip.
 
 ---
 

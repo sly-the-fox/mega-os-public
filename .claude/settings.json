@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cat active/now.md active/priorities.md active/blockers.md active/risks.md active/improvements.md 2>/dev/null || true"
+            "command": "cat active/now.md active/priorities.md active/blockers.md active/risks.md active/improvements.md core/templates/team-roster.md 2>/dev/null || true"
           }
         ]
       }
@@ -40,7 +40,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'Reminder: If significant work was done, update active/now.md and active/priorities.md'"
+            "command": "echo 'SESSION CLOSE: Run the Historian Checklist (5 files) if any decisions, file changes, priority shifts, or milestones occurred. See CLAUDE.md Session Close Protocol.'"
           }
         ]
       }

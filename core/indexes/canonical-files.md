@@ -45,6 +45,8 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `core/templates/spec-template.md`
 - `core/templates/sop-template.md`
 - `core/templates/handoff-template.md`
+- `core/templates/team-roster.md`
+- `core/templates/plan-template.md`
 - `core/history/current-state.md`
 - `core/history/decisions.md`
 - `core/history/master-timeline.md`
