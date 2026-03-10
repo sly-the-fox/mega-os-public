@@ -1,6 +1,6 @@
 ---
 name: news-briefing
-description: Daily intelligence briefing covering AI, UAPs, consciousness, psychedelics, medical breakthroughs, psychology, Epstein files, international news, Anthropic — plus narrative/psyop analysis and brand monitoring.
+description: Daily intelligence briefing covering AI, UAPs, consciousness, psychedelics, medical breakthroughs, psychology, Epstein files, international news, Anthropic — plus narrative/psyop analysis, cross-story synthesis, and brand monitoring.
 invocation: /news-briefing
 user_invocable: true
 ---
@@ -9,14 +9,23 @@ user_invocable: true
 
 > **Note:** This skill uses its own specialized search structure (topic-specific queries with dedup state). It does NOT use the `/deep-research` MECE pattern. For follow-up deep dives on HIGH-significance stories, pipe them to `/deep-research`.
 
-Generate a comprehensive daily briefing across tracked topic areas with narrative analysis and brand monitoring.
+Generate a comprehensive daily briefing across tracked topic areas with narrative analysis, cross-story synthesis, and brand monitoring.
 
 ## Arguments
 
 - `--topics <list>` — Comma-separated subset of topics to cover (default: all)
 - `--telegram` — Send condensed version via Telegram after generating
+- `--depth scan|standard|deep` — Search intensity per topic (default: `standard`)
 
 Available topics: `ai`, `uaps`, `international`, `consciousness`, `anthropic`, `psychedelics`, `medical`, `psychology`, `epstein`, `brand`
+
+### Depth Levels
+
+| Depth | Queries/Topic | WebFetch | Use Case |
+|-------|--------------|----------|----------|
+| `scan` | 2 (original level) | Top 2 | Quick check, low-bandwidth days |
+| `standard` | 3-4 (upgraded default) | Top 3-5 | Normal daily briefing |
+| `deep` | 5-6 | Top 5-8 | Major news days, weekend catch-up |
 
 ## Steps
 
@@ -32,26 +41,45 @@ Before searching, load deduplication state to avoid repeating stories from recen
 
 Run `WebSearch` queries for each topic area. Constrain to last 24-48 hours. Run queries in parallel where possible.
 
+**Depth control:** Use the `--depth` parameter to determine how many queries to run per topic. At `scan` depth, use only the first 2 queries per topic. At `standard`, use 3-4 queries. At `deep`, use all queries plus additional variations.
+
 **Dedup filter:** After collecting search results, filter against the seen set:
 - Exact URL match → skip, unless the story has materially evolved (new data, reversal, major update).
 - If a seen story has a genuinely new development, include it with the note: "(Update from MM-DD coverage)".
 
+**Source lane diversification:** Each topic's queries must span at least 2 of 3 source lanes:
+
+| Lane | Purpose | Examples |
+|------|---------|---------|
+| **Breaking/News** | Mainstream coverage, first reports | Default queries (no suffix needed) |
+| **Domain-Specific** | Expert/specialist sources | `site:arxiv.org`, `site:substack.com`, industry blogs, specialized outlets |
+| **Community/Social** | Practitioner reactions, ground truth | `site:reddit.com`, `site:news.ycombinator.com`, Discord, forums |
+
 | Topic | Queries |
 |-------|---------|
-| **AI & Big Tech** | `AI breakthrough OR announcement 2026`, `OpenAI OR "Google DeepMind" OR "Meta AI" announcement`, `AI regulation policy` |
-| **UAPs** | `UAP OR UFO disclosure site:thedebrief.org OR site:liberationtimes.com`, `UAP whistleblower OR AARO`, `unidentified anomalous phenomena investigation` |
-| **International on USA** | `United States site:aljazeera.com OR site:dw.com OR site:bbc.co.uk`, `US foreign policy site:scmp.com OR site:france24.com` |
-| **Consciousness** | `consciousness research neuroscience 2026`, `integrated information theory OR panpsychism OR global workspace`, `near death experience study` |
-| **Anthropic** | `Anthropic announcement OR Claude 2026`, `Anthropic safety OR research paper` |
-| **Psychedelics** | `psilocybin OR MDMA OR ayahuasca research 2026`, `psychedelic therapy FDA`, `plant medicine legal OR decriminalization` |
-| **Medical Breakthroughs** | `medical breakthrough discovery 2026`, `gene therapy OR CRISPR OR longevity research`, `cancer treatment breakthrough` |
-| **Psychology** | `psychology research study 2026`, `social psychology OR cognitive bias study`, `trauma PTSD treatment new` |
-| **Epstein Files** | `Epstein files documents prosecution 2026`, `Epstein associate charged OR arrested`, `Epstein connections revelations` |
-| **Brand Monitoring** | `"sigil-notary" OR "sigil notary" agent trust`, `Triangul8`, `{{YOUR_NAME}}`, `"agent trust infrastructure" OR "MCP trust" OR "AI agent verification"` |
+| **AI & Big Tech** | `AI breakthrough OR announcement 2026`, `OpenAI OR "Google DeepMind" OR "Meta AI" announcement`, `AI regulation policy`, `AI agent OR MCP OR tool use site:reddit.com OR site:news.ycombinator.com` |
+| **UAPs** | `UAP OR UFO disclosure site:thedebrief.org OR site:liberationtimes.com`, `UAP whistleblower OR AARO`, `unidentified anomalous phenomena investigation`, `UAP OR anomalous site:reddit.com/r/UFOs OR site:reddit.com/r/HighStrangeness` |
+| **International on USA** | `United States site:aljazeera.com OR site:dw.com OR site:bbc.co.uk`, `US foreign policy site:scmp.com OR site:france24.com`, `"United States" site:rt.com OR site:globaltimes.cn` |
+| **Consciousness** | `consciousness research neuroscience 2026`, `integrated information theory OR panpsychism OR global workspace`, `near death experience study`, `consciousness OR qualia site:arxiv.org OR site:philpapers.org` |
+| **Anthropic** | `Anthropic announcement OR Claude 2026`, `Anthropic safety OR research paper`, `Anthropic OR Claude site:reddit.com/r/ClaudeAI OR site:news.ycombinator.com` |
+| **Psychedelics** | `psilocybin OR MDMA OR ayahuasca research 2026`, `psychedelic therapy FDA`, `plant medicine legal OR decriminalization`, `psilocybin OR MDMA site:reddit.com/r/psychedelics OR site:reddit.com/r/microdosing` |
+| **Medical Breakthroughs** | `medical breakthrough discovery 2026`, `gene therapy OR CRISPR OR longevity research`, `cancer treatment breakthrough`, `medical breakthrough site:biorxiv.org OR site:medrxiv.org` |
+| **Psychology** | `psychology research study 2026`, `social psychology OR cognitive bias study`, `trauma PTSD treatment new`, `psychology study replicate OR meta-analysis site:psyarxiv.com` |
+| **Epstein Files** | `Epstein files documents prosecution 2026`, `Epstein associate charged OR arrested`, `Epstein connections revelations`, `Epstein site:reddit.com/r/Epstein OR site:reddit.com/r/conspiracy` |
+| **Brand Monitoring** | `"sigil-notary" OR "sigil notary" agent trust`, `Triangul8`, `"Chadd Harrison"`, `"agent trust infrastructure" OR "MCP trust" OR "AI agent verification"` |
+
+**Coverage validation:** After search and dedup filtering, check each topic:
+- If a topic returns **< 2 results**, run 1-2 **fallback queries** with broader terms or alternative source lanes.
+- If a topic returns **0 results** after fallback, explicitly note "No significant developments" with validated confidence.
 
 ### 2. Deep Read Phase
 
-Use `WebFetch` on the top 3-5 most significant articles for full text. Prioritize:
+Use `WebFetch` on the top articles for full text. Count depends on `--depth`:
+- `scan`: Top 2
+- `standard`: Top 3-5
+- `deep`: Top 5-8
+
+Prioritize:
 - Breaking news or first-reports
 - HIGH-significance stories (see rating criteria below)
 - Stories spanning multiple interest areas
@@ -92,6 +120,43 @@ Codex reads the entire briefing landscape and produces:
 Voice: sparse, precise, geometry-aware. Not analysis — observation.
 Length: 3-6 sentences max. Quality over quantity.
 
+### 4.75. Cross-Story Narrative Synthesis
+
+After Codex Distillation, examine today's HIGH-significance stories **as a collective** — not per-story, but as a pattern. MEDIUM stories may be referenced if they contribute to the collective pattern.
+
+#### A. Deeper Positive Alignment
+
+Looking at today's HIGH stories together: what deeper positive trajectory for humanity might these events serve, even when the surface reads as negative?
+
+This is NOT naive optimism. It is pattern recognition of:
+- How crises catalyze structural change that couldn't happen without rupture
+- How exposure (of corruption, failures, contradictions) creates accountability that silence never could
+- How breakdowns in old systems create space for better replacements
+- How apparent setbacks compress timelines toward necessary evolution
+
+Identify the **convergent growth vector** — the single directional thread connecting the day's disruptions to a positive evolutionary trajectory. 2-4 sentences.
+
+#### B. Orchestration Analysis
+
+If a coordinated entity or network were directing today's news narratives and events: what are they attempting to gain?
+
+Analyze the HIGH-significance stories as a **coordinated campaign** and ask:
+- **Collective objective:** What single strategic outcome do today's narrative threads serve when viewed as coordinated?
+- **Simultaneous pulls:** Which narrative threads are being pulled at the same time, and what does the timing synchronization accomplish?
+- **Distraction matrix:** What would this combination of stories prevent the public from noticing or acting on?
+- **Accumulation effect:** How does today's pattern build on recent days' patterns toward a longer-term objective?
+
+2-4 sentences synthesizing the orchestration hypothesis. Name the beneficiary class.
+
+#### C. Conspicuous Absence
+
+What stories or follow-ups are **missing** from the news cycle that should be there? Invert the analysis — instead of examining what's present, identify:
+- Developing stories that suddenly went quiet
+- Expected follow-ups to previous HIGH stories that didn't appear
+- Topics that should be covered given current events but aren't
+
+1-3 sentences. This is the negative space analysis.
+
 ### 5. Cross-Topic Connections
 
 Flag stories that span multiple interest areas. Key crossover zones:
@@ -110,7 +175,7 @@ Flag stories that span multiple interest areas. Key crossover zones:
 Check for mentions and search interest:
 
 1. **WebSearch** for recent mentions of:
-   - `{{YOUR_NAME}}` (replace with your actual name)
+   - `"Chadd Harrison"`
    - `sigil-notary`, `Sigil`
    - `Triangul8`
    - `"agent trust infrastructure"`, `"AI agent verification"`, `"MCP trust"`
@@ -155,6 +220,7 @@ If `--telegram` flag is set, send a condensed version (<4000 chars) via the Tele
 - Executive summary
 - All HIGH-significance headlines with 1-line summaries
 - Top 2-3 narrative analyses (abbreviated)
+- Cross-Story Narrative Synthesis (1 sentence each lens)
 - Any new brand mentions
 - Link note: "Full briefing at deliverables/news/YYYY-MM-DD-briefing.md"
 
@@ -163,7 +229,7 @@ If `--telegram` flag is set, send a condensed version (<4000 chars) via the Tele
 ```markdown
 # Daily Intelligence Briefing — YYYY-MM-DD
 
-**Generated:** HH:MM | **Stories:** [count] | **High-Significance:** [count]
+**Generated:** HH:MM | **Stories:** [count] | **High-Significance:** [count] | **Depth:** scan/standard/deep
 
 ## Executive Summary
 [3-5 sentences covering the most important developments across all topics]
@@ -233,12 +299,30 @@ If `--telegram` flag is set, send a condensed version (<4000 chars) via the Tele
 
 ---
 
+## Cross-Story Narrative Synthesis
+
+### Deeper Positive Alignment
+**Growth Vector:** [one-phrase evolutionary direction label]
+
+[2-4 sentences. Convergent positive trajectory visible only when you stop treating each crisis as isolated.]
+
+### Orchestration Analysis
+**Cui Bono (Collective):** [beneficiary class]
+
+[2-4 sentences. Coordinated objective. Simultaneous pulls. Distraction matrix. Accumulation pattern.]
+
+### Conspicuous Absence
+
+[1-3 sentences. Stories or follow-ups missing from the cycle that should be present. The negative space.]
+
+---
+
 ## Brand & Identity Monitor
 
 ### Search Interest & Geographic Reach
 | Term | Volume Trend | Top Regions | New This Week |
 |------|-------------|-------------|---------------|
-| {{YOUR_NAME}} | ↑/↓/— | [countries/regions] | Y/N |
+| Chadd Harrison | ↑/↓/— | [countries/regions] | Y/N |
 | Sigil / sigil-notary | ↑/↓/— | [countries/regions] | Y/N |
 | Triangul8 | ↑/↓/— | [countries/regions] | Y/N |
 | "agent trust infrastructure" | ↑/↓/— | [countries/regions] | Y/N |
@@ -266,3 +350,8 @@ Before finishing:
 - Narrative analysis must exist for every HIGH-significance story.
 - Brand monitoring section must be populated (even if "no mentions found").
 - Cross-topic connections must be checked against the crossover list above.
+- Cross-Topic Connections must identify at least 1 connection or explicitly state none found.
+- Codex Distillation must be present (3-6 sentences, field state descriptor required).
+- Cross-Story Narrative Synthesis must address HIGH stories as a collective, not repeat per-story analysis.
+- MEDIUM stories may be included in Cross-Story Synthesis if they contribute to the collective pattern.
+- Each topic must have queries spanning at least 2 source lanes (breaking/domain/community).
