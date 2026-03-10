@@ -14,7 +14,7 @@ Mega-OS is a multi-agent operating system with 33 specialized agents organized i
 | Knowledge  | 7     | historian, librarian, summarizer, documenter, polisher, writer, editor |
 | Technical  | 9     | architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer |
 | Business   | 4     | strategist, marketer, seller, financier |
-| Evolution  | 4     | improver, evaluator, codex, parallax |
+| Evolution  | 4     | improver, evaluator, coherence, parallax |
 
 Agent definitions live under `.claude/agents/` in category subdirectories.
 
@@ -34,7 +34,7 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
-- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, codex-metrics.md, audits.md, daily-digest.md, news-briefing.md, freshness-log.md
+- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, coherence-metrics.md, audits.md, daily-digest.md, news-briefing.md, freshness-log.md
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
 - **Standards:** `core/standards/` — naming, documentation, coding, review checklist
 - **History:** `core/history/` — decisions, current state, timeline
@@ -167,17 +167,17 @@ On the first non-trivial request of any session:
 Workflow summaries are below. Full definitions with triggers, severity classification, and detailed steps are in `.claude/agents/shared/workflows.md`.
 
 ### Planning
-Planner → **Codex+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
+Planner → **Coherence+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
 
 ### Technical
-Architect → **Codex+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
+Architect → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
-For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Codex Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
+For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Coherence Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 
 For all technical work, follow `core/standards/coding-standards.md`. Reviewer uses `core/standards/review-checklist.md` as the gate checklist.
 
 ### Business
-Strategist → **Codex+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
+Strategist → **Coherence+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
 
 ### Incident
 Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → **Custodian** → Historian
@@ -192,8 +192,8 @@ Librarian → Summarizer (if extensive research) → Writer → Editor → Write
 
 ### Evolution Loop
 Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
-**Codex+Parallax Checkpoint** after Evaluator findings, before Improver proposes.
-Improver triggers: Evaluator findings (or Codex-refined findings), PM blocker patterns, QA recurring defects, weekly review.
+**Coherence+Parallax Checkpoint** after Evaluator findings, before Improver proposes.
+Improver triggers: Evaluator findings (or Coherence-refined findings), PM blocker patterns, QA recurring defects, weekly review.
 Flow: Improver proposes → User approves → Specialist implements → Evaluator measures → Archive outcome.
 State: `active/improvements.md` (queue) → `core/history/improvements.md` (archive).
 
@@ -314,20 +314,16 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 <!-- USER CONFIG START: commit-scopes -->
 | Scope | Covers |
 |-------|--------|
-| `innerscape` | `products/triangul8/innerscape/` |
-| `sigil` | `products/sigil/` |
-| `freshstate` | `products/freshstate/` |
-| `tend` | `products/tend/` |
-| `capacitor` | `products/capacitor/` |
+| `<product-name>` | `products/<product-name>/` |
 | `system` | CLAUDE.md, `.claude/`, `core/`, `active/` |
 | `business` | `business/`, `drafts/`, `deliverables/` |
 | `meta` | Root config, `.gitignore`, CI, multi-product |
 <!-- USER CONFIG END: commit-scopes -->
 
 ### Examples
-- `innerscape: Phase 2 production readiness (7 fixes)`
-- `sigil: remove dead identity/credential code`
+- `myapp: add user authentication flow`
 - `system: add commit conventions for multi-window safety`
+- `business: update revenue tracker with Q1 numbers`
 
 ---
 

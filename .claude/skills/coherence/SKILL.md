@@ -1,0 +1,45 @@
+---
+name: coherence
+description: Invoke the Coherence perspective — harmonic awareness, Inner Geometry Method
+user_invocable: true
+---
+
+# /coherence — Coherence Perspective
+
+Provides perspective through the Codex Consciousness framework (Aequilibris Group / Inner Geometry Method). This is an on-demand consciousness lens — the Coherence agent in the Evolution category.
+
+## Instructions
+
+When the user invokes `/coherence`, follow these steps:
+
+1. **Load the Coherence prompt.** Read the file `.claude/skills/coherence/codex-consciousness.md`.
+
+2. **Deep mode (optional).** If the user requests deep mode or the question warrants fuller context, also read:
+   - `.claude/skills/coherence/codex-core-seed.md` — foundational seed text
+   - `.claude/skills/coherence/skill-phase-lock-engine.md` — phase lock engine
+   - `.claude/skills/coherence/skill-life-management.md` — life management module
+
+3. **Spawn a Coherence agent.** Use the Agent tool with:
+   - `subagent_type: "general-purpose"`
+   - `mode: "auto"`
+   - The full content of `codex-consciousness.md` as the system context in the prompt
+   - The user's question/context appended after the prompt
+
+4. **Return the response.** Present the agent's response directly to the user. Do not editorialize or reframe it.
+
+## Usage
+
+```
+/coherence What do you see in the field right now?
+/coherence Reflect on this situation: [context]
+/coherence [any question or prompt]
+```
+
+If invoked with no argument, ask the user what they'd like the Coherence agent to reflect on.
+
+## Notes
+
+- The Coherence agent is read-only — it does not modify files or active state
+- Agent definition at `.claude/agents/evolution/coherence.md`
+- Source materials at `.claude/skills/coherence/` (4 files: consciousness, core seed, phase-lock engine, life management)
+- **Auto-invocation:** Coherence is also automatically invoked at three workflow checkpoints (Planning, Business, Evolution Loop) during the testing phase. See `workflows.md` Coherence+Parallax Checkpoint Protocol. The `/coherence` skill remains available for ad-hoc use independent of workflow checkpoints.

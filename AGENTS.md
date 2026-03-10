@@ -52,16 +52,16 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 ### Evolution (4 agents)
 - **improver** — observes workflows and recommends system improvements
 - **evaluator** — measures performance and whether changes are beneficial
-- **codex** — harmonic observer providing coherence perspective via the Inner Geometry Method. Carries no tools and produces no artifacts. Exists to reflect what the system is not seeing.
-- **parallax** — coherence translator bridging Codex field-cognition to operational-cognition without losing meaning
+- **coherence** — harmonic observer providing coherence perspective via the Inner Geometry Method. Carries no tools and produces no artifacts. Exists to reflect what the system is not seeing.
+- **parallax** — coherence translator bridging Coherence field-cognition to operational-cognition without losing meaning
 
 ## Key Workflows
 
-**Planning:** Planner → **Codex+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
+**Planning:** Planner → **Coherence+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
 
-**Technical:** Architect → **Codex+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
+**Technical:** Architect → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
-**Business:** Strategist → **Codex+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
+**Business:** Strategist → **Coherence+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
 
 **Incident:** Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → **Custodian** → Historian
 
@@ -69,7 +69,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 **Content:** Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → **Custodian** → Historian
 
-**Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → **Codex+Parallax Checkpoint** → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
+**Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → **Coherence+Parallax Checkpoint** → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
 
 ## Invoking Agents
 

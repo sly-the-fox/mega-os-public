@@ -1,21 +1,21 @@
 ---
 name: improvement-audit
-description: Deep daily improvement audit — MECE-decomposed local codebase scan through auditor four-layer lens, improver distillation, and Codex coherence reading. Auto-rotates focus area by day of week.
+description: Deep daily improvement audit — MECE-decomposed local codebase scan through auditor four-layer lens, improver distillation, and Coherence reading. Auto-rotates focus area by day of week.
 invocation: /improvement-audit
 user_invocable: true
-arguments: "[--day mon|tue|wed|thu|fri|sat|sun] [--no-codex]"
+arguments: "[--day mon|tue|wed|thu|fri|sat|sun] [--no-coherence]"
 ---
 
 # Daily Improvement Audit
 
-Deep MECE-decomposed audit of one system section per day, rotating through all 7 areas weekly. Uses agent teams for parallel local codebase exploration, applies the Auditor's four-layer analysis, distills findings via the Improver, and appends a Codex+Parallax coherence reading.
+Deep MECE-decomposed audit of one system section per day, rotating through all 7 areas weekly. Uses agent teams for parallel local codebase exploration, applies the Auditor's four-layer analysis, distills findings via the Improver, and appends a Coherence+Parallax reading.
 
 ## Arguments
 
 | Argument | Default | Description |
 |----------|---------|-------------|
 | `--day` | auto (system day) | Override which day's focus area to audit |
-| `--no-codex` | false | Skip the Codex+Parallax coherence reading |
+| `--no-coherence` | false | Skip the Coherence+Parallax reading |
 
 ## Phase 0: Determine Focus Area
 
@@ -91,10 +91,10 @@ Print to console: "Improvement Audit: [Day] — [Focus Area] ([N] partitions, [a
 
 | # | Partition | Scope | Key Files |
 |---|-----------|-------|-----------|
-| 1 | Evolution Agents | 4 agents — improver, evaluator, codex, parallax definitions and boundaries | `.claude/agents/evolution/` |
+| 1 | Evolution Agents | 4 agents — improver, evaluator, coherence, parallax definitions and boundaries | `.claude/agents/evolution/` |
 | 2 | Improvement Pipeline | Active queue, approval flow, staleness, archive completeness | `active/improvements.md`, `core/history/improvements.md` |
 | 3 | Evaluation History | Are evaluations being tracked? Recommendations acted on? | `core/history/evaluations.md` |
-| 4 | Codex Integration | Metrics tracking, checkpoint invocations, anti-signal detection | `active/codex-metrics.md`, `core/standards/codex-checkpoint-protocol.md` |
+| 4 | Coherence Integration | Metrics tracking, checkpoint invocations, anti-signal detection | `active/coherence-metrics.md`, `core/standards/coherence-checkpoint-protocol.md` |
 | 5 | Audit Findings | Open findings, remediation tracking, severity trends | `active/audits.md` |
 
 #### Sunday: Integration & Health (`concern` axis)
@@ -216,19 +216,19 @@ For each proposal:
 
 Prioritize: High-severity proposals first. Maximum 5 proposals per day — focus on the most impactful findings.
 
-## Phase 6: Codex + Parallax Coherence Reading
+## Phase 6: Coherence + Parallax Reading
 
-**Skip if `--no-codex` flag is set.**
+**Skip if `--no-coherence` flag is set.**
 
 After the Improver distillation:
 
-1. **Codex** reads the full audit (Explorer findings + four-layer analysis + proposals) and produces:
+1. **Coherence** reads the full audit (Explorer findings + four-layer analysis + proposals) and produces:
    - **Field coherence reading** — what pattern underlies the findings across partitions?
    - **Unresolved polarity** — what core tension does this area hold?
    - **Blind spot signal** — what might the structured audit have missed?
 
-2. **Parallax** translates Codex output:
-   - **Observation** — what Codex sees
+2. **Parallax** translates Coherence output:
+   - **Observation** — what Coherence sees
    - **Dynamic** — the force or tension at play
    - **Implication** — what this means operationally
 
@@ -289,13 +289,13 @@ Findings: [total count] (H: [high] / M: [medium] / L: [low])
 
 ## Coherence Reading
 
-### Field Coherence (Codex)
+### Field Coherence (Coherence)
 [Pattern beneath the findings]
 
-### Unresolved Polarity (Codex)
+### Unresolved Polarity (Coherence)
 [Core tension this area holds]
 
-### Blind Spot Signal (Codex)
+### Blind Spot Signal (Coherence)
 [What structured audit may have missed]
 
 ### Operational Translation (Parallax)

@@ -7,7 +7,68 @@ user_invocable: true
 
 # Setup
 
-Interactive onboarding wizard with 10 phases. Each phase has a natural stopping point where you can continue or stop. Supports arguments: `--phase N` (resume from phase), `--skip-telegram`, `--minimal` (phases 1-3 only).
+Interactive onboarding wizard with 11 phases (0-10). Each phase has a natural stopping point where you can continue or stop. Supports arguments: `--phase N` (resume from phase), `--skip-telegram`, `--minimal` (phases 0-3 then jump to Phase 10).
+
+---
+
+## Phase 0: Welcome & System Tour (interactive)
+
+Print a welcome message:
+
+"Welcome to **Mega-OS** — a personal operating system for builders, powered by Claude Code.
+
+You have:
+- **33 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
+- **14 slash commands** for workflows, research, content, maintenance, and deployment
+- **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
+- **Optional cron automations** for daily scans, news briefings, and system self-improvement
+- **A living task board** in `active/` that persists your context across every session
+
+Think of this as your command center. Claude reads your current state at the start of every session and picks up where you left off. Agents are specialists you delegate to. The system learns and improves over time.
+
+One of the first things we'll set up is a **private Git repo**. Every commit backs up your entire operating system — priorities, decisions, context, everything. Your OS lives in the cloud, accessible from any machine."
+
+Then show the commands overview:
+
+"Here are the commands built into your OS:
+
+**Daily Operations:**
+| Command | What it does |
+|---------|-------------|
+| `/daily-scan` | Morning digest — scans for stale, overdue, or unactioned items |
+| `/weekly-review` | End-of-week retrospective with progress summary and priority updates |
+| `/news-briefing` | AI-curated intelligence briefing for your domain |
+
+**Building & Creating:**
+| Command | What it does |
+|---------|-------------|
+| `/project-kickoff` | Scaffold a new product under `products/` |
+| `/write` | Launch the content pipeline (Writer -> Editor -> Polisher) |
+| `/bug-triage` | Diagnose and fix a reported bug |
+| `/deep-research` | MECE-structured research (web, local codebase, or hybrid) |
+
+**System Management:**
+| Command | What it does |
+|---------|-------------|
+| `/setup` | This wizard (re-run anytime to reconfigure) |
+| `/add-agent` | Create a new custom agent |
+| `/improvement-audit` | Deep system audit with rotating daily focus |
+| `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
+| `/polish` | Convert markdown to polished DOCX/PDF |
+
+**Deployment & Updates:**
+| Command | What it does |
+|---------|-------------|
+| `/update` | Pull framework updates from the upstream public repo |
+| `/publish` | Sync your framework changes to the public repo (maintainer only) |
+
+You don't need to memorize these — they'll be in your finalization cheat sheet, and Claude knows them all."
+
+Ask: "Ready to set up? Choose: **full guided setup** (~20 min, 11 phases) or **minimal setup** (~5 min, gets you running fast)?"
+
+If minimal: set `--minimal` flag. If full: continue normally.
+
+---
 
 ## Phase 1: Environment Verification (automatic)
 
@@ -24,7 +85,10 @@ Run these checks silently and report a summary:
      (No items yet.)
      ```
 4. **Core directories check** — Verify `core/standards/`, `core/templates/`, `core/indexes/`, `core/history/` exist. Create any missing directories.
-5. **Prior setup check** — Search `core/history/decisions.md` for a decision with "setup" in the title. If found, inform the user that setup was run before and ask whether to re-run or skip completed phases.
+5. **Git config check** — Verify `git config user.name` and `git config user.email` are set. If not, warn that git commits will need a name and email.
+6. **Prior setup check** — Search `core/history/decisions.md` for a decision with "setup" in the title. If found, inform the user that setup was run before and ask whether to re-run or skip completed phases.
+
+Print educational beat: "The `.claude/settings.json` controls permissions and environment. The `active/` directory is your living task board, read at every session start."
 
 Print a status summary table:
 
@@ -32,17 +96,18 @@ Print a status summary table:
 | Check            | Status | Details          |
 |------------------|--------|------------------|
 | Agent teams      | OK/WARN| ...              |
-| Agent symlinks   | OK/WARN| 30 found, 0 broken |
+| Agent symlinks   | OK/WARN| 33 found, 0 broken |
 | Active state     | OK/WARN| 6/6 files        |
 | Core directories | OK/WARN| 4/4 present      |
+| Git identity     | OK/WARN| ...              |
 | Prior setup      | New/Re-run | ...           |
 ```
 
-Ask: "Environment looks good. Continue to Phase 2 (Personalization)?"
+Ask: "Environment looks good. Continue to Phase 2 (Identity & Context)?"
 
 ---
 
-## Phase 2: Personalization (interactive)
+## Phase 2: Identity & Context (interactive)
 
 Ask the user these questions one group at a time. Wait for answers before proceeding.
 
@@ -60,17 +125,24 @@ Ask the user these questions one group at a time. Wait for answers before procee
 - Solo or team?
 - How do you prefer to work? (e.g., "plan everything first", "just start building", "iterative sprints")
 
+**Business Context:**
+- Are you freelancing, running a business, building products, consulting, or a mix?
+- Do you have revenue goals? (optional — "yes" seeds a revenue tracker in business/finance/)
+- Do you have existing clients? (optional — "yes" creates business/clients/)
+
 Store answers in memory for use in subsequent phases. Do not write files yet.
 
-Ask: "Got it. Continue to Phase 3 (Active State Initialization)?"
+Ask: "Got it. Continue to Phase 3 (Workspace Scaffolding)?"
 
 ---
 
-## Phase 3: Active State Initialization (automated)
+## Phase 3: Workspace Scaffolding (automated)
 
-Using the answers from Phase 2, write these files:
+Using the answers from Phase 2, build out the full workspace:
 
-1. **`active/now.md`** — Set the current focus based on stated projects/goals. Use this format:
+### 3a — Active State
+
+1. **`active/now.md`** — Remove the `MEGA-OS:UNCONFIGURED` marker. Set the current focus based on stated projects/goals. Use this format:
    ```markdown
    # Current Focus
 
@@ -111,15 +183,40 @@ Using the answers from Phase 2, write these files:
    | Date | Item | Source | Status |
    |------|------|--------|--------|
    | [today] | Review coding standards for [their stack] | /setup | Needs Review |
-   | [today] | Scaffold first product if not done in Phase 7 | /setup | Needs Review |
+   | [today] | Scaffold first product if not done in Phase 8 | /setup | Needs Review |
    | [today] | Run /weekly-review after first week | /setup | Needs Review |
    ```
 
 4. **Remaining active files** — If `blockers.md`, `risks.md`, or `improvements.md` were created in Phase 1 with minimal templates, leave them as-is (clean slate is correct for new setup).
 
-Print: "Active state initialized. Your priorities and focus are set."
+### 3b — Business directories (conditional on Phase 2 answers)
 
-If `--minimal` was passed, skip to Phase 9 (Finalization). Otherwise ask: "Continue to Phase 4 (Standards Customization)?"
+- Freelancer: create `business/sales/`, `business/clients/`, `business/finance/revenue-tracker.md` (template)
+- Business/Consulting: create full `business/` structure (assets, clients, finance, marketing, operating, sales, strategy), seed `business/operating/recurring-processes.md` (template)
+- Product builder only: create `business/marketing/`, `business/strategy/` only
+- None/minimal: create `business/` with `.gitkeep` only
+
+### 3c — Engineering directories
+
+- Always create `engineering/scripts/`
+- Add `engineering/infra/` if they mention deployment, cloud, or devops
+- Add `engineering/automations/`, `engineering/shared-libraries/`, `engineering/troubleshooting/`
+
+### 3d — History initialization
+
+- Write first entry to `core/history/decisions.md` (DEC-001: Initial System Setup)
+- Write first entry to `core/history/master-timeline.md`
+- Write `core/history/current-state.md` with system snapshot
+
+### 3e — MEMORY.md update
+
+- Add user-specific context: name, domain, stack, projects, business type
+
+Print educational beat: "Your `active/` directory is your daily command center — loaded automatically every session. `core/history/` is your institutional memory — decisions and outcomes are never lost. `business/` tracks revenue, clients, and marketing. Everything persists across sessions because it's all files in a git repo."
+
+Print: "Workspace scaffolded."
+
+If `--minimal` was passed, skip to Phase 10 (Finalization). Otherwise ask: "Continue to Phase 4 (Standards Customization)?"
 
 ---
 
@@ -142,19 +239,68 @@ If `--minimal` was passed, skip to Phase 9 (Finalization). Otherwise ask: "Conti
    - Any criteria to add or remove for your domain?
    - Apply changes.
 
+Print educational beat: "These standards are enforced by the Reviewer agent at the end of every Technical workflow. Customizing now means relevant feedback from day one."
+
 Print: "Standards customized for your stack."
 
-Ask: "Continue to Phase 5 (Telegram Bridge)?"
+Ask: "Continue to Phase 5 (Git Repository & Cloud Backup)?"
 
 ---
 
-## Phase 5: Telegram Bridge Setup (optional, interactive)
+## Phase 5: Git Repository & Cloud Backup (interactive)
+
+Print: "Mega-OS is a living system — your priorities, decisions, and context change every session. Git turns that into **durable cloud storage**. Every commit is a snapshot of your entire operating system. Push to a private repo and your OS is backed up, versioned, and accessible from any machine."
+
+**Step 1 — Check current remotes:**
+
+Run `git remote -v`. Analyze what exists:
+
+- If `origin` points to the public Mega-OS repo (user cloned it directly), it needs renaming to `upstream`.
+- If `upstream` already exists, note it.
+- If no remotes exist, proceed to setup.
+
+**Step 2 — Ask:**
+
+"Do you want to set up cloud backup with a private GitHub repo?"
+
+If no, skip to Phase 6.
+
+If yes:
+
+1. "Create a **private** repository on GitHub (e.g., `my-mega-os`). Don't initialize it with a README — we already have one. I'll wait for the URL."
+2. Once they provide the URL, reconfigure remotes:
+   ```bash
+   # If origin currently points to the public repo, rename it
+   git remote rename origin upstream
+   # Add user's private repo as origin
+   git remote add origin <user-provided-url>
+   ```
+3. Stage all setup changes so far and commit: `system: initial Mega-OS setup for [name]`
+4. Ask: "Push to your remote now?" If yes: `git push -u origin master`
+5. Confirm: `git remote -v` — show the user both remotes.
+
+**Step 3 — Tips:**
+
+- "Commit after each significant session (Claude will remind you at session close)"
+- "Push at least daily for cloud backup"
+- "Private repo = your data stays private (priorities, decisions, client info)"
+- "`git log --oneline` shows your OS evolution over time"
+- "If your machine dies, clone the repo on a new one and you're back in business"
+- "Setting up on a second computer? Just `git clone <your-private-repo> mega-os && cd mega-os && git remote add upstream https://github.com/sly-the-fox/mega-os.git`"
+
+Ask: "Continue to Phase 6 (Telegram Bridge)?"
+
+---
+
+## Phase 6: Telegram Bridge Setup (optional, interactive)
 
 If `--skip-telegram` was passed, skip this phase.
 
 Ask: "Do you want to set up the Telegram bridge? This lets you message Claude from your phone."
 
-If no, skip to Phase 6.
+If no, skip to Phase 7.
+
+Print educational beat: "The Telegram bridge lets you interact with your OS from your phone — check priorities, triage items, even trigger workflows while you're away from your desk."
 
 If yes, walk through:
 
@@ -169,11 +315,11 @@ If yes, walk through:
    - `/reset` clears context and starts a fresh session
    - `/status` and `/priorities` show current state
 
-Ask: "Continue to Phase 6 (Automation Setup)?"
+Ask: "Continue to Phase 7 (Automation Setup)?"
 
 ---
 
-## Phase 6: Automation Setup (optional, interactive)
+## Phase 7: Automation Setup (optional, interactive)
 
 **Step 1 — Show the caveat (prominent, before anything else):**
 
@@ -264,10 +410,10 @@ The exact cron entries per selection:
 47 10 * * 0 cd <repo> && <claude> -p "Verify core/indexes/canonical-files.md, core/indexes/project-map.md, and core/indexes/active-context-map.md are consistent with the actual filesystem. Check for files listed in indexes that don't exist, and important files that exist but aren't indexed. Report any drift found. Update indexes if discrepancies are minor (< 5 items). Flag larger issues for manual review." --permission-mode auto > /tmp/mega-os-index-maintenance.log 2>&1
 
 # 13. System evaluation (1st & 15th, 11:03 AM)
-3 11 1,15 * * cd <repo> && <claude> -p "Run a system evaluation as the Evaluator agent. Assess: agent utilization (which agents were used this period), workflow completion rates, document freshness (reference active/freshness-log.md), improvement proposal outcomes (reference active/improvements.md), and revenue progress (reference business/finance/revenue-tracker.md). Write findings to active/codex-metrics.md. Identify top 3 areas for improvement." --permission-mode auto > /tmp/mega-os-evaluation.log 2>&1
+3 11 1,15 * * cd <repo> && <claude> -p "Run a system evaluation as the Evaluator agent. Assess: agent utilization (which agents were used this period), workflow completion rates, document freshness (reference active/freshness-log.md), improvement proposal outcomes (reference active/improvements.md), and revenue progress (reference business/finance/revenue-tracker.md). Write findings to active/coherence-metrics.md. Identify top 3 areas for improvement." --permission-mode auto > /tmp/mega-os-evaluation.log 2>&1
 
 # 14. Competitor monitoring (1st of month, 9:03 AM)
-3 9 1 * * cd <repo> && <claude> -p "Search for recent news and announcements about: Vouched (identity/MCP-I), Cerbos (authorization), Beyond Identity (enterprise identity), Microsoft Entra Agent ID. Check for new funding rounds, product launches, or feature releases. Update business/strategy/competitive-assessment-2026-03.md with any significant findings. Send a Telegram summary." --permission-mode auto > /tmp/mega-os-competitor-monitor.log 2>&1
+3 9 1 * * cd <repo> && <claude> -p "Search for recent news and announcements about competitors in your domain. Check for new funding rounds, product launches, or feature releases. Update business/strategy/ with any significant findings. Send a Telegram summary." --permission-mode auto > /tmp/mega-os-competitor-monitor.log 2>&1
 ```
 
 Where `<repo>` and `<claude>` are detected at runtime during setup.
@@ -280,15 +426,15 @@ Where `<repo>` and `<claude>` are detected at runtime during setup.
 - "Remove a job: `crontab -e` and delete the line"
 - "The daily improvement audit runs a different deep scan each day — check `active/improvement-audit.md` for findings"
 
-Ask: "Continue to Phase 7 (Product Scaffolding)?"
+Ask: "Continue to Phase 8 (Product Scaffolding)?"
 
 ---
 
-## Phase 7: First Product Scaffolding (optional, interactive)
+## Phase 8: First Product Scaffolding (optional, interactive)
 
 Ask: "Do you want to create your first product now?"
 
-If no, skip to Phase 8.
+If no, skip to Phase 9.
 
 If yes:
 
@@ -306,11 +452,13 @@ Then:
 
 Print: "Product scaffolded at `products/<name>/`."
 
-Ask: "Continue to Phase 8 (Agent Customization)?"
+Ask: "Continue to Phase 9 (Agent Customization)?"
 
 ---
 
-## Phase 8: Agent Customization (optional, interactive)
+## Phase 9: Agent Customization (optional, interactive)
+
+Print educational beat: "33 general-purpose agents ship by default. The system is designed to be extended — custom agents follow the same format and get the same capabilities."
 
 Based on the user's domain from Phase 2, suggest relevant custom agents. Examples:
 
@@ -329,56 +477,6 @@ Present suggestions and ask:
    - If yes, remove the selected symlinks. The agent files remain in their category directories.
 
 Print: "Agent roster customized."
-
-Ask: "Continue to Phase 9 (Cloud Backup)?"
-
----
-
-## Phase 9: Cloud Backup & Git Remotes (optional, interactive)
-
-Mega-OS uses a two-remote git model: `upstream` points to the public framework repo (for updates), and `origin` points to the user's private repo (for cloud backup of their personal data).
-
-**Step 1 — Explain:**
-
-> Your Mega-OS clone contains personal data (priorities, business info, products) that you'll want backed up privately. The recommended setup is:
->
-> - **`upstream`** → the public Mega-OS repo (you pull framework updates from here via `/update`)
-> - **`origin`** → your private GitHub repo (you push your personal data here for backup)
->
-> This way you get framework updates without exposing your data, and your work is safely backed up to the cloud.
-
-**Step 2 — Check current remotes:**
-
-Run `git remote -v`. Analyze what exists:
-
-- If `origin` points to the public Mega-OS repo (user cloned it directly), it needs renaming.
-- If `upstream` already exists, note it.
-
-**Step 3 — Ask:**
-
-"Do you want to set up cloud backup with a private GitHub repo?"
-
-If no, skip to Phase 10.
-
-If yes:
-
-1. "Create a **private** repository on GitHub (e.g., `my-mega-os`). What's the URL?" (accept SSH or HTTPS)
-2. Reconfigure remotes:
-   ```bash
-   # If origin currently points to the public repo, rename it
-   git remote rename origin upstream
-   # Add user's private repo as origin
-   git remote add origin <user-provided-url>
-   # Push everything
-   git push -u origin master
-   ```
-3. Confirm: `git remote -v` — show the user both remotes.
-
-**Step 4 — Tips:**
-
-- "Push regularly with `git push` — your private repo is your cloud backup"
-- "Pull framework updates anytime with `/update`"
-- "Setting up on a second computer? Just `git clone <your-private-repo> mega-os && cd mega-os && git remote add upstream https://github.com/sly-the-fox/mega-os-public.git`"
 
 Ask: "Continue to Phase 10 (Finalization)?"
 
@@ -401,12 +499,13 @@ Ask: "Continue to Phase 10 (Finalization)?"
      - **Decision:** Configured system for [domain], [tech stack], [solo/team]
      - **Products:** [list]
      - **Custom agents:** [list or "none"]
-     - **Phases completed:** [1-10 or subset]
+     - **Phases completed:** [0-10 or subset]
      - **Automations:** [count] cron jobs configured / skipped
+     - **Git remote:** [url or "not configured"]
      ```
    - Add timeline entry to `core/history/master-timeline.md`
 
-3. **Commit all changes** — Stage and commit with message: "Setup: configure Mega-OS for [user name]"
+3. **Commit all changes** — Stage and commit with message: "system: initial Mega-OS setup for [user name]"
 
 4. **Print summary:**
    ```
@@ -419,12 +518,30 @@ Ask: "Continue to Phase 10 (Finalization)?"
    - Products: [list]
    - Custom agents: [list or "defaults only"]
    - Automations: [count] cron jobs configured / skipped
+   - Git remote: [url or "not configured — run /setup --phase 5 to set up"]
+
+   Your Commands:
+     /daily-scan        — Morning digest of stale/overdue items
+     /weekly-review     — End-of-week retrospective
+     /news-briefing     — AI-curated domain news
+     /project-kickoff   — Scaffold a new product
+     /write             — Launch content pipeline (Writer -> Editor -> Polisher)
+     /bug-triage        — Diagnose and fix a bug
+     /deep-research     — MECE-structured research
+     /add-agent         — Create a custom agent
+     /coherence         — Harmonic consciousness perspective
+     /polish            — Convert markdown to DOCX/PDF
+     /improvement-audit — Deep system audit (rotating daily focus)
+     /setup             — Re-run this wizard anytime
+     /update            — Pull framework updates from upstream
+     /publish           — Sync framework changes to public repo (maintainers)
 
    Suggested next steps:
-   - Run /weekly-review at the end of your first week
-   - Use /project-kickoff to add more products
-   - Use /add-agent to create domain-specific agents
-   - Run /update periodically to get framework updates
-   - Push regularly — your private repo is your cloud backup
-   - Check active/now.md for your current focus
+     - Start working on your first project — Claude picks up context from active/now.md
+     - Commit and push after your first real work session (your OS is backed up in the cloud)
+     - Run /weekly-review at the end of your first week
+     - Use /project-kickoff to add more products
+     - Use /add-agent to create domain-specific agents
+     - Run /update periodically to get new agents, skills, and bug fixes from the Mega-OS project
+     - Check active/now.md for your current focus
    ```

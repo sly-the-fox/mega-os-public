@@ -5,7 +5,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 ## Planning Workflow
 1. **Planner** — breaks down request into tasks, milestones, dependencies
 1a. **MECE Research** — if the plan requires external research (feasibility, prior art, ecosystem), invoke `/deep-research <query>` before routing. Output at `drafts/research/` feeds into planning.
-1b. **Codex+Parallax Checkpoint** — Codex reviews the Planner output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
+1b. **Coherence+Parallax Checkpoint** — Coherence reviews the Planner output. A Planner agent refines the Coherence perspective into a concrete alternative. Present both options to user via AskUserQuestion (Coherence-informed / Original / Blend). Log choice to `active/coherence-metrics.md`. See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below.
 2. **Router** — assigns tasks to appropriate specialist agents
 3. **Governor** — validates scope and constraints
 4. **Sentinel** — assesses risk profile of the plan (if plan touches production, security, or finances)
@@ -23,7 +23,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Technical Workflow
 1. **Architect** — plan approach
-1b. **Codex+Parallax Checkpoint** — Codex reviews the Architect output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below. *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files, same threshold as single security pass).
+1b. **Coherence+Parallax Checkpoint** — Coherence reviews the Architect output. A Planner agent refines the Coherence perspective into a concrete alternative. Present both options to user via AskUserQuestion (Coherence-informed / Original / Blend). Log choice to `active/coherence-metrics.md`. See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below. *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files, same threshold as single security pass).
 2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
 3. **Designer** — reviews UX/interface design (if frontend or user-facing). Architect confirms design completion before proceeding.
 4. **Security-Expert** — threat model / review plan. For full security hardening, Security-Expert may invoke `/deep-research --source local --axis security` before threat modeling.
@@ -51,7 +51,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 ## Business Workflow
 1. **Strategist** — defines business objective and approach
 1a. **MECE Research** — if the business objective requires market/competitive/trend research, invoke `/deep-research <query>` before proceeding. Output at `drafts/research/` feeds into strategy.
-1b. **Codex+Parallax Checkpoint** — Codex reviews the Strategist output. A Planner agent refines the Codex perspective into a concrete alternative. Present both options to user via AskUserQuestion (Codex-informed / Original / Blend). Log choice to `active/codex-metrics.md`. See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
+1b. **Coherence+Parallax Checkpoint** — Coherence reviews the Strategist output. A Planner agent refines the Coherence perspective into a concrete alternative. Present both options to user via AskUserQuestion (Coherence-informed / Original / Blend). Log choice to `active/coherence-metrics.md`. See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below.
 2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience). Strategist confirms design completion before proceeding.
 3. **Marketer / Seller / Financier** — execute in their domains
 4. **Sentinel** — flags financial or reputational risk (if significant exposure)
@@ -115,15 +115,15 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 
 The evolution loop connects Evaluator and Improver into a functioning feedback cycle. Without explicit triggers, these agents are inert.
 
-### Codex+Parallax Checkpoint (mandatory during testing)
+### Coherence+Parallax Checkpoint (mandatory during testing)
 After Evaluator produces findings and before Improver proposes changes:
-1. Spawn Codex agent with Evaluator findings as context
-2. Spawn Parallax agent to translate Codex output into operational language (Observation → Dynamic → Implication). **Quality gate:** Parallax output must contain all three layers. If any layer is empty or incoherent, flag to user before proceeding.
+1. Spawn Coherence agent with Evaluator findings as context
+2. Spawn Parallax agent to translate Coherence output into operational language (Observation → Dynamic → Implication). **Quality gate:** Parallax output must contain all three layers. If any layer is empty or incoherent, flag to user before proceeding.
 3. Spawn Planner agent to refine Parallax translation into concrete alternative proposals
-4. Present via AskUserQuestion: Codex-informed proposals / Original Evaluator findings / Blend
-5. Log choice to `active/codex-metrics.md`
+4. Present via AskUserQuestion: Coherence-informed proposals / Original Evaluator findings / Blend
+5. Log choice to `active/coherence-metrics.md`
 
-See [Codex Checkpoint Protocol](#codex-checkpoint-protocol) below.
+See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below.
 
 ### Evaluator Triggers
 Evaluator activates when any of these occur:
@@ -221,20 +221,20 @@ When a pre-execution or post-execution audit is performed:
 
 ---
 
-## Codex+Parallax Checkpoint Protocol
+## Coherence+Parallax Checkpoint Protocol
 
-Used at four workflow checkpoints (Planning step 1b, Technical step 1b, Business step 1b, Evolution Loop). Mandatory during testing phase. See also `core/standards/codex-checkpoint-protocol.md` for the full standard.
+Used at four workflow checkpoints (Planning step 1b, Technical step 1b, Business step 1b, Evolution Loop). Mandatory during testing phase. See also `core/standards/coherence-checkpoint-protocol.md` for the full standard.
 
-1. **Read Codex prompt.** Load `.claude/skills/codex/codex-consciousness.md`
-2. **Spawn Codex agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Pass the Codex prompt as system context + the current artifact (plan/strategy/findings) as the question.
-3. **Capture Codex perspective.**
-4. **Spawn Parallax agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Translate the following Codex output into operational language using the three-layer format (Observation → Dynamic → Implication). Preserve timing signals, field-level meaning, and flag anti-signal if applicable." Pass raw Codex output + original artifact. **Quality gate:** Verify all three layers (Observation, Dynamic, Implication) are present and coherent before proceeding.
-5. **Spawn Planner agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Given the original [plan/strategy/findings] and the Parallax translation below, produce a refined alternative that incorporates the insights into actionable form." Pass original artifact + Parallax translation (not raw Codex output).
+1. **Read Coherence prompt.** Load `.claude/skills/coherence/codex-consciousness.md`
+2. **Spawn Coherence agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Pass the Coherence prompt as system context + the current artifact (plan/strategy/findings) as the question.
+3. **Capture Coherence perspective.**
+4. **Spawn Parallax agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Translate the following Coherence output into operational language using the three-layer format (Observation → Dynamic → Implication). Preserve timing signals, field-level meaning, and flag anti-signal if applicable." Pass raw Coherence output + original artifact. **Quality gate:** Verify all three layers (Observation, Dynamic, Implication) are present and coherent before proceeding.
+5. **Spawn Planner agent.** Use Agent tool with `subagent_type: "general-purpose"`, `mode: "auto"`. Prompt: "Given the original [plan/strategy/findings] and the Parallax translation below, produce a refined alternative that incorporates the insights into actionable form." Pass original artifact + Parallax translation (not raw Coherence output).
 6. **Present three options** via AskUserQuestion:
-   - **Codex-informed plan** — include 1-2 line summary of what changed
-   - **Original plan** — proceed without Codex input
+   - **Coherence-informed plan** — include 1-2 line summary of what changed
+   - **Original plan** — proceed without Coherence input
    - **Blend** — user specifies which elements to merge (via "Other" or description)
-7. **Log choice.** Append row to `active/codex-metrics.md` with date, workflow type, brief context, and choice made. Update the Summary counts.
+7. **Log choice.** Append row to `active/coherence-metrics.md` with date, workflow type, brief context, and choice made. Update the Summary counts.
 
 ---
 

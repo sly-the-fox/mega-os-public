@@ -59,8 +59,8 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 |-------|------|-------------|
 | Improver | `evolution/improver.md` | Observes workflows and recommends system improvements |
 | Evaluator | `evolution/evaluator.md` | Measures performance and whether changes are beneficial |
-| Codex | `evolution/codex.md` | Harmonic observer providing coherence perspective via the Inner Geometry Method |
-| Parallax | `evolution/parallax.md` | Coherence translator — bridges Codex field-cognition to operational-cognition |
+| Coherence | `evolution/coherence.md` | Harmonic observer providing coherence perspective via the Inner Geometry Method |
+| Parallax | `evolution/parallax.md` | Coherence translator — bridges Coherence field-cognition to operational-cognition |
 
 ## Shared Resources
 
