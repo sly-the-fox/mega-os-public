@@ -97,6 +97,15 @@ When the user reports something that happened outside Claude (deploy, client lan
 
 After completing any tracked task mid-session, update `active/now.md` and `active/priorities.md` immediately. Don't batch state updates to session close.
 
+### Artifact Follow-Through
+
+When any artifact or output is generated (research, drafts, deliverables, configs, sites, templates):
+
+1. Confirm it's saved in the correct location
+2. Add next action to `active/now.md` — even if it's just "review X"
+3. Cross-reference to any existing tracked task it serves
+4. No artifact should exist without a trail back to active state
+
 ---
 
 ## Proactive Behavior
@@ -105,6 +114,31 @@ After completing any tracked task mid-session, update `active/now.md` and `activ
 - **After user reports a completion:** Update state, offer to commit, briefly mention next priority.
 - **Never push without asking.** Never create branches without asking.
 - **Never auto-commit.** Always ask first.
+
+---
+
+## Verification After Coding
+
+When you complete a coding task (new feature, bug fix, refactor, or any change to application/library code), **always suggest how to verify it works** before moving on. This applies to product code, scripts, and infrastructure — not to documents, content, or state file updates.
+
+**What to suggest:**
+- **Run existing tests** if the codebase has a test suite — suggest the specific command.
+- **Propose new tests** if the change isn't covered by existing tests. Write the test, don't just describe it.
+- **Suggest a manual verification step** if automated tests aren't practical (e.g., "run `python -m sigil --verify` and check the output").
+- **For bug fixes:** suggest a test that reproduces the original bug to confirm it's resolved.
+
+**How to behave:**
+- Suggest verification immediately after the code change, before offering to commit.
+- If the user declines testing, move on — one suggestion is enough.
+- If tests fail, fix the issue before offering to commit.
+- Keep it proportional: a one-line fix gets a one-line verification suggestion, not a test framework.
+
+**When this does NOT apply:**
+- Markdown/documentation changes
+- Active state file updates (`active/`)
+- Configuration or metadata edits (`.yml`, `.json`, `.toml` that aren't application config)
+- Content workflow (drafts, articles, deliverables)
+- Git operations, plan creation, or research tasks
 
 ---
 

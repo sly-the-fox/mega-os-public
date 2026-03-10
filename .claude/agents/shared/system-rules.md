@@ -30,3 +30,8 @@
    - **Should record:** Task completions on tracked items, external events reported by user, configuration changes.
    - **Skip:** Typo fixes, exploratory reads, conversation-only exchanges, research that leads nowhere.
 21. **Completion protocol (mid-session).** When the user signals a tracked item is done, update `active/now.md` and `active/priorities.md` immediately. If it's a milestone, move it to "What's Done" in now.md and update `MEMORY.md`. Don't wait for session close. Offer to commit the state change.
+22. **Artifact follow-through (mandatory).** When any artifact or output is generated (research docs, drafts, deliverables, configs, landing pages, templates, plans), immediately determine its disposition:
+   - **Where does it go?** Confirm it's saved in the correct location per file conventions.
+   - **What's next?** Add the next action to `active/now.md` (e.g., "Review research for launch campaign", "Deploy site to Netlify", "Publish to Substack").
+   - **Cross-reference:** If the artifact serves an existing tracked task, add a reference to that task in `active/now.md`.
+   - Even if the only next step is "review this", add it. No artifact should be generated without a trail back to active state.
