@@ -63,6 +63,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/news-briefing.md`
 - `active/codex-metrics.md`
 - `active/freshness-log.md`
+- `active/freshstate-report.md`
 
 ## History (additional)
 - `core/history/evaluations.md`

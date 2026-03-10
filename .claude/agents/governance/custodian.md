@@ -36,6 +36,7 @@ Prevent stale documents by verifying freshness and checklist completion at workf
 - Agent checklist definitions from `shared/workflows.md`
 - Git timestamps for freshness detection
 - Current `active/` file states
+- `active/freshstate-report.md` — latest automated freshstate scan (cron, daily)
 
 ## Outputs
 - Freshness verification report (pass/fail per checklist item)
