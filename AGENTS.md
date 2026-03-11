@@ -32,7 +32,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **writer** — writes original long-form content (articles, essays, books) in the user's voice
 - **editor** — editorial specialist for structure, citations, fact-checking, and voice consistency
 
-### Technical (9 agents)
+### Technical (10 agents)
 - **architect** — designs systems, structures, interfaces, and patterns
 - **engineer** — implements features, code, scripts, and technical tasks
 - **executor** — performs clearly scoped work efficiently across domains
@@ -42,12 +42,17 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **devops** — handles deployment, infrastructure, reliability, and automation
 - **security-expert** — assesses security, identifies risks, recommends mitigations
 - **designer** — shapes product, interface, and experience decisions
+- **api-designer** — reviews and designs APIs for clarity, consistency, and DX
 
-### Business (4 agents)
+### Business (8 agents)
 - **strategist** — handles direction, prioritization, positioning, and monetization
 - **marketer** — develops messaging, campaigns, content plans, and launch support materials
 - **seller** — focuses on conversion, offer strength, and pipeline movement
 - **financier** — evaluates economics, pricing, budgets, and financial risk
+- **proposal-writer** — drafts consulting proposals, SOWs, and engagement letters
+- **client-manager** — tracks client relationships, session history, and follow-ups
+- **content-strategist** — plans technical writing topics, SEO, and distribution
+- **growth-hacker** — drives open-source adoption, downloads, stars, and community
 
 ### Evolution (4 agents)
 - **improver** — observes workflows and recommends system improvements

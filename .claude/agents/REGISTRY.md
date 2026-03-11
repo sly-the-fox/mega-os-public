@@ -43,6 +43,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | DevOps | `technical/devops.md` | Handles deployment, infrastructure, reliability, and automation |
 | Security Expert | `technical/security-expert.md` | Assesses security, identifies risks, recommends mitigations |
 | Designer | `technical/designer.md` | Shapes product, interface, and experience decisions |
+| API Designer | `technical/api-designer.md` | Reviews and designs APIs for clarity, consistency, and DX |
 
 ## Business / Growth
 
@@ -52,6 +53,10 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | Marketer | `business/marketer.md` | Develops messaging, campaigns, content plans, and launch support materials |
 | Seller | `business/seller.md` | Focuses on conversion, offer strength, and pipeline movement |
 | Financier | `business/financier.md` | Evaluates economics, pricing, budgets, and financial risk |
+| Proposal Writer | `business/proposal-writer.md` | Drafts consulting proposals, SOWs, and engagement letters |
+| Client Manager | `business/client-manager.md` | Tracks client relationships, session history, and follow-ups |
+| Content Strategist | `business/content-strategist.md` | Plans technical writing topics, SEO, and distribution |
+| Growth Hacker | `business/growth-hacker.md` | Drives open-source adoption, downloads, stars, and community |
 
 ## Evolution
 
@@ -78,7 +83,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 
 - **Governance:** 9
 - **Knowledge:** 7
-- **Technical:** 9
-- **Business:** 4
+- **Technical:** 10
+- **Business:** 8
 - **Evolution:** 4
-- **Total:** 33
+- **Total:** 38

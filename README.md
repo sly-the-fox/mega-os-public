@@ -1,10 +1,10 @@
 # Mega-OS
 
-A personal operating system for builders, powered by Claude Code. Mega-OS organizes 33 specialized AI agents into 5 categories, giving you a structured command center for managing products, business operations, and knowledge across every session.
+A personal operating system for builders, powered by Claude Code. Mega-OS organizes 38 specialized AI agents into 5 categories, giving you a structured command center for managing products, business operations, and knowledge across every session.
 
 ## What You Get
 
-- **33 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
+- **38 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
 - **14 slash commands** for daily operations, building, system management, and deployment
 - **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
@@ -106,11 +106,11 @@ Or manually: `git fetch upstream && git merge upstream/master`
 ```
 mega-os/
   .claude/
-    agents/            # 33 agent definitions in category subdirectories
+    agents/            # 38 agent definitions in category subdirectories
       governance/      # overseer, governor, router, planner, pm, operator, sentinel, auditor, custodian
       knowledge/       # historian, librarian, summarizer, documenter, polisher, writer, editor
-      technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer
-      business/        # strategist, marketer, seller, financier
+      technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, api-designer
+      business/        # strategist, marketer, seller, financier, proposal-writer, client-manager, content-strategist, growth-hacker
       evolution/       # improver, evaluator, coherence, parallax
       shared/          # system rules, collaboration protocol, templates
     skills/            # slash commands (setup, add-agent, project-kickoff, bug-triage, daily-scan, etc.)
