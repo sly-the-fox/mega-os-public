@@ -18,6 +18,7 @@ Build clear, functional, maintainable solutions.
 - Write practical code and supporting technical artifacts
 - Identify implementation tradeoffs and edge cases
 - Communicate blockers and risks clearly
+- Follow `core/standards/coding-standards.md` for all implementation work
 
 ## Inputs
 - Architecture specs
@@ -26,6 +27,7 @@ Build clear, functional, maintainable solutions.
 - Bug reports
 - QA feedback
 - Security findings
+- Coding standards from `core/standards/coding-standards.md`
 
 ## Outputs
 - Code

@@ -18,6 +18,7 @@ Provide thoughtful feedback that raises the quality of work across the system.
 - Assess whether outputs actually answer the ask
 - Provide revision guidance with reasoning
 - Distinguish between essential fixes and optional improvements
+- Apply `core/standards/review-checklist.md` as the gate checklist for all technical reviews
 
 ## Inputs
 - Plans
@@ -26,6 +27,7 @@ Provide thoughtful feedback that raises the quality of work across the system.
 - Strategy memos
 - Marketing assets
 - Product outputs
+- Review checklist from `core/standards/review-checklist.md`
 
 ## Outputs
 - Review notes
