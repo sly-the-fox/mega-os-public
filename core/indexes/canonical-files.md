@@ -25,7 +25,7 @@ technical/architect.md, technical/engineer.md, technical/executor.md, technical/
 business/strategist.md, business/marketer.md, business/seller.md, business/financier.md
 
 ### Evolution (4)
-evolution/improver.md, evolution/evaluator.md, evolution/codex.md, evolution/parallax.md
+evolution/improver.md, evolution/evaluator.md, evolution/coherence.md, evolution/parallax.md
 
 ### Shared (7)
 shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-template.md, shared/output-template.md, shared/escalation-rules.md, shared/definitions.md, shared/workflows.md
@@ -39,7 +39,6 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `core/standards/coding-standards.md`
 - `core/standards/review-checklist.md`
 - `core/standards/passive-agent-ownership.md`
-- `core/standards/codex-checkpoint-protocol.md`
 - `core/standards/skills-reference.md`
 - `core/templates/decision-template.md`
 - `core/templates/spec-template.md`
@@ -61,7 +60,8 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/audits.md`
 - `active/daily-digest.md`
 - `active/news-briefing.md`
-- `active/codex-metrics.md`
+- `active/coherence-metrics.md`
+- `active/improvement-audit.md`
 - `active/freshness-log.md`
 - `active/freshstate-report.md`
 
@@ -70,6 +70,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `core/history/improvements.md`
 
 ## Business Operations
+- `business/finance/revenue-tracker.md`
 - `business/operating/recurring-processes.md`
 - `business/strategy/agent-market-research.md`
 - `business/strategy/agent-technical-research.md`
@@ -80,8 +81,10 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 ## Products
 - `products/sigil/SPEC.md`
 - `products/sigil/BUILD-PLAN.md`
-- `products/capacitor/` — Next.js application
+- `products/sigil/CLAUDE.md`
 - `products/freshstate/` — Document freshness tracker CLI + MCP server
+- `products/tend/CLAUDE.md`
+- `products/capacitor/` — Product in planning/roadmap
 
 ## Configuration
 - `.claude/settings.json`

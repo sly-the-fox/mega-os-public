@@ -2,7 +2,7 @@
 
 ## Files and Directories
 - Use lowercase kebab-case for all filenames: `security-expert.md`, `project-map.md`
-- Directories are also lowercase kebab-case: `shared-libraries/`, `example-api/`
+- Directories are also lowercase kebab-case: `shared-libraries/`, `app-main/`
 - No spaces, no camelCase, no underscores in filenames
 
 ## Agent Files
@@ -11,8 +11,8 @@
 - Registry at `REGISTRY.md` (uppercase for system-level files)
 
 ## Code Conventions
-- **TypeScript/JavaScript**: camelCase for variables/functions, PascalCase for components/classes
-- **Python**: snake_case for variables/functions, PascalCase for classes
+- **TypeScript/JavaScript** (Tend, Capacitor): camelCase for variables/functions, PascalCase for components/classes
+- **Python** (Sigil, Freshstate, scripts): snake_case for variables/functions, PascalCase for classes
 - **Environment variables:** UPPER_SNAKE_CASE
 - **Database columns:** snake_case
 - **API endpoints:** kebab-case paths, camelCase JSON fields
