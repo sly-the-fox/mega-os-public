@@ -8,7 +8,9 @@ arguments: "[--day mon|tue|wed|thu|fri|sat|sun] [--no-coherence]"
 
 # Daily Improvement Audit
 
-Deep MECE-decomposed audit of one system section per day, rotating through all 7 areas weekly. Uses agent teams for parallel local codebase exploration, applies the Auditor's four-layer analysis, distills findings via the Improver, and appends a Coherence+Parallax reading.
+Deep MECE-decomposed audit of one system section per day, rotating through all 7 areas weekly. Uses parallel standalone Agent calls for codebase exploration, applies the Auditor's four-layer analysis, distills findings via the Improver, and appends a Coherence+Parallax reading.
+
+> **Compatibility:** This skill is compatible with headless `claude -p` mode. It uses standalone Agent calls, not TeamCreate.
 
 ## Arguments
 
@@ -107,23 +109,17 @@ Print to console: "Improvement Audit: [Day] — [Focus Area] ([N] partitions, [a
 | 4 | Cron & Automation | All cron jobs documented? Timing conflicts? Logs checked? | `business/operating/recurring-processes.md`, crontab |
 | 5 | System Docs Consistency | CLAUDE.md, AGENTS.md, README.md — agent counts, features, workflows match reality? | `CLAUDE.md`, `AGENTS.md`, `README.md` |
 
-## Phase 1: Create Agent Team
+## Phase 1: Parallel Exploration
 
-Use TeamCreate:
-- **Team name:** `improvement-audit-[day]`
-- **Lead:** Director agent (`general-purpose`, `mode: "auto"`)
-- **Teammates:** N Explorer agents (`general-purpose`, `mode: "auto"`), one per partition
+For each partition, dispatch a standalone `Agent` tool call with `subagent_type: "Explore"` and `mode: "auto"`. **All Agent calls MUST be issued in a single tool-use response** so they execute in parallel.
 
-## Phase 2: Director Dispatches Explorers
+Do NOT use TeamCreate or SendMessage. Use only the Agent tool.
 
-Director sends each Explorer their assignment via SendMessage:
+Each Agent receives in its prompt:
 - The focus area context (what we're auditing and why)
 - Their specific partition (name, scope, key files)
-- Search instructions: use Grep, Glob, and Read to thoroughly examine all files in their partition
-- Depth: 8-12 Grep/Glob searches + 5-8 full file reads per Explorer (deep depth)
-- Report format (see below)
-
-All Explorers work in parallel.
+- The Explorer Search Instructions and Explorer Report Format below
+- Depth target: 8-12 Grep/Glob searches + 5-8 full file reads (deep depth)
 
 ### Explorer Search Instructions
 
@@ -169,15 +165,16 @@ Each Explorer should:
 - Gaps: [anything not examined or insufficiently covered]
 ```
 
-## Phase 3: Director Validates Coverage
+## Phase 2: Coverage Validation
 
-Director reviews each Explorer's report:
-- If any Explorer reports LOW coverage -> send a focused follow-up with specific files to examine
-- Maximum one retry per Explorer
+After all Agent calls return, review each report in the main context:
+- If any partition report shows LOW coverage or fewer than 3 findings, dispatch **one** follow-up `Agent` call (`subagent_type: "Explore"`) targeting the thin partition with specific files to examine.
+- Maximum one retry per partition.
+- Concatenate all reports (initial + any follow-ups) for Phase 3.
 
-## Phase 4: Auditor Four-Layer Analysis
+## Phase 3: Auditor Four-Layer Analysis
 
-Director applies the Auditor's four-layer check to ALL Explorer findings combined:
+Apply the Auditor's four-layer check to ALL Explorer findings combined:
 
 ### Orchestration
 - Are the right workflow steps in place for this area?
@@ -200,9 +197,9 @@ Director applies the Auditor's four-layer check to ALL Explorer findings combine
 - Does MEMORY.md accurately reflect this area?
 - Are hooks and session bootstrap capturing what's needed?
 
-## Phase 5: Improver Distillation
+## Phase 4: Improver Distillation
 
-Director takes the four-layer analysis and distills into 1-5 concrete improvement proposals:
+Take the four-layer analysis and distill into 1-5 concrete improvement proposals:
 
 For each proposal:
 - **ID:** IA-YYYY-MM-DD-N (ephemeral, not persistent IMP- IDs)
@@ -216,7 +213,7 @@ For each proposal:
 
 Prioritize: High-severity proposals first. Maximum 5 proposals per day — focus on the most impactful findings.
 
-## Phase 6: Coherence + Parallax Reading
+## Phase 5: Coherence + Parallax Reading
 
 **Skip if `--no-coherence` flag is set.**
 
@@ -232,7 +229,7 @@ After the Improver distillation:
    - **Dynamic** — the force or tension at play
    - **Implication** — what this means operationally
 
-## Phase 7: Write Output
+## Phase 6: Write Output
 
 Write to `active/improvement-audit.md` (overwritten each day).
 
