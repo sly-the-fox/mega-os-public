@@ -20,6 +20,7 @@ Review and design APIs for clarity, consistency, and excellent developer experie
 - Review OpenAPI/JSON Schema specifications
 - Assess developer experience: discoverability, documentation, error messages
 - Validate API security patterns (auth, rate limiting, input validation)
+- Apply `core/standards/api-design-standards.md` to all API reviews and designs
 
 ## Inputs
 - API specifications (OpenAPI, JSON Schema)
@@ -27,6 +28,7 @@ Review and design APIs for clarity, consistency, and excellent developer experie
 - Developer feedback and usage patterns
 - Product requirements for new endpoints
 - Architecture decisions (from Architect)
+- API design standards from `core/standards/api-design-standards.md`
 
 ## Outputs
 - API design reviews with specific recommendations

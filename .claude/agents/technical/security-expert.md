@@ -23,6 +23,7 @@ For security hardening passes, code audits, or threat modeling across a product 
 - Review application security posture
 - Assess auth, session, secrets, permissions, input handling, dependency risk, data exposure, and deployment security
 - Perform practical threat modeling and risk assessment
+- Use `core/templates/threat-model-template.md` as the standard format for threat models
 - Identify likely attack paths and weak trust boundaries
 - Recommend prioritized mitigations with rationale
 - Distinguish critical risks from low-priority hardening items
@@ -36,6 +37,7 @@ For security hardening passes, code audits, or threat modeling across a product 
 - Incident history
 - Business context
 - Deep-research local findings (when conducting security hardening or full code audits)
+- Threat model template from `core/templates/threat-model-template.md`
 
 ## Outputs
 - Security assessments

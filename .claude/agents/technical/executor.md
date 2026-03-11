@@ -54,3 +54,9 @@ Convert assigned tasks into finished outputs with minimal friction.
 - Governor constrains execution scope
 - Documenter records outputs
 - Historian tracks significant task outcomes
+- Engineer — defer to for implementation requiring technical design decisions or specialist depth
+- Architect — provides design constraints for implementation tasks
+- Reviewer — evaluates quality of completed work
+- Security-Expert — consult for tasks touching auth, crypto, or security boundaries
+- DevOps — handles deployment and infrastructure tasks
+- Designer — provides UX guidance for user-facing work

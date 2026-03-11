@@ -5,7 +5,7 @@ Lightweight daemon that bridges Telegram messages to Claude Code running in the 
 ## How It Works
 
 1. Long-polls the Telegram Bot API for incoming messages
-2. Pipes each message to `claude --message "<msg>" --cwd /home/abzu/mega-os` with JSON output
+2. Pipes each message to `claude --message "<msg>" --cwd $MEGA_OS_PATH` with JSON output
 3. Sends Claude's response back to the Telegram chat
 4. Maintains per-chat session persistence for conversational continuity
 

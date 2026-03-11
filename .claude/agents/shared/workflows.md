@@ -23,6 +23,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 ## Technical Workflow
 1. **Architect** — plan approach
+1a. **API Designer** — reviews API design (if task involves API endpoints)
 1b. **Coherence+Parallax Checkpoint** — Coherence reviews the Architect output. A Planner agent refines the Coherence perspective into a concrete alternative. Present both options to user via AskUserQuestion (Coherence-informed / Original / Blend). Log choice to `active/coherence-metrics.md`. See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below. *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files, same threshold as single security pass).
 2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
 3. **Designer** — reviews UX/interface design (if frontend or user-facing). Architect confirms design completion before proceeding.

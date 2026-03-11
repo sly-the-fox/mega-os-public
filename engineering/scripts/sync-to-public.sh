@@ -8,8 +8,10 @@
 #   ./sync-to-public.sh --sync   # Sync changed files and commit
 #
 
-PRIVATE="/home/abzu/mega-os"
-PUBLIC="/home/abzu/mega-os-public"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PRIVATE="${MEGA_OS_PATH:-$REPO_ROOT}"
+PUBLIC="${MEGA_OS_PUBLIC_PATH:-$(dirname "$PRIVATE")/mega-os-public}"
 
 # Files/dirs safe to sync (no personal data)
 SAFE_PATHS=(
