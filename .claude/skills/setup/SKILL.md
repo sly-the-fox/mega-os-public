@@ -222,6 +222,8 @@ If `--minimal` was passed, skip to Phase 10 (Finalization). Otherwise ask: "Cont
 
 ## Phase 4: Standards Customization (interactive)
 
+> **Tip:** If you have strong opinions about coding standards and want to review changes before they're applied, consider switching to **Plan mode** (`/plan`) with **Opus 4.6 (medium)** or equivalent. This lets you approve each standards change before it's written. You can return to setup afterward with `/setup --phase 5`. Otherwise, we'll work through it interactively right here.
+
 1. **Coding standards** — Read `core/standards/coding-standards.md`. Show the user which language sections exist. Ask:
    - Which of these are relevant to your stack?
    - Any languages/frameworks to add?
@@ -323,7 +325,7 @@ Ask: "Continue to Phase 7 (Automation Setup)?"
 
 **Step 1 — Show the caveat (prominent, before anything else):**
 
-> **Important:** Cron jobs only run when your computer is powered on, unlocked, and your user session is active. If your laptop is closed or sleeping, scheduled jobs will be skipped — they don't queue up and run later. For critical automations, make sure your machine is awake during the scheduled times. All automations log to `/tmp/mega-os-*.log` so you can check what ran.
+> **Important:** These are **system-level cron jobs** (installed via `crontab`), NOT Claude Code in-session crons. They persist across reboots and sessions — you don't need Claude Code open for them to fire. However, they only run when your computer is powered on and your user session is active. If your laptop is closed or sleeping, scheduled jobs will be skipped — they don't queue up and run later. For critical automations, make sure your machine is awake during the scheduled times. All automations log to `/tmp/mega-os-*.log` so you can check what ran.
 
 **Step 2 — Present the automation menu**, grouped by frequency:
 
@@ -472,6 +474,13 @@ Based on the user's domain from Phase 2, suggest relevant custom agents. Example
 
 Present suggestions and ask:
 1. "Want to create any of these? Or describe a custom agent you need."
+
+**Before creating agents, recommend plan mode:**
+
+Print: "**Recommended:** Before we create agents, switch to **Plan mode** (type `/plan`) and select **Opus 4.6 (medium)** or equivalent as your model. Agent creation involves designing responsibilities, writing definitions, creating symlinks, and updating the registry — Plan mode lets you review and approve each step before it happens.
+
+Once you approve the plan and agents are created, you can jump right back into onboarding where you left off — just run `/setup --phase 10` (or whatever phase is next). The conversation auto-compacts, so your context is preserved even if the conversation gets long."
+
 2. For each requested agent, run `/add-agent` (the add-agent skill) to create it properly.
 3. "Want to hide any default agents that aren't relevant? (This removes symlinks but keeps the files.)"
    - If yes, remove the selected symlinks. The agent files remain in their category directories.
