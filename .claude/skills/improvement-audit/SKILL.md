@@ -75,7 +75,7 @@ Print to console: "Improvement Audit: [Day] — [Focus Area] ([N] partitions, [a
 | 1 | Sigil | Spec, public repo, SDK, MCP server, tests, marketing, adoption | `products/sigil/` |
 | 2 | freshstate | Spec, CLI, MCP server, registry submissions, CI | `products/freshstate/` |
 | 3 | Capacitor | Spec, app code, landing page, deployment status | `products/capacitor/` |
-| 4 | Consulting & Templates | Aequilibris site, service docs, template packages | `products/aequilibris-group/`, `products/templates/` |
+| 4 | Consulting & Templates | Consulting site, service docs, template packages | `products/consulting/`, `products/templates/` |
 | 5 | Revenue & Finance | Revenue tracker, financial records, pricing rationale | `business/finance/`, `business/strategy/revenue-top-10.md` |
 | 6 | Marketing & Adoption | Content calendar, adoption metrics, launch materials | `business/marketing/` |
 

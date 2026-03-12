@@ -66,7 +66,7 @@ Run `WebSearch` queries for each topic area. Constrain to last 24-48 hours. Run 
 | **Medical Breakthroughs** | `medical breakthrough discovery 2026`, `gene therapy OR CRISPR OR longevity research`, `cancer treatment breakthrough`, `medical breakthrough site:biorxiv.org OR site:medrxiv.org` |
 | **Psychology** | `psychology research study 2026`, `social psychology OR cognitive bias study`, `trauma PTSD treatment new`, `psychology study replicate OR meta-analysis site:psyarxiv.com` |
 | **Epstein Files** | `Epstein files documents prosecution 2026`, `Epstein associate charged OR arrested`, `Epstein connections revelations`, `Epstein site:reddit.com/r/Epstein OR site:reddit.com/r/conspiracy` |
-| **Brand Monitoring** | `"sigil-notary" OR "sigil notary" agent trust`, `Triangul8`, `"Chadd Harrison"`, `"agent trust infrastructure" OR "MCP trust" OR "AI agent verification"` |
+| **Brand Monitoring** | `"sigil-notary" OR "sigil notary" agent trust`, `Triangul8`, `"Your Name"`, `"agent trust infrastructure" OR "MCP trust" OR "AI agent verification"` |
 
 **Coverage validation:** After search and dedup filtering, check each topic:
 - If a topic returns **< 2 results**, run 1-2 **fallback queries** with broader terms or alternative source lanes.
@@ -175,7 +175,7 @@ Flag stories that span multiple interest areas. Key crossover zones:
 Check for mentions and search interest:
 
 1. **WebSearch** for recent mentions of:
-   - `"Chadd Harrison"`
+   - `"Your Name"`
    - `sigil-notary`, `Sigil`
    - `Triangul8`
    - `"agent trust infrastructure"`, `"AI agent verification"`, `"MCP trust"`
@@ -322,7 +322,7 @@ If `--telegram` flag is set, send a condensed version (<4000 chars) via the Tele
 ### Search Interest & Geographic Reach
 | Term | Volume Trend | Top Regions | New This Week |
 |------|-------------|-------------|---------------|
-| Chadd Harrison | ↑/↓/— | [countries/regions] | Y/N |
+| Your Name | ↑/↓/— | [countries/regions] | Y/N |
 | Sigil / sigil-notary | ↑/↓/— | [countries/regions] | Y/N |
 | Triangul8 | ↑/↓/— | [countries/regions] | Y/N |
 | "agent trust infrastructure" | ↑/↓/— | [countries/regions] | Y/N |
