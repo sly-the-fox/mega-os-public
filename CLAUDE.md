@@ -35,7 +35,9 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
 - **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, coherence-metrics.md, audits.md, daily-digest.md, news-briefing.md, freshness-log.md
+- **Active Index:** `active/index.json` — machine-readable manifest with load priorities
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
+- **Archive:** `archive/` — aged content organized by type and ISO week (`archive/index.json` is the manifest)
 - **Standards:** `core/standards/` — naming, documentation, coding, review checklist
 - **History:** `core/history/` — decisions, current state, timeline
 - **Templates:** `core/templates/` — decision, spec, SOP, handoff
@@ -72,6 +74,14 @@ Most sessions are conversational. Match response weight to request size:
 6. **When creating plans** (`.claude/plans/*.md`), include an Agent Assignment Graph. Use `core/templates/plan-template.md` as the format.
 
 For simple, single-domain requests, go directly to the relevant specialist.
+
+### Selective Loading
+
+The SessionStart hook loads `active/index.json` plus "always" priority files. Use the index to decide what else to load:
+
+- **`on_request`:** Load when the user's request touches the file's topics.
+- **`on_demand`:** Load only when explicitly needed.
+- **Archive recall:** When information isn't in active state, check `archive/index.json` by time scope first. See memory/archive_recall.md for the full protocol.
 
 ### When Something Fails
 

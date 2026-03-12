@@ -66,7 +66,7 @@ Run `WebSearch` queries for each topic area. Constrain to last 24-48 hours. Run 
 | **Medical Breakthroughs** | `medical breakthrough discovery 2026`, `gene therapy OR CRISPR OR longevity research`, `cancer treatment breakthrough`, `medical breakthrough site:biorxiv.org OR site:medrxiv.org` |
 | **Psychology** | `psychology research study 2026`, `social psychology OR cognitive bias study`, `trauma PTSD treatment new`, `psychology study replicate OR meta-analysis site:psyarxiv.com` |
 | **Epstein Files** | `Epstein files documents prosecution 2026`, `Epstein associate charged OR arrested`, `Epstein connections revelations`, `Epstein site:reddit.com/r/Epstein OR site:reddit.com/r/conspiracy` |
-| **Brand Monitoring** | `"sigil-notary" OR "sigil notary" agent trust`, `Triangul8`, `"Your Name"`, `"agent trust infrastructure" OR "MCP trust" OR "AI agent verification"` |
+| **Brand Monitoring** | `"sigil-notary" OR "sigil notary" agent trust`, `Triangul8`, `"Chadd Harrison"`, `"agent trust infrastructure" OR "MCP trust" OR "AI agent verification"` |
 
 **Coverage validation:** After search and dedup filtering, check each topic:
 - If a topic returns **< 2 results**, run 1-2 **fallback queries** with broader terms or alternative source lanes.
@@ -175,7 +175,7 @@ Flag stories that span multiple interest areas. Key crossover zones:
 Check for mentions and search interest:
 
 1. **WebSearch** for recent mentions of:
-   - `"Your Name"`
+   - `"Chadd Harrison"`
    - `sigil-notary`, `Sigil`
    - `Triangul8`
    - `"agent trust infrastructure"`, `"AI agent verification"`, `"MCP trust"`
@@ -213,6 +213,14 @@ After writing the briefing, update the deduplication state file:
 
 3. Include today's stories plus yesterday's stories (if they exist in the previous state file).
 4. Prune any entries older than 2 days.
+
+### 7.75. Update Active Index
+
+After writing the briefing and dedup state, update `active/index.json`:
+1. Read the current index
+2. Update the `news-briefing.md` entry: set `last_updated` to today, update `token_estimate`, update `summary` with today's story/high-significance counts
+3. Update the `news-briefing-state.md` entry: set `last_updated` to today
+4. Write the index back
 
 ### 8. Telegram Delivery (if `--telegram` or cron)
 
@@ -322,7 +330,7 @@ If `--telegram` flag is set, send a condensed version (<4000 chars) via the Tele
 ### Search Interest & Geographic Reach
 | Term | Volume Trend | Top Regions | New This Week |
 |------|-------------|-------------|---------------|
-| Your Name | ↑/↓/— | [countries/regions] | Y/N |
+| Chadd Harrison | ↑/↓/— | [countries/regions] | Y/N |
 | Sigil / sigil-notary | ↑/↓/— | [countries/regions] | Y/N |
 | Triangul8 | ↑/↓/— | [countries/regions] | Y/N |
 | "agent trust infrastructure" | ↑/↓/— | [countries/regions] | Y/N |

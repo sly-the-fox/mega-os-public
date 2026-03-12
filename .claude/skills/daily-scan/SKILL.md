@@ -11,6 +11,8 @@ Scan all passive agent outputs and active state files for items needing attentio
 
 ## Steps
 
+**Scope:** Only scan `active/` state files. Never scan `archive/` — archived content is frozen.
+
 1. **Scan inbox** (`active/inbox.md`)
    - Find items not marked Routed or Closed.
    - Items older than 2 days → **Critical**.

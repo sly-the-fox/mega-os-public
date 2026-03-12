@@ -73,6 +73,13 @@ Review the current state of the system, scan for stale items, cross-reference pa
     - Review existing proposals in `active/improvements.md` — update status of any in-progress items.
     - Archive completed improvements (verified/ineffective) to `core/history/improvements.md`.
 
-12. **Update history**
+12. **Optional: Archive Trend Analysis**
+    If `archive/index.json` exists and has entries:
+    1. Read the index (not the files)
+    2. Compare this week's HIGH stories against last week's `key_stories`
+    3. Note recurring themes, topics going quiet, or escalating patterns
+    4. Include a brief "Trend Watch" section in the weekly summary
+
+13. **Update history**
     - Add a timeline entry to `core/history/master-timeline.md`.
     - Update `core/history/current-state.md` if system state changed.

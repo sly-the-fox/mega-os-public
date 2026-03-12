@@ -35,3 +35,9 @@
    - **What's next?** Add the next action to `active/now.md` (e.g., "Review research for launch campaign", "Deploy site to Netlify", "Publish to Substack").
    - **Cross-reference:** If the artifact serves an existing tracked task, add a reference to that task in `active/now.md`.
    - Even if the only next step is "review this", add it. No artifact should be generated without a trail back to active state.
+23. **Archive search protocol.** When a user asks about past events or information not in active state:
+    1. Read `archive/index.json` and identify the relevant week bucket.
+    2. If user specifies a time frame, go directly to that bucket.
+    3. If no time frame, search the 2-3 most recent week buckets.
+    4. Read the specific archived file(s).
+    5. Never preload archive content.
