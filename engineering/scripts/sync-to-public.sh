@@ -32,6 +32,7 @@ SAFE_PATHS=(
   "engineering/scripts/telegram-bridge/README.md"
   "engineering/scripts/telegram-bridge/requirements.txt"
   "engineering/scripts/telegram-bridge/.env.example"
+  "engineering/scripts/telegram-bridge/chat-log.jsonl.example"
   "engineering/scripts/md-to-polished.py"
 )
 

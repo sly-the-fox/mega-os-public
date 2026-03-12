@@ -14,6 +14,7 @@ Usage:
     python3 telegram_bridge.py
 """
 
+import datetime
 import json
 import logging
 import os
@@ -73,6 +74,30 @@ TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"
 
 # Track which chats have authenticated (passphrase verified)
 authenticated_chats: set[int] = set()
+
+# --- Message Logging ---
+
+CHAT_LOG_FILE = SCRIPT_DIR / "chat-log.jsonl"
+LOG_MESSAGES = os.getenv("LOG_MESSAGES", "true").lower() in ("true", "1", "yes")
+
+
+def log_message(chat_id: int, username: str, direction: str, text: str):
+    """Append a message record to the chat log (JSONL format)."""
+    if not LOG_MESSAGES:
+        return
+    entry = {
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "chat_id": chat_id,
+        "username": username,
+        "direction": direction,
+        "text": text,
+    }
+    try:
+        with open(CHAT_LOG_FILE, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+    except OSError as e:
+        logger.warning(f"Failed to write chat log: {e}")
+
 
 # --- Session Persistence ---
 
@@ -313,6 +338,7 @@ def main():
                 continue
 
             logger.info(f"Message from {user} (chat {chat_id}): {text[:80]}")
+            log_message(chat_id, user, "in", text)
 
             # Rate limiting
             if is_rate_limited(chat_id):
@@ -334,6 +360,7 @@ def main():
             # Invoke Claude (always resumes session for conversational continuity)
             response = invoke_claude(text, chat_id, use_session=True)
             send_message(chat_id, response, reply_to=msg_id)
+            log_message(chat_id, "bot", "out", response)
             logger.info(f"Response sent to chat {chat_id} ({len(response)} chars)")
 
 

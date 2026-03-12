@@ -40,6 +40,7 @@ Lightweight daemon that bridges Telegram messages to Claude Code running in the 
 | `CLAUDE_TIMEOUT` | Max seconds to wait for Claude response | 600 |
 | `BRIDGE_PASSPHRASE` | Passphrase for second-factor auth (optional) | (empty) |
 | `RATE_LIMIT_MAX` | Max messages per 60-second window per chat | 10 |
+| `LOG_MESSAGES` | Log all messages to `chat-log.jsonl` | `true` |
 
 ## Built-in Commands
 
@@ -63,6 +64,14 @@ While Claude is processing your request, the bridge sends a "thinking..." indica
 ## Passphrase Auth
 
 Set `BRIDGE_PASSPHRASE` in `.env` to require authentication before a chat can interact with the bot. Users must send the correct passphrase once per session. This is recommended for public-facing bots.
+
+## Message Logging
+
+All messages (incoming and outgoing) are logged to `chat-log.jsonl` in JSONL format (one JSON object per line). Each entry contains a UTC timestamp, chat ID, username, direction (`in`/`out`), and the message text.
+
+Set `LOG_MESSAGES=false` in `.env` to disable. See `chat-log.jsonl.example` for the format.
+
+The log file is gitignored. The example file syncs to the public repo.
 
 ## Rate Limiting
 
