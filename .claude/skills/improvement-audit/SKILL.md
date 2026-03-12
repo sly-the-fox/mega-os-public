@@ -3,7 +3,7 @@ name: improvement-audit
 description: Deep daily improvement audit — MECE-decomposed local codebase scan through auditor four-layer lens, improver distillation, and Coherence reading. Auto-rotates focus area by day of week.
 invocation: /improvement-audit
 user_invocable: true
-arguments: "[--day mon|tue|wed|thu|fri|sat|sun] [--no-coherence]"
+arguments: "--day <day> --no-coherence"
 ---
 
 # Daily Improvement Audit

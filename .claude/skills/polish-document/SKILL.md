@@ -3,7 +3,7 @@ name: polish-document
 description: Convert a markdown document to polished DOCX/PDF output
 user_invocable: true
 invocation: /polish
-arguments: "[file-path] [--format docx|pdf|both]"
+arguments: "<file-path> --format <docx|pdf|both>"
 ---
 
 # Polish Document

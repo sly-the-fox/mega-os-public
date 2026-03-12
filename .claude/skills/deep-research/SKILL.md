@@ -3,7 +3,7 @@ name: deep-research
 description: Tiered deep research — assesses query complexity, selects appropriate tier (light/standard/deep), decomposes into MECE partitions when needed, runs parallel explorer agents, synthesizes findings, and appends a Coherence+Parallax reading.
 invocation: /deep-research
 user_invocable: true
-arguments: "<query> [--tier auto|light|standard|deep] [--depth scan|standard|deep] [--axis topic|source|temporal] [--source web|local|hybrid] [--legs N] [--output path] [--no-coherence]"
+arguments: "<query> --tier <auto|light|standard|deep> --depth <scan|standard|deep> --axis <topic|source|temporal> --source <web|local|hybrid> --legs <N> --output <path> --no-coherence"
 ---
 
 # Tiered Deep Research
