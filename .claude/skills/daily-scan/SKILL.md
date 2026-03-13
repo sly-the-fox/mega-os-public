@@ -49,18 +49,32 @@ Scan all passive agent outputs and active state files for items needing attentio
    - Overdue (Next Due < today) → **Critical**.
    - Due today → **Needs Review**.
 
-8. **Scan decisions** (`core/history/decisions.md`)
+8. **Auto-sync process registry** (`business/operating/recurring-processes.md`)
+   - For each process in the registry, check for evidence that it ran:
+     - Check cron log output via `cron list` for matching skill invocations.
+     - Check output file timestamps (e.g., `active/daily-digest.md`, `active/news-briefing.md`, `active/freshstate-report.md`, `active/improvement-audit.md`).
+     - Check `git log --since="yesterday" --format="%ai %s"` for commits referencing the process.
+   - If evidence found and Last Run is stale, update Last Run to the detected timestamp.
+   - Recalculate Next Due based on the process frequency and updated Last Run.
+   - Log any auto-corrections as **Informational** in the digest: "Auto-synced [process] Last Run to [date]."
+
+9. **Scan decisions** (`core/history/decisions.md`)
    - Find pending decisions (Status = Pending or TBD).
    - Pending longer than 7 days → **Needs Review**.
    - Others → **Informational**.
 
-9. **Scan focus** (`active/now.md`)
+10. **Recent decisions (24h)** (`core/history/decisions.md`)
+    - Find decisions accepted or resolved in the last 24 hours (compare date column to today/yesterday).
+    - For each recent decision, surface as **Informational**: "DEC-XXX: [title] — accepted [date]."
+    - This keeps the daily digest aware of recent direction changes without requiring manual cross-referencing.
+
+11. **Scan focus** (`active/now.md`)
    - Count unchecked Next Steps (`- [ ]`).
    - Check file freshness: `git log -1 --format=%ai active/now.md`.
    - If file unchanged for 7+ days → **Needs Review** (focus may be stale).
    - Otherwise → **Informational** (list unchecked count).
 
-10. **Incorporate improvement audit** (`active/improvement-audit.md`)
+12. **Incorporate improvement audit** (`active/improvement-audit.md`)
     - Check if file exists and was generated today (compare `Generated:` date).
     - If today's audit exists:
       - Read the Executive Summary and Improvement Proposals sections.
@@ -74,7 +88,7 @@ Scan all passive agent outputs and active state files for items needing attentio
     - Do NOT modify `active/improvement-audit.md` — read-only input.
     - Do NOT auto-promote IA- items to `active/improvements.md` — requires user review.
 
-11. **Workflow review staleness check** (`active/workflow-review.md`)
+13. **Workflow review staleness check** (`active/workflow-review.md`)
     - Only check on Mondays (detect day of week).
     - If it's Monday:
       - Check if file exists and read the `Generated:` date.
@@ -82,18 +96,18 @@ Scan all passive agent outputs and active state files for items needing attentio
       - Otherwise → skip (no output).
     - If not Monday → skip entirely.
 
-12. **Agent and doc consistency quick-check**
+14. **Agent and doc consistency quick-check**
     - Count agent files in `.claude/agents/` subdirectories (governance/, knowledge/, technical/, business/, evolution/) vs count in REGISTRY.md. Flag if counts differ.
     - Count symlinks at `.claude/agents/*.md` (top level) vs agent files in subdirectories. Flag if mismatched.
     - Count agents referenced in README.md, AGENTS.md, CLAUDE.md. Flag if any differ from actual count.
     - Count skills listed in README.md vs actual `.claude/skills/` directories. Flag mismatches.
     - This is a fast count-only check. Full integrity analysis runs in weekly review.
 
-13. **Write digest**
+15. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-14. **Propose solutions**
+16. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |
