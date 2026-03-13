@@ -60,26 +60,36 @@ Review the current state of the system, scan for stale items, cross-reference pa
    - Clear resolved items from `active/blockers.md`.
    - Archive processed items from `active/inbox.md`.
 
-10. **Run Evaluator**
+10. **Incorporate workflow review** (`active/workflow-review.md`)
+    - Check if file exists and was generated within the last 7 days (compare `Generated:` date).
+    - If current:
+      - Read the Executive Summary, Cross-Area Patterns, and Recommendations sections.
+      - Include top recommendations in the weekly summary under a "Workflow Insights" heading.
+      - Flag any recommendations with effort = "Quick" as candidates for immediate action.
+    - If file is missing or stale (>7 days old):
+      - Log as **Informational**: "Workflow review is stale or missing — consider running `/workflow-review` before next week's review."
+    - Do NOT modify `active/workflow-review.md` — read-only input.
+
+11. **Run Evaluator**
     - Review task completion rates, cycle times, and blocker frequency.
     - Identify recurring blocker patterns (3+ of the same type triggers Improver).
     - Identify recurring defect patterns from QA reports.
     - Record findings to `core/history/evaluations.md` with date, metrics, and recommendations.
 
-11. **Run Improver**
+12. **Run Improver**
     - Review Evaluator findings from this week.
     - Review agent structure integrity findings from step 7.
     - Propose new improvements to `active/improvements.md` based on evidence.
     - Review existing proposals in `active/improvements.md` — update status of any in-progress items.
     - Archive completed improvements (verified/ineffective) to `core/history/improvements.md`.
 
-12. **Optional: Archive Trend Analysis**
+13. **Optional: Archive Trend Analysis**
     If `archive/index.json` exists and has entries:
     1. Read the index (not the files)
     2. Compare this week's HIGH stories against last week's `key_stories`
     3. Note recurring themes, topics going quiet, or escalating patterns
     4. Include a brief "Trend Watch" section in the weekly summary
 
-13. **Update history**
+14. **Update history**
     - Add a timeline entry to `core/history/master-timeline.md`.
     - Update `core/history/current-state.md` if system state changed.
