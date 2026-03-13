@@ -5,7 +5,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ## What You Get
 
 - **38 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
-- **14 slash commands** for daily operations, building, system management, and deployment
+- **15 slash commands** for daily operations, building, system management, and deployment
 - **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -16,7 +16,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ### First install
 
 ```bash
-git clone https://github.com/sly-the-fox/mega-os.git mega-os
+git clone https://github.com/sly-the-fox/mega-os-public.git mega-os
 cd mega-os
 claude
 ```
@@ -53,7 +53,7 @@ Every commit is a snapshot of your entire operating system. Push regularly and y
 ```bash
 git clone git@github.com:YOUR_USERNAME/my-mega-os.git mega-os
 cd mega-os
-git remote add upstream https://github.com/sly-the-fox/mega-os.git
+git remote add upstream https://github.com/sly-the-fox/mega-os-public.git
 claude  # everything just works
 ```
 
@@ -92,6 +92,7 @@ Or manually: `git fetch upstream && git merge upstream/master`
 | `/add-agent` | Create a new custom agent |
 | `/improvement-audit` | Deep system audit with rotating daily focus |
 | `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
+| `/workflow-review` | Analyze workflow patterns and operational friction |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 
 **Deployment & Updates:**

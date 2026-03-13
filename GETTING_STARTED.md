@@ -32,7 +32,7 @@ claude
 That's it. On startup, Claude Code will:
 - Read `CLAUDE.md` (master instructions for every session)
 - Run the SessionStart hook (loads `active/now.md` and `active/priorities.md`)
-- Discover all 33 agents via symlinks in `.claude/agents/`
+- Discover all 38 agents via symlinks in `.claude/agents/`
 - Enable agent teams via `.claude/settings.json`
 
 You're ready to work.
@@ -212,6 +212,10 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 | `/deep-research` | Tiered research with MECE decomposition |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 | `/write` | Write original long-form content |
+| `/news-briefing` | Daily intelligence briefing |
+| `/improvement-audit` | Deep system audit with rotating daily focus |
+| `/coherence` | Invoke the Coherence perspective |
+| `/workflow-review` | Analyze workflow patterns and operational friction |
 
 ---
 

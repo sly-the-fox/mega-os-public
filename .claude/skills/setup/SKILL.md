@@ -18,8 +18,8 @@ Print a welcome message:
 "Welcome to **Mega-OS** — a personal operating system for builders, powered by Claude Code.
 
 You have:
-- **33 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
-- **14 slash commands** for workflows, research, content, maintenance, and deployment
+- **38 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
+- **15 slash commands** for workflows, research, content, maintenance, and deployment
 - **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -288,7 +288,7 @@ If yes:
 - "Private repo = your data stays private (priorities, decisions, client info)"
 - "`git log --oneline` shows your OS evolution over time"
 - "If your machine dies, clone the repo on a new one and you're back in business"
-- "Setting up on a second computer? Just `git clone <your-private-repo> mega-os && cd mega-os && git remote add upstream https://github.com/sly-the-fox/mega-os.git`"
+- "Setting up on a second computer? Just `git clone <your-private-repo> mega-os && cd mega-os && git remote add upstream https://github.com/sly-the-fox/mega-os-public.git`"
 
 Ask: "Continue to Phase 6 (Telegram Bridge)?"
 
