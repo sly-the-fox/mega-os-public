@@ -200,6 +200,23 @@ Librarian → Summarizer (if extensive research) → Writer → Editor → Write
 
 **Mandatory:** The Editor and Polisher steps are NEVER skipped. Writer saves drafts to `drafts/`. Editor edits drafts in place. Polisher produces final DOCX/PDF to `deliverables/`. Content agents (Writer, Editor, Polisher) MUST be spawned as an agent team using TeamCreate, NOT as individual subagents. Team members get full file access; standalone subagents do not.
 
+### All Generated Content — Style Enforcement
+
+**Any text generated for the user's voice** — regardless of length or format — MUST follow `core/standards/writing-style.md`. This includes but is not limited to:
+
+- Social media posts (Twitter/X, LinkedIn, Discord, TikTok, Reddit, HN)
+- Comment replies and responses
+- Bios, taglines, and profile copy
+- Email drafts
+- Short-form marketing copy
+- Any text that will be published or sent as if written by the user
+
+**For short-form content** (social posts, comment replies, bios, short copy): Apply the writing style guide directly. At minimum, the Writer agent drafts and the Editor agent reviews before presenting to the user. No em dashes. No generic AI voice. Must sound like the user.
+
+**For long-form content** (articles, blog posts, essays, newsletters): Use the full Content Creation workflow above (Writer → Editor → Polisher).
+
+**If in doubt, run it through the flow.** Never generate publishable text in a raw response without applying the style guide.
+
 ### Evolution Loop
 Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
 **Coherence+Parallax Checkpoint** after Evaluator findings, before Improver proposes.
