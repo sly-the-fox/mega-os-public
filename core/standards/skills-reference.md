@@ -18,6 +18,7 @@ Complete inventory of available skills (slash commands). All skills live under `
 | 12 | Improvement Audit | `/improvement-audit` | `.claude/skills/improvement-audit/` | Deep system audit with rotating daily focus |
 | 13 | Update | `/update` | `.claude/skills/update/` | Pull framework updates from upstream public repo |
 | 14 | Publish | `/publish` | `.claude/skills/publish/` | Sync framework changes to public repo (maintainer only) |
+| 15 | Dream | `/dream` | `.claude/skills/dream/` | Overnight dreaming: generates One Question to Sit With from the week's context |
 
 ## Skill Structure
 
@@ -42,3 +43,4 @@ Common automated skills:
 - `/weekly-review` — weekly retrospective
 - `/improvement-audit` — daily rotating deep audit
 - `/news-briefing` — daily intelligence briefing
+- `/dream` — overnight contemplative question generation

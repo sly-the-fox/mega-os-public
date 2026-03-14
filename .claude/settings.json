@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if grep -q 'MEGA-OS:UNCONFIGURED' active/now.md 2>/dev/null; then echo ''; echo '=== WELCOME TO MEGA-OS ==='; echo 'This system has not been configured yet.'; echo 'Run /setup to start guided onboarding (~20 min).'; echo 'Or /setup --minimal for quick setup (~5 min).'; echo '==========================='; echo ''; else cat active/index.json 2>/dev/null; cat active/now.md active/priorities.md active/blockers.md active/risks.md active/improvements.md core/templates/team-roster.md 2>/dev/null || true; fi"
+            "command": "if grep -q 'MEGA-OS:UNCONFIGURED' active/now.md 2>/dev/null; then echo ''; echo '=== WELCOME TO MEGA-OS ==='; echo 'This system has not been configured yet.'; echo 'Run /setup to start guided onboarding (~20 min).'; echo 'Or /setup --minimal for quick setup (~5 min).'; echo '==========================='; echo ''; else cat active/index.json 2>/dev/null; cat active/now.md active/priorities.md active/blockers.md active/risks.md active/improvements.md core/templates/team-roster.md active/dream-report.md 2>/dev/null || true; fi"
           }
         ]
       }
