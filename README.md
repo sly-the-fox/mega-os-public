@@ -5,7 +5,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ## What You Get
 
 - **38 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
-- **16 slash commands** for daily operations, building, system management, and deployment
+- **18 slash commands** for daily operations, building, system management, and deployment
 - **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
