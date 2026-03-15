@@ -1,12 +1,12 @@
 # Mega-OS
 
-A personal operating system for builders, powered by Claude Code. Mega-OS organizes 38 specialized AI agents into 5 categories, giving you a structured command center for managing products, business operations, and knowledge across every session.
+A personal operating system for builders, powered by Claude Code. Mega-OS organizes 39 specialized AI agents into 5 categories, giving you a structured command center for managing products, business operations, and knowledge across every session.
 
 ## What You Get
 
-- **38 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
+- **39 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
 - **18 slash commands** for daily operations, building, system management, and deployment
-- **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
+- **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
 - **Git-as-cloud-backup** — every commit preserves your entire OS state
@@ -81,6 +81,7 @@ Or manually: `git fetch upstream && git merge upstream/master`
 |---------|-------------|
 | `/project-kickoff` | Scaffold a new product under `products/` |
 | `/write` | Launch the content pipeline (Writer -> Editor -> Polisher) |
+| `/build-site` | Build a website from concept to deployment (strategy → design → content → code → polish → QA) |
 | `/bug-triage` | Diagnose and fix a reported bug |
 | `/deep-research` | MECE-structured research (web, local codebase, or hybrid) |
 
@@ -111,7 +112,7 @@ mega-os/
     agents/            # 38 agent definitions in category subdirectories
       governance/      # overseer, governor, router, planner, pm, operator, sentinel, auditor, custodian
       knowledge/       # historian, librarian, summarizer, documenter, polisher, writer, editor
-      technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, api-designer
+      technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, visual-designer, api-designer
       business/        # strategist, marketer, seller, financier, proposal-writer, client-manager, content-strategist, growth-hacker
       evolution/       # improver, evaluator, coherence, parallax
       shared/          # system rules, collaboration protocol, templates

@@ -43,6 +43,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | DevOps | `technical/devops.md` | Handles deployment, infrastructure, reliability, and automation |
 | Security Expert | `technical/security-expert.md` | Assesses security, identifies risks, recommends mitigations |
 | Designer | `technical/designer.md` | Shapes product, interface, and experience decisions |
+| Visual Designer | `technical/visual-designer.md` | Visual craft — typography, color, CSS, animations, responsive polish |
 | API Designer | `technical/api-designer.md` | Reviews and designs APIs for clarity, consistency, and DX |
 
 ## Business / Growth
@@ -83,7 +84,7 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 
 - **Governance:** 9
 - **Knowledge:** 7
-- **Technical:** 10
+- **Technical:** 11
 - **Business:** 8
 - **Evolution:** 4
-- **Total:** 38
+- **Total:** 39

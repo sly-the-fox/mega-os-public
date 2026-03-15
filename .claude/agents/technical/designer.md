@@ -54,3 +54,4 @@ Improve usability and experiential quality, not just visual appearance.
 - Strategist provides product direction and positioning context
 - Financier evaluates pricing and economics impact of design/product decisions
 - Historian records design decisions and rationale
+- Visual Designer handles CSS craft, typography, color, and visual polish

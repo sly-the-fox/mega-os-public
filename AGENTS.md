@@ -32,7 +32,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **writer** — writes original long-form content (articles, essays, books) in the user's voice
 - **editor** — editorial specialist for structure, citations, fact-checking, and voice consistency
 
-### Technical (10 agents)
+### Technical (11 agents)
 - **architect** — designs systems, structures, interfaces, and patterns
 - **engineer** — implements features, code, scripts, and technical tasks
 - **executor** — performs clearly scoped work efficiently across domains
@@ -42,6 +42,7 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 - **devops** — handles deployment, infrastructure, reliability, and automation
 - **security-expert** — assesses security, identifies risks, recommends mitigations
 - **designer** — shapes product, interface, and experience decisions
+- **visual-designer** — visual craft specialist for typography, color, CSS, animations, and responsive polish
 - **api-designer** — reviews and designs APIs for clarity, consistency, and DX
 
 ### Business (8 agents)
@@ -73,6 +74,8 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 **Knowledge:** Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → **Custodian** → Historian
 
 **Content:** Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → **Custodian** → Historian
+
+**Site Build:** Strategist → Designer → Visual Designer → Writer + Marketer → Editor → Architect → Engineer → Visual Designer (CSS polish) → QA → Security-Expert → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
 **Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → **Coherence+Parallax Checkpoint** → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
 

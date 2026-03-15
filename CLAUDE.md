@@ -6,13 +6,13 @@ This file is read on every session start. Follow these instructions.
 
 ## What This Is
 
-Mega-OS is a multi-agent operating system with 38 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
+Mega-OS is a multi-agent operating system with 39 specialized agents organized into 5 categories. Each agent has a defined role, bounded responsibilities, and explicit collaboration interfaces.
 
 | Category   | Count | Agents |
 |------------|-------|--------|
 | Governance | 9     | overseer, governor, router, planner, pm, operator, sentinel, auditor, custodian |
 | Knowledge  | 7     | historian, librarian, summarizer, documenter, polisher, writer, editor |
-| Technical  | 10    | architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, api-designer |
+| Technical  | 11    | architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, visual-designer, api-designer |
 | Business   | 8     | strategist, marketer, seller, financier, proposal-writer, client-manager, content-strategist, growth-hacker |
 | Evolution  | 4     | improver, evaluator, coherence, parallax |
 

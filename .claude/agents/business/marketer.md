@@ -56,3 +56,4 @@ Communicate value clearly and attract the right people with the right message.
 - Historian records significant campaign decisions
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables
+- Visual Designer translates brand direction to visual systems

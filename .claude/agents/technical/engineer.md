@@ -59,3 +59,4 @@ Build clear, functional, maintainable solutions.
 - Documenter records implementation
 - Historian records implementation decisions
 - Governor constrains scope
+- Visual Designer reviews and refines CSS implementation

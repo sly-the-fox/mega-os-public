@@ -239,6 +239,34 @@ Used at four workflow checkpoints (Planning step 1b, Technical step 1b, Business
 
 ---
 
+## Site Build Workflow
+
+**Trigger:** `/build-site` skill invocation, or any request to build a website or landing page from scratch.
+
+Full workflow definition is in `.claude/skills/build-site/SKILL.md`. Summary of phases:
+
+1. **Strategist** — defines audience, value proposition, conversion goals
+2. **Designer** — creates UX structure, site map, page flow, component hierarchy
+3. **Visual Designer** — establishes visual direction: color palette, typography, spacing, animation approach
+4. **Writer** — drafts all page copy, applying `core/standards/writing-style.md`
+5. **Marketer** — reviews copy for positioning and conversion strength
+6. **Editor** — reviews copy for voice, clarity, factual accuracy
+7. **Architect** — validates component structure and config schema compatibility
+8. **Engineer** — implements pages, components, configuration
+9. **Visual Designer** — CSS review and polish pass (typography, color, spacing, animations, responsive)
+10. **QA** — tests breakpoints, accessibility, content accuracy
+11. **Security-Expert** — reviews for XSS, injection, CSP, dependency vulnerabilities
+12. **Reviewer** — final quality gate against `core/standards/review-checklist.md`
+13. **DevOps** — deploys to target platform (if `--deploy` flag)
+14. **Documenter** — updates documentation
+15. **Librarian** — catalogs artifacts and updates indexes
+16. **Custodian** — verifies checklists and cross-references
+17. **Historian** — records decisions and outcomes
+
+**Key difference from Technical Workflow:** Visual Designer gets a dedicated polish pass after Engineer implementation (step 9). This is what elevates sites from functional to visually compelling.
+
+---
+
 ## When to Use Which Workflow
 - **New feature or project:** Planning workflow
 - **Code change or bug fix:** Technical workflow (or Incident if production issue)
@@ -247,4 +275,5 @@ Used at four workflow checkpoints (Planning step 1b, Technical step 1b, Business
 - **Documentation or knowledge task:** Knowledge workflow
 - **Original content (articles, essays, blog posts, books):** Content workflow
 - **System self-improvement:** Evolution loop (Evaluator + Improver)
+- **Website or landing page build:** Site Build Workflow (or `/build-site`)
 - **Simple, bounded task:** Skip directly to the relevant specialist
