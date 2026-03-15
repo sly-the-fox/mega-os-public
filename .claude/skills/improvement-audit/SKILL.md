@@ -19,7 +19,26 @@ Deep MECE-decomposed audit of one system section per day, rotating through all 7
 | `--day` | auto (system day) | Override which day's focus area to audit |
 | `--no-coherence` | false | Skip the Coherence+Parallax reading |
 
-## Phase 0: Determine Focus Area
+## Phase 0a: Archive Previous Report
+
+Before writing new output, preserve the existing report:
+
+1. **Check** if `active/improvement-audit.md` exists and has content.
+2. **Read** the `Generated:` timestamp from the existing file.
+3. **Extract** the date as `YYYY-MM-DD` from the timestamp.
+4. **Compute** the ISO week: `YYYY-WNN`.
+5. **Build** the archive path: `archive/reports/YYYY-WNN/YYYY-MM-DD-improvement-audit.md`
+   - If that path already exists (same-day re-run), append `-N` (e.g., `-2`, `-3`).
+6. **Copy** the full content of `active/improvement-audit.md` to the archive path.
+7. **Update** `archive/index.json`:
+   - Add the week key if it doesn't exist.
+   - Append file metadata (filename, path, date, content_type: `improvement-audit`, summary, token_estimate).
+8. **Print** to console: `"Archived previous improvement-audit (YYYY-MM-DD) to archive/reports/YYYY-WNN/"`
+9. If the active file doesn't exist or is empty, skip archival silently.
+
+**Shell shortcut:** `bash engineering/scripts/archive-report.sh improvement-audit active/improvement-audit.md`
+
+## Phase 0b: Determine Focus Area
 
 **Exclusions:** Never scan `archive/` — archived content is frozen and not subject to improvement proposals.
 

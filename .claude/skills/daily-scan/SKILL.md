@@ -103,11 +103,17 @@ Scan all passive agent outputs and active state files for items needing attentio
     - Count skills listed in README.md vs actual `.claude/skills/` directories. Flag mismatches.
     - This is a fast count-only check. Full integrity analysis runs in weekly review.
 
-15. **Write digest**
+15. **Archive previous digest**
+    Before overwriting, preserve the existing digest:
+    - Run `bash engineering/scripts/archive-report.sh daily-digest active/daily-digest.md`
+    - This copies the current `active/daily-digest.md` to `archive/reports/YYYY-WNN/YYYY-MM-DD-daily-digest.md` and updates `archive/index.json`.
+    - If the file doesn't exist or is empty, archival is skipped silently.
+
+16. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-16. **Propose solutions**
+17. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |

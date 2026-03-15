@@ -184,7 +184,13 @@ Check for mentions and search interest:
 
 3. Report: volume trend (↑/↓/—), top regions, whether mentions are new this week, and full context + URL for any new mentions found.
 
-### 7. Write Briefing
+### 7. Archive Previous Report & Write Briefing
+
+Before overwriting, archive the current `active/news-briefing.md`:
+- Run `bash engineering/scripts/archive-report.sh news-briefing active/news-briefing.md`
+- This copies it to `archive/reports/YYYY-WNN/YYYY-MM-DD-news-briefing.md` and updates `archive/index.json`.
+- If the file doesn't exist or is empty, archival is skipped silently.
+- Note: This is in addition to the existing `deliverables/news/` copy — `archive/reports/` provides a consistent archive location for all report types.
 
 Save the full briefing to **two locations**:
 - `deliverables/news/YYYY-MM-DD-briefing.md`

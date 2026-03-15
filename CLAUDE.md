@@ -269,8 +269,11 @@ Mega-OS has a public distribution (framework) and private user data. This classi
 | Drafts (WIP)       | `drafts/`                    |
 | Deliverables       | `deliverables/`              |
 | Products           | `products/<name>/`           |
+| Archived reports   | `archive/reports/YYYY-WNN/`  |
 
 All filenames use lowercase kebab-case. Uppercase only for system-level docs (CLAUDE.md, README.md, AGENTS.md, REGISTRY.md).
+
+**Report archival:** Skills that overwrite `active/` report files (improvement-audit, daily-digest, workflow-review, news-briefing) auto-archive the previous version to `archive/reports/YYYY-WNN/YYYY-MM-DD-<type>.md` before writing. Use `engineering/scripts/archive-report.sh` for the archival step.
 
 ---
 

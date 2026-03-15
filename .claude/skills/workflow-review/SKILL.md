@@ -143,9 +143,26 @@ Prioritize by: (1) revenue impact, (2) friction reduction, (3) operational healt
    - **Dynamic** — the force or tension at play
    - **Implication** — what this means operationally
 
-## Phase 5: Write Output
+## Phase 5: Archive Previous Report & Write Output
 
-Write to `active/workflow-review.md` (overwritten each run).
+Before overwriting, preserve the existing report:
+
+1. **Check** if `active/workflow-review.md` exists and has content.
+2. **Read** the `Generated:` timestamp from the existing file.
+3. **Extract** the date as `YYYY-MM-DD` from the timestamp.
+4. **Compute** the ISO week: `YYYY-WNN`.
+5. **Build** the archive path: `archive/reports/YYYY-WNN/YYYY-MM-DD-workflow-review.md`
+   - If that path already exists (same-day re-run), append `-N` (e.g., `-2`, `-3`).
+6. **Copy** the full content of `active/workflow-review.md` to the archive path.
+7. **Update** `archive/index.json`:
+   - Add the week key if it doesn't exist.
+   - Append file metadata (filename, path, date, content_type: `workflow-review`, summary, token_estimate).
+8. **Print** to console: `"Archived previous workflow-review (YYYY-MM-DD) to archive/reports/YYYY-WNN/"`
+9. If the active file doesn't exist or is empty, skip archival silently.
+
+**Shell shortcut:** `bash engineering/scripts/archive-report.sh workflow-review active/workflow-review.md`
+
+Then write to `active/workflow-review.md` (overwritten each run).
 
 ### Output Format
 
