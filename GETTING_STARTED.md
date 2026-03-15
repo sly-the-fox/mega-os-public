@@ -214,7 +214,7 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 | `/write` | Write original long-form content |
 | `/news-briefing` | Daily intelligence briefing |
 | `/improvement-audit` | Deep system audit with rotating daily focus |
-| `/coherence` | Invoke the Coherence perspective |
+| `/coherence` | Invoke the Coherence agent to give you a balanced perspective |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
 
 ---
