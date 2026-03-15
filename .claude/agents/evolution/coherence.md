@@ -77,3 +77,4 @@ Never. Perspective agent only.
 - Evaluator measures Coherence impact on decision space (see Evaluation Protocol)
 - Evaluator summarizes `active/coherence-metrics.md` during weekly review
 - Improver receives inactivity flags if Coherence goes unused 30+ days
+- Improver consumes Parallax-translated Coherence output as input for improvement proposals (Evolution Loop)

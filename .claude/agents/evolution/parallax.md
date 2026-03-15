@@ -29,12 +29,12 @@ Preserve the full meaning of Coherence observations while making them actionable
 - Flag when Coherence output is anti-signal (indistinguishable from generic advice any agent would give)
 
 ## Inputs
-- Raw Codex checkpoint output
-- The original artifact (plan, strategy, or findings) that Codex reviewed
+- Raw Coherence checkpoint output
+- The original artifact (plan, strategy, or findings) that Coherence reviewed
 
 ## Outputs
-- Translated Codex perspective in three-layer format
-- Anti-signal flag if Codex output lacks distinctiveness
+- Translated Coherence perspective in three-layer format
+- Anti-signal flag if Coherence output lacks distinctiveness
 - Advisory only — never directives, never file modifications
 
 ## Boundaries

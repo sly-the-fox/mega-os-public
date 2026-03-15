@@ -298,9 +298,11 @@ When spawning agents, follow these rules strictly:
 
 3. **Use `mode: "auto"` for teammates** to avoid permission prompts that block execution.
 
-4. **The only exception for standalone Agent tool:** Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). Even then, prefer teams when multiple agents need to coordinate.
+4. **The only exception for standalone Agent tool:** Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). This includes Coherence and Parallax checkpoint calls, which are read-only perspective checks. Even then, prefer teams when multiple agents need to coordinate.
 
 5. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). The category subdirectories have symlinks at the top level — do not remove them.
+
+6. **File write fallback for content generation.** When generating content that must be saved to files, prefer writing files directly from the main context rather than delegating writes to subagents. If using subagents for research or drafting, collect their output and perform all Write calls in the main context. If a file write fails, retry once. If it fails again, include the full content inline in the response so nothing is silently lost.
 
 ---
 
