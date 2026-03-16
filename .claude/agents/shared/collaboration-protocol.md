@@ -67,3 +67,16 @@ When both QA and Reviewer could be involved, use this rubric:
 - Router sequences multi-step workflows.
 - Governor ensures agents stay within scope.
 - Historian records significant cross-agent decisions.
+
+## User Clarification Routing
+
+When a team member needs user input (per system-rules.md rule 25):
+
+1. **Team member** sends structured UNCERTAIN message to team lead via `SendMessage`
+2. **Team lead** evaluates: can this be resolved from project files or context?
+   - **Yes:** Respond directly with the answer and reasoning
+   - **No:** Use `AskUserQuestion` to surface the question to the user
+3. **Team lead** relays the user's answer back to the team member via `SendMessage`
+4. **Team member** proceeds with the clarified direction
+
+This prevents agents from making confident-sounding guesses on decisions that should involve the user. The cost of a 30-second clarification is always lower than reworking a wrong assumption.

@@ -35,9 +35,45 @@
    - **What's next?** Add the next action to `active/now.md` (e.g., "Review research for launch campaign", "Deploy site to Netlify", "Publish to Substack").
    - **Cross-reference:** If the artifact serves an existing tracked task, add a reference to that task in `active/now.md`.
    - Even if the only next step is "review this", add it. No artifact should be generated without a trail back to active state.
+24. **Team usage enforcement.** Before executing any multi-step task:
+   1. Classify: quick-action (< 5 min, < 3 files) / focused (single specialist) / multi-step (2+ agents).
+   2. Multi-step tasks MUST use TeamCreate with appropriate specialists.
+   3. Focused tasks SHOULD use TeamCreate unless single-agent, single-file.
+   4. Quick actions proceed directly.
+   5. Standalone Agent tool is permitted ONLY for read-only research/exploration. Coherence+Parallax checkpoints are in this category.
+   6. Governor validates team usage at workflow boundaries.
 23. **Archive search protocol.** When a user asks about past events or information not in active state:
     1. Read `archive/index.json` and identify the relevant week bucket.
     2. If user specifies a time frame, go directly to that bucket.
     3. If no time frame, search the 2-3 most recent week buckets.
     4. Read the specific archived file(s).
     5. Never preload archive content.
+25. **Uncertainty Escalation Protocol.** When an agent team member encounters genuine uncertainty that could lead to materially wrong output, they must escalate rather than guess.
+
+    **Escalate when:**
+    - Requirements are ambiguous and different interpretations lead to materially different outputs
+    - Multiple valid approaches exist with tradeoffs only the user can weigh
+    - The agent is about to make an assumption that, if wrong, requires significant rework
+    - Context is missing that only the user can provide (not derivable from project files)
+    - The action is irreversible or high-impact (deploys, deletes, external communication, financial)
+
+    **Do NOT escalate when:**
+    - The action is easily reversible (file edits, drafts)
+    - Standards or conventions already answer the question
+    - The uncertainty is cosmetic (formatting, naming, ordering)
+    - A reasonable default exists and the downside of being wrong is minimal
+
+    **How to escalate (team members):**
+    Send a structured message to the team lead via `SendMessage`:
+    ```
+    UNCERTAIN: [one-line summary of what's unclear]
+    OPTIONS: [2-3 possible paths the agent sees]
+    DEFAULT: [what the agent would do if forced to choose]
+    RISK: [what goes wrong if the default is wrong]
+    ```
+
+    **How the team lead handles it:**
+    - If resolvable from project context, respond directly to the team member
+    - If it requires user judgment, surface via `AskUserQuestion` immediately
+    - Do not batch uncertainty questions — surface them as they arrive
+    - After receiving the answer, relay it back to the team member via `SendMessage`

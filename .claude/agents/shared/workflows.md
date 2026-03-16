@@ -2,6 +2,8 @@
 
 Standard workflow sequences. Not every task requires all steps — skip stages that don't apply. Conditional steps (marked "if") are only invoked when their condition is met.
 
+**Uncertainty rule:** At any point in any workflow, if an agent hits genuine uncertainty (ambiguous requirements, missing context, irreversible decisions), they must use the Uncertainty Escalation Protocol (system-rules.md rule 25) rather than guessing. This applies to all agents in all workflows.
+
 ## Planning Workflow
 1. **Planner** — breaks down request into tasks, milestones, dependencies
 1a. **MECE Research** — if the plan requires external research (feasibility, prior art, ecosystem), invoke `/deep-research <query>` before routing. Output at `drafts/research/` feeds into planning.
