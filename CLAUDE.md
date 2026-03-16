@@ -73,7 +73,7 @@ Most sessions are conversational. Match response weight to request size:
 5. **Record outcomes.** Update active state files. Ensure decisions are captured.
 6. **When creating plans** (`.claude/plans/*.md`), include an Agent Assignment Graph. Use `core/templates/plan-template.md` as the format.
 
-For simple, single-domain requests, go directly to the relevant specialist.
+For simple, single-domain requests, use a lightweight team — see the Lightweight Team Protocol in `workflows.md`. This ensures quality gates (security review, editor pass, Coherence checkpoint) still apply even for small tasks, while skipping heavy governance overhead.
 
 ### Selective Loading
 
@@ -177,10 +177,10 @@ On the first non-trivial request of any session:
 Workflow summaries are below. Full definitions with triggers, severity classification, and detailed steps are in `.claude/agents/shared/workflows.md`.
 
 ### Planning
-Planner → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
+Planner → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → Visual Designer (if frontend/UI) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
 
 ### Technical
-Architect → API-Designer (if API) → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
+Architect → API-Designer (if API) → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Visual Designer (if frontend/UI) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
 For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Coherence Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
 

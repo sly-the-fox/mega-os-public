@@ -13,6 +13,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 4. **Sentinel** — assesses risk profile of the plan (if plan touches production, security, or finances)
 5. **Auditor** — pre-execution audit: reviews plan for blind spots, missing considerations, layer gaps. **Invocation:** PM or Planner invokes Auditor with: (a) the approved plan, (b) Governor's scope constraints, (c) Sentinel's risk assessment (if any). Auditor returns findings to Planner for remediation before execution begins. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 6. **Designer** — reviews UX impact (if plan affects user-facing interfaces). Designer work is complete when the requesting workflow owner (Planner for Planning, Architect for Technical, Strategist for Business) confirms the design addresses their requirements.
+6a. **Visual Designer** — establishes visual direction (if plan involves frontend/UI work): color palette, typography, spacing system, animation approach. Feeds into implementation specs.
 7. **PM** — tracks progress, dependencies, deadlines
 8. **Specialists** — execute assigned tasks
 9. **QA** — verifies deliverables meet quality gates
@@ -32,7 +33,8 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 4. **Security-Expert** — threat model / review plan. For full security hardening, Security-Expert may invoke `/deep-research --source local --axis security` before threat modeling.
 5. **Engineer** — first implementation pass
 6. **Security-Expert** — code security review. For comprehensive code review, may use `/deep-research --source local --axis security`.
-7. **Engineer** — fix security issues + add more features
+7. **Engineer** — fix security issues + add more features. Optionally invoke `/simplify` to review changed code for reuse, quality, and efficiency.
+7a. **Visual Designer** — CSS/visual polish pass (if task involves frontend or UI changes). Reviews typography, color usage, spacing, animation quality, and responsive behavior. Engineer implements Visual Designer's refinements before proceeding.
 8. **Security-Expert** — second security pass
 9. **Sentinel** — checks for scope drift (if implementation expanded beyond original plan)
 10. **Auditor** — post-execution audit: compares implementation against architecture/plan, flags gaps and omissions. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
@@ -102,7 +104,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 1. **Librarian** — locates source material and research
 1a. **MECE Research** — if the topic requires web research, invoke `/deep-research <topic>` to produce a comprehensive research brief at `drafts/research/`. Output becomes source material for Writer.
 2. **Summarizer** — compresses research into working briefs (if extensive)
-3. **Writer** — produces draft from brief + source material, applying `core/standards/writing-style.md`
+3. **Writer** — produces draft from brief + source material, applying `core/standards/writing-style.md`. For Reddit content, use `/reddit-comments` to generate platform-appropriate comments.
 4. **Editor** — reviews structure, citations, fact-checking, voice consistency
 5. **Writer** — revises based on editorial feedback (repeat 4-5 as needed)
 6. **Editor** — grants editorial approval to advance
@@ -278,4 +280,41 @@ Full workflow definition is in `.claude/skills/build-site/SKILL.md`. Summary of 
 - **Original content (articles, essays, blog posts, books):** Content workflow
 - **System self-improvement:** Evolution loop (Evaluator + Improver)
 - **Website or landing page build:** Site Build Workflow (or `/build-site`)
-- **Simple, bounded task:** Skip directly to the relevant specialist
+- **Simple, bounded task:** Use a lightweight team (see [Lightweight Team Protocol](#lightweight-team-protocol) below)
+
+---
+
+## Lightweight Team Protocol
+
+For simple, single-domain tasks that don't warrant the full workflow pipeline. Lightweight teams preserve quality gates while skipping heavy governance overhead (Governor, Sentinel, Auditor, Custodian, PM, Librarian, Documenter activate only when their specific conditions are met).
+
+### When to Use
+- Task is single-domain (one workflow type)
+- Fewer than ~5 files changed
+- No cross-cutting concerns (security + UX + infrastructure simultaneously)
+- Estimated effort < 30 minutes
+
+### Lightweight Team Composition by Workflow Type
+
+| Workflow | Core Team | Conditional Additions |
+|----------|-----------|----------------------|
+| Technical | Engineer | + Visual Designer (if frontend/UI) + Security-Expert (if auth/crypto/input/secrets/API) + Coherence (if >3 files) |
+| Business | Relevant specialist (Marketer/Seller/Financier) | + Coherence (if strategic decision) |
+| Content | Writer + Editor (always, never skip) | + Polisher (if external-facing) |
+| Planning | Planner | + Coherence (if >3 files) |
+| Knowledge | Summarizer or Documenter | (minimal) |
+
+### Historian — Always Included (Light Mode)
+Every lightweight team includes Historian in light mode:
+- Adds a **one-line entry** to `core/history/master-timeline.md` for every task
+- This ensures a searchable trail exists even for simple tasks (conversations are ephemeral; without Historian, simple tasks leave no reasoning trail beyond git diffs)
+- The **full 5-file Historian Checklist** only triggers for significant decisions/milestones — same threshold as today
+
+### What's NOT Pre-Included
+Governor, Sentinel, Auditor, Custodian, PM, Librarian, Documenter. These activate only when their specific conditions are met (scope drift, risk, audit triggers, etc.) — they aren't skipped, they just aren't pre-assembled.
+
+### Skills Available to Lightweight Teams
+- `/simplify` — optional post-Engineer step for code quality review
+- `/reddit-comments` — available when Content workflow targets Reddit channel
+- `/metrics-scan` — for tasks involving adoption/metrics data
+- `/draw` — for tasks requiring visual generation (diagrams, charts, graphics)

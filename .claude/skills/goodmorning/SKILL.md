@@ -51,7 +51,7 @@ Auto-detect which crons ran today, read their outputs, and present a structured 
    - Read `active/freshstate-report.md` — extract stale count, violation count.
    - Read `active/cron-health.md` — extract failure/warning counts.
    - Read `business/marketing/adoption-metrics.md` — extract the last row from "Sigil Notary" section.
-   - Read `active/codex-metrics.md` if it exists — extract latest evaluation summary.
+   - Read `active/system-evaluation.md` if it exists — extract latest evaluation summary.
    - Combine into a compact health dashboard.
 
 7. **Lane 6: Content Pipeline**
