@@ -91,6 +91,8 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `products/sigil/BUILD-PLAN.md`
 - `products/sigil/CLAUDE.md`
 - `products/freshstate/` — Document freshness tracker CLI + MCP server
+- `products/dockeeper/CLAUDE.md` — Document lifecycle management (extends Freshstate)
+- `products/dockeeper/pyproject.toml` — DocKeeper build config
 - `products/tend/CLAUDE.md`
 - `products/capacitor/` — Next.js/TypeScript capacity scheduling app
 - `products/local-sites/` — Local business demo sites
