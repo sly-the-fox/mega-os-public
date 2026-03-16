@@ -88,3 +88,13 @@ Use the Agent tool with `subagent_type` set to the agent's filename (without `.m
 - `subagent_type: security-expert` — invoke the security expert agent
 
 Each agent file lives under `.claude/agents/<category>/` with YAML frontmatter and standardized sections: Role, Mission, Responsibilities, Inputs, Outputs, Boundaries, Escalate When, Collaboration.
+
+## Agent Spawning Rules
+
+1. **ALWAYS use agent teams (TeamCreate), NEVER standalone subagents — except worktree-isolated agents.** All multi-agent work MUST use TeamCreate. Standalone subagents cannot persist file writes and have limited tool access.
+   **Exception:** Standalone agents with `isolation: "worktree"` CAN write files safely in their own git worktree. Use for parallelizable, independent work (audits, builds, tests). See system-rules.md rule 27.
+2. **All teammates MUST use `subagent_type: "general-purpose"`.** Custom agent types only get messaging and task tools as teammates. Always spawn as `general-purpose` and describe the role in the prompt.
+3. **Use `mode: "auto"` for teammates** to avoid permission prompts that block execution.
+4. **Exceptions for standalone Agent tool:** (a) Read-only research/exploration (including Coherence+Parallax checkpoints). (b) Worktree-isolated agents for parallel, independent work (spawned with `isolation: "worktree"`). Prefer teams when agents need to coordinate mid-task.
+5. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). Category subdirectories have symlinks at the top level.
+6. **File write fallback.** Prefer writing files from the main context. If a subagent write fails, retry once. If it fails again, include content inline so nothing is silently lost.

@@ -76,5 +76,40 @@
    2. Multi-step tasks MUST use TeamCreate with appropriate specialists.
    3. Focused tasks SHOULD use TeamCreate unless single-agent, single-file.
    4. Quick actions proceed directly.
-   5. Standalone Agent tool is permitted ONLY for read-only research/exploration. Coherence+Parallax checkpoints are in this category.
+   5. Standalone Agent tool is permitted for: (a) read-only research/exploration (including Coherence+Parallax checkpoints), and (b) parallelizable file-writing work when spawned with `isolation: "worktree"`. Worktree-isolated agents get their own git worktree and cannot interfere with the main working tree. See rule 27 for the required protocol.
    6. Governor validates team usage at workflow boundaries.
+27. **Worktree isolation protocol.** Governs the worktree exception in rule 26.5. When spawning standalone agents with `isolation: "worktree"`:
+
+    **Use when ALL of these apply:**
+    - The task produces file changes (not read-only)
+    - The work is independent (no mid-task dependency on other agents' output)
+    - Parallel execution saves meaningful time (2+ agents can run concurrently)
+
+    **Do NOT use when:**
+    - Work is sequential and depends on prior agent output
+    - The task modifies active state files (`active/`, `core/history/`, `core/indexes/`)
+    - The task is trivial (single file, < 5 min)
+    - Agents need to coordinate mid-task via SendMessage
+    - The workflow is Content, Knowledge, or Business (sequential by nature)
+
+    **Governance gate:** Before spawning worktree-isolated agents, confirm:
+    1. Tasks are truly independent (no shared file modifications)
+    2. Workflow type is eligible (Technical, Incident, or Planning only)
+    3. Concurrency limit: max 3 simultaneous worktrees
+
+    **Merge-back rules:**
+    - Main context is ALWAYS the merge-back owner. Agents never merge their own work.
+    - After a worktree agent completes, review its diff before merging.
+    - Merge ordering: Security-Expert merges first (security takes priority). Then other agents alphabetically.
+    - Use `git merge --no-ff <worktree-branch>` to preserve isolation boundary in history.
+    - If the second merge conflicts with the first, the relevant specialist reviews the resolution.
+    - If conflicts are non-trivial, abandon parallel results and re-run the task sequentially.
+    - If the agent made no changes, cleanup is automatic.
+    - After merge, run relevant tests/verification. If tests fail, `git merge --abort` or `git reset --hard HEAD~1` to pre-merge state and re-run sequentially.
+
+    **Failure and cleanup:**
+    - If a worktree agent crashes or times out, its worktree is abandoned (no merge).
+    - Orphaned worktrees are cleaned periodically with `git worktree prune`.
+    - After merge, verify no `active/`, `core/history/`, or `core/indexes/` files were modified. If they were, revert those specific files with `git checkout HEAD~1 -- <path>`.
+
+    **State files:** Worktree agents must NOT modify `active/`, `core/history/`, or `core/indexes/`. If a worktree agent needs to record findings, it writes to a scratch file in its worktree and the main context triages after merge.

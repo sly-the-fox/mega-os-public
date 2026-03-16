@@ -182,7 +182,7 @@ Planner → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → 
 ### Technical
 Architect → API-Designer (if API) → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Visual Designer (if frontend/UI) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
-For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Coherence Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access.
+For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Coherence Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access. Parallelizable steps (Security+Engineer, Auditor+QA) may use worktree isolation — see workflows.md.
 
 For all technical work, follow `core/standards/coding-standards.md`. Reviewer uses `core/standards/review-checklist.md` as the gate checklist.
 
@@ -293,15 +293,16 @@ Use `.claude/agents/REGISTRY.md` as the canonical directory of agent roles. Do n
 
 When spawning agents, follow these rules strictly:
 
-1. **ALWAYS use agent teams (TeamCreate), NEVER standalone subagents.**
+1. **ALWAYS use agent teams (TeamCreate), NEVER standalone subagents — except worktree-isolated agents.**
    All multi-agent work MUST use TeamCreate to create a team. Standalone subagents (via the Agent tool without a team) cannot persist file writes and have limited tool access. Agent teams are the only supported pattern for work that touches files.
+   **Exception:** Standalone agents with `isolation: "worktree"` CAN write files safely in their own git worktree. Use for parallelizable, independent work (audits, builds, tests). See system-rules.md rule 27.
 
 2. **All teammates MUST use `subagent_type: "general-purpose"`.**
    Custom agent types (debugger, qa, reviewer, writer, editor, etc.) only get messaging and task tools as teammates. They cannot read, write, or edit files. Always spawn teammates as `general-purpose` and describe their role in the prompt instead.
 
 3. **Use `mode: "auto"` for teammates** to avoid permission prompts that block execution.
 
-4. **The only exception for standalone Agent tool:** Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). This includes Coherence and Parallax checkpoint calls, which are read-only perspective checks. Even then, prefer teams when multiple agents need to coordinate.
+4. **Exceptions for standalone Agent tool:** (a) Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). This includes Coherence and Parallax checkpoint calls, which are read-only perspective checks. (b) Worktree-isolated agents for parallel, independent work (spawned with `isolation: "worktree"`). Even then, prefer teams when agents need to coordinate mid-task.
 
 5. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). The category subdirectories have symlinks at the top level — do not remove them.
 
@@ -324,7 +325,7 @@ Always **offer** to commit — never commit silently. The user decides.
 Never auto-push. Always ask first. Only push when the user explicitly says "push" or "deploy."
 
 ### Session Boundary Rule
-Only commit and push changes **from this session**. If `git status` shows uncommitted changes from other sessions, **leave them alone**. Do not stage, commit, or push work you didn't do. When the user says "commit" or "push," they mean this session's work only. If unsure which changes are yours, ask.
+Only commit and push changes **from this session**. If `git status` shows uncommitted changes from other sessions, **leave them alone**. Do not stage, commit, or push work you didn't do. When the user says "commit" or "push," they mean this session's work only. If unsure which changes are yours, ask. Changes merged back from worktree agents spawned in this session are considered this session's work and are eligible for commit.
 
 ### Scope Isolation (Multi-Window Safety)
 When multiple Claude Code sessions run simultaneously, each session MUST:

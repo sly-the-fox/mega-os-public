@@ -53,6 +53,8 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 **Small change definition (security context):** Fewer than 3 files changed, AND does not touch authentication, cryptography, input validation, secrets management, API boundaries, or data access controls.
 
+**Parallelization:** Steps marked as independent may run in parallel using worktree isolation (see [Worktree Isolation](#worktree-isolation) section). The orchestrating context decides per system-rules.md rule 27.
+
 ## Business Workflow
 1. **Strategist** — defines business objective and approach
 1a. **MECE Research** — if the business objective requires market/competitive/trend research, invoke `/deep-research <query>` before proceeding. Output at `drafts/research/` feeds into strategy.
@@ -318,3 +320,40 @@ Governor, Sentinel, Auditor, Custodian, PM, Librarian, Documenter. These activat
 - `/reddit-comments` — available when Content workflow targets Reddit channel
 - `/metrics-scan` — for tasks involving adoption/metrics data
 - `/draw` — for tasks requiring visual generation (diagrams, charts, graphics)
+
+---
+
+## Worktree Isolation
+
+Some workflow steps can run in parallel using git worktree isolation. Spawn standalone agents with `isolation: "worktree"` for independent, file-writing tasks. See system-rules.md rule 27 for the full protocol.
+
+### Common Parallel Pairs (examples, not exhaustive)
+
+The decision heuristic below is the primary gate. These are common patterns, not a closed list:
+
+**Technical Workflow:**
+- Security threat model + Engineer first pass (when threat model is advisory)
+- Security code review + Visual Designer polish (independent review tracks)
+- Auditor post-execution + QA testing (independent analyses)
+
+**Incident Workflow:**
+- Sentinel blast radius + Security-Expert assessment (independent risk analyses)
+
+**Planning Workflow:**
+- Multiple specialists with independent tasks (each in own worktree)
+
+**Not eligible:** Content, Knowledge, Business workflows (sequential by nature, shared drafts).
+
+### Decision Heuristic
+
+Ask: "Can these agents work without seeing each other's output?" If yes, and both produce file changes, use worktree isolation. Otherwise, run sequentially or use TeamCreate.
+
+### Merge-Back Sequence
+
+1. Review each branch diff (`git diff main...<worktree-branch>`)
+2. Merge Security-Expert branch first (security priority), then others alphabetically
+3. If second merge conflicts with first, specialist reviews the resolution
+4. If conflicts are non-trivial, abandon and re-run sequentially
+5. Run verification (tests, linting) after all merges
+6. Sentinel reviews merged diff for risk indicators
+7. Continue workflow from next sequential step
