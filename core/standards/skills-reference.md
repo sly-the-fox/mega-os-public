@@ -27,6 +27,7 @@ Complete inventory of available skills (slash commands). All skills live under `
 | 21 | Metrics Scan | `/metrics-scan` | `.claude/skills/metrics-scan/` | Fetch PyPI, GitHub, and website metrics for packages |
 | 22 | Draw | `/draw` | `.claude/skills/draw/` | Generate visual diagrams, charts, and graphics |
 | 23 | Add Skill | `/add-skill` | `.claude/skills/add-skill/` | Create a new skill with directory and all index/doc updates |
+| 24 | UI Review | `/ui-review` | `.claude/skills/ui-review/` | Visual audit of frontend CSS, typography, color, spacing, animations |
 
 ## Skill Structure
 
