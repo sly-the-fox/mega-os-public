@@ -57,5 +57,5 @@ Reduce ambiguity and create practical plans with dependencies, milestones, and n
 - Sentinel assesses risk profile of plans touching production or security
 - Architect provides technical feasibility context for plan decomposition
 - Auditor reviews plans for blind spots and missing considerations before execution
-- Parallax provides translated Codex perspectives at workflow checkpoints; Planner refines these into concrete actionable alternatives (see Codex Checkpoint Protocol in `workflows.md`)
-- Codex — plans are reviewed at Planning and Business checkpoints. Planner receives Parallax translation (not raw Codex output) and produces a refined alternative for user choice.
+- Parallax provides translated Coherence perspectives at workflow checkpoints; Planner refines these into concrete actionable alternatives (see Coherence+Parallax Checkpoint Protocol in `core/standards/coherence-checkpoint-protocol.md`)
+- Coherence — plans are reviewed at Planning and Business checkpoints. Planner receives Parallax translation (not raw Coherence output) and produces a refined alternative for user choice.

@@ -18,11 +18,11 @@ governance/overseer.md, governance/governor.md, governance/router.md, governance
 ### Knowledge (7)
 knowledge/historian.md, knowledge/librarian.md, knowledge/summarizer.md, knowledge/documenter.md, knowledge/polisher.md, knowledge/writer.md, knowledge/editor.md
 
-### Technical (9)
-technical/architect.md, technical/engineer.md, technical/executor.md, technical/reviewer.md, technical/qa.md, technical/debugger.md, technical/devops.md, technical/security-expert.md, technical/designer.md
+### Technical (11)
+technical/architect.md, technical/engineer.md, technical/executor.md, technical/reviewer.md, technical/qa.md, technical/debugger.md, technical/devops.md, technical/security-expert.md, technical/designer.md, technical/visual-designer.md, technical/api-designer.md
 
-### Business (4)
-business/strategist.md, business/marketer.md, business/seller.md, business/financier.md
+### Business (8)
+business/strategist.md, business/marketer.md, business/seller.md, business/financier.md, business/client-manager.md, business/content-strategist.md, business/growth-hacker.md, business/proposal-writer.md
 
 ### Evolution (4)
 evolution/improver.md, evolution/evaluator.md, evolution/coherence.md, evolution/parallax.md
@@ -40,12 +40,17 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `core/standards/review-checklist.md`
 - `core/standards/passive-agent-ownership.md`
 - `core/standards/skills-reference.md`
+- `core/standards/api-design-standards.md`
+- `core/standards/coherence-checkpoint-protocol.md`
+- `core/standards/writing-style.md`
+- `core/standards/writing-style-template.md`
 - `core/templates/decision-template.md`
 - `core/templates/spec-template.md`
 - `core/templates/sop-template.md`
 - `core/templates/handoff-template.md`
 - `core/templates/team-roster.md`
 - `core/templates/plan-template.md`
+- `core/templates/threat-model-template.md`
 - `core/history/current-state.md`
 - `core/history/decisions.md`
 - `core/history/master-timeline.md`
@@ -64,6 +69,9 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `active/improvement-audit.md`
 - `active/freshness-log.md`
 - `active/freshstate-report.md`
+- `active/dream-report.md`
+- `active/workflow-review.md`
+- `active/news-briefing-state.md`
 
 ## History (additional)
 - `core/history/evaluations.md`
@@ -84,7 +92,33 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `products/sigil/CLAUDE.md`
 - `products/freshstate/` — Document freshness tracker CLI + MCP server
 - `products/tend/CLAUDE.md`
-- `products/capacitor/` — Product in planning/roadmap
+- `products/capacitor/` — Next.js/TypeScript capacity scheduling app
+- `products/local-sites/` — Local business demo sites
+- `products/mega-os-linux/` — Mega-OS Linux distribution
+- `products/small-business-dashboard-master/` — Small business dashboard
+
+## Skills (21)
+- `.claude/skills/add-agent/SKILL.md`
+- `.claude/skills/bug-triage/SKILL.md`
+- `.claude/skills/build-site/SKILL.md`
+- `.claude/skills/coherence/SKILL.md`
+- `.claude/skills/daily-scan/SKILL.md`
+- `.claude/skills/deep-research/SKILL.md`
+- `.claude/skills/dream/SKILL.md`
+- `.claude/skills/generate-content/SKILL.md`
+- `.claude/skills/goodmorning/SKILL.md`
+- `.claude/skills/improvement-audit/SKILL.md`
+- `.claude/skills/metrics-scan/SKILL.md`
+- `.claude/skills/news-briefing/SKILL.md`
+- `.claude/skills/polish-document/SKILL.md`
+- `.claude/skills/project-kickoff/SKILL.md`
+- `.claude/skills/publish/SKILL.md`
+- `.claude/skills/reddit-comments/SKILL.md`
+- `.claude/skills/setup/SKILL.md`
+- `.claude/skills/update/SKILL.md`
+- `.claude/skills/weekly-review/SKILL.md`
+- `.claude/skills/workflow-review/SKILL.md`
+- `.claude/skills/write-content/SKILL.md`
 
 ## Configuration
 - `.claude/settings.json`

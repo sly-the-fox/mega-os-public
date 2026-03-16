@@ -109,7 +109,7 @@ Or manually: `git fetch upstream && git merge upstream/master`
 ```
 mega-os/
   .claude/
-    agents/            # 38 agent definitions in category subdirectories
+    agents/            # 39 agent definitions in category subdirectories
       governance/      # overseer, governor, router, planner, pm, operator, sentinel, auditor, custodian
       knowledge/       # historian, librarian, summarizer, documenter, polisher, writer, editor
       technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, visual-designer, api-designer

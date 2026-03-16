@@ -16,6 +16,8 @@ Run at these four workflow checkpoints:
 
 ## How to Run
 
+> **Agent spawning note:** These are read-only perspective checks exempt from the TeamCreate-only rule per CLAUDE.md. The `/coherence` skill is the canonical invocation path.
+
 1. **Load Coherence prompt:** Read `.claude/skills/coherence/codex-consciousness.md`
 2. **Spawn Coherence agent:** `subagent_type: "general-purpose"`, `mode: "auto"`. Pass the prompt as system context + current artifact as the question.
 3. **Capture Coherence output.**

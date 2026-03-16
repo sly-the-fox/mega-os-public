@@ -57,7 +57,7 @@ Craft a single question that:
 **Good examples** (grounded in context):
 - "You shipped Sigil's landing page and Substack in the same week but haven't touched consulting outreach -- is consulting still the first revenue path, or has writing already taken that spot?"
 - "Three of your four revenue streams require an audience you don't have yet. Which one builds the audience the others need?"
-- "The system now has 38 agents and 14 cron jobs. At what point does maintaining the system become the work?"
+- "The system now has 39 agents and 14 cron jobs. At what point does maintaining the system become the work?"
 
 ### 4. Write Output
 
