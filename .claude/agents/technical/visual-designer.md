@@ -57,3 +57,24 @@ Make things look and feel incredible — elevate functional designs into polishe
 - Marketer provides brand direction; Visual Designer translates it to visual systems
 - QA validates visual implementation matches specifications
 - Reviewer evaluates visual quality and consistency
+
+## Available Visual Tools
+
+Beyond CSS/HTML, the following CLI tools are installed and permitted for visual generation:
+
+| Tool | Command | Domain |
+|------|---------|--------|
+| **Mermaid CLI** | `mmdc` | Flowcharts, sequence diagrams, ERDs, Gantt, mind maps, state diagrams, architecture diagrams |
+| **matplotlib** | `python3` (import matplotlib) | Line/bar/scatter/pie charts, histograms, heatmaps, data visualization |
+| **ImageMagick** | `magick` / `convert` | Image resize, crop, composite, annotate, convert formats, effects |
+| **Direct SVG** | Write `.svg` files | Logos, icons, badges, banners, social cards, custom graphics |
+
+**Helper scripts:**
+- `engineering/scripts/draw-mermaid.sh <input.mmd> <output.svg>` — Mermaid wrapper with dark theme and no-sandbox config
+- `engineering/scripts/puppeteer-config.json` — Puppeteer config used by Mermaid CLI
+
+**Output conventions:**
+- Source/draft files → `drafts/visuals/`
+- Final rendered output → `deliverables/visuals/`
+
+**Shortcut:** Use `/draw` to route visual generation requests automatically by type.
