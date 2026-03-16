@@ -27,8 +27,9 @@
 19. **MECE research (mandatory for web research).** When any task or workflow step requires web research (WebSearch/WebFetch), use the MECE deep research pattern via `/deep-research`. This applies to all workflows — Planning (Planner research), Content (Librarian source gathering), Business (Strategist market research), and Knowledge (Librarian information gathering). The only exception is the `/news-briefing` skill, which has its own specialized search structure. For codebase-only research, use `/deep-research --source local`. For hybrid research (web + codebase), use `/deep-research --source hybrid`.
 20. **Importance classification.** Not everything needs recording. Use this guide:
    - **Must record:** Decisions, milestone completions, priority changes, new blockers, revenue events, product launches/deploys.
-   - **Should record:** Task completions on tracked items, external events reported by user, configuration changes.
-   - **Skip:** Typo fixes, exploratory reads, conversation-only exchanges, research that leads nowhere.
+   - **Should record:** Task completions on tracked items, external events reported by user, configuration changes, deferred decisions with rationale, exploration outcomes that inform future work, user preferences/corrections discovered mid-session.
+   - **Context journal candidates:** Reasoning behind non-obvious choices, exploration paths tried and abandoned, deferred work with enough context to resume, session-specific context that future sessions might need.
+   - **Skip:** Typo fixes, exploratory reads that lead nowhere, conversation-only exchanges, information already captured in code comments or commit messages.
 21. **Completion protocol (mid-session).** When the user signals a tracked item is done, update `active/now.md` and `active/priorities.md` immediately. If it's a milestone, move it to "What's Done" in now.md and update `MEMORY.md`. Don't wait for session close. Offer to commit the state change.
 22. **Artifact follow-through (mandatory).** When any artifact or output is generated (research docs, drafts, deliverables, configs, landing pages, templates, plans), immediately determine its disposition:
    - **Where does it go?** Confirm it's saved in the correct location per file conventions.

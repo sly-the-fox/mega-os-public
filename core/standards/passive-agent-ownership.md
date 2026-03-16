@@ -14,6 +14,8 @@ Passive agents are agents whose primary function is maintaining system state fil
 | Evaluator | `core/history/evaluations.md` | `shared/workflows.md` → Evaluator Checklist |
 | Improver | `active/improvements.md`, `core/history/improvements.md` | `shared/workflows.md` → Improver Checklist |
 | Auditor | `active/audits.md` | `shared/workflows.md` → Auditor Checklist |
+| Custodian | `active/freshness-log.md` | `shared/workflows.md` → Custodian Checklist |
+| Evaluator | `active/system-evaluation.md` | `shared/workflows.md` → Evaluator Checklist |
 
 *Shared ownership between Historian and PM. PM updates first, then Historian records in history.
 

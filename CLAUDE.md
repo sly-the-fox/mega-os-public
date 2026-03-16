@@ -367,7 +367,11 @@ Before ending any session where work was done:
 2. **If yes:** Run the Historian Checklist (system-rules.md rule 7) — update all 5 files.
 3. **Add a session entry** to `core/history/master-timeline.md`:
    `- **YYYY-MM-DD [session]** — Brief summary of what was accomplished and what's next.`
-4. **If no significant work:** Acknowledge the Stop hook reminder and skip.
+4. **Memory curation:** Before closing, scan the session for:
+   - **New decisions or architecture choices** → add to `context-journal.md` (or MEMORY.md if cross-session relevant)
+   - **User preferences or corrections** → save as user/feedback memory in MEMORY.md
+   - **Lessons learned or deferred work** → add to `context-journal.md` with enough context to be useful next session
+5. **If no significant work:** Acknowledge the Stop hook reminder and skip.
 
 ---
 

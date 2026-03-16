@@ -108,23 +108,28 @@ Scan all passive agent outputs and active state files for items needing attentio
     - Entries in "drafted" status for >2 days → **Needs Review**: "[channel] [date] content in 'drafted' for N days — needs posting or archiving."
     - This ensures drafted content doesn't sit indefinitely without being posted.
 
-16. **Agent and doc consistency quick-check**
+16. **History freshness check** (`core/history/current-state.md`)
+    - Check file freshness: `git log -1 --format=%ai core/history/current-state.md`.
+    - If file unchanged for 3+ days → **Needs Review**: "current-state.md is N days stale — run Historian Checklist to update."
+    - Otherwise → skip (no output).
+
+17. **Agent and doc consistency quick-check**
     - Run `bash engineering/scripts/check-index-integrity.sh` to detect agent/skill index drift.
     - If exit code is 1 (drift detected), include each warning line as a **Critical** item in the digest.
     - If exit code is 0 (clean), log as **Informational**: "Index integrity check passed."
     - This replaces manual counting — the script checks agents, skills, symlinks, and all index files.
 
-17. **Archive previous digest**
+18. **Archive previous digest**
     Before overwriting, preserve the existing digest:
     - Run `bash engineering/scripts/archive-report.sh daily-digest active/daily-digest.md`
     - This copies the current `active/daily-digest.md` to `archive/reports/YYYY-WNN/YYYY-MM-DD-daily-digest.md` and updates `archive/index.json`.
     - If the file doesn't exist or is empty, archival is skipped silently.
 
-18. **Write digest**
+19. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-19. **Propose solutions**
+20. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |
@@ -166,6 +171,7 @@ Scan all passive agent outputs and active state files for items needing attentio
 | Missing improvement audit | 0 tolerance | Informational |
 | Agent count mismatch | 0 tolerance | Critical |
 | Stale workflow review (Mon only) | 7 days | Needs Review |
+| Stale current-state.md | 3 days | Needs Review |
 | Unchecked outreach/revenue items | 2 days | Critical |
 | Drafted content not posted | 2 days | Needs Review |
 
