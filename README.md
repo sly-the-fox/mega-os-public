@@ -5,7 +5,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ## What You Get
 
 - **39 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
-- **18 slash commands** for daily operations, building, system management, and deployment
+- **21 slash commands** for daily operations, building, system management, and deployment
 - **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -71,9 +71,11 @@ Or manually: `git fetch upstream && git merge upstream/master`
 
 | Command | What it does |
 |---------|-------------|
+| `/goodmorning` | Morning briefing with overnight cron results and suggested plan |
 | `/daily-scan` | Morning digest — scans for stale, overdue, or unactioned items |
 | `/weekly-review` | End-of-week retrospective with progress summary and priority updates |
 | `/news-briefing` | AI-curated intelligence briefing for your domain |
+| `/dream` | Generate a reflective prompt from the week's context |
 
 **Building & Creating:**
 
@@ -84,6 +86,8 @@ Or manually: `git fetch upstream && git merge upstream/master`
 | `/build-site` | Build a website from concept to deployment (strategy → design → content → code → polish → QA) |
 | `/bug-triage` | Diagnose and fix a reported bug |
 | `/deep-research` | MECE-structured research (web, local codebase, or hybrid) |
+| `/generate-content` | Generate short-form social content per channel schedule |
+| `/draw` | Generate visual diagrams and images |
 
 **System Management:**
 
@@ -95,6 +99,7 @@ Or manually: `git fetch upstream && git merge upstream/master`
 | `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
 | `/dream` | Generate a reflective prompt for the day (harmonic perspective) |
+| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 
 **Deployment & Updates:**

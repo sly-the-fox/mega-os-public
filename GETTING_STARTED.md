@@ -199,23 +199,46 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 
 ## Available Skills
 
+**Daily Operations:**
+
+| Skill | Description |
+|-------|-------------|
+| `/goodmorning` | Morning briefing with overnight cron results and suggested plan |
+| `/daily-scan` | Scan active state for stale or overdue items |
+| `/weekly-review` | Full system review with cross-referencing |
+| `/news-briefing` | AI-curated intelligence briefing |
+| `/dream` | Generate a reflective prompt from the week's context |
+
+**Building & Creating:**
+
+| Skill | Description |
+|-------|-------------|
+| `/project-kickoff` | Scaffold a new product with docs and registration |
+| `/write` | Write original long-form content (Writer → Editor → Polisher) |
+| `/build-site` | Build a website from concept to deployment |
+| `/bug-triage` | Triage and investigate a bug report |
+| `/deep-research` | Tiered research with MECE decomposition |
+| `/generate-content` | Generate short-form social content per channel schedule |
+| `/draw` | Generate visual diagrams and images |
+
+**System Management:**
+
 | Skill | Description |
 |-------|-------------|
 | `/setup` | Interactive onboarding wizard (recommended first step) |
+| `/add-agent` | Create a new agent with all references in sync |
+| `/improvement-audit` | Deep system audit with rotating daily focus |
+| `/coherence` | Invoke the Coherence perspective |
+| `/workflow-review` | Analyze workflow patterns and operational friction |
+| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
+| `/polish` | Convert markdown to polished DOCX/PDF |
+
+**Deployment & Updates:**
+
+| Skill | Description |
+|-------|-------------|
 | `/update` | Pull framework updates from upstream |
 | `/publish` | Sync framework changes to the public repo (maintainer only) |
-| `/add-agent` | Create a new agent with all references in sync |
-| `/project-kickoff` | Scaffold a new product with docs and registration |
-| `/bug-triage` | Triage and investigate a bug report |
-| `/daily-scan` | Scan active state for stale or overdue items |
-| `/weekly-review` | Full system review with cross-referencing |
-| `/deep-research` | Tiered research with MECE decomposition |
-| `/polish` | Convert markdown to polished DOCX/PDF |
-| `/write` | Write original long-form content |
-| `/news-briefing` | Daily intelligence briefing |
-| `/improvement-audit` | Deep system audit with rotating daily focus |
-| `/coherence` | Invoke the Coherence agent to give you a balanced perspective |
-| `/workflow-review` | Analyze workflow patterns and operational friction |
 
 ---
 

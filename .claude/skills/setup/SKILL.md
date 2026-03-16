@@ -18,9 +18,9 @@ Print a welcome message:
 "Welcome to **Mega-OS** — a personal operating system for builders, powered by Claude Code.
 
 You have:
-- **38 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
-- **15 slash commands** for workflows, research, content, maintenance, and deployment
-- **7 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Evolution)
+- **39 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
+- **21 slash commands** for daily operations, building, system management, and deployment
+- **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
 
@@ -35,17 +35,22 @@ Then show the commands overview:
 **Daily Operations:**
 | Command | What it does |
 |---------|-------------|
+| `/goodmorning` | Morning briefing with overnight cron results and suggested plan |
 | `/daily-scan` | Morning digest — scans for stale, overdue, or unactioned items |
 | `/weekly-review` | End-of-week retrospective with progress summary and priority updates |
 | `/news-briefing` | AI-curated intelligence briefing for your domain |
+| `/dream` | Generate a reflective prompt from the week's context |
 
 **Building & Creating:**
 | Command | What it does |
 |---------|-------------|
 | `/project-kickoff` | Scaffold a new product under `products/` |
 | `/write` | Launch the content pipeline (Writer -> Editor -> Polisher) |
+| `/build-site` | Build a website from concept to deployment |
 | `/bug-triage` | Diagnose and fix a reported bug |
 | `/deep-research` | MECE-structured research (web, local codebase, or hybrid) |
+| `/generate-content` | Generate short-form social content per channel schedule |
+| `/draw` | Generate visual diagrams and images |
 
 **System Management:**
 | Command | What it does |
@@ -54,6 +59,8 @@ Then show the commands overview:
 | `/add-agent` | Create a new custom agent |
 | `/improvement-audit` | Deep system audit with rotating daily focus |
 | `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
+| `/workflow-review` | Analyze workflow patterns and operational friction |
+| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 
 **Deployment & Updates:**
@@ -460,7 +467,7 @@ Ask: "Continue to Phase 9 (Agent Customization)?"
 
 ## Phase 9: Agent Customization (optional, interactive)
 
-Print educational beat: "33 general-purpose agents ship by default. The system is designed to be extended — custom agents follow the same format and get the same capabilities."
+Print educational beat: "39 agents ship by default across 5 categories (Governance, Knowledge, Technical, Business, Evolution). The system is designed to be extended — custom agents follow the same format and get the same capabilities."
 
 Based on the user's domain from Phase 2, suggest relevant custom agents. Examples:
 
@@ -530,17 +537,24 @@ Ask: "Continue to Phase 10 (Finalization)?"
    - Git remote: [url or "not configured — run /setup --phase 5 to set up"]
 
    Your Commands:
+     /goodmorning       — Morning briefing with overnight cron results
      /daily-scan        — Morning digest of stale/overdue items
      /weekly-review     — End-of-week retrospective
      /news-briefing     — AI-curated domain news
+     /dream             — Reflective prompt from the week's context
      /project-kickoff   — Scaffold a new product
      /write             — Launch content pipeline (Writer -> Editor -> Polisher)
+     /build-site        — Build a website from concept to deployment
      /bug-triage        — Diagnose and fix a bug
      /deep-research     — MECE-structured research
+     /generate-content  — Short-form social content per channel schedule
+     /draw              — Generate visual diagrams and images
      /add-agent         — Create a custom agent
      /coherence         — Harmonic consciousness perspective
-     /polish            — Convert markdown to DOCX/PDF
+     /workflow-review   — Analyze workflow patterns and friction
+     /metrics-scan      — Fetch PyPI/GitHub/website metrics
      /improvement-audit — Deep system audit (rotating daily focus)
+     /polish            — Convert markdown to DOCX/PDF
      /setup             — Re-run this wizard anytime
      /update            — Pull framework updates from upstream
      /publish           — Sync framework changes to public repo (maintainers)
