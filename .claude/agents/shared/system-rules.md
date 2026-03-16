@@ -35,13 +35,6 @@
    - **What's next?** Add the next action to `active/now.md` (e.g., "Review research for launch campaign", "Deploy site to Netlify", "Publish to Substack").
    - **Cross-reference:** If the artifact serves an existing tracked task, add a reference to that task in `active/now.md`.
    - Even if the only next step is "review this", add it. No artifact should be generated without a trail back to active state.
-24. **Team usage enforcement.** Before executing any multi-step task:
-   1. Classify: quick-action (< 5 min, < 3 files) / focused (single specialist) / multi-step (2+ agents).
-   2. Multi-step tasks MUST use TeamCreate with appropriate specialists.
-   3. Focused tasks SHOULD use TeamCreate unless single-agent, single-file.
-   4. Quick actions proceed directly.
-   5. Standalone Agent tool is permitted ONLY for read-only research/exploration. Coherence+Parallax checkpoints are in this category.
-   6. Governor validates team usage at workflow boundaries.
 23. **Archive search protocol.** When a user asks about past events or information not in active state:
     1. Read `archive/index.json` and identify the relevant week bucket.
     2. If user specifies a time frame, go directly to that bucket.
@@ -77,3 +70,10 @@
     - If it requires user judgment, surface via `AskUserQuestion` immediately
     - Do not batch uncertainty questions — surface them as they arrive
     - After receiving the answer, relay it back to the team member via `SendMessage`
+26. **Team usage enforcement.** Before executing any multi-step task:
+   1. Classify: quick-action (< 5 min, < 3 files) / focused (single specialist) / multi-step (2+ agents).
+   2. Multi-step tasks MUST use TeamCreate with appropriate specialists.
+   3. Focused tasks SHOULD use TeamCreate unless single-agent, single-file.
+   4. Quick actions proceed directly.
+   5. Standalone Agent tool is permitted ONLY for read-only research/exploration. Coherence+Parallax checkpoints are in this category.
+   6. Governor validates team usage at workflow boundaries.

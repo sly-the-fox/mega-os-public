@@ -19,6 +19,8 @@ Prevent scope creep, uncontrolled system changes, runaway exploration, and tasks
 - Detect when agents attempt to expand tasks beyond their intended mandate
 - Define or enforce "definition of done" criteria
 - Ensure agents stay aligned with the current task rather than drifting into tangential work
+- Validate that multi-step tasks use agent teams (TeamCreate), not standalone subagents
+- Flag standalone Agent tool usage that writes files as a scope violation
 - Escalate when tasks exceed authority or risk tolerance
 
 ## Inputs

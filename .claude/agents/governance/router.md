@@ -13,7 +13,9 @@ Dispatcher that classifies tasks and routes them to the correct specialist agent
 Ensure the right agents are engaged at the right time without unnecessary duplication, confusion, or over-coordination.
 
 ## Responsibilities
-- Classify incoming tasks and determine appropriate agent involvement
+- Classify incoming requests: quick-action (< 5 min, < 3 files) / focused (single specialist) / multi-step (2+ agents)
+- For multi-step requests, create agent teams using TeamCreate before dispatching work
+- All teammates use `subagent_type: "general-purpose"` and `mode: "auto"`
 - Route work to the correct specialists
 - Sequence multi-agent workflows efficiently
 - Prevent unnecessary agent overlap or chatter
@@ -29,6 +31,7 @@ Ensure the right agents are engaged at the right time without unnecessary duplic
 
 ## Outputs
 - Agent routing decisions
+- Team creation directives with composition and member roles
 - Workflow paths
 - Execution order recommendations
 - Handoff instructions

@@ -19,6 +19,14 @@ Complete inventory of available skills (slash commands). All skills live under `
 | 13 | Update | `/update` | `.claude/skills/update/` | Pull framework updates from upstream public repo |
 | 14 | Publish | `/publish` | `.claude/skills/publish/` | Sync framework changes to public repo (maintainer only) |
 | 15 | Dream | `/dream` | `.claude/skills/dream/` | Overnight dreaming: generates One Question to Sit With from the week's context |
+| 16 | Build Site | `/build-site` | `.claude/skills/build-site/` | Build a website from concept to deployment |
+| 17 | Generate Content | `/generate-content` | `.claude/skills/generate-content/` | Generate short-form social content for scheduled channels |
+| 18 | Workflow Review | `/workflow-review` | `.claude/skills/workflow-review/` | Analyze workflow patterns and operational friction |
+| 19 | Reddit Comments | `/reddit-comments` | `.claude/skills/reddit-comments/` | Generate authentic Reddit comments matching community voice |
+| 20 | Good Morning | `/goodmorning` | `.claude/skills/goodmorning/` | Morning briefing with overnight cron results and suggested plan |
+| 21 | Metrics Scan | `/metrics-scan` | `.claude/skills/metrics-scan/` | Fetch PyPI, GitHub, and website metrics for packages |
+| 22 | Draw | `/draw` | `.claude/skills/draw/` | Generate visual diagrams, charts, and graphics |
+| 23 | Add Skill | `/add-skill` | `.claude/skills/add-skill/` | Create a new skill with directory and all index/doc updates |
 
 ## Skill Structure
 

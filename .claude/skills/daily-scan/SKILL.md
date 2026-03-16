@@ -109,11 +109,10 @@ Scan all passive agent outputs and active state files for items needing attentio
     - This ensures drafted content doesn't sit indefinitely without being posted.
 
 16. **Agent and doc consistency quick-check**
-    - Count agent files in `.claude/agents/` subdirectories (governance/, knowledge/, technical/, business/, evolution/) vs count in REGISTRY.md. Flag if counts differ.
-    - Count symlinks at `.claude/agents/*.md` (top level) vs agent files in subdirectories. Flag if mismatched.
-    - Count agents referenced in README.md, AGENTS.md, CLAUDE.md. Flag if any differ from actual count.
-    - Count skills listed in README.md vs actual `.claude/skills/` directories. Flag mismatches.
-    - This is a fast count-only check. Full integrity analysis runs in weekly review.
+    - Run `bash engineering/scripts/check-index-integrity.sh` to detect agent/skill index drift.
+    - If exit code is 1 (drift detected), include each warning line as a **Critical** item in the digest.
+    - If exit code is 0 (clean), log as **Informational**: "Index integrity check passed."
+    - This replaces manual counting — the script checks agents, skills, symlinks, and all index files.
 
 17. **Archive previous digest**
     Before overwriting, preserve the existing digest:
