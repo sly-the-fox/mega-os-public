@@ -96,24 +96,36 @@ Scan all passive agent outputs and active state files for items needing attentio
       - Otherwise → skip (no output).
     - If not Monday → skip entirely.
 
-14. **Agent and doc consistency quick-check**
+14. **Outreach staleness check** (`active/now.md`)
+    - Scan `active/now.md` for unchecked items (`- [ ]`) in sections containing keywords: "Outreach", "Cold Calls", "DMs", "LinkedIn", "Revenue", "Community", "Reddit".
+    - For each unchecked item, check if it has been unchecked for >2 days by comparing the section header date or the file's last-modified date with today.
+    - Items unchecked >2 days in outreach/revenue sections → **Critical**: "[item] unchecked for N days — revenue-generating action stalled."
+    - This catches manual tasks that aren't tracked by any cron job.
+
+15. **Content draft staleness check** (`business/marketing/channel-tracker.md`)
+    - Scan `business/marketing/channel-tracker.md` for entries with pipeline status "drafted".
+    - For each "drafted" entry, check the date in the section header.
+    - Entries in "drafted" status for >2 days → **Needs Review**: "[channel] [date] content in 'drafted' for N days — needs posting or archiving."
+    - This ensures drafted content doesn't sit indefinitely without being posted.
+
+16. **Agent and doc consistency quick-check**
     - Count agent files in `.claude/agents/` subdirectories (governance/, knowledge/, technical/, business/, evolution/) vs count in REGISTRY.md. Flag if counts differ.
     - Count symlinks at `.claude/agents/*.md` (top level) vs agent files in subdirectories. Flag if mismatched.
     - Count agents referenced in README.md, AGENTS.md, CLAUDE.md. Flag if any differ from actual count.
     - Count skills listed in README.md vs actual `.claude/skills/` directories. Flag mismatches.
     - This is a fast count-only check. Full integrity analysis runs in weekly review.
 
-15. **Archive previous digest**
+17. **Archive previous digest**
     Before overwriting, preserve the existing digest:
     - Run `bash engineering/scripts/archive-report.sh daily-digest active/daily-digest.md`
     - This copies the current `active/daily-digest.md` to `archive/reports/YYYY-WNN/YYYY-MM-DD-daily-digest.md` and updates `archive/index.json`.
     - If the file doesn't exist or is empty, archival is skipped silently.
 
-16. **Write digest**
+18. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-17. **Propose solutions**
+19. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |
@@ -129,6 +141,8 @@ Scan all passive agent outputs and active state files for items needing attentio
     | Focus | PM | Planner | Priority sequencing of unchecked items |
     | Improvement audit | Auditor | Improver | Verify finding, propose implementation |
 | Agent structure | Improver | Planner | Remediation steps for structural fixes |
+    | Outreach staleness | PM | Seller | Specific outreach actions + order of priority |
+    | Content draft staleness | Content-Strategist | PM | Post, revise, or archive decision |
 
     **How it works at runtime:**
     - For each item, spawn the appropriate research agent (Explore for codebase questions, or the domain specialist for domain questions) to gather context.
@@ -153,6 +167,8 @@ Scan all passive agent outputs and active state files for items needing attentio
 | Missing improvement audit | 0 tolerance | Informational |
 | Agent count mismatch | 0 tolerance | Critical |
 | Stale workflow review (Mon only) | 7 days | Needs Review |
+| Unchecked outreach/revenue items | 2 days | Critical |
+| Drafted content not posted | 2 days | Needs Review |
 
 ## Output Template
 
