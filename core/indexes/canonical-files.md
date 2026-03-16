@@ -99,7 +99,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `products/mega-os-linux/` — Mega-OS Linux distribution
 - `products/small-business-dashboard-master/` — Small business dashboard
 
-## Skills (23)
+## Skills (24)
 - `.claude/skills/add-agent/SKILL.md`
 - `.claude/skills/bug-triage/SKILL.md`
 - `.claude/skills/build-site/SKILL.md`
@@ -123,6 +123,7 @@ shared/system-rules.md, shared/collaboration-protocol.md, shared/handoff-templat
 - `.claude/skills/write-content/SKILL.md`
 - `.claude/skills/draw/SKILL.md`
 - `.claude/skills/add-skill/SKILL.md`
+- `.claude/skills/ui-review/SKILL.md`
 
 ## Configuration
 - `.claude/settings.json`

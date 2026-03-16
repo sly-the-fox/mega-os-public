@@ -5,7 +5,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ## What You Get
 
 - **39 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
-- **23 slash commands** for daily operations, building, system management, and deployment
+- **24 slash commands** for daily operations, building, system management, and deployment
 - **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -99,7 +99,6 @@ Or manually: `git fetch upstream && git merge upstream/master`
 | `/improvement-audit` | Deep system audit with rotating daily focus |
 | `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
-| `/dream` | Generate a reflective prompt for the day (harmonic perspective) |
 | `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 
