@@ -29,8 +29,9 @@ Thumbs.db
 deliverables/*.pdf
 deliverables/*.docx
 
-# Style samples (private)
-style-samples/
+# Style samples (private content, but keep README)
+style-samples/*
+!style-samples/README.md
 
 # Claude Code local
 .claude/settings.local.json
