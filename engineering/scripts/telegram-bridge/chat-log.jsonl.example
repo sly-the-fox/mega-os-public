@@ -1,0 +1,2 @@
+{"timestamp": "2026-03-12T10:30:00+00:00", "chat_id": 123456789, "username": "exampleuser", "direction": "in", "text": "What's my current focus?"}
+{"timestamp": "2026-03-12T10:30:15+00:00", "chat_id": 123456789, "username": "bot", "direction": "out", "text": "Your current focus is..."}

@@ -1,6 +1,6 @@
 # Reddit Comments
 
-Generate authentic Reddit comments in Chadd's voice.
+Generate authentic Reddit comments in your voice.
 
 ## Usage
 ```

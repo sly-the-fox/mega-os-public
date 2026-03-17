@@ -19,8 +19,10 @@ SAFE_PATHS=(
   "AGENTS.md"
   "README.md"
   "GETTING_STARTED.md"
-  "LICENSE"
+  # LICENSE is intentionally excluded — private has personal copyright,
+  # public has corporate (AEQUILIBRIS GROUP Limited). Do not sync.
   ".gitignore"
+  ".freshstate.yml"
   ".claude/agents/"
   ".claude/skills/"
   ".claude/hooks/"
@@ -28,19 +30,30 @@ SAFE_PATHS=(
   "core/standards/"
   "core/templates/"
   "engineering/scripts/sync-to-public.sh"
+  "engineering/scripts/archive-report.sh"
+  "engineering/scripts/archive-briefings.py"
+  "engineering/scripts/build-active-index.py"
+  "engineering/scripts/check-index-integrity.sh"
+  "engineering/scripts/cron-health-check.py"
+  "engineering/scripts/draw-mermaid.sh"
+  "engineering/scripts/fetch-metrics.py"
+  "engineering/scripts/freshstate-wrapper.sh"
+  "engineering/scripts/notify-telegram.sh"
+  "engineering/scripts/puppeteer-config.json"
+  "engineering/scripts/md-to-polished.py"
   "engineering/scripts/telegram-bridge/telegram_bridge.py"
   "engineering/scripts/telegram-bridge/README.md"
   "engineering/scripts/telegram-bridge/requirements.txt"
   "engineering/scripts/telegram-bridge/.env.example"
   "engineering/scripts/telegram-bridge/chat-log.jsonl.example"
-  "engineering/scripts/md-to-polished.py"
 )
 
-# Files to SKIP during sync (private data)
+# Files to SKIP during sync (contain personal data or private customization)
 SKIP_FILES=(
   "core/standards/writing-style.md"
   ".claude/skills/news-briefing/SKILL.md"
   ".claude/skills/improvement-audit/SKILL.md"
+  ".claude/skills/reddit-comments/reddit-comments.md"
 )
 
 # Files/dirs to NEVER sync (personal data)
@@ -53,6 +66,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 changed_files=()
+synced_files=()
 
 echo ""
 echo -e "${CYAN}=== Mega-OS Sync Check ===${NC}"
@@ -66,6 +80,7 @@ for path in "${SAFE_PATHS[@]}"; do
 
   # Handle directories
   if [[ -d "$src" ]]; then
+    # Use -follow to traverse symlinks, but track symlinks separately
     while IFS= read -r -d '' file; do
       rel="${file#$src}"
       dst_file="${dst}${rel}"
@@ -80,7 +95,7 @@ for path in "${SAFE_PATHS[@]}"; do
       done
       [[ "$skip" == "true" ]] && continue
 
-      if [[ ! -f "$dst_file" ]]; then
+      if [[ ! -f "$dst_file" ]] && [[ ! -L "$dst_file" ]]; then
         echo -e "${GREEN}  NEW${NC}  ${path}${rel}"
         changed_files+=("${path}${rel}")
       elif ! diff -q "$file" "$dst_file" &>/dev/null; then
@@ -88,6 +103,32 @@ for path in "${SAFE_PATHS[@]}"; do
         changed_files+=("${path}${rel}")
       fi
     done < <(find "$src" -type f -print0 2>/dev/null)
+
+    # Also find symlinks in the source directory
+    while IFS= read -r -d '' link; do
+      rel="${link#$src}"
+      dst_link="${dst}${rel}"
+      link_target="$(readlink "$link")"
+
+      # Skip private files
+      skip=false
+      for skip_file in "${SKIP_FILES[@]}"; do
+        if [[ "${path}${rel}" == "$skip_file" ]]; then
+          skip=true
+          break
+        fi
+      done
+      [[ "$skip" == "true" ]] && continue
+
+      if [[ ! -L "$dst_link" ]]; then
+        # Destination is not a symlink (either missing or a regular file)
+        echo -e "${GREEN}  SYM${NC}  ${path}${rel} -> ${link_target}"
+        changed_files+=("${path}${rel}")
+      elif [[ "$(readlink "$dst_link")" != "$link_target" ]]; then
+        echo -e "${YELLOW}  SYM${NC}  ${path}${rel} -> ${link_target}"
+        changed_files+=("${path}${rel}")
+      fi
+    done < <(find "$src" -type l -print0 2>/dev/null)
   # Handle single files
   elif [[ -f "$src" ]]; then
     if [[ ! -f "$dst" ]]; then
@@ -117,13 +158,26 @@ if [[ "$1" == "--sync" ]]; then
     src="${PRIVATE}/${file}"
     dst="${PUBLIC}/${file}"
     mkdir -p "$(dirname "$dst")"
-    cp "$src" "$dst"
-    echo -e "  ${GREEN}copied${NC} ${file}"
+
+    if [[ -L "$src" ]]; then
+      # Preserve symlinks
+      link_target="$(readlink "$src")"
+      rm -f "$dst"
+      ln -s "$link_target" "$dst"
+      echo -e "  ${GREEN}linked${NC} ${file} -> ${link_target}"
+    else
+      cp "$src" "$dst"
+      echo -e "  ${GREEN}copied${NC} ${file}"
+    fi
+    synced_files+=("$file")
   done
 
   echo ""
   cd "$PUBLIC" || exit 1
-  git add -A
+  # Stage only the files we synced, not everything in the repo
+  for file in "${synced_files[@]}"; do
+    git add "$file"
+  done
   echo -e "${CYAN}Staged changes:${NC}"
   git status -s
   echo ""

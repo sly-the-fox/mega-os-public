@@ -1,0 +1,164 @@
+# freshstate config — mega-os dogfooding
+# Tracks document freshness across the multi-agent operating system
+
+files:
+  # NOTE: archive/ is excluded from freshness tracking.
+  # Archived files are intentionally old. Do not add archive paths here.
+
+  # Active state files — high freshness requirements
+  - path: "active/now.md"
+    max_age: 7d
+    severity: warning
+
+  - path: "active/priorities.md"
+    max_age: 7d
+    severity: warning
+
+  - path: "active/inbox.md"
+    max_age: 2d
+    severity: critical
+
+  - path: "active/blockers.md"
+    max_age: 5d
+    severity: critical
+
+  - path: "active/risks.md"
+    max_age: 14d
+    severity: warning
+
+  - path: "active/improvements.md"
+    max_age: 14d
+    severity: info
+
+  - path: "active/audits.md"
+    max_age: 14d
+    severity: info
+
+  - path: "active/freshness-log.md"
+    max_age: 7d
+    severity: warning
+
+  - path: "active/coherence-metrics.md"
+    max_age: 30d
+    severity: info
+
+  - path: "active/freshstate-report.md"
+    max_age: 2d
+    severity: warning
+
+  - path: "active/daily-digest.md"
+    max_age: 2d
+    severity: info
+
+  # Core history — moderate freshness
+  - path: "core/history/current-state.md"
+    max_age: 14d
+    severity: warning
+
+  - path: "core/history/decisions.md"
+    max_age: 30d
+    severity: info
+
+  - path: "core/history/master-timeline.md"
+    max_age: 30d
+    severity: info
+
+  # Indexes — should stay current with changes
+  - path: "core/indexes/project-map.md"
+    max_age: 14d
+    severity: warning
+
+  - path: "core/indexes/canonical-files.md"
+    max_age: 14d
+    severity: warning
+
+  - path: "core/indexes/active-context-map.md"
+    max_age: 14d
+    severity: warning
+
+  # System docs — low freshness requirements
+  - path: "CLAUDE.md"
+    max_age: 30d
+    severity: info
+
+  - path: "AGENTS.md"
+    max_age: 30d
+    severity: info
+
+rules:
+  # Historian 5-file checklist: decisions must sync with timeline and state
+  - name: "historian-decision-sync"
+    when: "core/history/decisions.md"
+    then_also:
+      - "core/history/master-timeline.md"
+      - "core/history/current-state.md"
+      - "active/now.md"
+      - "active/priorities.md"
+    within: "same_commit"
+    severity: error
+
+  # Librarian 3-index sync
+  - name: "librarian-index-sync"
+    when: "core/indexes/canonical-files.md"
+    then_also:
+      - "core/indexes/project-map.md"
+    within: "3_commits"
+    severity: warning
+
+  # Agent registry changes must sync to CLAUDE.md and AGENTS.md
+  - name: "registry-sync"
+    when: ".claude/agents/REGISTRY.md"
+    then_also:
+      - "CLAUDE.md"
+      - "AGENTS.md"
+    within: "same_commit"
+    severity: error
+
+  # Workflow changes must sync to CLAUDE.md
+  - name: "workflow-sync"
+    when: ".claude/agents/shared/workflows.md"
+    then_also:
+      - "CLAUDE.md"
+    within: "same_commit"
+    severity: warning
+
+owners:
+  - files: ["active/risks.md"]
+    owner: "sentinel"
+    checklist:
+      - "risks.md updated with severity, likelihood, and mitigation"
+
+  - files: ["core/history/decisions.md", "core/history/master-timeline.md", "core/history/current-state.md"]
+    owner: "historian"
+    checklist:
+      - "All 5 Historian files updated together"
+
+  - files: ["core/indexes/canonical-files.md", "core/indexes/project-map.md", "core/indexes/active-context-map.md"]
+    owner: "librarian"
+    checklist:
+      - "All 3 index files reflect changes"
+
+  - files: ["active/now.md", "active/priorities.md", "active/inbox.md", "active/blockers.md"]
+    owner: "pm"
+    checklist:
+      - "All 4 active state files are current"
+
+  - files: ["active/freshness-log.md"]
+    owner: "custodian"
+    checklist:
+      - "Freshness log updated with workflow findings"
+
+  - files: ["active/freshstate-report.md"]
+    owner: "freshstate-cron"
+    checklist:
+      - "Daily scan output replaced by cron job"
+
+  - files: ["active/audits.md"]
+    owner: "auditor"
+    checklist:
+      - "Audit findings recorded with ID, severity, and status"
+
+  - files: ["active/improvements.md"]
+    owner: "improver"
+    checklist:
+      - "Improvement proposals include evidence and status"
