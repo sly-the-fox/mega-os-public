@@ -278,6 +278,8 @@ Mega-OS has a public distribution (framework) and private user data. This classi
 
 **Rule:** When creating a new file, if it contains personal data (names, emails, revenue, client info, project-specific state), it belongs in user data paths. If it's a reusable system component (agent, skill, standard, template), it belongs in framework paths. When uncertain, default to user data.
 
+**Sync manifest:** `engineering/sync-manifest.json` is the single source of truth for what syncs to the public repo. Directory-based rules mean new files in framework directories sync automatically. Only update the manifest to add new `exclude` entries for files with personal data.
+
 ---
 
 ## File Conventions

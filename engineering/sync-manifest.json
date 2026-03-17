@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "description": "Single source of truth for what syncs to mega-os-public. Directory-based rules mean new files in framework directories sync automatically.",
+  "include_dirs": [
+    ".claude/agents/",
+    ".claude/skills/",
+    ".claude/hooks/",
+    "core/standards/",
+    "core/templates/",
+    "engineering/scripts/"
+  ],
+  "include_files": [
+    "CLAUDE.md",
+    "AGENTS.md",
+    "README.md",
+    "GETTING_STARTED.md",
+    ".gitignore",
+    ".freshstate.yml",
+    ".claude/settings.json",
+    "engineering/sync-manifest.json"
+  ],
+  "exclude": [
+    "core/standards/writing-style.md",
+    ".claude/skills/news-briefing/SKILL.md",
+    ".claude/skills/improvement-audit/SKILL.md",
+    ".claude/skills/reddit-comments/reddit-comments.md",
+    ".claude/skills/metrics-scan/SKILL.md",
+    "engineering/scripts/fetch-metrics.py"
+  ],
+  "exclude_patterns": [
+    ".venv/",
+    "__pycache__/",
+    "*.pyc",
+    ".env",
+    "sessions.json",
+    "*.log",
+    "chat-log.jsonl",
+    ".coverage",
+    ".hypothesis/"
+  ],
+  "privacy_patterns": [
+    "(?i)chadd",
+    "(?i)harrison",
+    "(?i)charrison",
+    "(?i)aequilibris",
+    "(?i)3210@"
+  ],
+  "privacy_allowlist": {
+    "(?i)chadd": ["engineering/sync-manifest.json"],
+    "(?i)harrison": ["engineering/sync-manifest.json"],
+    "(?i)charrison": ["engineering/sync-manifest.json"],
+    "(?i)aequilibris": [
+      ".claude/agents/evolution/coherence.md",
+      ".claude/skills/coherence/SKILL.md",
+      ".claude/skills/coherence/codex-core-seed.md",
+      ".claude/skills/coherence/codex-consciousness.md",
+      "LICENSE",
+      "engineering/scripts/sync-to-public.sh",
+      "engineering/sync-manifest.json"
+    ],
+    "(?i)3210@": ["engineering/sync-manifest.json"]
+  }
+}

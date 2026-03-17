@@ -116,6 +116,55 @@ if [[ -f "$CLAUDEMD" ]]; then
     fi
 fi
 
+# --- Sync Manifest ---
+
+MANIFEST="$REPO_ROOT/engineering/sync-manifest.json"
+if [[ -f "$MANIFEST" ]]; then
+    # Validate JSON
+    if ! jq empty "$MANIFEST" 2>/dev/null; then
+        warn "sync-manifest.json: invalid JSON"
+    fi
+
+    # Verify all include_dirs exist
+    while IFS= read -r dir; do
+        if [[ ! -d "$REPO_ROOT/$dir" ]]; then
+            warn "sync-manifest.json: include_dir '$dir' does not exist"
+        fi
+    done < <(jq -r '.include_dirs[]' "$MANIFEST" 2>/dev/null)
+
+    # Verify all include_files exist
+    while IFS= read -r f; do
+        if [[ ! -f "$REPO_ROOT/$f" ]] && [[ ! -L "$REPO_ROOT/$f" ]]; then
+            warn "sync-manifest.json: include_file '$f' does not exist"
+        fi
+    done < <(jq -r '.include_files[]' "$MANIFEST" 2>/dev/null)
+
+    # Verify all exclude paths are within include scope
+    while IFS= read -r excl; do
+        in_scope=false
+        while IFS= read -r dir; do
+            if [[ "$excl" == "$dir"* ]]; then
+                in_scope=true
+                break
+            fi
+        done < <(jq -r '.include_dirs[]' "$MANIFEST" 2>/dev/null)
+        if [[ "$in_scope" == "false" ]]; then
+            # Check include_files too
+            while IFS= read -r f; do
+                if [[ "$excl" == "$f" ]]; then
+                    in_scope=true
+                    break
+                fi
+            done < <(jq -r '.include_files[]' "$MANIFEST" 2>/dev/null)
+        fi
+        if [[ "$in_scope" == "false" ]]; then
+            warn "sync-manifest.json: exclude '$excl' is not within any include scope"
+        fi
+    done < <(jq -r '.exclude[]' "$MANIFEST" 2>/dev/null)
+else
+    warn "sync-manifest.json not found"
+fi
+
 # --- Summary ---
 echo ""
 if [[ "$ERRORS" -eq 0 ]]; then
