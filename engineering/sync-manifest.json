@@ -28,7 +28,9 @@
     "archive/.gitattributes",
     "core/history/.gitattributes",
     "core/indexes/.gitattributes",
-    "style-samples/.gitattributes"
+    "style-samples/.gitattributes",
+    ".claude/CLAUDE.local.example.md",
+    "core/standards/writing-style.default.md"
   ],
   "exclude": [
     "core/standards/writing-style.md",

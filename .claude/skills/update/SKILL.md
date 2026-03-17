@@ -38,18 +38,27 @@ Pulls framework updates from the upstream Mega-OS repository into your local clo
    - **If clean merge:** Commit is automatic. Print "Framework updated successfully."
    - **If conflicts:** Run `git diff --name-only --diff-filter=U` to list conflicting files.
      - For each conflicting file, explain what it is and suggest resolution:
-       - `CLAUDE.md` — Look for `<!-- USER CONFIG START/END -->` markers. Keep user content between markers, accept upstream changes outside markers.
+       - `CLAUDE.md` — Accept upstream. This is framework-only now. Your customizations are safe in `.claude/CLAUDE.local.md`.
        - `active/*.md` — Always keep yours (`git checkout --ours <file>`). Your state is more important than upstream stubs. (The `merge=ours` driver should handle this automatically.)
-       - `.claude/settings.json` — Merge carefully. Keep your permissions and hooks, accept new upstream defaults.
+       - `.claude/settings.json` — Keep yours (protected by `merge=ours`). After merge, check if upstream added new keys by running `git show upstream/master:.claude/settings.json`. Prompt user: "Upstream added these new settings: [list]. Add them to your settings.json?" If yes, merge new keys only (don't overwrite existing).
        - Agent/skill files — Usually accept upstream (`git checkout --theirs <file>`) unless you've customized them.
        - Standards — Accept upstream, then re-apply your customizations at the bottom.
+       - `core/standards/writing-style.md` — Always keep yours (protected by `merge=ours`). The upstream default ships as `writing-style.default.md`.
      - After resolution, stage and commit: `git add . && git commit -m "merge: upstream framework update"`
 
-8. **Restore stashed work** — If work was stashed in step 2, run `git stash pop` to restore it.
+8. **Migration check (CLAUDE.md split)** — After merge, check if the upstream CLAUDE.md now contains the `@./.claude/CLAUDE.local.md` import line.
 
-9. **Verify** — Run Claude Code's SessionStart check (read `active/now.md`) to confirm everything still loads correctly.
+   - If `.claude/CLAUDE.local.md` already exists: no migration needed, skip to step 9.
+   - If `.claude/CLAUDE.local.md` does NOT exist:
+     - Check the user's pre-merge CLAUDE.md (from `git show HEAD~1:CLAUDE.md`) for `<!-- USER CONFIG START -->` / `<!-- USER CONFIG END -->` markers.
+     - If markers found: extract content between all marker pairs into a new `.claude/CLAUDE.local.md`. Print: "Your customizations have been moved to `.claude/CLAUDE.local.md`. Review it to confirm everything looks right."
+     - If no markers found (user edited outside markers): print a warning: "CLAUDE.md has been restructured. Your customizations should go in `.claude/CLAUDE.local.md`. Please review and manually move any custom content." Copy `.claude/CLAUDE.local.example.md` to `.claude/CLAUDE.local.md` as a starting point.
 
-10. **Report** — Print summary and safety notice:
+9. **Restore stashed work** — If work was stashed in step 2, run `git stash pop` to restore it.
+
+10. **Verify** — Run Claude Code's SessionStart check (read `active/now.md`) to confirm everything still loads correctly.
+
+11. **Report** — Print summary and safety notice:
    ```
    Framework updated:
    - [N] new commits from upstream

@@ -118,6 +118,44 @@ Products live under `products/`. Each product should have its own README. You ca
 
 ## 5. Customize for Your Domain
 
+### Your customization file
+
+All personal customizations go in **`.claude/CLAUDE.local.md`**. This file is loaded every session (imported by `CLAUDE.md`) and is never overwritten by framework updates.
+
+If you don't have one yet, copy the example:
+
+```bash
+cp .claude/CLAUDE.local.example.md .claude/CLAUDE.local.md
+```
+
+Use it for:
+- Product-specific instructions
+- Custom commit scopes
+- Personal workflow rules
+- Domain-specific agent guidance
+- Agent behavior overrides (see below)
+
+### Customizing agents
+
+Do not edit agent files in `.claude/agents/` directly — they are updated by `/update`.
+
+Instead, add overrides in `.claude/CLAUDE.local.md`:
+
+```markdown
+## Agent Overrides
+
+When acting as the Writer agent, also follow these rules:
+- [your custom rules]
+
+When acting as the Engineer agent:
+- Always use pytest over unittest
+- Prefer composition over inheritance
+```
+
+### Customizing your writing style
+
+Your personal writing style lives at `core/standards/writing-style.md`. The framework ships a default at `core/standards/writing-style.default.md` — your copy is never overwritten by updates. To customize, edit `writing-style.md` directly or place writing samples in `style-samples/` and run `/setup --phase 4`.
+
 ### Add a new agent
 
 Use `/add-agent` for a guided flow that creates the file, symlink, and updates all references automatically.

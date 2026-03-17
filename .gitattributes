@@ -1,3 +1,4 @@
 # User-owned files — always keep local version on merge conflicts
 core/standards/writing-style.md    merge=ours
 .claude/CLAUDE.local.md            merge=ours
+.claude/settings.json              merge=ours

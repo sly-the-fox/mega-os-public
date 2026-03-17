@@ -1,3 +1,6 @@
+<!-- This file is updated automatically by /update. Do not edit directly.
+     Put your customizations in .claude/CLAUDE.local.md instead. -->
+
 # Mega-OS — Master Instructions
 
 This file is read on every session start. Follow these instructions.
@@ -46,11 +49,9 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 
 ## Products
 
-<!-- USER CONFIG START: products -->
 All products live under `products/`. Run `/setup` or `/project-kickoff` to add your first product.
 
 Check for a README and CLAUDE.md at the product root before making changes. Product-level CLAUDE.md files override general standards for that product.
-<!-- USER CONFIG END: products -->
 
 ---
 
@@ -372,14 +373,15 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 ### Scopes
-<!-- USER CONFIG START: commit-scopes -->
+
+Default scopes are below. Add custom scopes in `.claude/CLAUDE.local.md`.
+
 | Scope | Covers |
 |-------|--------|
 | `<product-name>` | `products/<product-name>/` |
 | `system` | CLAUDE.md, `.claude/`, `core/`, `active/` |
 | `business` | `business/`, `drafts/`, `deliverables/` |
 | `meta` | Root config, `.gitignore`, CI, multi-product |
-<!-- USER CONFIG END: commit-scopes -->
 
 ### Examples
 - `myapp: add user authentication flow`
@@ -412,3 +414,9 @@ Before ending any session where work was done:
 - Check current state before acting. Read `active/` files first.
 - Prefer minimal, correct changes over sweeping rewrites.
 - When uncertain, escalate. The governance agents exist for a reason.
+
+---
+
+# User Customizations
+
+@./.claude/CLAUDE.local.md

@@ -63,7 +63,11 @@ claude  # everything just works
 /update
 ```
 
-Or manually: `git fetch upstream && git merge upstream/master`
+Or manually: `git config merge.ours.driver true && git fetch upstream && git merge upstream/master`
+
+Your personal data (`active/`, `business/`, `products/`, etc.) is protected by `merge=ours` rules in `.gitattributes` — framework updates never overwrite your files. The merge driver must be configured once locally (done automatically by `/update` and `/setup`). See [GETTING_STARTED.md](GETTING_STARTED.md) for full details.
+
+**ZIP users:** Run `engineering/scripts/check-updates.sh` to check for new versions, or `engineering/scripts/apply-update.sh` to selectively update framework files.
 
 ## Commands
 
