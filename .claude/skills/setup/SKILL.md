@@ -81,6 +81,7 @@ If minimal: set `--minimal` flag. If full: continue normally.
 
 Run these checks silently and report a summary:
 
+0. **Merge driver setup** — Run `git config merge.ours.driver true`. This activates the `merge=ours` strategy used by `.gitattributes` to protect personal data directories during upstream merges. This is idempotent and safe to re-run.
 1. **Settings check** — Read `.claude/settings.json`. Confirm `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` is set to `1` in the `env` block. If missing, warn.
 2. **Agent symlink check** — Count symlinks at `.claude/agents/*.md` (excluding REGISTRY.md, AGENTS.md). Confirm each resolves to an actual file. Report count and any broken links.
 3. **Active state check** — Verify these 19 files exist in `active/`:

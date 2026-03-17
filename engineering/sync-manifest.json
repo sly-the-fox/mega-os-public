@@ -17,10 +17,22 @@
     ".gitignore",
     ".freshstate.yml",
     ".claude/settings.json",
-    "engineering/sync-manifest.json"
+    "engineering/sync-manifest.json",
+    "VERSION",
+    ".gitattributes",
+    "active/.gitattributes",
+    "business/.gitattributes",
+    "products/.gitattributes",
+    "drafts/.gitattributes",
+    "deliverables/.gitattributes",
+    "archive/.gitattributes",
+    "core/history/.gitattributes",
+    "core/indexes/.gitattributes",
+    "style-samples/.gitattributes"
   ],
   "exclude": [
     "core/standards/writing-style.md",
+    ".claude/CLAUDE.local.md",
     ".claude/skills/news-briefing/SKILL.md",
     ".claude/skills/improvement-audit/SKILL.md",
     ".claude/skills/reddit-comments/reddit-comments.md",

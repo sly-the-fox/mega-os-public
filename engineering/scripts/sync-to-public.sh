@@ -28,6 +28,25 @@ NC='\033[0m'
 
 # --- Manifest reader ---
 
+# --- NEVER_SYNC deny list (defense-in-depth) ---
+# These paths must NEVER be copied to the public repo, regardless of manifest rules.
+NEVER_SYNC=("active/" "business/" "products/" "drafts/" "deliverables/" "archive/" "core/history/" "core/indexes/" "style-samples/" ".claude/CLAUDE.local.md" ".claude/projects/")
+
+is_never_sync() {
+  local file="$1"
+  for deny in "${NEVER_SYNC[@]}"; do
+    # Directory prefix match
+    if [[ "$deny" == */ ]] && [[ "$file" == "$deny"* ]]; then
+      return 0
+    fi
+    # Exact file match
+    if [[ "$file" == "$deny" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 if [[ ! -f "$MANIFEST" ]]; then
   echo -e "${RED}ERROR: Manifest not found at ${MANIFEST}${NC}" >&2
   exit 1
@@ -128,7 +147,7 @@ privacy_scan_file() {
 }
 
 build_file_list() {
-  # Build the full list of files that should sync, respecting include/exclude rules
+  # Build the full list of files that should sync, respecting include/exclude and NEVER_SYNC rules
   local files=()
 
   # Walk include_dirs
@@ -138,7 +157,7 @@ build_file_list() {
       # Regular files
       while IFS= read -r -d '' file; do
         local rel="${file#$PRIVATE/}"
-        if ! is_excluded "$rel"; then
+        if ! is_excluded "$rel" && ! is_never_sync "$rel"; then
           files+=("$rel")
         fi
       done < <(find "$src" -type f -print0 2>/dev/null)
@@ -146,7 +165,7 @@ build_file_list() {
       # Symlinks
       while IFS= read -r -d '' link; do
         local rel="${link#$PRIVATE/}"
-        if ! is_excluded "$rel"; then
+        if ! is_excluded "$rel" && ! is_never_sync "$rel"; then
           files+=("$rel")
         fi
       done < <(find "$src" -type l -print0 2>/dev/null)
@@ -157,7 +176,7 @@ build_file_list() {
   for f in "${INCLUDE_FILES[@]}"; do
     local src="${PRIVATE}/${f}"
     if [[ -f "$src" ]] || [[ -L "$src" ]]; then
-      if ! is_excluded "$f"; then
+      if ! is_excluded "$f" && ! is_never_sync "$f"; then
         files+=("$f")
       fi
     fi

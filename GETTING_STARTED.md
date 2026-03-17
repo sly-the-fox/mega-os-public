@@ -71,11 +71,16 @@ claude  # SessionStart hook loads your state, everything works
 Run `/update` in Claude Code, or manually:
 
 ```bash
+git config merge.ours.driver true   # Required once — activates data protection
 git fetch upstream
 git merge upstream/master
 ```
 
-Framework updates (agents, skills, standards) merge cleanly because upstream has only empty stubs for personal data paths (`active/`, `business/`, `products/`).
+The `merge=ours` driver ensures your personal data (`active/`, `business/`, `products/`, etc.) is never overwritten by upstream changes. The `.gitattributes` files in each data directory declare this protection, but git requires the driver to be configured locally for it to take effect.
+
+If you skip the `git config` step, git silently ignores the merge protection and may overwrite your files during merge conflicts.
+
+Framework updates (agents, skills, standards) merge cleanly because upstream has only empty stubs for personal data paths.
 
 ---
 
