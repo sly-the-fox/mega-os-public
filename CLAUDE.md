@@ -64,6 +64,19 @@ Most sessions are conversational. Match response weight to request size:
 - **Focused task** (5-30 min): Route to specialist if needed. Update state. Offer commit.
 - **Multi-step project** (> 30 min): Use the full pipeline below with a plan.
 
+### User-Voice Content Gate
+
+Before generating ANY text the user might post, publish, or send as their own:
+
+1. Read `core/standards/writing-style.md` (including platform-specific adaptations)
+2. Apply the style guide to your output
+3. For Reddit: also read `style-samples/reddit-casual.md`
+4. No em dashes. No generic AI voice. Must sound like the user.
+
+This applies even for "quick action" responses. A suggested reply IS user-voice content. A code review comment is not. The test: "Will this text be published or sent as if written by the user?" If yes, apply the gate.
+
+This does NOT require spawning Writer/Editor agents for short-form content. Apply the style guide directly in your response. The full Content Workflow (Writer → Editor → Polisher) is for long-form content (articles, essays, newsletters).
+
 ### Full Pipeline (for complex tasks)
 
 1. **Check context.** Read `active/now.md` and `active/priorities.md`.
@@ -216,6 +229,8 @@ Librarian → Summarizer (if extensive research) → Writer → Editor → Write
 **For long-form content** (articles, blog posts, essays, newsletters): Use the full Content Creation workflow above (Writer → Editor → Polisher).
 
 **If in doubt, run it through the flow.** Never generate publishable text in a raw response without applying the style guide.
+
+**Trigger:** See "User-Voice Content Gate" in the Conversational Triage section above. That gate ensures style enforcement fires BEFORE generation, not as a post-hoc check.
 
 ### Evolution Loop
 Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
