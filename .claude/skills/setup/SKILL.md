@@ -83,14 +83,14 @@ Run these checks silently and report a summary:
 
 1. **Settings check** — Read `.claude/settings.json`. Confirm `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` is set to `1` in the `env` block. If missing, warn.
 2. **Agent symlink check** — Count symlinks at `.claude/agents/*.md` (excluding REGISTRY.md, AGENTS.md). Confirm each resolves to an actual file. Report count and any broken links.
-3. **Active state check** — Verify these 6 files exist in `active/`:
+3. **Active state check** — Verify these 19 files exist in `active/`:
    - `now.md`, `priorities.md`, `inbox.md`, `blockers.md`, `risks.md`, `improvements.md`
-   - Create any missing files with a minimal template:
-     ```
-     # [Title]
-
-     (No items yet.)
-     ```
+   - `audits.md`, `coherence-metrics.md`, `freshness-log.md`, `freshstate-report.md`
+   - `daily-digest.md`, `news-briefing.md`, `news-briefing-state.md`
+   - `improvement-audit.md`, `workflow-review.md`, `system-evaluation.md`
+   - `cron-health.md`, `codex-metrics.md`, `dream-report.md`
+   - Also verify `active/index.json` exists (critical — SessionStart hook depends on it)
+   - Create any missing files with the placeholder templates from the public repo (empty tables, zero counters, "No items yet" stubs). If `index.json` is missing, create it with the starter manifest listing all 19 active files.
 4. **Core directories check** — Verify `core/standards/`, `core/templates/`, `core/indexes/`, `core/history/` exist. Create any missing directories.
 5. **Git config check** — Verify `git config user.name` and `git config user.email` are set. If not, warn that git commits will need a name and email.
 6. **Prior setup check** — Search `core/history/decisions.md` for a decision with "setup" in the title. If found, inform the user that setup was run before and ask whether to re-run or skip completed phases.
@@ -104,7 +104,7 @@ Print a status summary table:
 |------------------|--------|------------------|
 | Agent teams      | OK/WARN| ...              |
 | Agent symlinks   | OK/WARN| 33 found, 0 broken |
-| Active state     | OK/WARN| 6/6 files        |
+| Active state     | OK/WARN| 19/19 files + index.json |
 | Core directories | OK/WARN| 4/4 present      |
 | Git identity     | OK/WARN| ...              |
 | Prior setup      | New/Re-run | ...           |
@@ -240,9 +240,11 @@ If `--minimal` was passed, skip to Phase 10 (Finalization). Otherwise ask: "Cont
    - Does this match your preferences? Any changes?
    - Apply requested changes.
 
-3. **Writing style** — Ask:
-   - Do you have a preferred writing style? (technical/casual/formal/concise)
-   - If provided, note it in coding standards or a separate style guide.
+3. **Writing style** — Check if `core/standards/writing-style.md` still contains the "Setup required" marker (template version).
+   - If template: Ask "Do you have a preferred writing style? (technical/casual/formal/concise)"
+   - If they want a personalized style: prompt them to place 3-5 writing samples in `style-samples/`, then analyze the samples and populate `writing-style.md` with a full style profile.
+   - If they skip or have no samples: leave the template in place (agents produce neutral content).
+   - If already populated (no "Setup required" marker): inform user their style guide is already configured and ask if they want to regenerate it.
 
 4. **Review checklist** — Read `core/standards/review-checklist.md`. Show current criteria. Ask:
    - Any criteria to add or remove for your domain?
