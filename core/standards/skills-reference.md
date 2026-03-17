@@ -28,6 +28,7 @@ Complete inventory of available skills (slash commands). All skills live under `
 | 22 | Draw | `/draw` | `.claude/skills/draw/` | Generate visual diagrams, charts, and graphics |
 | 23 | Add Skill | `/add-skill` | `.claude/skills/add-skill/` | Create a new skill with directory and all index/doc updates |
 | 24 | UI Review | `/ui-review` | `.claude/skills/ui-review/` | Visual audit of frontend CSS, typography, color, spacing, animations |
+| 25 | Evolution Loop | `/evolution-loop` | `.claude/skills/evolution-loop/` | Full Evaluator → Coherence → Parallax → Improver self-improvement chain |
 
 ## Skill Structure
 

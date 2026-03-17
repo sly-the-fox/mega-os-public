@@ -70,16 +70,11 @@ Review the current state of the system, scan for stale items, cross-reference pa
       - Log as **Informational**: "Workflow review is stale or missing — consider running `/workflow-review` before next week's review."
     - Do NOT modify `active/workflow-review.md` — read-only input.
 
-11. **Run Evaluator**
-    - Review task completion rates, cycle times, and blocker frequency.
-    - Identify recurring blocker patterns (3+ of the same type triggers Improver).
-    - Identify recurring defect patterns from QA reports.
-    - Record findings to `core/history/evaluations.md` with date, metrics, and recommendations.
-
-12. **Run Improver**
-    - Review Evaluator findings from this week.
-    - Review agent structure integrity findings from step 7.
-    - Propose new improvements to `active/improvements.md` based on evidence.
+11. **Run Evolution Loop**
+    - Invoke `/evolution-loop` for the full Evaluator → Coherence → Parallax → Improver chain.
+    - If time-constrained, run with `--no-coherence` for the shortcut path (Evaluator → Improver directly).
+    - Include agent structure integrity findings from step 7 as additional context.
+    - The skill handles: evaluation recording, Coherence checkpoint, improvement proposals, and all file writes.
     - Review existing proposals in `active/improvements.md` — update status of any in-progress items.
     - Archive completed improvements (verified/ineffective) to `core/history/improvements.md`.
 
