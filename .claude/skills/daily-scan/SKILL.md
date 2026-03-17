@@ -96,40 +96,50 @@ Scan all passive agent outputs and active state files for items needing attentio
       - Otherwise → skip (no output).
     - If not Monday → skip entirely.
 
-14. **Outreach staleness check** (`active/now.md`)
+14. **Contact follow-up check** (`business/network/contacts.md`)
+    - Parse the People and Businesses tables from `business/network/contacts.md`.
+    - For each row, read the `Follow-Up` column.
+    - Skip rows where Follow-Up is `—` or empty.
+    - Compare the Follow-Up date to today:
+      - Due today → **Informational**: "[Platform]: Follow up with [Name] — [Next Action]"
+      - 1-2 days overdue → **Needs Review**: "[Name] follow-up overdue by N days — [Next Action]"
+      - 3+ days overdue → **Critical**: "[Name] follow-up overdue by N days — [Next Action]"
+    - Route overdue items to PM / Seller in the Action Plan.
+
+15. **Outreach staleness check** (`active/now.md`)
     - Scan `active/now.md` for unchecked items (`- [ ]`) in sections containing keywords: "Outreach", "Cold Calls", "DMs", "LinkedIn", "Revenue", "Community", "Reddit".
     - For each unchecked item, check if it has been unchecked for >2 days by comparing the section header date or the file's last-modified date with today.
     - Items unchecked >2 days in outreach/revenue sections → **Critical**: "[item] unchecked for N days — revenue-generating action stalled."
     - This catches manual tasks that aren't tracked by any cron job.
 
-15. **Content draft staleness check** (`business/marketing/channel-tracker.md`)
+16. **Content draft staleness check** (`business/marketing/channel-tracker.md`)
     - Scan `business/marketing/channel-tracker.md` for entries with pipeline status "drafted".
     - For each "drafted" entry, check the date in the section header.
     - Entries in "drafted" status for >2 days → **Needs Review**: "[channel] [date] content in 'drafted' for N days — needs posting or archiving."
     - This ensures drafted content doesn't sit indefinitely without being posted.
 
-16. **History freshness check** (`core/history/current-state.md`)
+17. **History freshness check** (`core/history/current-state.md`)
     - Check file freshness: `git log -1 --format=%ai core/history/current-state.md`.
     - If file unchanged for 3+ days → **Needs Review**: "current-state.md is N days stale — run Historian Checklist to update."
     - Otherwise → skip (no output).
 
-17. **Agent and doc consistency quick-check**
+18. **Agent and doc consistency quick-check**
     - Run `bash engineering/scripts/check-index-integrity.sh` to detect agent/skill index drift.
     - If exit code is 1 (drift detected), include each warning line as a **Critical** item in the digest.
     - If exit code is 0 (clean), log as **Informational**: "Index integrity check passed."
     - This replaces manual counting — the script checks agents, skills, symlinks, and all index files.
 
-18. **Archive previous digest**
+19. **Archive previous digest**
     Before overwriting, preserve the existing digest:
     - Run `bash engineering/scripts/archive-report.sh daily-digest active/daily-digest.md`
     - This copies the current `active/daily-digest.md` to `archive/reports/YYYY-WNN/YYYY-MM-DD-daily-digest.md` and updates `archive/index.json`.
     - If the file doesn't exist or is empty, archival is skipped silently.
 
-19. **Write digest**
+20. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-20. **Propose solutions**
+21. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |
@@ -146,6 +156,7 @@ Scan all passive agent outputs and active state files for items needing attentio
     | Improvement audit | Auditor | Improver | Verify finding, propose implementation |
 | Agent structure | Improver | Planner | Remediation steps for structural fixes |
     | Outreach staleness | PM | Seller | Specific outreach actions + order of priority |
+    | Contact follow-ups | PM | Seller | Follow-up action, updated cadence, next date |
     | Content draft staleness | Content-Strategist | PM | Post, revise, or archive decision |
 
     **How it works at runtime:**
@@ -172,6 +183,9 @@ Scan all passive agent outputs and active state files for items needing attentio
 | Agent count mismatch | 0 tolerance | Critical |
 | Stale workflow review (Mon only) | 7 days | Needs Review |
 | Stale current-state.md | 3 days | Needs Review |
+| Contact follow-up due today | 0 days | Informational |
+| Contact follow-up 1-2 days overdue | 1-2 days | Needs Review |
+| Contact follow-up 3+ days overdue | 3 days | Critical |
 | Unchecked outreach/revenue items | 2 days | Critical |
 | Drafted content not posted | 2 days | Needs Review |
 
@@ -208,6 +222,7 @@ Generated: YYYY-MM-DD HH:MM
 | Processes | | | | |
 | Decisions | | | | |
 | Focus | | | | |
+| Contacts | | | | |
 | Improvement Audit | | | | |
 | **Total** | | | | |
 

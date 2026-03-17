@@ -131,6 +131,17 @@ When the user reports something that happened outside Claude (deploy, client lan
 
 After completing any tracked task mid-session, update `active/now.md` and `active/priorities.md` immediately. Don't batch state updates to session close.
 
+### Contact Follow-Up Completion
+
+When the user reports a contact touch (called, emailed, messaged, met):
+
+1. Update `Last Contact` to today in `business/network/contacts.md`
+2. Calculate next `Follow-Up`: today + Cadence (or platform default if Cadence is blank — see comment block in `core/templates/network-contacts-template.md`)
+3. Update `Next Action` based on outcome
+4. If declined: move to the Declined / Do Not Contact table, clear Follow-Up
+5. If parking: set Follow-Up to `—`
+6. Confirm the next follow-up date. Let user override. Offer to commit.
+
 ### Artifact Follow-Through
 
 When any artifact or output is generated (research, drafts, deliverables, configs, sites, templates):

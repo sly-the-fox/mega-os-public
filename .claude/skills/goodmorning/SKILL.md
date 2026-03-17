@@ -73,11 +73,15 @@ Auto-detect which crons ran today, read their outputs, and present a structured 
      - **Part 1 — Fix (30 min):** Critical items from daily digest that can be resolved quickly.
      - **Part 2 — Review (20 min):** Items needing human judgment (needs-review items, improvement proposals).
      - **Part 3 — Create (flexible):** Scheduled creative/development work from now.md.
-     - **Part 4 — Outreach (flexible):** Revenue-generating actions and content posting.
+     - **Part 4 — Outreach (flexible):** Revenue-generating actions, contact follow-ups, and content posting.
        - From `active/now.md`: extract cold calls, LinkedIn DMs, cold connection requests, community outreach.
+       - From `business/network/contacts.md`: pull rows where Follow-Up column <= today.
+         - Show overdue first (sorted by days overdue descending), then due today.
+         - Format: `[Platform]: Follow up with [Name] — [Next Action]`
+         - Place after revenue outreach items, before content posting.
        - From `business/marketing/channel-tracker.md`: for each platform with today's content in "drafted" or "content ready" status, add: "Post [topic] to [platform] (`draft-path`)"
        - Platforms to check: Twitter/X, TikTok, Dev.to, Reddit, LinkedIn, Discord, Substack, HN
-       - Order: revenue outreach first (calls, DMs), then content posting by platform.
+       - Order: revenue outreach first (calls, DMs), then contact follow-ups, then content posting by platform.
    - Prioritize P1 items and revenue-generating tasks.
 
 10. **Present output**
@@ -168,6 +172,7 @@ Overdue (>2 days in drafted): [list or "none"]
 
 **Part 4 — Outreach (flexible)**
 - [ ] [cold call / DM / connection request]
+- [ ] [Platform]: Follow up with [Name] — [next action]
 - [ ] Post [topic] to Twitter/X (`drafts/social/...`)
 - [ ] Post [topic] to Dev.to (`drafts/social/...`)
 - [ ] Post [topic] to Reddit (`drafts/social/...`)
