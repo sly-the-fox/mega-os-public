@@ -2,12 +2,16 @@
 # freshstate-wrapper.sh — Run freshstate check and save report. Zero API cost.
 set -euo pipefail
 
-cd /home/abzu/mega-os
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+cd "$ROOT"
+
 REPORT="active/freshstate-report.md"
 
-/home/abzu/.local/bin/freshstate check > "$REPORT" 2>&1 || true
+FRESHSTATE="$(command -v freshstate || echo "$HOME/.local/bin/freshstate")"
+"$FRESHSTATE" check > "$REPORT" 2>&1 || true
 
 # Notify if stale files found
 if grep -qi "stale\|violation\|error" "$REPORT" 2>/dev/null; then
-    /home/abzu/mega-os/engineering/scripts/notify-telegram.sh "Freshstate" 0 "$REPORT"
+    "$SCRIPT_DIR/notify-telegram.sh" "Freshstate" 0 "$REPORT"
 fi
