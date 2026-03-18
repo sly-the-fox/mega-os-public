@@ -19,6 +19,15 @@ out
 build
 coverage
 
+# Test / dev artifacts
+products/**/.coverage
+products/**/.hypothesis/
+products/**/.dockeeper.db
+
+# Temp files
+.send-telegram.sh
+.telegram-tmp.txt
+
 # OS / IDE
 .DS_Store
 Thumbs.db
