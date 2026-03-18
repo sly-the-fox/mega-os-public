@@ -30,6 +30,7 @@ CRON_JOBS = [
     ("Metrics", "/tmp/mega-os-metrics.log", 20, "daily", None),
     ("Index Rebuild", "/tmp/mega-os-index.log", 10, "daily", None),
     ("Briefing Archive", "/tmp/mega-os-archive.log", 10, "daily", None),
+    ("Historian Digest", "/tmp/mega-os-historian-digest.log", 10, "daily", "active/historian-digest.md"),
     ("Cron Health", "/tmp/mega-os-cron-health.log", 0, "daily", None),  # Self — may not exist yet
     ("Content Pipeline", "/tmp/mega-os-content-pipeline.log", 50, "monday", None),
     ("Weekly Review", "/tmp/mega-os-weekly-review.log", 100, "sunday", None),

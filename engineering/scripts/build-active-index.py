@@ -79,6 +79,10 @@ FILE_META = {
         "topics": ["evaluation", "metrics", "system-performance"],
         "load_priority": "on_demand",
     },
+    "historian-digest.md": {
+        "topics": ["history", "recent-activity", "commits", "continuity"],
+        "load_priority": "always",
+    },
 }
 
 
