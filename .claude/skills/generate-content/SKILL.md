@@ -68,7 +68,8 @@ Generate all content pieces directly in the main context. For each channel:
 
 **Dev.to:**
 - 800-1500 word technical blog post
-- YAML frontmatter (title, published: false, tags)
+- YAML frontmatter (title, published: false, tags, cover_image_prompt)
+- cover_image_prompt: a concise image generation prompt for the article's cover image — visual, specific, no text-in-image, suitable for DALL-E/Midjourney
 - Code examples, practical patterns, CTA linking to Sigil/Substack
 
 **Discord:**
@@ -98,7 +99,7 @@ Write each piece to `drafts/social/{date}-{platform}.md` using the standard draf
 Match the template format from existing drafts:
 - **Twitter:** Header with type/post time/repurposes, content between `---` dividers, character count + notes
 - **TikTok:** Header, Script section with [HOOK], [PROBLEM], [INSIGHT], [CTA] blocks, duration/caption/visual/notes
-- **Dev.to:** YAML frontmatter, article body, footer with Sigil/Substack links
+- **Dev.to:** YAML frontmatter (including cover_image_prompt after tags), article body, footer with Sigil/Substack links
 
 ### 6. Fallback — never lose content
 
