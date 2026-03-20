@@ -7,7 +7,7 @@ arguments:
     description: Target date (YYYY-MM-DD). Default today.
     required: false
   - name: channels
-    description: Comma-separated channel list (twitter,tiktok,devto,discord,reddit). Default all scheduled for the day.
+    description: Comma-separated channel list (twitter,tiktok,devto,linkedin,discord,reddit). Default all scheduled for the day.
     required: false
   - name: anchor
     description: Path to a Substack article or other content to repurpose.
@@ -33,9 +33,9 @@ Reference schedule:
 | Day | Channels |
 |-----|----------|
 | Mon | Twitter, TikTok, Dev.to, Reddit |
-| Tue | Twitter (thread), TikTok, Discord, Substack (defer to `/write-content`) |
+| Tue | Twitter (thread), TikTok, LinkedIn, Discord, Substack (defer to `/write-content`) |
 | Wed | Twitter, TikTok, Dev.to, Reddit |
-| Thu | Twitter, TikTok, Dev.to, Discord |
+| Thu | Twitter, TikTok, Dev.to, LinkedIn, Discord |
 | Fri | Twitter, TikTok, Discord |
 | Sat | Twitter, TikTok, Dev.to |
 | Sun | Twitter, TikTok |
@@ -72,6 +72,14 @@ Generate all content pieces directly in the main context. For each channel:
 - cover_image_prompt: a concise image generation prompt for the article's cover image — visual, specific, no text-in-image, suitable for DALL-E/Midjourney
 - Code examples, practical patterns, CTA linking to Sigil/Substack
 
+**LinkedIn:**
+- Insight post (150-300 words, short paragraphs with whitespace)
+- Professional but not corporate, lead with plain language and human touch
+- Insight-first, not announcement-first
+- End with a question or open thought when natural
+- Tuesday: repurpose key insight from Substack article if available
+- Thursday: standalone insight or building-in-public observation
+
 **Discord:**
 - Community discussion starter (≤2000 chars)
 - Conversational, question-driven, zero product promotion
@@ -90,7 +98,7 @@ Before writing files, review each piece for:
 - [ ] Platform character/format limits respected
 - [ ] No generic AI voice ("In today's rapidly evolving...", "Let's dive in...", etc.)
 - [ ] Each piece offers standalone value
-- [ ] Content doesn't repeat what was posted in the last 3 days (check channel tracker)
+- [ ] Content doesn't repeat what was posted in the last 7 days (check channel tracker)
 
 ### 5. Write draft files
 

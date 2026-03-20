@@ -29,7 +29,16 @@ c. **Librarian** — locate any additional local source material
 d. **Summarizer** — compress research into a working brief (if extensive)
 
 ### Phase 2: Draft
-c. **Writer** — produce the first draft to `drafts/`, applying `core/standards/writing-style.md`
+c. **Writer** — produce the first draft to `drafts/`, applying `core/standards/writing-style.md`. For Substack articles, the draft MUST begin with a YAML-style metadata block:
+
+```
+Title: [article title]
+Subtitle: [subtitle or "none"]
+Platform: Substack
+Week: [week number from content calendar]
+```
+
+The Writer must decide on a subtitle (a one-line hook that appears below the title in Substack) or explicitly note "none" if the title stands alone. The subtitle should complement the title, not repeat it. Think of it as the line that makes someone click after reading the title.
 
 ### Phase 3: Edit (MANDATORY)
 d. **Editor** — review draft for structure, citations, fact-checking, voice consistency. Editor makes surgical edits directly to the draft file using the Edit tool.
@@ -41,6 +50,8 @@ g. **Polisher** — format approved draft for publication:
    - Clean markdown artifacts
    - Run `python3 engineering/scripts/md-to-polished.py <file> --format both` to produce DOCX/PDF
    - Output to `deliverables/`
+   - **Substack articles:** PDF is the primary deliverable. Substack does not render pasted markdown correctly, so the PDF preserves formatting (headers, bold, lists, block quotes) that the user can import or reference while formatting in the Substack editor. The DOCX is also produced as an alternative paste source (Substack handles rich text from Google Docs/Word better than raw markdown).
+   - **Title and subtitle** from the draft metadata block must appear on the first page of the PDF, clearly separated from body text.
 h. **Reviewer** — final quality check on deliverables
 
 ### Phase 5: Report
