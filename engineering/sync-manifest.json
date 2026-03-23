@@ -34,7 +34,6 @@
   ],
   "exclude": [
     "core/standards/writing-style.md",
-    ".claude/CLAUDE.local.md",
     ".claude/skills/news-briefing/SKILL.md",
     ".claude/skills/improvement-audit/SKILL.md",
     ".claude/skills/reddit-comments/reddit-comments.md",

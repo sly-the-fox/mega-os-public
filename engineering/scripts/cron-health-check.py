@@ -17,28 +17,29 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 HEALTH_FILE = ROOT / "active" / "cron-health.md"
 NOTIFY_SCRIPT = ROOT / "engineering" / "scripts" / "notify-telegram.sh"
 
-# Define expected cron jobs: (name, log_file, min_bytes, expected_schedule, target_file)
+# Define expected cron jobs: (name, log_file, min_bytes, expected_schedule, target_file, scheduled_hour)
 # expected_schedule: "daily", "monday", "sunday", "1st", "1st,15th", "wednesday"
 # target_file: the file the job is expected to update (None if no specific output file)
+# scheduled_hour: hour the job is scheduled to run (used to avoid false STALE for not-yet-run jobs)
 CRON_JOBS = [
-    ("Dream", "/tmp/mega-os-dream.log", 10, "daily", "active/dream-report.md"),
-    ("Content Gen", "/tmp/mega-os-content-gen.log", 50, "daily", "business/marketing/channel-tracker.md"),
-    ("Improvement Audit", "/tmp/mega-os-improvement-audit.log", 100, "daily", "active/improvement-audit.md"),
-    ("News Briefing", "/tmp/mega-os-news-briefing.log", 100, "daily", "active/news-briefing.md"),
-    ("Daily Scan", "/tmp/mega-os-daily-scan.log", 100, "daily", "active/daily-digest.md"),
-    ("Freshstate", "/tmp/mega-os-freshstate.log", 20, "daily", "active/freshstate-report.md"),
-    ("Metrics", "/tmp/mega-os-metrics.log", 20, "daily", None),
-    ("Index Rebuild", "/tmp/mega-os-index.log", 10, "daily", None),
-    ("Briefing Archive", "/tmp/mega-os-archive.log", 10, "daily", None),
-    ("Historian Digest", "/tmp/mega-os-historian-digest.log", 10, "daily", "active/historian-digest.md"),
-    ("Cron Health", "/tmp/mega-os-cron-health.log", 0, "daily", None),  # Self — may not exist yet
-    ("Content Pipeline", "/tmp/mega-os-content-pipeline.log", 50, "monday", None),
-    ("Weekly Review", "/tmp/mega-os-weekly-review.log", 100, "sunday", None),
-    ("Revenue Check-in", "/tmp/mega-os-revenue-checkin.log", 50, "1st", None),
-    ("Risk Alert", "/tmp/mega-os-risk-alert.log", 50, "wednesday", None),
-    ("Index Maintenance", "/tmp/mega-os-index-maintenance.log", 50, "sunday", None),
-    ("System Evaluation", "/tmp/mega-os-evaluation.log", 50, "1st,15th", None),
-    ("Competitor Monitor", "/tmp/mega-os-competitor-monitor.log", 50, "quarterly", None),
+    ("Dream", "/tmp/mega-os-dream.log", 10, "daily", "active/dream-report.md", 5),
+    ("Content Gen", "/tmp/mega-os-content-gen.log", 50, "daily", "business/marketing/channel-tracker.md", 7),
+    ("Improvement Audit", "/tmp/mega-os-improvement-audit.log", 100, "daily", "active/improvement-audit.md", 7),
+    ("News Briefing", "/tmp/mega-os-news-briefing.log", 100, "daily", "active/news-briefing.md", 8),
+    ("Daily Scan", "/tmp/mega-os-daily-scan.log", 100, "daily", "active/daily-digest.md", 9),
+    ("Freshstate", "/tmp/mega-os-freshstate.log", 20, "daily", "active/freshstate-report.md", 9),
+    ("Metrics", "/tmp/mega-os-metrics.log", 20, "daily", None, 8),
+    ("Index Rebuild", "/tmp/mega-os-index.log", 10, "daily", None, 9),
+    ("Briefing Archive", "/tmp/mega-os-archive.log", 10, "daily", None, 9),
+    ("Historian Digest", "/tmp/mega-os-historian-digest.log", 10, "daily", "active/historian-digest.md", 9),
+    ("Cron Health", "/tmp/mega-os-cron-health.log", 0, "daily", None, 9),  # Self — may not exist yet
+    ("Content Pipeline", "/tmp/mega-os-content-pipeline.log", 50, "monday", None, 8),
+    ("Weekly Review", "/tmp/mega-os-weekly-review.log", 100, "sunday", None, 10),
+    ("Revenue Check-in", "/tmp/mega-os-revenue-checkin.log", 50, "1st", None, 10),
+    ("Risk Alert", "/tmp/mega-os-risk-alert.log", 50, "wednesday", None, 9),
+    ("Index Maintenance", "/tmp/mega-os-index-maintenance.log", 50, "sunday", None, 10),
+    ("System Evaluation", "/tmp/mega-os-evaluation.log", 50, "1st,15th", None, 11),
+    ("Competitor Monitor", "/tmp/mega-os-competitor-monitor.log", 50, "quarterly", None, 9),
 ]
 
 DAY_MAP = {
@@ -126,8 +127,9 @@ def main():
 
     failures = []
     warnings = []
+    current_hour = datetime.now().hour
 
-    for name, log_path, min_bytes, schedule, target_file in CRON_JOBS:
+    for name, log_path, min_bytes, schedule, target_file, scheduled_hour in CRON_JOBS:
         should_run = should_have_run_today(schedule, today)
         health = check_log(log_path, min_bytes, today)
         target_ok = check_target(target_file, today)
@@ -139,6 +141,9 @@ def main():
                     warnings.append(f"{name}: ran OK but target file not updated today")
                 else:
                     status = "OK"
+            elif not health["modified_today"] and scheduled_hour > current_hour:
+                # Job hasn't run yet but its scheduled time is still ahead
+                status = "PENDING"
             elif not health["exists"]:
                 status = "MISSING"
                 failures.append(f"{name}: log file missing")
