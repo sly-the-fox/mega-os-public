@@ -3,20 +3,21 @@ name: evolution-loop
 description: Run the full Evolution Loop — Evaluator findings, Coherence checkpoint, Parallax translation, Improver proposals
 invocation: /evolution-loop
 user_invocable: true
-arguments: "--no-coherence --scope <area>"
+arguments: "--no-coherence --headless --scope <area>"
 ---
 
 # Evolution Loop
 
 Run the complete Evaluator → Coherence → Parallax → Improver chain as defined in `workflows.md`. This is the system's self-improvement cycle: assess performance, gain perspective, propose changes.
 
-> **Compatibility:** This skill is compatible with headless `claude -p` mode. It uses standalone Agent calls, not TeamCreate.
+> **Compatibility:** Compatible with headless `claude -p` mode when invoked with `--headless` or `--no-coherence`. Without these flags, Phase 3d requires interactive input.
 
 ## Arguments
 
 | Argument | Default | Description |
 |----------|---------|-------------|
 | `--no-coherence` | false | Skip the Coherence+Parallax checkpoint (shortcut: Evaluator → Improver directly) |
+| `--headless` | false | Auto-select "Original Evaluator findings" at all interactive checkpoints. For cron/non-interactive use. |
 | `--scope` | all | Focus area to evaluate (e.g., `agents`, `workflows`, `revenue`, `products`, `freshness`) |
 
 ## Phase 1: Gather Context
@@ -60,7 +61,9 @@ Follow `core/standards/coherence-checkpoint-protocol.md` exactly:
 2. Spawn Parallax agent (`subagent_type: "general-purpose"`, `mode: "auto"`)
 3. Prompt: "Translate the following Coherence output into operational language using the three-layer format (Observation → Dynamic → Implication). Preserve timing signals, field-level meaning, and flag anti-signal if applicable."
 4. Pass raw Coherence output + Evaluator findings
-5. **Quality gate:** Verify output contains all three layers (Observation, Dynamic, Implication). If any layer is missing, flag to user via AskUserQuestion before proceeding.
+5. **Quality gate:** Verify output contains all three layers (Observation, Dynamic, Implication). If any layer is missing:
+   - **If `--headless`:** Log the gap and proceed with available layers.
+   - **Otherwise:** Flag to user via AskUserQuestion before proceeding.
 
 ### Step 3c: Refined Alternative
 1. Spawn Planner agent (`subagent_type: "general-purpose"`, `mode: "auto"`)
@@ -68,7 +71,10 @@ Follow `core/standards/coherence-checkpoint-protocol.md` exactly:
 3. Pass Evaluator findings + Parallax translation (not raw Coherence output)
 
 ### Step 3d: User Choice
-Present three options via AskUserQuestion:
+
+**If `--headless`:** Auto-select "Original Evaluator findings". Log to `active/coherence-metrics.md` with choice = `auto-original (headless)`.
+
+**Otherwise:** Present three options via AskUserQuestion:
 - **Coherence-informed priorities** — with 1-2 line summary of what changed
 - **Original Evaluator findings** — proceed without Coherence input
 - **Blend** — user specifies which elements to merge

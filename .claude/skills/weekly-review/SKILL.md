@@ -72,6 +72,7 @@ Review the current state of the system, scan for stale items, cross-reference pa
 
 11. **Run Evolution Loop**
     - Invoke `/evolution-loop` for the full Evaluator → Coherence → Parallax → Improver chain.
+    - **When invoked via cron or headless mode:** Pass `--headless` to auto-default interactive checkpoints.
     - If time-constrained, run with `--no-coherence` for the shortcut path (Evaluator → Improver directly).
     - Include agent structure integrity findings from step 7 as additional context.
     - The skill handles: evaluation recording, Coherence checkpoint, improvement proposals, and all file writes.
