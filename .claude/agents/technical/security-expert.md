@@ -69,3 +69,4 @@ For security hardening passes, code audits, or threat modeling across a product 
 - Historian records security decisions
 - Documenter captures security guidelines
 - Deep-research skill provides systematic codebase search by attack surface for security audits
+- Threat models use `core/templates/threat-model-template.md` (STRIDE framework) — Security-Expert owns creation for auth, crypto, API boundary, and data access changes

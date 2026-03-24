@@ -37,7 +37,7 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
-- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, coherence-metrics.md, audits.md, daily-digest.md, news-briefing.md, freshness-log.md
+- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, audits.md, daily-digest.md, dream-report.md, news-briefing.md, news-briefing-state.md, freshness-log.md, freshstate-report.md, cron-health.md, historian-digest.md, improvement-audit.md, workflow-review.md, system-evaluation.md, coherence-metrics.md, codex-metrics.md (index.json is the canonical manifest)
 - **Active Index:** `active/index.json` — machine-readable manifest with load priorities
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
 - **Archive:** `archive/` — aged content organized by type and ISO week (`archive/index.json` is the manifest)

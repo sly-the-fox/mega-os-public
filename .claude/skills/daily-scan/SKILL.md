@@ -166,6 +166,24 @@ Scan all passive agent outputs and active state files for items needing attentio
     - Write solutions to the digest under a new `## Action Plan` section.
     - Print each item + solution to console.
 
+22. **State sync — route critical findings to active state**
+    After writing the digest, check if any Critical items need to be reflected in active state files:
+
+    **Blockers:** If a Critical item represents a new blocker (stalled work, external dependency, access issue):
+    - Check if it already exists in `active/blockers.md`
+    - If not, add a row: `| [today] | [blocker description] | [owner] | Open | Surfaced by daily scan |`
+
+    **Risks:** If a Critical item represents a new or escalating risk:
+    - Check if it already exists in `active/risks.md` (match by description)
+    - If new: add a row with severity, likelihood, and initial mitigation
+    - If existing: update the mitigation field with new evidence and today's date
+
+    **Rules:**
+    - Only route Critical items, not Needs Review or Informational
+    - Never duplicate — always check for existing entries first
+    - Append `(auto-synced from daily scan YYYY-MM-DD)` to notes for traceability
+    - Print synced items to console: `"State sync: added [N] blockers, updated [M] risks"`
+
 ## Staleness Thresholds
 
 | Item | Threshold | Severity |

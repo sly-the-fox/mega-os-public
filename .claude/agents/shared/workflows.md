@@ -30,7 +30,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 1b. **Coherence+Parallax Checkpoint** — Coherence reviews the Architect output. A Planner agent refines the Coherence perspective into a concrete alternative. Present both options to user via AskUserQuestion (Coherence-informed / Original / Blend). Log choice to `active/coherence-metrics.md`. See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below. *"Is this architecture solving the actual problem, or the problem we defined at the start?"* Skip for small changes (< 3 files, same threshold as single security pass).
 2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
 3. **Designer** — reviews UX/interface design (if frontend or user-facing). Architect confirms design completion before proceeding.
-4. **Security-Expert** — threat model / review plan. For full security hardening, Security-Expert may invoke `/deep-research --source local --axis security` before threat modeling.
+4. **Security-Expert** — threat model / review plan. For auth, crypto, API boundary, and data access changes, use `core/templates/threat-model-template.md` (STRIDE framework). For full security hardening, Security-Expert may invoke `/deep-research --source local --axis security` before threat modeling.
 5. **Engineer** — first implementation pass
 6. **Security-Expert** — code security review. For comprehensive code review, may use `/deep-research --source local --axis security`.
 7. **Engineer** — fix security issues + add more features. Optionally invoke `/simplify` to review changed code for reuse, quality, and efficiency.
