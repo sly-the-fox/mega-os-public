@@ -8,6 +8,7 @@ Zero API cost — pure filesystem checks.
 """
 
 import os
+import re
 import subprocess
 import sys
 from datetime import date, datetime
@@ -71,7 +72,14 @@ def should_have_run_today(schedule: str, today: date) -> bool:
 def check_log(log_path: str, min_bytes: int, today: date) -> dict:
     """Check a log file for health indicators."""
     p = Path(log_path)
-    result = {"exists": False, "modified_today": False, "size_ok": False, "exit_ok": False}
+    result = {
+        "exists": False,
+        "modified_today": False,
+        "size_ok": False,
+        "exit_ok": False,
+        "exit_code": None,
+        "timed_out": False,
+    }
 
     if not p.exists():
         return result
@@ -85,14 +93,19 @@ def check_log(log_path: str, min_bytes: int, today: date) -> dict:
     # Check for exit code in log
     try:
         text = p.read_text(encoding="utf-8", errors="replace")
-        # Look for "Exit: 0" pattern
+        # Look for "Exit: <code>" pattern, scanning from end of file
         for line in reversed(text.split("\n")):
-            if "Exit:" in line:
-                if "Exit: 0" in line:
-                    result["exit_ok"] = True
+            if line.startswith("Exit: ") or line.startswith("Exit:"):
+                # Extract numeric exit code
+                match = re.search(r"Exit:\s*(\d+)", line)
+                if match:
+                    code = int(match.group(1))
+                    result["exit_code"] = code
+                    result["exit_ok"] = code == 0
+                    result["timed_out"] = code == 124
                 break
         # If no explicit exit line, check if content exists and is recent
-        if "Exit:" not in text and result["modified_today"] and result["size_ok"]:
+        if result["exit_code"] is None and result["modified_today"] and result["size_ok"]:
             result["exit_ok"] = True  # Assume OK if log is fresh and has content
     except OSError:
         pass
@@ -150,12 +163,15 @@ def main():
             elif not health["modified_today"]:
                 status = "STALE"
                 failures.append(f"{name}: log not updated today")
+            elif health["timed_out"]:
+                status = "TIMEOUT"
+                failures.append(f"{name}: timed out (exit 124)")
+            elif not health["exit_ok"] and health["exit_code"] is not None:
+                status = "FAILED"
+                failures.append(f"{name}: exit code {health['exit_code']}")
             elif not health["size_ok"]:
                 status = "EMPTY"
                 warnings.append(f"{name}: log suspiciously small (<{min_bytes}b)")
-            elif not health["exit_ok"]:
-                status = "FAILED"
-                failures.append(f"{name}: non-zero exit code")
             else:
                 status = "WARN"
                 warnings.append(f"{name}: partial issues")
