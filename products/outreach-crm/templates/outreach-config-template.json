@@ -1,0 +1,17 @@
+{
+  "sender_name": "",
+  "sender_title": "",
+  "organization": "",
+  "what_you_do": "",
+  "who_you_want_to_reach": "",
+  "default_message_style": "warm",
+  "elevator_pitch": "",
+  "event_name": "",
+  "event_day": "",
+  "event_location": "",
+  "event_time": "",
+  "event_description": "",
+  "follow_up_days": 7,
+  "phrases_to_avoid": [],
+  "preferred_message_length": "3-5 sentences"
+}
