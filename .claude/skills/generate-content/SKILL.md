@@ -26,19 +26,29 @@ Generate short-form social media content for the day's scheduled channels. Every
 
 ### 1. Determine today's channels and topic
 
-Read the channel schedule from `business/marketing/channel-schedule.md` to determine which channels are scheduled for the target date's day of week.
+**IMPORTANT — Day-of-week calculation:** Do NOT calculate the day of week mentally. Run this bash command to get the authoritative day name:
+
+```bash
+date -d "${TARGET_DATE:-today}" +%A
+```
+
+Where `${TARGET_DATE}` is the `--date` argument if provided, or omit `-d` for today. Use the output (e.g., "Monday") to look up the schedule below. This prevents off-by-one errors in mental date arithmetic.
+
+Read the channel schedule from `business/marketing/channel-schedule.md` to determine which channels are scheduled for the computed day of week.
 
 Reference schedule:
 
 | Day | Channels |
 |-----|----------|
 | Mon | Twitter, TikTok, Dev.to, Reddit |
-| Tue | Twitter (thread), TikTok, LinkedIn, Discord, Substack (defer to `/write-content`) |
+| Tue | Twitter (thread), TikTok, LinkedIn, Substack (defer to `/write-content`) |
 | Wed | Twitter, TikTok, Dev.to, Reddit |
-| Thu | Twitter, TikTok, Dev.to, LinkedIn, Discord |
-| Fri | Twitter, TikTok, Discord |
+| Thu | Twitter, TikTok, Dev.to, LinkedIn |
+| Fri | Twitter, TikTok |
 | Sat | Twitter, TikTok, Dev.to |
 | Sun | Twitter, TikTok |
+
+> **Note:** Discord is paused (no traction). TikTok scripts accumulate until account is created.
 
 If `--channels` is provided, use only those channels (overrides schedule).
 If a channel is "Substack," respond with: "Use `/write-content` for long-form Substack articles."
