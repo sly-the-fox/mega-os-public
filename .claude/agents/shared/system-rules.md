@@ -113,3 +113,10 @@
     - After merge, verify no `active/`, `core/history/`, or `core/indexes/` files were modified. If they were, revert those specific files with `git checkout HEAD~1 -- <path>`.
 
     **State files:** Worktree agents must NOT modify `active/`, `core/history/`, or `core/indexes/`. If a worktree agent needs to record findings, it writes to a scratch file in its worktree and the main context triages after merge.
+
+28. **Date integrity.** When writing any day+date combination (e.g., "Wed Mar 25", "Thu 2026-03-26"):
+    - NEVER calculate day-of-week mentally. Run `date -d "YYYY-MM-DD" +%A` to get the authoritative day name.
+    - When adding events, deadlines, or follow-ups with day names, validate EVERY instance before writing.
+    - If a date already exists in another file (contacts.md, prep docs), verify it against `date` before copying — don't assume the source is correct.
+    - Preferred format for events: `Day YYYY-MM-DD` (e.g., "Thu 2026-03-26") — unambiguous, machine-parseable.
+    - Reference `active/week-calendar.md` for a quick day+date lookup when available.
