@@ -48,6 +48,7 @@ Lightweight daemon that bridges Telegram messages to Claude Code running in the 
 - `/priorities` — shows contents of `active/priorities.md`
 - `/help` — lists available commands
 - `/reset` — clears your session context and starts a fresh conversation
+- `/restart` — restart the bridge process (requires re-authentication)
 
 Any other message is forwarded to Claude Code.
 
@@ -81,13 +82,50 @@ Each chat is limited to a configurable number of messages per 60-second window (
 
 Set `ALLOWED_CHAT_IDS` to restrict which Telegram chats can interact with the bot. Find your chat ID by sending a message to the bot and checking the logs.
 
-## Running as a Service
+## Running as a Service (systemd)
 
-To run persistently, use systemd, tmux, or screen:
+The bridge runs as a systemd user service that auto-starts on boot and restarts on crash.
+
+### Setup
+
+```bash
+# Enable user services without active login session
+loginctl enable-linger abzu
+
+# Reload and enable the service
+systemctl --user daemon-reload
+systemctl --user enable telegram-bridge
+systemctl --user start telegram-bridge
 ```
-# tmux
-tmux new -s telegram-bridge
-python3 telegram_bridge.py
 
-# or systemd (create a unit file)
+The unit file lives at `~/.config/systemd/user/telegram-bridge.service`.
+
+### Management
+
+```bash
+# Check status
+systemctl --user status telegram-bridge
+
+# View logs (live)
+journalctl --user -u telegram-bridge -f
+
+# View recent logs
+journalctl --user -u telegram-bridge --since "30 min ago"
+
+# Manual stop/start
+systemctl --user stop telegram-bridge
+systemctl --user start telegram-bridge
+```
+
+### Remote restart from iPhone
+
+Send `/restart` in Telegram. The bridge exits cleanly, systemd restarts it within ~8 seconds (5s restart delay + startup). You'll need to re-authenticate with the passphrase since `authenticated_chats` is in-memory only.
+
+### Crash loop protection
+
+If the bridge crashes 5 times within 5 minutes, systemd stops restarting it to prevent crash loops. To recover:
+
+```bash
+systemctl --user reset-failed telegram-bridge
+systemctl --user start telegram-bridge
 ```

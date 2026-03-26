@@ -251,8 +251,8 @@ def send_message(chat_id: int, text: str, reply_to: int | None = None):
                 raise
 
 
-def handle_builtin_command(chat_id: int, command: str) -> bool:
-    """Handle built-in commands. Returns True if handled."""
+def handle_builtin_command(chat_id: int, command: str) -> bool | str:
+    """Handle built-in commands. Returns True if handled, 'restart' to signal restart."""
     if command == "/status":
         try:
             now_file = Path(MEGA_OS_PATH) / "active" / "now.md"
@@ -291,6 +291,14 @@ def handle_builtin_command(chat_id: int, command: str) -> bool:
             logger.error(f"Failed to send /reset response: {e}")
         return True
 
+    if command == "/restart":
+        try:
+            send_message(chat_id, "Restarting bridge... (you'll need to re-authenticate)")
+        except Exception:
+            pass
+        logger.info(f"Restart requested by chat {chat_id}")
+        return "restart"  # Signal main loop to exit after acknowledging offset
+
     if command == "/help":
         try:
             send_message(
@@ -299,6 +307,7 @@ def handle_builtin_command(chat_id: int, command: str) -> bool:
                 "/status — Show current focus\n"
                 "/priorities — Show priority list\n"
                 "/reset — Clear context and start fresh\n"
+                "/restart — Restart the bridge (requires re-auth)\n"
                 "/help — Show this help\n\n"
                 "Sessions persist automatically — follow-up messages continue the conversation.\n"
                 "Timeout: 10 minutes per request.",
@@ -443,8 +452,17 @@ def main():
                 continue
 
             # Built-in commands
-            if text.startswith("/") and handle_builtin_command(chat_id, text.split()[0]):
-                continue
+            if text.startswith("/"):
+                result = handle_builtin_command(chat_id, text.split()[0])
+                if result == "restart":
+                    # Acknowledge offset so /restart doesn't replay after restart
+                    try:
+                        telegram_request("getUpdates", {"offset": offset, "timeout": 0})
+                    except Exception:
+                        pass
+                    sys.exit(0)  # systemd restarts the process
+                if result:
+                    continue
 
             # Send "thinking" indicator
             try:
