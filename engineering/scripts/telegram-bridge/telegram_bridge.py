@@ -75,6 +75,11 @@ TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"
 # Track which chats have authenticated (passphrase verified)
 authenticated_chats: set[int] = set()
 
+# --- Persistent HTTP Client ---
+_http_client: httpx.Client | None = None
+_consecutive_failures: int = 0
+_cooldown_until: float = 0.0
+
 # --- Message Logging ---
 
 CHAT_LOG_FILE = SCRIPT_DIR / "chat-log.jsonl"
@@ -115,8 +120,13 @@ def load_sessions() -> dict[str, str]:
 
 
 def save_sessions(sessions: dict[str, str]):
-    """Save chat_id -> session_id mapping to disk."""
-    SESSIONS_FILE.write_text(json.dumps(sessions, indent=2))
+    """Save chat_id -> session_id mapping to disk (atomic write)."""
+    try:
+        tmp_path = SESSIONS_FILE.with_suffix(".tmp")
+        tmp_path.write_text(json.dumps(sessions, indent=2))
+        os.replace(tmp_path, SESSIONS_FILE)
+    except OSError as e:
+        logger.warning(f"Failed to save sessions: {e}")
 
 
 # Global session map (str keys because JSON keys are strings)
@@ -145,13 +155,71 @@ def get_allowed_chat_ids() -> set[int]:
     return {int(cid.strip()) for cid in ALLOWED_CHAT_IDS.split(",") if cid.strip()}
 
 
+def _init_client():
+    """Create (or replace) the persistent httpx client."""
+    global _http_client
+    _http_client = httpx.Client(timeout=httpx.Timeout(POLL_TIMEOUT + 10, connect=10.0))
+
+
+def _recreate_client():
+    """Close and recreate the HTTP client after sustained failures."""
+    global _http_client
+    if _http_client is not None:
+        try:
+            _http_client.close()
+        except Exception:
+            pass
+    _init_client()
+    logger.info("HTTP client recreated after sustained failures")
+
+
 def telegram_request(method: str, params: dict | None = None) -> dict:
-    """Make a request to the Telegram Bot API."""
+    """Make a request to the Telegram Bot API with retry logic."""
+    global _consecutive_failures, _cooldown_until
+
+    # Cooldown: skip sends (not polls) during sustained outage
+    if _consecutive_failures >= 5 and method != "getUpdates":
+        now = time.time()
+        if now < _cooldown_until:
+            raise httpx.TransportError(
+                f"Cooldown active ({int(_cooldown_until - now)}s remaining)"
+            )
+        logger.info("Cooldown expired, retrying")
+
     url = f"{TELEGRAM_API}/{method}"
-    with httpx.Client(timeout=POLL_TIMEOUT + 10) as client:
-        response = client.post(url, json=params or {})
-        response.raise_for_status()
-        return response.json()
+    last_exc: Exception | None = None
+
+    for attempt in range(3):
+        try:
+            response = _http_client.post(url, json=params or {})
+            # Handle 429 rate limit
+            if response.status_code == 429:
+                retry_after = min(int(response.headers.get("Retry-After", "5")), 30)
+                logger.warning(f"Telegram 429 — backing off {retry_after}s")
+                time.sleep(retry_after)
+                continue
+            response.raise_for_status()
+            _consecutive_failures = 0
+            return response.json()
+        except httpx.TransportError as e:
+            last_exc = e
+            _consecutive_failures += 1
+            if attempt < 2:
+                delay = 2 ** attempt  # 1s, 2s
+                logger.warning(
+                    f"Transport error (attempt {attempt + 1}/3): {e} — retrying in {delay}s"
+                )
+                time.sleep(delay)
+            else:
+                logger.error(f"Transport error (attempt 3/3): {e} — exhausted retries")
+                if _consecutive_failures >= 5:
+                    _cooldown_until = time.time() + 30
+                    logger.warning("5+ consecutive failures — entering 30s cooldown")
+                _recreate_client()
+        except httpx.HTTPStatusError:
+            raise  # Don't retry client errors (400, 403, etc.)
+
+    raise last_exc or httpx.TransportError("Request failed after 3 attempts")
 
 
 def get_updates(offset: int | None = None) -> list[dict]:
@@ -175,44 +243,68 @@ def send_message(chat_id: int, text: str, reply_to: int | None = None):
             telegram_request("sendMessage", params)
         except httpx.HTTPStatusError:
             # Retry without markdown if parsing fails
-            params.pop("parse_mode", None)
-            telegram_request("sendMessage", params)
+            try:
+                params.pop("parse_mode", None)
+                telegram_request("sendMessage", params)
+            except (httpx.TransportError, httpx.HTTPStatusError) as e:
+                logger.error(f"Fallback send failed: {e}")
+                raise
 
 
 def handle_builtin_command(chat_id: int, command: str) -> bool:
     """Handle built-in commands. Returns True if handled."""
     if command == "/status":
-        now_file = Path(MEGA_OS_PATH) / "active" / "now.md"
-        text = now_file.read_text() if now_file.exists() else "No active/now.md found."
-        send_message(chat_id, text)
+        try:
+            now_file = Path(MEGA_OS_PATH) / "active" / "now.md"
+            text = now_file.read_text() if now_file.exists() else "No active/now.md found."
+        except OSError as e:
+            text = f"Error reading status: {e}"
+        try:
+            send_message(chat_id, text)
+        except Exception as e:
+            logger.error(f"Failed to send /status response: {e}")
         return True
 
     if command == "/priorities":
-        prio_file = Path(MEGA_OS_PATH) / "active" / "priorities.md"
-        text = prio_file.read_text() if prio_file.exists() else "No active/priorities.md found."
-        send_message(chat_id, text)
+        try:
+            prio_file = Path(MEGA_OS_PATH) / "active" / "priorities.md"
+            text = prio_file.read_text() if prio_file.exists() else "No active/priorities.md found."
+        except OSError as e:
+            text = f"Error reading priorities: {e}"
+        try:
+            send_message(chat_id, text)
+        except Exception as e:
+            logger.error(f"Failed to send /priorities response: {e}")
         return True
 
     if command == "/reset":
-        # Clear stored session for this chat
         key = str(chat_id)
         if key in chat_sessions:
             del chat_sessions[key]
-            save_sessions(chat_sessions)
-        send_message(chat_id, "Session cleared. Next message starts a fresh conversation.")
+            try:
+                save_sessions(chat_sessions)
+            except Exception as e:
+                logger.error(f"Failed to save sessions on reset: {e}")
+        try:
+            send_message(chat_id, "Session cleared. Next message starts a fresh conversation.")
+        except Exception as e:
+            logger.error(f"Failed to send /reset response: {e}")
         return True
 
     if command == "/help":
-        send_message(
-            chat_id,
-            "Commands:\n"
-            "/status — Show current focus\n"
-            "/priorities — Show priority list\n"
-            "/reset — Clear context and start fresh\n"
-            "/help — Show this help\n\n"
-            "Sessions persist automatically — follow-up messages continue the conversation.\n"
-            "Timeout: 10 minutes per request.",
-        )
+        try:
+            send_message(
+                chat_id,
+                "Commands:\n"
+                "/status — Show current focus\n"
+                "/priorities — Show priority list\n"
+                "/reset — Clear context and start fresh\n"
+                "/help — Show this help\n\n"
+                "Sessions persist automatically — follow-up messages continue the conversation.\n"
+                "Timeout: 10 minutes per request.",
+            )
+        except Exception as e:
+            logger.error(f"Failed to send /help response: {e}")
         return True
 
     return False
@@ -286,6 +378,7 @@ def invoke_claude(message: str, chat_id: int, use_session: bool = False) -> str:
 
 def main():
     validate_config()
+    _init_client()
     allowed = get_allowed_chat_ids()
 
     logger.info("Telegram bridge starting...")
@@ -302,13 +395,16 @@ def main():
         sys.exit(1)
 
     offset = None
+    poll_backoff = 5  # seconds, doubles on failure, caps at 120
 
     while True:
         try:
             updates = get_updates(offset)
+            poll_backoff = 5
         except Exception as e:
-            logger.error(f"Polling error: {e}")
-            time.sleep(5)
+            logger.error(f"Polling error: {e} — retrying in {poll_backoff}s")
+            time.sleep(poll_backoff)
+            poll_backoff = min(poll_backoff * 2, 120)
             continue
 
         for update in updates:
@@ -359,9 +455,13 @@ def main():
 
             # Invoke Claude (always resumes session for conversational continuity)
             response = invoke_claude(text, chat_id, use_session=True)
-            send_message(chat_id, response, reply_to=msg_id)
-            log_message(chat_id, "bot", "out", response)
-            logger.info(f"Response sent to chat {chat_id} ({len(response)} chars)")
+            try:
+                send_message(chat_id, response, reply_to=msg_id)
+                log_message(chat_id, "bot", "out", response)
+                logger.info(f"Response sent to chat {chat_id} ({len(response)} chars)")
+            except Exception as e:
+                logger.error(f"Failed to deliver response to chat {chat_id}: {e}")
+                log_message(chat_id, "bot", "out_failed", response)
 
 
 if __name__ == "__main__":
