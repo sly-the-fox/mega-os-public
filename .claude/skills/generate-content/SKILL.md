@@ -12,6 +12,9 @@ arguments:
   - name: anchor
     description: Path to a Substack article or other content to repurpose.
     required: false
+  - name: mode
+    description: '"full" (default) runs deep research + full team pipeline. "cron" runs light research + streamlined Writer→Editor pipeline (~20 min).'
+    required: false
 ---
 
 # /generate-content
@@ -22,7 +25,71 @@ Generate short-form social media content for the day's scheduled channels. Every
 
 **Quality over speed.** Every piece of content must go through the full pipeline: Research → Writer → Editor → Polisher → Reviewer. No inline generation. No skipping steps.
 
+## Cron Mode (`--mode cron`)
+
+When `--mode cron` is specified, follow this pipeline instead of the full Steps below. Optimized for unattended daily execution. Preserves research grounding and editorial review. Cuts team overhead, Coherence checkpoint, and multi-round revision.
+
+### Step C1 — Channels + topic (~1 min)
+
+Same as full Step 1 (determine channels, read content calendar + channel tracker).
+
+### Step C2 — Librarian context (~2 min)
+
+Same as full Step 2 (standalone Librarian agent scans for source material).
+
+### Step C3 — Light research (~5-8 min)
+
+Run `/deep-research "<topic>" --tier light --depth standard --source web --no-coherence`
+
+Light tier = 3-5 WebSearches + 1-2 WebFetches in main context (no agent team, no MECE). Output: compact research synthesis with real data points, sources, and findings.
+
+This is what keeps posts credible and specific without the 12-15 min deep-tier overhead. Skip Summarizer — light research output is already compact enough for Writer.
+
+### Step C4 — Writer drafts all pieces (~5 min)
+
+Spawn **standalone Agent** (`subagent_type: "general-purpose"`, `mode: "auto"`) acting as Writer.
+
+Provide: light research output, Librarian context brief, writing style guide, platform rules. Writer reads `core/standards/writing-style.md` and drafts one piece per scheduled platform. Writes to `drafts/social/YYYY-MM-DD-{platform}.md`.
+
+Same platform-specific rules as full mode (character limits, format conventions, etc.).
+
+### Step C5 — Editor reviews + polishes (~5 min)
+
+Spawn **standalone Agent** (`subagent_type: "general-purpose"`, `mode: "auto"`) acting as Editor.
+
+Editor reads all drafts + writing style guide + channel tracker (last 7 days to avoid repetition). Performs editorial review AND formatting/metadata verification (combines full Steps 8 + 10). Checks: voice match, no em dashes, platform limits, no AI cliches, standalone value, no repetition. Makes surgical edits directly to draft files. Single-pass — no revision bounce-back in cron mode.
+
+### Step C6 — Update tracker + output (~1 min)
+
+Update `business/marketing/channel-tracker.md` with drafted entries (status: `drafted`). Print summary table (same format as full Step 14).
+
+### What cron mode skips (and why)
+
+| Skipped | Full Mode Step | Time Saved | Quality Impact |
+|---------|---------------|------------|----------------|
+| Deep research (3-6 agents, MECE) | Step 3 | ~8-10 min | **Mitigated:** light research still provides real data points and sources |
+| Summarizer | Step 4 | ~2 min | None — light research output is already compact |
+| TeamCreate (4-agent spawn) | Step 5 | ~2-4 min | None — standalone agents work fine for 2-agent pipeline |
+| Coherence+Parallax | Step 7 | ~3 min | Low — valuable for long-form, marginal for daily social posts |
+| Separate Polisher | Step 10 | ~3 min | **Mitigated:** Editor handles formatting checks in cron mode |
+| Separate Reviewer | Step 11 | ~3 min | Low — Editor is the quality gate in cron mode |
+| Revision rounds | Step 9 | ~3 min | Low — single-pass is sufficient when Writer has good source material |
+
+### What cron mode keeps (and why)
+
+| Kept | Why |
+|------|-----|
+| Light web research | Posts need real data, current references, specific examples — without this they get generic and surface-level |
+| Librarian context scan | Prevents topic repetition, surfaces reusable material |
+| Writer as standalone agent | Full writing style guide application, platform-specific formatting |
+| Editor as standalone agent | Voice enforcement, em-dash prevention, AI cliche detection, repetition check |
+| Style guide compliance | Non-negotiable — applies in both modes |
+
+---
+
 ## Steps
+
+**Note:** The steps below describe the **full mode** pipeline (default). If `--mode cron` was specified, follow the Cron Mode section above instead.
 
 ### 1. Determine today's channels and topic
 
@@ -219,12 +286,13 @@ Print a summary table:
 - If `--anchor` file doesn't exist, warn and generate without it.
 - If channel tracker can't be updated, warn but don't block content generation.
 - If writing style guide can't be read, warn and apply known defaults (no em dashes, builder voice, no AI cliches).
-- If deep research times out or fails, fall back to Librarian context only — still run the full Writer → Editor → Polisher pipeline.
+- If deep research times out or fails: **Full mode** — fall back to light research, still run the full Writer → Editor → Polisher pipeline. **Cron mode** — fall back to Librarian context only, still run Writer → Editor.
 - If TeamCreate fails, fall back to sequential standalone agents with `subagent_type: "general-purpose"` and `mode: "auto"`.
 
 ## Time Budget
 
-This skill is designed for cron execution with a 40-minute timeout. Approximate breakdown:
+### Full mode (~40 min timeout)
+
 - Steps 1-2 (channels + Librarian): ~2 min
 - Step 3 (deep research): ~10 min
 - Step 4 (summarizer): ~2 min
@@ -235,3 +303,14 @@ This skill is designed for cron execution with a 40-minute timeout. Approximate 
 - Step 11 (Reviewer): ~3 min
 - Steps 12-14 (tracker + output): ~2 min
 - Buffer: ~5 min
+
+### Cron mode (~30 min timeout)
+
+- Step C1 (channels):        ~1 min
+- Step C2 (Librarian):       ~2 min
+- Step C3 (light research):  ~5-8 min
+- Step C4 (Writer):          ~5 min
+- Step C5 (Editor):          ~5 min
+- Step C6 (tracker):         ~1 min
+- Buffer:                    ~5 min
+- TOTAL:                     ~25 min
