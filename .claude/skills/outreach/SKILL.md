@@ -86,6 +86,7 @@ Before generating any message, load these files (skip gracefully if they don't e
 7. **`business/network/contacts.md`** — existing relationships
 8. **`business/network/outreach-queue.md`** — current pipeline
 9. **`business/network/outreach-log.md`** — message history
+10. **`business/network/event-debriefs/*.md`** — event conversation notes. For post-event follow-ups, the debrief is the PRIMARY source. Contact card is supplementary.
 
 ### Per-Capture Processing
 
@@ -238,16 +239,29 @@ Bulk import contacts from CSV.
 Generate follow-up drafts for contacts that need attention.
 
 1. Read `business/network/outreach-queue.md` and `business/network/contacts.md`
-2. Find contacts that need follow-up:
+2. **Post-event follow-ups (check first):**
+   - Scan `business/network/event-debriefs/` for debriefs from the last 7 days
+   - For each person in a recent debrief: check if a follow-up has already been sent (search outreach-log.md and outreach-queue.md)
+   - If no follow-up sent yet: generate the message from the **debrief entry**, not the contact card. The debrief contains what was actually discussed in person.
+   - If the debrief entry for a person is sparse or empty (`[FILL IN]` markers): do NOT generate a message. Instead, prompt the user: "I don't have conversation notes for [Name] from [Event]. What did you two talk about?"
+3. Find remaining contacts that need follow-up:
    - Status "interested" — draft event reminder or next-step message
    - Status "replied" with last contact > 7 days ago — draft follow-up
    - Status "sent" with last contact > follow_up_days (from config, default 7) — draft check-in
-3. For each, generate a short follow-up message:
+4. For each, generate a short follow-up message:
    - If event fields are filled in config: mention the event
    - Reference previous interaction
    - Keep it warm and brief (2-3 sentences)
-4. Present all drafts for batch review (approve/edit/regenerate/skip each)
-5. Approved messages go to outreach-queue.md with updated status
+5. Present all drafts for batch review (approve/edit/regenerate/skip each)
+6. Approved messages go to outreach-queue.md with updated status
+
+### Post-Event Follow-Up Safety Rules
+
+- Never reference research data (LinkedIn profile, company website, internet search) as if it was discussed in person — unless the debrief explicitly confirms it came up.
+- Never assume offers were made. A LinkedIn post about a topic does not mean you offered it to them personally.
+- Never characterize interaction tone (e.g., "pushback," "skepticism," "excitement") unless the debrief uses that language.
+- If the debrief entry is empty or sparse for a person, do not generate a follow-up. Ask the user for conversation notes first.
+- Shorter and accurate beats longer and fabricated. A two-sentence message grounded in what actually happened is better than a paragraph that invents context.
 
 ---
 
