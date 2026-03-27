@@ -1,6 +1,6 @@
 ---
 name: outreach
-description: LinkedIn outreach CRM — capture profiles, generate messages, track pipeline, manage follow-ups.
+description: Use when managing LinkedIn outreach — capture profiles, generate messages, track pipeline, manage follow-ups.
 user_invocable: true
 arguments:
   - name: subcommand

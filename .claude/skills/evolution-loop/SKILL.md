@@ -1,6 +1,6 @@
 ---
 name: evolution-loop
-description: Run the full Evolution Loop — Evaluator findings, Coherence checkpoint, Parallax translation, Improver proposals
+description: Use when running the full Evolution Loop — Evaluator findings, Coherence checkpoint, Parallax translation, Improver proposals.
 invocation: /evolution-loop
 user_invocable: true
 arguments: "--no-coherence --headless --scope <area>"

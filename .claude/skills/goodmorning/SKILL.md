@@ -1,6 +1,6 @@
 ---
 name: goodmorning
-description: Morning briefing — detect overnight crons, read outputs, present structured lanes with suggested plan
+description: Use when starting the day — morning briefing that detects overnight crons, reads outputs, and presents structured lanes with suggested plan.
 invocation: /goodmorning
 user_invocable: true
 ---

@@ -1,6 +1,6 @@
 ---
 name: publish
-description: Sync framework changes to the public Mega-OS repo and push.
+description: Use when syncing framework changes to the public Mega-OS repo and pushing.
 invocation: /publish
 user_invocable: true
 ---

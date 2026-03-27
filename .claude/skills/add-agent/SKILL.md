@@ -1,6 +1,6 @@
 ---
 name: add-agent
-description: Create a new agent with file, symlink, and all registry/doc updates in sync.
+description: Use when creating a new agent — handles file, symlink, and all registry/doc updates in sync.
 invocation: /add-agent
 user_invocable: true
 ---
