@@ -72,6 +72,29 @@ When they disagree:
 5. If both dimensions apply, Overseer makes the final call (Overseer outranks Governor on system-level decisions)
 6. Historian records the resolution
 
+## Cross-Domain Conflict Resolution
+
+When two agents from different categories disagree on approach, scope, or priority:
+
+### Structured Position Submission
+Each party provides:
+- **Position:** What they want to do and why
+- **Evidence:** Data, file references, or standards backing their position
+- **Risk if other side wins:** What goes wrong if the opposing approach is taken
+- **Acceptance conditions:** Under what circumstances they would accept the other position
+
+### Resolution Path
+1. **Single-domain conflict** (both agents in same category) → senior agent in that category decides (e.g., Architect for Technical, Strategist for Business)
+2. **Cross-domain conflict** → Coherence perspective (if warranted by complexity) → Overseer decides, citing specific evidence from both positions
+3. **Historian records** the conflict, both positions, the decision, and the rationale in `core/history/decisions.md`
+
+### Timeout Escalation
+If a workflow step produces no output after the supervisor's second check-in:
+1. Mark the step as failed
+2. Escalate to Overseer with: step name, agent, what was attempted, how long it stalled
+3. Proceed to error handling (system-rules.md rule 29 — classify as deterministic, apply prompt mutation)
+4. If the step is non-critical, the workflow may continue with the step skipped and flagged for post-workflow review
+
 ## Escalation Process
 
 1. The escalating agent states the issue clearly with evidence

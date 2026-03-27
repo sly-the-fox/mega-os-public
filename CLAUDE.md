@@ -245,11 +245,7 @@ Librarian → Summarizer (if extensive research) → Writer → Editor → Write
 **Trigger:** See "User-Voice Content Gate" in the Conversational Triage section above. That gate ensures style enforcement fires BEFORE generation, not as a post-hoc check.
 
 ### Evolution Loop
-Evaluator triggers: end of Planning/Business workflow, weekly review, PM reports 3+ repeated blockers, QA reports recurring defects.
-**Coherence+Parallax Checkpoint** after Evaluator findings, before Improver proposes.
-Improver triggers: Evaluator findings (or Coherence-refined findings), PM blocker patterns, QA recurring defects, weekly review.
-Flow: Improver proposes → User approves → Specialist implements → Evaluator measures → Archive outcome.
-State: `active/improvements.md` (queue) → `core/history/improvements.md` (archive).
+Evaluator + Improver feedback cycle. Full definition with triggers, approval flow, and state management in `workflows.md`.
 
 ---
 
@@ -320,22 +316,14 @@ Use `.claude/agents/REGISTRY.md` as the canonical directory of agent roles. Do n
 
 ## Agent Teams — Required Patterns
 
-When spawning agents, follow these rules strictly:
+Full rules in `system-rules.md` (rules 26-27). Key points:
 
-1. **ALWAYS use agent teams (TeamCreate), NEVER standalone subagents — except worktree-isolated agents.**
-   All multi-agent work MUST use TeamCreate to create a team. Standalone subagents (via the Agent tool without a team) cannot persist file writes and have limited tool access. Agent teams are the only supported pattern for work that touches files.
-   **Exception:** Standalone agents with `isolation: "worktree"` CAN write files safely in their own git worktree. Use for parallelizable, independent work (audits, builds, tests). See system-rules.md rule 27.
-
-2. **All teammates MUST use `subagent_type: "general-purpose"`.**
-   Custom agent types (debugger, qa, reviewer, writer, editor, etc.) only get messaging and task tools as teammates. They cannot read, write, or edit files. Always spawn teammates as `general-purpose` and describe their role in the prompt instead.
-
-3. **Use `mode: "auto"` for teammates** to avoid permission prompts that block execution.
-
-4. **Exceptions for standalone Agent tool:** (a) Quick research or exploration tasks that return information to the main context without needing to write files (e.g., searching codebases, fetching web content, reading files for analysis). This includes Coherence and Parallax checkpoint calls, which are read-only perspective checks. (b) Worktree-isolated agents for parallel, independent work (spawned with `isolation: "worktree"`). Even then, prefer teams when agents need to coordinate mid-task.
-
-5. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). The category subdirectories have symlinks at the top level — do not remove them.
-
-6. **File write fallback for content generation.** When generating content that must be saved to files, prefer writing files directly from the main context rather than delegating writes to subagents. If using subagents for research or drafting, collect their output and perform all Write calls in the main context. If a file write fails, retry once. If it fails again, include the full content inline in the response so nothing is silently lost.
+- **ALWAYS use TeamCreate** for multi-agent file-writing work. Exception: worktree-isolated agents (rule 27).
+- **All teammates use `subagent_type: "general-purpose"`** — custom types lack file tools.
+- **Use `mode: "auto"`** to avoid permission prompts.
+- **Standalone Agent tool** is OK for: (a) read-only research/exploration, (b) worktree-isolated parallel work.
+- **Agent discovery is flat** — symlinks at `.claude/agents/*.md` top level. Do not remove.
+- **File write fallback:** Prefer writing files from main context. If subagent write fails, retry once, then include content inline.
 
 ---
 

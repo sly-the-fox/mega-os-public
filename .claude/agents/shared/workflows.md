@@ -4,6 +4,13 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 
 **Uncertainty rule:** At any point in any workflow, if an agent hits genuine uncertainty (ambiguous requirements, missing context, irreversible decisions), they must use the Uncertainty Escalation Protocol (system-rules.md rule 25) rather than guessing. This applies to all agents in all workflows.
 
+**Timeout guidance:** These are expectations for supervising agents, not mechanical timers. Claude Code cannot enforce real timeouts on LLM inference.
+- **Simple steps** (file reads, state updates, handoffs): expect <30s. If stalled, re-prompt once, then escalate per `escalation-rules.md` (Cross-Domain Conflict Resolution → Timeout Escalation).
+- **Complex steps** (implementation, research, content generation): expect <120s. Allow completion. If output is partial or nonsensical, apply error handling protocol (system-rules.md rule 29 — classify as deterministic, apply prompt mutation).
+- **Human checkpoints** (AskUserQuestion, approval gates): no timeout. Wait for user response.
+- **Worktree agents:** may use the `timeout` bash command as a mechanical wrapper (max 300s). This is the one case where a hard timeout is possible.
+- When a step exceeds expectations, the supervisor should check whether the agent is producing useful incremental output vs. stalling. Useful progress continues; stalling triggers escalation.
+
 ## Planning Workflow
 1. **Planner** — breaks down request into tasks, milestones, dependencies
 1a. **MECE Research** — if the plan requires external research (feasibility, prior art, ecosystem), invoke `/deep-research <query>` before routing. Output at `drafts/research/` feeds into planning.

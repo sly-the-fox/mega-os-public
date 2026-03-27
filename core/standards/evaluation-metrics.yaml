@@ -1,0 +1,34 @@
+# Evaluation Metrics
+# Used by the Evaluator agent during /weekly-review and /evolution-loop.
+# Each metric has a target, measurement source, and notes.
+
+metrics:
+  workflow_completion_rate:
+    description: Percentage of workflows that complete all planned steps without skipping or aborting
+    target: "90%"
+    source: Workflow execution logs, Custodian freshness-log entries, Historian timeline
+    notes: Skipped steps due to "not applicable" conditions (e.g., no frontend → skip Designer) do not count as incomplete
+
+  escalation_rate:
+    description: Percentage of workflow steps that escalate to Overseer or user before completing
+    target: "<15%"
+    source: Escalation entries in core/history/decisions.md, AskUserQuestion invocations during workflows
+    notes: High escalation rate may indicate unclear instructions, overly conservative agents, or genuine complexity
+
+  user_intervention_rate:
+    description: Percentage of workflow steps that require AskUserQuestion to proceed
+    target: "<20%"
+    source: AskUserQuestion usage during workflow execution
+    notes: Distinct from escalation — this measures cases where agents lack context, not authority conflicts
+
+  error_recovery_rate:
+    description: Percentage of errors resolved by retry or prompt mutation (rule 29) without requiring user intervention
+    target: "70%"
+    source: Error handling logs, circuit breaker activations, Debugger escalations
+    notes: Low recovery rate suggests error handling protocol needs refinement or agents need better instructions
+
+  state_freshness:
+    description: Percentage of active/ files updated within their expected cadence
+    target: "85%"
+    source: Custodian freshstate-report, file modification timestamps vs expected update frequency
+    notes: Expected cadences — now.md/priorities.md (daily), risks.md (weekly), improvements.md (weekly)

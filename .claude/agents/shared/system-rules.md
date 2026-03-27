@@ -120,3 +120,42 @@
     - If a date already exists in another file (contacts.md, prep docs), verify it against `date` before copying — don't assume the source is correct.
     - Preferred format for events: `Day YYYY-MM-DD` (e.g., "Thu 2026-03-26") — unambiguous, machine-parseable.
     - Reference `active/week-calendar.md` for a quick day+date lookup when available.
+29. **Error handling protocol.** When a workflow step fails, classify the error and respond accordingly:
+
+    **Error classification:**
+
+    | Type | Examples | Response |
+    |------|----------|----------|
+    | Transient | API timeout, rate limit, network error, temporary file lock | Retry up to 3 attempts. If still failing, reclassify as deterministic. |
+    | Deterministic | Wrong output, logic error, hallucinated path, malformed input | Do not retry the same approach. Apply prompt mutation sequence. |
+
+    **Prompt mutation sequence (deterministic errors only):**
+    1. **Rephrase** — restate the instruction with different wording, more explicit constraints, or a concrete example.
+    2. **Decompose** — break the failing step into 2-3 smaller subtasks and attempt each independently.
+    3. Max 2 mutations before escalating to Debugger (technical) or Overseer (workflow/coordination).
+
+    **Circuit breaker:** If the same agent fails 3 times within a single workflow execution (across retries and mutations), remove that agent from remaining workflow steps. The supervising agent (PM, team lead, or main context) takes over or escalates to user with context.
+
+    **Escalation handoff format** (when escalating a failed step):
+    ```
+    FAILED STEP: [workflow name, step number, agent]
+    ORIGINAL INSTRUCTION: [what the agent was asked to do]
+    ATTEMPTS: [list of what was tried — retry, rephrase, decompose]
+    ERROR OUTPUT: [last error or nonsensical output]
+    CONTEXT: [any relevant state that might help diagnosis]
+    ```
+
+30. **Capability matrix.** Agents have bounded write access by category. All agents have read access to all files.
+
+    | Category | Write Access |
+    |----------|-------------|
+    | Governance | `active/`, `core/` |
+    | Knowledge | `core/`, `drafts/`, `deliverables/` |
+    | Technical | `products/`, `engineering/` |
+    | Business | `business/`, `drafts/`, `deliverables/` |
+    | Evolution | `active/improvements.md`, `core/history/evaluations.md`, `core/history/improvements.md` |
+
+    - Governor validates write access at workflow boundaries.
+    - Out-of-scope writes require Governor approval with justification logged to `core/history/decisions.md`.
+    - The root orchestrator (main conversation context) is not bound by this matrix — it can write anywhere.
+    - This matrix is enforced by convention and Governor review, not by mechanical file permissions.
