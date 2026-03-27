@@ -345,7 +345,7 @@ if [[ "${1:-}" == "--auto-commit" ]]; then
     clean_file="${file% (deleted)}"
     git add "$clean_file" 2>/dev/null || true
   done
-  git commit -m "sync: ${commit_msg}" --no-verify >/dev/null 2>&1 || true
+  git -c user.name="sly-the-fox" -c user.email="slythefoxvibes@proton.me" commit -m "sync: ${commit_msg}" --no-verify >/dev/null 2>&1 || true
 
   # Push in background
   git push --quiet &>/dev/null &

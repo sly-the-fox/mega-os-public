@@ -27,8 +27,8 @@ Individual connections — LinkedIn, conferences, collaborators, mentors, etc.
 
 | Name | Platform | Context | Last Contact | Follow-Up | Cadence | Next Action | Notes |
 |------|----------|---------|--------------|-----------|---------|-------------|-------|
-| Jane Doe | LinkedIn | Met at AI meetup, works on LLM tooling | 2026-03-01 | 2026-03-08 | | Follow up on collab idea | Interested in MCP integrations |
-| John Smith | Twitter/X | Replied to my thread on notarization | 2026-02-15 | — | | Share v2 release | Has 5k followers in dev tools space |
+| Jane Doe | LinkedIn | Met at AI meetup, works on LLM tooling | 2025-06-01 | 2025-06-08 | | Follow up on collab idea | Interested in MCP integrations |
+| John Smith | Twitter/X | Replied to my thread on open source | 2025-05-15 | — | | Share v2 release | Active in dev tools space |
 
 ## Businesses
 
@@ -36,8 +36,8 @@ Prospects, clients, partners, vendors.
 
 | Name | Type | Contact Info | Context | Last Contact | Follow-Up | Cadence | Next Action | Notes |
 |------|------|-------------|---------|--------------|-----------|---------|-------------|-------|
-| Acme Coffee Shop | Prospect | (555) 123-4567 | Local business, needs a website | 2026-03-10 | 2026-03-13 | 3 | Call back Tuesday | Owner = Mike, open 7-5 |
-| Summit Design Co | Partner | hello@summit.dev | Potential referral partner | 2026-03-05 | 2026-03-19 | 14 | Send portfolio link | Met at Denver startup event |
+| Acme Coffee Shop | Prospect | (555) 123-4567 | Local business, needs a website | 2025-06-10 | 2025-06-13 | 3 | Call back Tuesday | Owner = Mike, open 7-5 |
+| Summit Design Co | Partner | hello@example.com | Potential referral partner | 2025-06-05 | 2025-06-19 | 14 | Send portfolio link | Met at local startup event |
 
 ## Groups & Communities
 
