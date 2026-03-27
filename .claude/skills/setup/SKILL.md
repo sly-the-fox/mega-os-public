@@ -19,7 +19,7 @@ Print a welcome message:
 
 You have:
 - **39 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
-- **21 slash commands** for daily operations, building, system management, and deployment
+- **25+ slash commands** for daily operations, building, system management, and deployment
 - **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -83,8 +83,8 @@ Run these checks silently and report a summary:
 
 0. **Merge driver setup** — Run `git config merge.ours.driver true`. This activates the `merge=ours` strategy used by `.gitattributes` to protect personal data directories during upstream merges. This is idempotent and safe to re-run.
 1. **Settings check** — Read `.claude/settings.json`. Confirm `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` is set to `1` in the `env` block. If missing, warn.
-2. **Agent symlink check** — Count symlinks at `.claude/agents/*.md` (excluding REGISTRY.md, AGENTS.md). Confirm each resolves to an actual file. Report count and any broken links.
-3. **Active state check** — Verify these 19 files exist in `active/`:
+2. **Agent symlink check** — Count symlinks at `.claude/agents/*.md` (excluding REGISTRY.md, README.md). Confirm each resolves to an actual file. Report count and any broken links.
+3. **Active state check** — Verify at minimum these files exist in `active/` (additional files are fine):
    - `now.md`, `priorities.md`, `inbox.md`, `blockers.md`, `risks.md`, `improvements.md`
    - `audits.md`, `coherence-metrics.md`, `freshness-log.md`, `freshstate-report.md`
    - `daily-digest.md`, `news-briefing.md`, `news-briefing-state.md`
@@ -146,81 +146,9 @@ Ask: "Got it. Continue to Phase 3 (Workspace Scaffolding)?"
 
 ## Phase 3: Workspace Scaffolding (automated)
 
-Using the answers from Phase 2, build out the full workspace:
+Using answers from Phase 2, build the full workspace: active state files (now.md, priorities.md, inbox.md), business directories, engineering directories, history initialization, and MEMORY.md.
 
-### 3a — Active State
-
-1. **`active/now.md`** — Remove the `MEGA-OS:UNCONFIGURED` marker. Set the current focus based on stated projects/goals. Use this format:
-   ```markdown
-   # Current Focus
-
-   ## Active Work
-   **[Project name]** — [one-line description from their answer]
-
-   ## Key Context
-   - Tech stack: [from Phase 2]
-   - Working style: [from Phase 2]
-
-   ## Next Steps
-   - [ ] Complete setup (Phase 4+)
-   - [ ] [First actionable step for their project]
-   - [ ] [Second actionable step]
-   ```
-
-2. **`active/priorities.md`** — Populate from their projects/goals:
-   ```markdown
-   # Priorities
-
-   ## P1 — Critical
-   - [Their primary project/goal]
-
-   ## P2 — High
-   - [Their secondary project/goal, if any]
-
-   ## P3 — Medium
-   - System customization (standards, agents)
-
-   ## P4 — Low
-   - [Anything else mentioned]
-   ```
-
-3. **`active/inbox.md`** — Seed with 2-3 actionable items:
-   ```markdown
-   # Inbox
-
-   | Date | Item | Source | Status |
-   |------|------|--------|--------|
-   | [today] | Review coding standards for [their stack] | /setup | Needs Review |
-   | [today] | Scaffold first product if not done in Phase 8 | /setup | Needs Review |
-   | [today] | Run /weekly-review after first week | /setup | Needs Review |
-   ```
-
-4. **Remaining active files** — If `blockers.md`, `risks.md`, or `improvements.md` were created in Phase 1 with minimal templates, leave them as-is (clean slate is correct for new setup).
-
-### 3b — Business directories (conditional on Phase 2 answers)
-
-- Freelancer: create `business/sales/`, `business/clients/`, `business/finance/revenue-tracker.md` (template)
-- Business/Consulting: create full `business/` structure (assets, clients, finance, marketing, operating, sales, strategy), seed `business/operating/recurring-processes.md` (template)
-- Product builder only: create `business/marketing/`, `business/strategy/` only
-- None/minimal: create `business/` with `.gitkeep` only
-
-### 3c — Engineering directories
-
-- Always create `engineering/scripts/`
-- Add `engineering/infra/` if they mention deployment, cloud, or devops
-- Add `engineering/automations/`, `engineering/shared-libraries/`, `engineering/troubleshooting/`
-
-### 3d — History initialization
-
-- Write first entry to `core/history/decisions.md` (DEC-001: Initial System Setup)
-- Write first entry to `core/history/master-timeline.md`
-- Write `core/history/current-state.md` with system snapshot
-
-### 3e — MEMORY.md update
-
-- Add user-specific context: name, domain, stack, projects, business type
-
-Print educational beat: "Your `active/` directory is your daily command center — loaded automatically every session. `core/history/` is your institutional memory — decisions and outcomes are never lost. `business/` tracks revenue, clients, and marketing. Everything persists across sessions because it's all files in a git repo."
+> See `references/workspace-templates.md` for detailed templates and scaffolding instructions.
 
 Print: "Workspace scaffolded."
 
@@ -230,30 +158,9 @@ If `--minimal` was passed, skip to Phase 10 (Finalization). Otherwise ask: "Cont
 
 ## Phase 4: Standards Customization (interactive)
 
-> **Tip:** If you have strong opinions about coding standards and want to review changes before they're applied, consider switching to **Plan mode** (`/plan`) with **Opus 4.6 (medium)** or equivalent. This lets you approve each standards change before it's written. You can return to setup afterward with `/setup --phase 5`. Otherwise, we'll work through it interactively right here.
+Customize coding standards, naming conventions, writing style, and review checklist for the user's tech stack and preferences. Each standard is shown, discussed, and updated interactively.
 
-1. **Coding standards** — Read `core/standards/coding-standards.md`. Show the user which language sections exist. Ask:
-   - Which of these are relevant to your stack?
-   - Any languages/frameworks to add?
-   - Remove irrelevant sections and add new ones for their stated tech stack with sensible defaults.
-
-2. **Naming conventions** — Read `core/standards/naming.md`. Show current conventions. Ask:
-   - Does this match your preferences? Any changes?
-   - Apply requested changes.
-
-3. **Writing style** — Check if `core/standards/writing-style.md` exists.
-   - If it does NOT exist: copy from `core/standards/writing-style.default.md` to create the user's copy.
-   - If it exists and still contains the "Setup required" marker (template version): Ask "Do you have a preferred writing style? (technical/casual/formal/concise)"
-   - If they want a personalized style: prompt them to place 3-5 writing samples in `style-samples/`, then analyze the samples and populate `writing-style.md` with a full style profile.
-   - If they skip or have no samples: leave the template in place (agents produce neutral content).
-   - If already populated (no "Setup required" marker): inform user their style guide is already configured and ask if they want to regenerate it.
-   - Note: `writing-style.default.md` ships with the framework and is updated by `/update`. The user's `writing-style.md` is never overwritten by updates.
-
-4. **Review checklist** — Read `core/standards/review-checklist.md`. Show current criteria. Ask:
-   - Any criteria to add or remove for your domain?
-   - Apply changes.
-
-Print educational beat: "These standards are enforced by the Reviewer agent at the end of every Technical workflow. Customizing now means relevant feedback from day one."
+> See `references/standards-customization.md` for the full customization flow and writing style setup instructions.
 
 Print: "Standards customized for your stack."
 
@@ -335,110 +242,9 @@ Ask: "Continue to Phase 7 (Automation Setup)?"
 
 ## Phase 7: Automation Setup (optional, interactive)
 
-**Step 1 — Show the caveat (prominent, before anything else):**
+Present 14 available cron automations (7 daily, 5 weekly, 2 monthly) and let the user pick which to install. Options: specific numbers, `all`, `recommended` (daily scan + weekly review + freshstate), or `none`.
 
-> **Important:** These are **system-level cron jobs** (installed via `crontab`), NOT Claude Code in-session crons. They persist across reboots and sessions — you don't need Claude Code open for them to fire. However, they only run when your computer is powered on and your user session is active. If your laptop is closed or sleeping, scheduled jobs will be skipped — they don't queue up and run later. For critical automations, make sure your machine is awake during the scheduled times. All automations log to `/tmp/mega-os-*.log` so you can check what ran.
-
-**Step 2 — Present the automation menu**, grouped by frequency:
-
-**Daily:**
-| # | Name | Time | Description |
-|---|------|------|-------------|
-| 1 | Daily improvement audit | 7:30 AM | Deep MECE-decomposed system audit with rotating focus: Mon=Governance, Tue=Knowledge, Wed=Technical, Thu=Products, Fri=Business, Sat=Evolution, Sun=Integration. Writes to `active/improvement-audit.md`. |
-| 2 | Content generation | 7:03 AM | Generates marketing content per channel schedule |
-| 3 | Channel tracker update | 7:27 AM | Updates content pipeline status after generation |
-| 4 | PyPI/GitHub metrics | 8:33 AM | Fetches download stats and stars for your published packages |
-| 5 | News briefing | 8:45 AM | AI/tech intelligence briefing with optional Telegram delivery |
-| 6 | Daily system scan | 9:10 AM | Scans all active state for stale/overdue items, produces `active/daily-digest.md` |
-| 7 | Freshstate scan | 9:17 AM | Checks document freshness, alerts on stale docs via Telegram |
-
-**Weekly:**
-| # | Name | Schedule | Description |
-|---|------|----------|-------------|
-| 8 | Content pipeline status | Mon 8:03 AM | Weekly content pipeline check with Telegram summary |
-| 9 | Risk staleness alert | Wed 9:07 AM | Flags risks unmaintained >14 days |
-| 10 | Weekly review | Sun 10:13 AM | Comprehensive system review + state updates |
-| 11 | Revenue check-in | Sun 10:27 AM | Reviews revenue tracker, sends Telegram status |
-| 12 | Index maintenance | Sun 10:47 AM | Verifies core/indexes/ consistency with filesystem |
-
-**Monthly:**
-| # | Name | Schedule | Description |
-|---|------|----------|-------------|
-| 13 | System evaluation | 1st & 15th, 11:03 AM | Evaluator assessment of system health |
-| 14 | Competitor monitoring | 1st of month, 9:03 AM | Scans for news about competitors |
-
-**Step 3 — Ask the user to pick:**
-- Numbers (e.g., "1, 6, 10")
-- `all` — install everything
-- `recommended` — starter set: **Daily system scan (#6) + Weekly review (#10) + Freshstate scan (#7)**
-- `none` — skip this phase
-
-**Step 4 — For each selected automation:**
-
-1. Detect `claude` binary path via `which claude || echo "$HOME/.local/bin/claude"`
-2. Detect mega-os repo path from `pwd`
-3. Append each cron entry using safe append: `(crontab -l 2>/dev/null; echo "<entry>") | crontab -`
-4. Each entry follows the pattern:
-   ```
-   <schedule> cd <repo-path> && <claude-path> -p "<prompt>" --permission-mode auto > /tmp/mega-os-<name>.log 2>&1
-   ```
-
-The exact cron entries per selection:
-
-```bash
-# 1. Daily improvement audit (7:30 AM)
-30 7 * * * cd <repo> && <claude> -p "/improvement-audit" --permission-mode auto > /tmp/mega-os-improvement-audit.log 2>&1
-
-# 2. Content generation (7:03 AM)
-3 7 * * * <claude> -p "Generate today's marketing content per business/marketing/channel-schedule.md" --permission-mode auto >> /tmp/mega-os-content-gen.log 2>&1
-
-# 3. Channel tracker update (7:27 AM)
-27 7 * * * cd <repo> && <claude> -p "Read /tmp/mega-os-content-gen.log to see what content was generated today. Update business/marketing/channel-tracker.md with new draft entries, marking their pipeline status as 'drafted' and noting the draft location in drafts/social/." --permission-mode auto > /tmp/mega-os-channel-tracker.log 2>&1
-
-# 4. PyPI/GitHub metrics (8:33 AM)
-# Replace <pypi-package> and <github-user/repo> with your published package details
-33 8 * * * cd <repo> && <claude> -p "Fetch PyPI download stats for <pypi-package> (use web search or pypistats.org API). Fetch GitHub stars for <github-user/repo> (use GitHub API). Append today's numbers to business/marketing/adoption-metrics.md (create if doesn't exist). If downloads exceed 500 or stars exceed 50, send a milestone alert via Telegram." --permission-mode auto > /tmp/mega-os-metrics.log 2>&1
-
-# 5. News briefing (8:45 AM)
-45 8 * * * cd <repo> && <claude> -p "/news-briefing --telegram" --permission-mode auto > /tmp/mega-os-news-briefing.log 2>&1; echo "Exit: $? at $(date)" >> /tmp/mega-os-news-briefing.log
-
-# 6. Daily system scan (9:10 AM)
-10 9 * * * cd <repo> && <claude> -p "/daily-scan" --permission-mode auto > /tmp/mega-os-daily-scan.log 2>&1
-
-# 7. Freshstate scan (9:17 AM)
-17 9 * * * cd <repo> && <claude> -p "Run freshstate check on this repo. Execute: freshstate check. Save the output to active/freshstate-report.md (replace contents with timestamped report). If any files are stale or cross-references broken, send a summary via Telegram using the bridge at engineering/scripts/telegram-bridge/." --permission-mode auto > /tmp/mega-os-freshstate.log 2>&1
-
-# 8. Content pipeline status (Mon 8:03 AM)
-3 8 * * 1 cd <repo> && <claude> -p "Check business/marketing/content-calendar.md for this week's planned article. Check if a draft exists in drafts/. Check business/marketing/channel-tracker.md for overdue content. Send a Telegram summary of content pipeline status: what's due, what's drafted, what's overdue." --permission-mode auto > /tmp/mega-os-content-pipeline.log 2>&1
-
-# 9. Risk staleness alert (Wed 9:07 AM)
-7 9 * * 3 cd <repo> && <claude> -p "Check active/risks.md. For each active risk, check if the 'Date Added' is more than 14 days ago and the mitigation status hasn't been updated. Flag stale risks. Send a Telegram alert listing any risks that need mitigation review." --permission-mode auto > /tmp/mega-os-risk-alert.log 2>&1
-
-# 10. Weekly review (Sun 10:13 AM)
-13 10 * * 0 cd <repo> && <claude> -p "/weekly-review" --permission-mode auto > /tmp/mega-os-weekly-review.log 2>&1
-
-# 11. Revenue check-in (Sun 10:27 AM)
-27 10 * * 0 cd <repo> && <claude> -p "Review business/finance/revenue-tracker.md. Check which streams still show \$0. Check if 30-day or 60-day review dates are approaching. Update the 'Last Checked' date. Send a Telegram summary of revenue status and any action items due this week." --permission-mode auto > /tmp/mega-os-revenue-checkin.log 2>&1
-
-# 12. Index maintenance (Sun 10:47 AM)
-47 10 * * 0 cd <repo> && <claude> -p "Verify core/indexes/canonical-files.md, core/indexes/project-map.md, and core/indexes/active-context-map.md are consistent with the actual filesystem. Check for files listed in indexes that don't exist, and important files that exist but aren't indexed. Report any drift found. Update indexes if discrepancies are minor (< 5 items). Flag larger issues for manual review." --permission-mode auto > /tmp/mega-os-index-maintenance.log 2>&1
-
-# 13. System evaluation (1st & 15th, 11:03 AM)
-3 11 1,15 * * cd <repo> && <claude> -p "Run a system evaluation as the Evaluator agent. Assess: agent utilization (which agents were used this period), workflow completion rates, document freshness (reference active/freshness-log.md), improvement proposal outcomes (reference active/improvements.md), and revenue progress (reference business/finance/revenue-tracker.md). Write findings to active/coherence-metrics.md. Identify top 3 areas for improvement." --permission-mode auto > /tmp/mega-os-evaluation.log 2>&1
-
-# 14. Competitor monitoring (1st of month, 9:03 AM)
-3 9 1 * * cd <repo> && <claude> -p "Search for recent news and announcements about competitors in your domain. Check for new funding rounds, product launches, or feature releases. Update business/strategy/ with any significant findings. Send a Telegram summary." --permission-mode auto > /tmp/mega-os-competitor-monitor.log 2>&1
-```
-
-Where `<repo>` and `<claude>` are detected at runtime during setup.
-
-**Step 5 — Confirm:** Print installed jobs via `crontab -l | grep mega-os`
-
-**Step 6 — Show tips:**
-- "Check logs anytime: `cat /tmp/mega-os-daily-scan.log`"
-- "List your cron jobs: `crontab -l`"
-- "Remove a job: `crontab -e` and delete the line"
-- "The daily improvement audit runs a different deep scan each day — check `active/improvement-audit.md` for findings"
+> See `references/cron-jobs.md` for the caveat, automation menu tables, selection flow, exact cron entries, and tips.
 
 Ask: "Continue to Phase 8 (Product Scaffolding)?"
 
@@ -446,25 +252,9 @@ Ask: "Continue to Phase 8 (Product Scaffolding)?"
 
 ## Phase 8: First Product Scaffolding (optional, interactive)
 
-Ask: "Do you want to create your first product now?"
+Optionally scaffold the user's first product under `products/` with CLAUDE.md, README, SPEC, and index updates.
 
-If no, skip to Phase 9.
-
-If yes:
-
-1. "What's the product name?" (validate: kebab-case, no spaces)
-2. "What tech stack?" (e.g., Next.js, Python/FastAPI, Go, static site)
-3. "One-line description?"
-
-Then:
-- Create `products/<name>/` with appropriate structure for the tech stack
-- Create `products/<name>/CLAUDE.md` with project context
-- Create `products/<name>/README.md` with basic info
-- Use `core/templates/spec-template.md` to create `products/<name>/SPEC.md`
-- Update `core/indexes/project-map.md` with the new product
-- Update `active/priorities.md` if not already listed
-
-Print: "Product scaffolded at `products/<name>/`."
+> See `references/product-scaffolding.md` for the full scaffolding flow and directory structure.
 
 Ask: "Continue to Phase 9 (Agent Customization)?"
 
@@ -472,32 +262,9 @@ Ask: "Continue to Phase 9 (Agent Customization)?"
 
 ## Phase 9: Agent Customization (optional, interactive)
 
-Print educational beat: "39 agents ship by default across 5 categories (Governance, Knowledge, Technical, Business, Evolution). The system is designed to be extended — custom agents follow the same format and get the same capabilities."
+Suggest domain-specific custom agents based on Phase 2 answers, offer to create them via `/add-agent`, and optionally hide irrelevant default agents.
 
-Based on the user's domain from Phase 2, suggest relevant custom agents. Examples:
-
-| User Domain | Suggested Agents |
-|-------------|-----------------|
-| Web dev | api-designer, frontend-specialist, performance-analyst |
-| Data science | data-engineer, ml-ops, experiment-tracker |
-| DevOps | incident-responder, capacity-planner, sre |
-| Consulting | proposal-writer, client-manager, deliverable-tracker |
-| Creative | content-strategist, brand-guardian, campaign-manager |
-
-Present suggestions and ask:
-1. "Want to create any of these? Or describe a custom agent you need."
-
-**Before creating agents, recommend plan mode:**
-
-Print: "**Recommended:** Before we create agents, switch to **Plan mode** (type `/plan`) and select **Opus 4.6 (medium)** or equivalent as your model. Agent creation involves designing responsibilities, writing definitions, creating symlinks, and updating the registry — Plan mode lets you review and approve each step before it happens.
-
-Once you approve the plan and agents are created, you can jump right back into onboarding where you left off — just run `/setup --phase 10` (or whatever phase is next). The conversation auto-compacts, so your context is preserved even if the conversation gets long."
-
-2. For each requested agent, run `/add-agent` (the add-agent skill) to create it properly.
-3. "Want to hide any default agents that aren't relevant? (This removes symlinks but keeps the files.)"
-   - If yes, remove the selected symlinks. The agent files remain in their category directories.
-
-Print: "Agent roster customized."
+> See `references/agent-suggestions.md` for the domain-to-agent suggestion table, Plan mode recommendation, and creation/hiding steps.
 
 Ask: "Continue to Phase 10 (Finalization)?"
 
