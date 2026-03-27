@@ -1,6 +1,6 @@
 ---
 name: add-skill
-description: Create a new skill with directory, SKILL.md, and all index/doc updates in sync.
+description: Use when creating a new skill — handles directory, SKILL.md, and all index/doc updates in sync.
 invocation: /add-skill
 user_invocable: true
 ---

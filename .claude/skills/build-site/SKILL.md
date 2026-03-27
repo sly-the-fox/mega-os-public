@@ -1,6 +1,6 @@
 ---
 name: build-site
-description: Build a website from concept to deployment — orchestrates strategy, design, content, implementation, and quality phases.
+description: Use when building a website from concept to deployment — orchestrates strategy, design, content, implementation, and quality phases.
 user_invocable: true
 args: "<description> [--product <name>] [--deploy]"
 ---

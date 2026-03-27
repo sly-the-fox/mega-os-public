@@ -1,3 +1,9 @@
+---
+name: project-kickoff
+description: Use when initializing a new project — creates proper structure, documentation, and registration in the Mega-OS system.
+user_invocable: true
+---
+
 # Project Kickoff
 
 Initialize a new project with proper structure, documentation, and registration in the Mega-OS system.

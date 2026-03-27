@@ -1,6 +1,6 @@
 ---
 name: dream
-description: "Overnight dreaming -- generates One Question to Sit With based on the week's context, plus optional connection discovery and memory consolidation."
+description: "Invoke when running overnight dreaming — generates One Question to Sit With based on the week's context, plus optional connection discovery and memory consolidation."
 invocation: /dream
 user_invocable: true
 arguments: "--full (run all 4 dream processes, not just the question)"

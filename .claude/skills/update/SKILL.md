@@ -1,6 +1,6 @@
 ---
 name: update
-description: Pull framework updates from the upstream Mega-OS public repo.
+description: Use when pulling framework updates from the upstream Mega-OS public repo.
 invocation: /update
 user_invocable: true
 ---

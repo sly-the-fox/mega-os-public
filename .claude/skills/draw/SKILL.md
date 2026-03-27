@@ -1,6 +1,6 @@
 ---
 name: draw
-description: Generate diagrams, charts, custom graphics, and manipulate images.
+description: Use when generating diagrams, charts, custom graphics, or manipulating images.
 user_invocable: true
 arguments:
   - name: description

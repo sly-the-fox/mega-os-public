@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Interactive onboarding wizard — verify environment, personalize the system, and initialize active state.
+description: Use when onboarding — interactive wizard to verify environment, personalize the system, and initialize active state.
 invocation: /setup
 user_invocable: true
 ---

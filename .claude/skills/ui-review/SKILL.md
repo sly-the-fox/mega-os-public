@@ -1,6 +1,6 @@
 ---
 name: ui-review
-description: On-demand visual audit of a product's frontend — reviews CSS, typography, color, spacing, animations, and responsive behavior.
+description: Use when auditing a product's frontend visuals — reviews CSS, typography, color, spacing, animations, and responsive behavior.
 user_invocable: true
 args: "[--product <name>] [--focus <area>]"
 ---

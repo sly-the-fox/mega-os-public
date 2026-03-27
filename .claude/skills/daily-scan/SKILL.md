@@ -1,6 +1,6 @@
 ---
 name: daily-scan
-description: Scan all active state files for stale, unactioned, or overdue items and produce a daily digest.
+description: Use when scanning active state files for stale, unactioned, or overdue items and producing a daily digest.
 invocation: /daily-scan
 user_invocable: true
 ---

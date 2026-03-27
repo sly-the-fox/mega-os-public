@@ -1,6 +1,6 @@
 ---
 name: workflow-review
-description: Analyze personal workflow patterns, operational friction, and priority-execution alignment across active state, business operations, revenue, products, and decisions. Surfaces actionable process improvements.
+description: Use when analyzing personal workflow patterns and operational friction — reviews priority-execution alignment across active state, business operations, revenue, products, and decisions. Surfaces actionable process improvements.
 invocation: /workflow-review
 user_invocable: true
 arguments: "--focus operations|revenue|products|all --no-coherence"

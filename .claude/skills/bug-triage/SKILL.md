@@ -1,3 +1,9 @@
+---
+name: bug-triage
+description: Use when triaging a bug — systematically gather information, classify severity, identify root cause, and route to the appropriate specialist.
+user_invocable: true
+---
+
 # Bug Triage
 
 Systematically gather information, classify severity, identify root cause, and route to the appropriate specialist.

@@ -1,6 +1,6 @@
 ---
 name: polish-document
-description: Convert a markdown document to polished DOCX/PDF output
+description: Use when converting a markdown document to polished DOCX/PDF output.
 user_invocable: true
 invocation: /polish
 arguments: "<file-path> --format <docx|pdf|both>"

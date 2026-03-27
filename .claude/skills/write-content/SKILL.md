@@ -1,6 +1,6 @@
 ---
 name: write-content
-description: Write original long-form content using the Content Workflow
+description: "Use when writing original long-form content — runs the full Content Workflow (Writer → Editor → Polisher)."
 user_invocable: true
 invocation: /write
 arguments: "<topic-or-brief> --sources <file1,file2,...> --output <path>"

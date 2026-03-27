@@ -1,6 +1,6 @@
 ---
 name: weekly-review
-description: Weekly system review — scan for stale items, summarize progress, cross-reference findings, and update active state.
+description: Use when running the weekly system review — scans for stale items, summarizes progress, cross-references findings, and updates active state.
 invocation: /weekly-review
 user_invocable: true
 ---
