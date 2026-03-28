@@ -67,15 +67,15 @@ Canonical source: [.claude/agents/REGISTRY.md](.claude/agents/REGISTRY.md)
 
 **Technical:** Architect → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
-**Business:** Strategist → **Coherence+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
+**Business:** Strategist → **Coherence+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Growth-Hacker (if growth/distribution) → Content-Strategist (if content strategy) → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
 
 **Incident:** Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → **Custodian** → Historian
 
 **Knowledge:** Librarian → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → **Custodian** → Historian
 
-**Content:** Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Librarian (catalog) → **Custodian** → Historian
+**Content:** Librarian → Content-Strategist (if campaign/new initiative) → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher → Reviewer → Growth-Hacker (if distribution) → Librarian (catalog) → **Custodian** → Historian
 
-**Site Build:** Strategist → Designer → Visual Designer → Writer + Marketer → Editor → Architect → Engineer → Visual Designer (CSS polish) → QA → Security-Expert → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
+**Site Build:** Strategist → Designer → Visual Designer → Writer → Marketer → Content-Strategist (if messaging strategy) → Editor → Architect → Engineer → Visual Designer (CSS polish) → QA → Security-Expert → Reviewer → Growth-Hacker (if conversion/distribution) → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
 **Evolution Loop:** Evaluator triggers on workflow completion, weekly review, or recurring patterns → **Coherence+Parallax Checkpoint** → Improver proposes changes to `active/improvements.md` → User approves → Specialist implements → Evaluator measures impact → Archive to `core/history/improvements.md`
 
