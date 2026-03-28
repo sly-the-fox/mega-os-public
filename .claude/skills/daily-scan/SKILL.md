@@ -129,17 +129,23 @@ Scan all passive agent outputs and active state files for items needing attentio
     - If exit code is 0 (clean), log as **Informational**: "Index integrity check passed."
     - This replaces manual counting — the script checks agents, skills, symlinks, and all index files.
 
-19. **Archive previous digest**
+19. **Update freshness log** (`active/freshness-log.md`)
+    - For any file flagged STALE or CRITICAL in steps 1-18, check if an open entry already exists in `active/freshness-log.md` for that file.
+    - If no open entry exists, append a new row: `| YYYY-MM-DD | [file path] | [finding summary] | [severity] | [recommended action] | Open |`
+    - If an open entry already exists for the same file, skip (avoid duplicates).
+    - This ensures the Custodian's freshness log stays populated automatically without relying on end-of-workflow triggers.
+
+20. **Archive previous digest**
     Before overwriting, preserve the existing digest:
     - Run `bash engineering/scripts/archive-report.sh daily-digest active/daily-digest.md`
     - This copies the current `active/daily-digest.md` to `archive/reports/YYYY-WNN/YYYY-MM-DD-daily-digest.md` and updates `archive/index.json`.
     - If the file doesn't exist or is empty, archival is skipped silently.
 
-20. **Write digest**
+21. **Write digest**
     - Compile all findings into `active/daily-digest.md` using the template below.
     - Print a console summary: total items by severity, top 3 critical items.
 
-21. **Propose solutions**
+22. **Propose solutions**
     For each item surfaced in the digest (Critical, Needs Review, and Informational), propose a concrete next action. Use the agent routing table below to determine which agent(s) should research and plan the solution:
 
     | Item Source | Research Agent | Planning Agent | What to Propose |

@@ -7,8 +7,7 @@
     ".claude/hooks/",
     "core/standards/",
     "core/templates/",
-    "engineering/scripts/",
-    "products/outreach-crm/"
+    "engineering/scripts/"
   ],
   "include_files": [
     "CLAUDE.md",
