@@ -25,6 +25,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 8. **Specialists** — execute assigned tasks
 9. **QA** — verifies deliverables meet quality gates
 10. **Reviewer** — checks correctness, standards, completeness
+10a. **Framework Sync** — if implementation touched framework files (agents, skills, standards, templates, scripts, workflows), invoke `/framework-sync` to reconcile documentation cross-references before Documenter runs
 11. **Documenter** — writes or updates documentation
 12. **Librarian** — catalogs new knowledge artifacts and updates indexes
 13. **Custodian** — verifies all agent checklists completed and cross-references are consistent
@@ -47,6 +48,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 10. **Auditor** — post-execution audit: compares implementation against architecture/plan, flags gaps and omissions. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 11. **QA** — test and verify
 12. **Reviewer** — final review
+12a. **Framework Sync** — if any changed files are framework files (match against sync-manifest include paths), invoke `/framework-sync` to reconcile documentation cross-references
 13. **DevOps** — deploy (if needed)
 14. **Documenter** — update docs
 15. **Librarian** — catalogs technical artifacts and updates indexes

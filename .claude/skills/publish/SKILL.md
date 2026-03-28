@@ -11,6 +11,8 @@ Syncs framework changes from the private repo to the public distribution repo an
 
 ## Steps
 
+0. **Framework sync pre-gate** — Run `/framework-sync --validate-only` to check if any documentation cross-references are stale. If issues found, run `/framework-sync` first to fix them before publishing.
+
 1. **Run merge safety test** — Run `engineering/scripts/test-merge-safety.sh` to verify that `merge=ours` protects user-data directories.
    - If any test **fails**: show the report and **stop**. The protection layer must pass before publishing.
    - If all tests **pass**: continue to step 2.

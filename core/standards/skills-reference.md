@@ -29,6 +29,9 @@ Complete inventory of available skills (slash commands). All skills live under `
 | 23 | Add Skill | `/add-skill` | `.claude/skills/add-skill/` | Create a new skill with directory and all index/doc updates |
 | 24 | UI Review | `/ui-review` | `.claude/skills/ui-review/` | Visual audit of frontend CSS, typography, color, spacing, animations |
 | 25 | Evolution Loop | `/evolution-loop` | `.claude/skills/evolution-loop/` | Full Evaluator → Coherence → Parallax → Improver self-improvement chain |
+| 26 | Outreach | `/outreach` | `.claude/skills/outreach/` | LinkedIn outreach CRM — capture, message, track, follow up |
+| 27 | Query | `/query` | `.claude/skills/query/` | Structured queries over active state, contacts, pipeline, and cross-references |
+| 28 | Framework Sync | `/framework-sync` | `.claude/skills/framework-sync/` | Reconcile documentation cross-references after framework file changes |
 
 ## Skill Structure
 

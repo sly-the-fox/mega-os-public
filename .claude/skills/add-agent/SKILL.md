@@ -91,7 +91,9 @@ Create a new agent and update all references so everything stays in sync.
    - For each named collaborator, read that agent's file and add a line to its `## Collaboration` section referencing the new agent
    - Add reciprocal entries in the new agent's Collaboration section
 
-9. **Commit** — Stage all changed files and commit:
+9. **Cross-check** — Suggest running `/framework-sync --validate-only` to verify all cross-references are consistent after the agent addition.
+
+10. **Commit** — Stage all changed files and commit:
    ```
    Add <name> agent (<category>)
    ```
