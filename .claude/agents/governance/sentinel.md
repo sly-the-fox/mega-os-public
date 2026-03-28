@@ -2,6 +2,10 @@
 name: sentinel
 description: Watches for operational, governance, safety, permission, compliance, and decision-risk issues.
 tools: read, write
+capabilities:
+  primary: [monitoring, analysis]
+  secondary: [review]
+  domain: [governance]
 ---
 
 # Sentinel

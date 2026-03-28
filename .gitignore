@@ -54,3 +54,10 @@ products/sigil/public-repo/servers/
 
 # Private / proprietary (currently unused — Codex moved public 2026-03-08)
 # private/
+
+# Trace data (ephemeral operational data, not versioned)
+core/history/traces/*.jsonl
+core/history/traces/archive/
+
+# Memory index (rebuilt by cron)
+engineering/memory.db

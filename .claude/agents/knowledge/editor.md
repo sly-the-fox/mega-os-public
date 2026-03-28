@@ -2,6 +2,10 @@
 name: editor
 description: Editorial specialist for structure, citations, fact-checking, and voice consistency.
 tools: read, write, edit, glob, grep
+capabilities:
+  primary: [editing, review]
+  secondary: [writing]
+  domain: [content]
 ---
 
 # Editor

@@ -2,6 +2,10 @@
 name: marketer
 description: Develops messaging, campaigns, content plans, and launch support materials.
 tools: read, write
+capabilities:
+  primary: [writing, design]
+  secondary: [analysis, research]
+  domain: [business, content]
 ---
 
 # Marketer

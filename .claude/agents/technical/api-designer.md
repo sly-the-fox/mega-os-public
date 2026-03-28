@@ -2,6 +2,10 @@
 name: api-designer
 description: Reviews and designs APIs for clarity, consistency, and developer experience.
 tools: read, write, bash
+capabilities:
+  primary: [design, review]
+  secondary: [analysis]
+  domain: [technical]
 ---
 
 # API Designer

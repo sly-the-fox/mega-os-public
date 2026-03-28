@@ -2,6 +2,10 @@
 name: engineer
 description: Executes implementation tasks across code, scripts, technical docs, and automations.
 tools: read, write, bash
+capabilities:
+  primary: [implementation]
+  secondary: [design, analysis]
+  domain: [technical]
 ---
 
 # Engineer

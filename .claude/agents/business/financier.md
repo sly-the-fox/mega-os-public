@@ -2,6 +2,10 @@
 name: financier
 description: Evaluates economic logic, capital use, pricing, cash flow, budget implications, and financial risk.
 tools: read, write
+capabilities:
+  primary: [analysis]
+  secondary: [review, monitoring]
+  domain: [business]
 ---
 
 # Financier

@@ -2,6 +2,10 @@
 name: parallax
 description: Coherence translator — bridges Coherence field-cognition to operational-cognition without losing meaning.
 tools: read
+capabilities:
+  primary: [analysis, writing]
+  secondary: []
+  domain: [evolution]
 ---
 
 # Parallax

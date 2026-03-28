@@ -2,6 +2,10 @@
 name: designer
 description: Shapes product, interface, brand, and experience decisions for clarity and usability.
 tools: read, write
+capabilities:
+  primary: [design]
+  secondary: [analysis, review]
+  domain: [technical, content]
 ---
 
 # Designer

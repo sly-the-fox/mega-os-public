@@ -2,6 +2,10 @@
 name: seller
 description: Focuses on conversion, offer strength, objections, pipeline movement, and revenue-generating communication.
 tools: read, write
+capabilities:
+  primary: [writing, analysis]
+  secondary: [coordination]
+  domain: [business]
 ---
 
 # Seller

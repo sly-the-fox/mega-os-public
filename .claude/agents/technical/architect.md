@@ -2,6 +2,10 @@
 name: architect
 description: Designs systems, structures, interfaces, and patterns before implementation.
 tools: read, write, bash
+capabilities:
+  primary: [design, analysis]
+  secondary: [review]
+  domain: [technical]
 ---
 
 # Architect

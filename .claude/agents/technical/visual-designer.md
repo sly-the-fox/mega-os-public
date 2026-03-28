@@ -2,6 +2,10 @@
 name: visual-designer
 description: Visual craft specialist — transforms functional interfaces into visually compelling experiences through typography, color, CSS, and animation.
 tools: read, write, bash
+capabilities:
+  primary: [design, implementation]
+  secondary: [review]
+  domain: [technical, content]
 ---
 
 # Visual Designer

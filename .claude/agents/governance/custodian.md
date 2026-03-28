@@ -2,6 +2,10 @@
 name: custodian
 description: Verifies document freshness and checklist completion at workflow end. Auto-remediates minor staleness, flags major issues.
 tools: read, write, edit, grep, glob, bash
+capabilities:
+  primary: [monitoring, review]
+  secondary: [coordination]
+  domain: [governance, knowledge]
 ---
 
 # Custodian

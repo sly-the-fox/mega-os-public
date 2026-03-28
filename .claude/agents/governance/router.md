@@ -2,6 +2,10 @@
 name: router
 description: Determines which agents should handle each request and how work should flow between them.
 tools: read, write
+capabilities:
+  primary: [coordination, analysis]
+  secondary: []
+  domain: [governance]
 ---
 
 # Router
@@ -28,6 +32,18 @@ Ensure the right agents are engaged at the right time without unnecessary duplic
 - Planner task breakdowns
 - System architecture
 - Current agent availability and roles
+- Agent capability profiles (frontmatter `capabilities:` field)
+
+## Capability-Based Routing
+
+When classifying and routing tasks, consult agent capability profiles to match task requirements with agent strengths. Reference `.claude/agents/shared/agent-capabilities.md` for the taxonomy.
+
+**Priority order:**
+1. Domain match (technical task to technical domain agents)
+2. Primary capability match (analysis task to agents with analysis as primary)
+3. Secondary capability match (fallback if no primary match)
+
+This supplements workflow-based routing. Workflows define the sequence; capabilities refine which agent is best suited.
 
 ## Outputs
 - Agent routing decisions

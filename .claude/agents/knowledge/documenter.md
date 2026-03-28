@@ -2,6 +2,10 @@
 name: documenter
 description: Turns work into clear, durable, usable documentation.
 tools: read, write
+capabilities:
+  primary: [writing]
+  secondary: [research]
+  domain: [knowledge]
 ---
 
 # Documenter

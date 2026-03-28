@@ -2,6 +2,10 @@
 name: auditor
 description: Reviews plans for blind spots before execution and audits implementations against plans after delivery.
 tools: read, write
+capabilities:
+  primary: [review, analysis]
+  secondary: [research, monitoring]
+  domain: [governance]
 ---
 
 # Auditor

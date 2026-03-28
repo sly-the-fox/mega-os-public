@@ -2,6 +2,10 @@
 name: librarian
 description: Organizes knowledge, identifies canonical files, and reduces duplication across the workspace.
 tools: read, write
+capabilities:
+  primary: [coordination, analysis]
+  secondary: [research]
+  domain: [knowledge]
 ---
 
 # Librarian

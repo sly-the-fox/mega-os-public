@@ -2,6 +2,10 @@
 name: strategist
 description: Handles business direction, offers, prioritization, partnerships, and monetization reasoning.
 tools: read, write
+capabilities:
+  primary: [analysis, design]
+  secondary: [research, writing]
+  domain: [business]
 ---
 
 # Strategist

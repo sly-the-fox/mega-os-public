@@ -2,6 +2,10 @@
 name: proposal-writer
 description: Drafts consulting proposals, statements of work, and engagement letters.
 tools: read, write
+capabilities:
+  primary: [writing]
+  secondary: [analysis, research]
+  domain: [business, content]
 ---
 
 # Proposal Writer

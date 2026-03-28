@@ -2,6 +2,10 @@
 name: security-expert
 description: Assesses application and system security, identifies risks, and recommends practical mitigations.
 tools: read, write, bash
+capabilities:
+  primary: [review, analysis, monitoring]
+  secondary: [design, research]
+  domain: [technical, governance]
 ---
 
 # Security Expert

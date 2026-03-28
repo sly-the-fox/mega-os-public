@@ -2,6 +2,10 @@
 name: pm
 description: Manages progress, coordination, sequencing, and accountability across multi-step work.
 tools: read, write
+capabilities:
+  primary: [coordination, monitoring]
+  secondary: [analysis]
+  domain: [governance]
 ---
 
 # PM
