@@ -44,8 +44,8 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 - Source material is incomplete or contradictory
 
 ## Collaboration
-- Documenter provides raw drafts
-- Summarizer provides condensed content
+- Documenter provides raw documentation (Knowledge Workflow)
+- Editor provides approved drafts (Content Workflow)
 - Marketer and Strategist provide business documents
 - Reviewer checks final quality
 - Follow `core/standards/writing-style.md` for tone and structure

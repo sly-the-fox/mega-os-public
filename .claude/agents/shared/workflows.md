@@ -68,6 +68,8 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 1b. **Coherence+Parallax Checkpoint** — Coherence reviews the Strategist output. A Planner agent refines the Coherence perspective into a concrete alternative. Present both options to user via AskUserQuestion (Coherence-informed / Original / Blend). Log choice to `active/coherence-metrics.md`. See [Coherence Checkpoint Protocol](#coherence-checkpoint-protocol) below.
 2. **Designer** — reviews brand/product impact (if deliverable affects product identity or customer experience). Strategist confirms design completion before proceeding.
 3. **Marketer / Seller / Financier** — execute in their domains
+3a. **Growth-Hacker** (if growth/distribution) — amplify outputs from step 3
+3b. **Content-Strategist** (if content strategy needed) — editorial coherence for business content
 4. **Sentinel** — flags financial or reputational risk (if significant exposure)
 5. **Auditor** — post-execution audit: reviews deliverables against business objectives. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 6. **Reviewer** — validates alignment with strategy
@@ -112,6 +114,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 ## Content Workflow
 1. **Librarian** — locates source material and research
 1a. **MECE Research** — if the topic requires web research, invoke `/deep-research <topic>` to produce a comprehensive research brief at `drafts/research/`. Output becomes source material for Writer.
+1b. **Content-Strategist** (if multi-piece campaign or new content initiative) — content brief, SEO keywords, audience targeting, distribution plan. Skip for cron-generated or ad-hoc content.
 2. **Summarizer** — compresses research into working briefs (if extensive)
 3. **Writer** — produces draft from brief + source material, applying `core/standards/writing-style.md`. For Reddit content, use `/reddit-comments` to generate platform-appropriate comments.
 4. **Editor** — reviews structure, citations, fact-checking, voice consistency
@@ -119,6 +122,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 6. **Editor** — grants editorial approval to advance
 7. **Polisher** — formats approved content for publication (DOCX/PDF)
 8. **Reviewer** — final quality check
+8a. **Growth-Hacker** (if distribution/amplification) — channel strategy for published content. Skip for internal or cron content.
 9. **Librarian** — catalogs published artifact and updates indexes
 10. **Custodian** — verifies all agent checklists completed and cross-references are consistent
 11. **Historian** — records content creation event
@@ -263,6 +267,7 @@ Full workflow definition is in `.claude/skills/build-site/SKILL.md`. Summary of 
 3. **Visual Designer** — establishes visual direction: color palette, typography, spacing, animation approach
 4. **Writer** — drafts all page copy, applying `core/standards/writing-style.md`
 5. **Marketer** — reviews copy for positioning and conversion strength
+5a. **Content-Strategist** (if messaging/content strategy) — messaging coherence and strategic alignment
 6. **Editor** — reviews copy for voice, clarity, factual accuracy
 7. **Architect** — validates component structure and config schema compatibility
 8. **Engineer** — implements pages, components, configuration
@@ -270,6 +275,7 @@ Full workflow definition is in `.claude/skills/build-site/SKILL.md`. Summary of 
 10. **QA** — tests breakpoints, accessibility, content accuracy
 11. **Security-Expert** — reviews for XSS, injection, CSP, dependency vulnerabilities
 12. **Reviewer** — final quality gate against `core/standards/review-checklist.md`
+12a. **Growth-Hacker** (if conversion/distribution) — distribution and conversion optimization
 13. **DevOps** — deploys to target platform (if `--deploy` flag)
 14. **Documenter** — updates documentation
 15. **Librarian** — catalogs artifacts and updates indexes
