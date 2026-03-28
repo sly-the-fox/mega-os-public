@@ -1,29 +1,35 @@
 # Current State
 
-Last updated: YYYY-MM-DD
+Last updated: 2026-03-28
 
 ## What Exists
-- 26 agent files with complete prompts in .claude/agents/ (5 category subdirectories)
-- 7 shared resource files (system-rules, collaboration-protocol, handoff-template, output-template, escalation-rules, definitions, workflows)
-- Agent registry (REGISTRY.md) and overview (README.md, AGENTS.md)
+- 39 agent definitions in `.claude/agents/` (5 category subdirectories: governance, knowledge, technical, business, evolution)
+- 7 shared resource files (system-rules, workflows, collaboration-protocol, definitions, escalation-rules, handoff-template, output-template)
+- Agent registry (`REGISTRY.md`) and overview (`README.md`, `AGENTS.md`)
+- 24 skills (slash commands) in `.claude/skills/`
 - Core directory structure fully populated (indexes, standards, templates, history)
-- Active directory (now, priorities, inbox, blockers)
+- Active directory with 22 state files and `index.json` manifest
 - Products directory ready for projects
-- 3 skills: bug-triage, weekly-review, project-kickoff
 - Session hooks: SessionStart (context inject), Stop (state update reminder)
-- .claude/settings.json with permissions and agent teams env
+- `.claude/settings.json` with permissions and agent teams env
+- Merge protection (`.gitattributes` with `merge=ours`) on all user-data directories
 
 ## What Works
-- Agent definitions are complete and well-structured
+- Agent definitions are complete — all 39 agents have bounded roles and collaboration interfaces
+- Agent discovery via symlinks at `.claude/agents/*.md`
+- Agent teams enabled via `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+- All 24 skills invocable via `/command` syntax
+- 8 workflow pipelines defined (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
+- SessionStart hook loads active state and priorities on every session
 - Git version control active
-- Settings, permissions, and hooks configured
-- Skills invocable (/bug-triage, /weekly-review, /project-kickoff)
+- Framework updates via `/update` with data-safe merging
 
 ## What Needs Work
-- Add your first product under products/
-- Test multi-agent workflows end-to-end
-- Set up cron jobs or automation for recurring tasks
-- Customize agent prompts for your specific domain
+- Run `/setup` to personalize the system
+- Add your first product under `products/`
+- Customize writing style at `core/standards/writing-style.md`
+- Set up cron automations for recurring tasks (Phase 7 of `/setup`)
+- Create custom agents and skills for your domain
 
 ## Recent Changes
 - System initialized and ready for use

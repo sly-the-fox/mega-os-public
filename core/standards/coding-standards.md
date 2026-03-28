@@ -45,6 +45,24 @@
 - Use explicit relation names for clarity
 - Handle Prisma errors with typed catches
 
+## Shell Scripting (cron, deploy, utility scripts)
+- Start every script with `set -euo pipefail`
+- Quote all variables: `"$VAR"` not `$VAR`
+- Use `[[ ]]` for conditionals, not `[ ]`
+- Prefer `$(command)` over backticks
+- Use `local` for function variables
+- Log with timestamps: `echo "[$(date -Iseconds)] message"`
+- Exit codes: 0 = success, 1 = general error, 2 = usage error, 124 = timeout
+- ShellCheck compliance recommended for new scripts
+
+## Testing
+- Python: pytest with fixtures over setup/teardown
+- TypeScript: vitest preferred, jest acceptable
+- Test naming: `test_<what>_<condition>_<expected>`
+- New product code requires tests; system scripts and documents exempt
+- Coverage: no hard minimum — new features should include happy path + one edge case
+- Integration tests hit real dependencies when practical (not mocks)
+
 ## Database
 - Use migrations for schema changes
 - Name tables as plural nouns (snake_case)

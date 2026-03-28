@@ -1,15 +1,19 @@
+<!-- MEGA-OS:UNCONFIGURED -->
 # Current Focus
 
-## Active Work
-System initialized and ready for first task. All agents, standards, and infrastructure are in place.
+Run `/setup` to configure your Mega-OS instance.
 
-## Key Context
-- 26 agents defined across 5 categories — all prompts complete
-- Core docs, standards, templates, skills, hooks all populated
-- No active products yet — ready for your first project
+## Quick Start
 
-## Next Steps
-- Add your first product under products/
-- Test multi-agent workflows with a real task
-- Customize agents and standards for your needs
-- Set up automation for recurring tasks
+1. Type `/setup` for the interactive onboarding wizard
+2. Or jump straight in — ask Claude to help with any task
+
+## What You Have
+
+- **39 AI agents** organized in 5 categories (Governance, Knowledge, Technical, Business, Evolution)
+- **24 slash commands** for daily operations, building, system management, and deployment
+- **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
+- **Optional cron automations** for daily scans, news briefings, and system self-improvement
+- **A living task board** right here in `active/` that persists your context across every session
+
+See `GETTING_STARTED.md` for a walkthrough or just start working.
