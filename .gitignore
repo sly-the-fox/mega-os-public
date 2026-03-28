@@ -44,6 +44,10 @@ deliverables/*.docx
 .claude/settings.local.json
 .claude/worktrees/
 .claude/scheduled_tasks.lock
+.mcp.json
+
+# Playwright
+.wrangler/
 
 # Nested repos (upstream PR forks)
 products/sigil/public-repo/servers/

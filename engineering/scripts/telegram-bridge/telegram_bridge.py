@@ -18,6 +18,7 @@ import datetime
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 import time
@@ -251,6 +252,72 @@ def send_message(chat_id: int, text: str, reply_to: int | None = None):
                 raise
 
 
+def send_photo(chat_id: int, photo_path: str, caption: str = "", reply_to: int | None = None):
+    """Send a photo to a Telegram chat via multipart upload."""
+    url = f"{TELEGRAM_API}/sendPhoto"
+    try:
+        with open(photo_path, "rb") as f:
+            data = {"chat_id": str(chat_id)}
+            if caption:
+                data["caption"] = caption[:1024]
+            if reply_to:
+                data["reply_to_message_id"] = str(reply_to)
+            response = _http_client.post(url, data=data, files={"photo": f})
+            response.raise_for_status()
+            logger.info(f"Photo sent to chat {chat_id}: {photo_path}")
+    except Exception as e:
+        logger.error(f"Failed to send photo {photo_path}: {e}")
+
+
+def send_document(chat_id: int, doc_path: str, caption: str = "", reply_to: int | None = None):
+    """Send a document to a Telegram chat via multipart upload."""
+    url = f"{TELEGRAM_API}/sendDocument"
+    try:
+        with open(doc_path, "rb") as f:
+            data = {"chat_id": str(chat_id)}
+            if caption:
+                data["caption"] = caption[:1024]
+            if reply_to:
+                data["reply_to_message_id"] = str(reply_to)
+            response = _http_client.post(url, data=data, files={"document": f})
+            response.raise_for_status()
+            logger.info(f"Document sent to chat {chat_id}: {doc_path}")
+    except Exception as e:
+        logger.error(f"Failed to send document {doc_path}: {e}")
+
+
+# File extensions that can be sent as photos vs documents
+_IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+_DOC_EXTS = {".pdf", ".html", ".csv", ".txt", ".json"}
+_ALL_FILE_EXTS = _IMAGE_EXTS | _DOC_EXTS
+
+# Regex to find absolute file paths in response text
+_FILE_PATH_RE = re.compile(
+    r"(/(?:tmp|home)[^\s\"'`\])\*]+\.(?:png|jpg|jpeg|gif|webp|pdf|html|csv))"
+)
+
+
+def extract_and_send_files(chat_id: int, text: str, reply_to: int | None = None) -> list[str]:
+    """Scan response text for file paths, send matching files via Telegram.
+
+    Returns list of file paths that were successfully sent.
+    """
+    sent = []
+    matches = _FILE_PATH_RE.findall(text)
+    for path_str in dict.fromkeys(matches):  # deduplicate, preserve order
+        path = Path(path_str)
+        if not path.is_file():
+            continue
+        ext = path.suffix.lower()
+        if ext in _IMAGE_EXTS:
+            send_photo(chat_id, str(path), caption=path.name, reply_to=reply_to)
+            sent.append(path_str)
+        elif ext in _DOC_EXTS:
+            send_document(chat_id, str(path), caption=path.name, reply_to=reply_to)
+            sent.append(path_str)
+    return sent
+
+
 def handle_builtin_command(chat_id: int, command: str) -> bool | str:
     """Handle built-in commands. Returns True if handled, 'restart' to signal restart."""
     if command == "/status":
@@ -342,7 +409,16 @@ def invoke_claude(message: str, chat_id: int, use_session: bool = False) -> str:
 
         # "--" prevents message text from being parsed as flags
         cmd.append("--")
-        cmd.append(message)
+        # Prepend file-saving instruction so screenshots/PDFs land on disk
+        # and the bridge can detect paths and send files via Telegram
+        prefixed = (
+            "[System: When using browser_take_screenshot, ALWAYS provide a "
+            "filename parameter (e.g. screenshot-{timestamp}.png). Save to "
+            "/tmp/playwright-screenshots/. Include the full file path in your "
+            "response so it can be delivered. Same for playwright_save_as_pdf.]\n\n"
+            + message
+        )
+        cmd.append(prefixed)
 
         result = subprocess.run(
             cmd,
@@ -474,6 +550,11 @@ def main():
             # Invoke Claude (always resumes session for conversational continuity)
             response = invoke_claude(text, chat_id, use_session=True)
             try:
+                # Send any files (screenshots, PDFs) referenced in the response
+                sent_files = extract_and_send_files(chat_id, response, reply_to=msg_id)
+                if sent_files:
+                    logger.info(f"Sent {len(sent_files)} file(s) to chat {chat_id}")
+
                 send_message(chat_id, response, reply_to=msg_id)
                 log_message(chat_id, "bot", "out", response)
                 logger.info(f"Response sent to chat {chat_id} ({len(response)} chars)")
