@@ -41,6 +41,7 @@ CRON_JOBS = [
     ("Index Maintenance", "/tmp/mega-os-index-maintenance.log", 50, "sunday", None, 10),
     ("System Evaluation", "/tmp/mega-os-evaluation.log", 50, "1st,15th", None, 11),
     ("Competitor Monitor", "/tmp/mega-os-competitor-monitor.log", 50, "quarterly", None, 9),
+    ("Autocommit", "/tmp/mega-os-autocommit.log", 10, "daily", None, 10),
 ]
 
 DAY_MAP = {

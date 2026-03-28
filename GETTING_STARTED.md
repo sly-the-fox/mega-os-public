@@ -270,7 +270,8 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 |-------|-------------|
 | `/setup` | Interactive onboarding wizard (recommended first step) |
 | `/add-agent` | Create a new agent with all references in sync |
-| `/improvement-audit` | Deep system audit with rotating daily focus |
+| `/improvement-audit` | Deep system audit with rotating daily focus (persists all severities to audits.md) |
+| `/evolution-loop` | Full Evaluator → Coherence → Parallax → Improver feedback cycle |
 | `/coherence` | Invoke the Coherence perspective |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
 | `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
@@ -295,7 +296,7 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 | `active/priorities.md` | Ordered priority list |
 | `.claude/agents/REGISTRY.md` | Canonical agent directory |
 | `.claude/settings.json` | Permissions, agent teams, hooks |
-| `core/standards/` | Naming, coding, docs, review standards |
+| `core/standards/` | Naming, coding, docs, review, deployment, secrets standards |
 | `core/templates/` | Decision, spec, SOP, handoff templates |
 
 ---

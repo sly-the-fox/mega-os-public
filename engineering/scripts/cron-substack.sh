@@ -23,3 +23,4 @@ else
 fi
 
 /home/abzu/mega-os/engineering/scripts/notify-telegram.sh "Substack Article" $SUB_EXIT "$LOG"
+/home/abzu/mega-os/engineering/scripts/cron-autocommit.sh --job substack >> /tmp/mega-os-autocommit.log 2>&1
