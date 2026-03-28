@@ -36,3 +36,20 @@
 - Reviewer agent checks for doc completeness
 - Documenter agent creates/updates docs
 - Librarian agent ensures organization and discoverability
+
+## Frontmatter Convention
+
+All `active/*.md` files include YAML frontmatter with structured metadata:
+
+```yaml
+---
+title: Human-readable title
+owner: agent-name or user
+topics: [comma, separated, tags]
+load_priority: always | on_request | on_demand
+---
+```
+
+- Preserve frontmatter when editing files (system-rules.md rule 31)
+- `build-active-index.py` reads frontmatter with `FILE_META` fallback if frontmatter is absent
+- Cron-generated files include frontmatter in their output templates

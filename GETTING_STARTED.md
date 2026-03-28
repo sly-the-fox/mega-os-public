@@ -278,6 +278,7 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 | `/metrics-scan` | Fetch PyPI, GitHub, and website metrics *(create with `/add-skill`)* |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 | `/add-skill` | Create a new custom skill |
+| `/query` | Structured queries over contacts, pipeline, priorities, cross-references |
 
 **Deployment & Updates:**
 
@@ -300,6 +301,8 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 | `.claude/settings.json` | Permissions, agent teams, hooks |
 | `core/standards/` | Naming, coding, docs, review, deployment, secrets standards |
 | `core/templates/` | Decision, spec, SOP, handoff templates |
+| `core/indexes/cross-references.json` | Entity mention index (rebuilt daily) |
+| `active/changelog.jsonl` | Cross-session file modification log |
 
 ---
 
