@@ -38,7 +38,10 @@
     ".claude/skills/improvement-audit/SKILL.md",
     ".claude/skills/reddit-comments/reddit-comments.md",
     ".claude/skills/metrics-scan/SKILL.md",
-    "engineering/scripts/fetch-metrics.py"
+    "engineering/scripts/fetch-metrics.py",
+    ".claude/skills/news-briefing/references/output-template.md",
+    ".claude/skills/news-briefing/references/search-topics.md",
+    "core/standards/deployment-checklist.md"
   ],
   "exclude_patterns": [
     ".venv/",

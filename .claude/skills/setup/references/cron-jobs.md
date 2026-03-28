@@ -55,7 +55,7 @@
 The exact cron entries per selection:
 
 ```bash
-# 1. Daily improvement audit (7:30 AM)
+# 1. Daily improvement audit (7:30 AM) — requires /improvement-audit skill (create with /add-skill if not present)
 30 7 * * * cd <repo> && <claude> -p "/improvement-audit" --permission-mode auto > /tmp/mega-os-improvement-audit.log 2>&1
 
 # 2. Content generation (7:03 AM)

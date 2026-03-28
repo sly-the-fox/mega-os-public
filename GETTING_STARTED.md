@@ -270,12 +270,13 @@ Mega-OS is tool-agnostic at its core. The agent definitions, standards, and work
 |-------|-------------|
 | `/setup` | Interactive onboarding wizard (recommended first step) |
 | `/add-agent` | Create a new agent with all references in sync |
-| `/improvement-audit` | Deep system audit with rotating daily focus (persists all severities to audits.md) |
+| `/improvement-audit` | Deep system audit with rotating daily focus *(create with `/add-skill`)* |
 | `/evolution-loop` | Full Evaluator → Coherence → Parallax → Improver feedback cycle |
 | `/coherence` | Invoke the Coherence perspective |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
-| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
+| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics *(create with `/add-skill`)* |
 | `/polish` | Convert markdown to polished DOCX/PDF |
+| `/add-skill` | Create a new custom skill |
 
 **Deployment & Updates:**
 

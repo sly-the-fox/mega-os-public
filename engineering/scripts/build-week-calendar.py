@@ -104,6 +104,13 @@ def extract_events(today: datetime) -> dict[str, list[str]]:
 def build_calendar(today: datetime, events: dict[str, list[str]]) -> str:
     """Build the markdown calendar content."""
     lines = [
+        "---",
+        "title: Week Calendar",
+        "owner: week-calendar",
+        "topics: [week calendar]",
+        "load_priority: on_demand",
+        "---",
+        "",
         "# Week Calendar",
         "",
         f"Generated: {today.strftime('%Y-%m-%d')} ({today.strftime('%A')})",

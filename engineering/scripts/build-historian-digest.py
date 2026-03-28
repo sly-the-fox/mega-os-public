@@ -116,6 +116,13 @@ def build_digest() -> str:
     last_timeline = get_last_timeline_date()
 
     lines = [
+        "---",
+        "title: Recent Activity Digest",
+        "owner: historian-digest",
+        "topics: [history, recent-activity, commits, continuity]",
+        "load_priority: always",
+        "---",
+        "",
         "# Recent Activity Digest",
         "",
         f"Generated: {now.strftime('%Y-%m-%d %H:%M')}",
