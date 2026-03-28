@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Build active/index.json from active/*.md file metadata."""
+"""Build active/index.json from active/*.md file metadata.
+
+Also truncates active/changelog.jsonl to 500 lines if present.
+"""
 
 import json
 import os
@@ -7,9 +10,13 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-ACTIVE_DIR = Path(__file__).resolve().parent.parent.parent / "active"
+import yaml
 
-# Hardcoded topic + priority mappings (these files are stable)
+ACTIVE_DIR = Path(__file__).resolve().parent.parent.parent / "active"
+CHANGELOG = ACTIVE_DIR / "changelog.jsonl"
+CHANGELOG_MAX_LINES = 500
+
+# Hardcoded topic + priority mappings — fallback when frontmatter is absent
 FILE_META = {
     "now.md": {
         "topics": ["focus", "tasks", "milestones"],
@@ -75,15 +82,39 @@ FILE_META = {
         "topics": ["cron", "health", "monitoring", "automation"],
         "load_priority": "on_demand",
     },
-    "codex-metrics.md": {
-        "topics": ["evaluation", "metrics", "system-performance"],
-        "load_priority": "on_demand",
-    },
     "historian-digest.md": {
         "topics": ["history", "recent-activity", "commits", "continuity"],
         "load_priority": "always",
     },
 }
+
+
+def parse_frontmatter(filepath: Path) -> dict | None:
+    """Parse YAML frontmatter from a markdown file.
+
+    Returns dict with keys like 'title', 'owner', 'topics', 'load_priority'
+    or None if no valid frontmatter found.
+    Only looks for --- at the very start of the file.
+    """
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            first_line = f.readline().strip()
+            if first_line != "---":
+                return None
+            yaml_lines = []
+            for line in f:
+                if line.strip() == "---":
+                    break
+                yaml_lines.append(line)
+            else:
+                # Reached EOF without closing ---
+                return None
+        data = yaml.safe_load("\n".join(yaml_lines))
+        if not isinstance(data, dict):
+            return None
+        return data
+    except (OSError, yaml.YAMLError):
+        return None
 
 
 def get_summary(filepath: Path) -> str:
@@ -121,13 +152,21 @@ def build_index() -> dict:
     files = []
     for md_file in sorted(ACTIVE_DIR.glob("*.md")):
         filename = md_file.name
-        meta = FILE_META.get(filename)
-        if meta is None:
-            # Unknown file — index it as on_demand
-            meta = {
-                "topics": [filename.replace(".md", "").replace("-", " ")],
-                "load_priority": "on_demand",
-            }
+
+        # Try frontmatter first, fall back to FILE_META, then auto-derive
+        fm = parse_frontmatter(md_file)
+        fallback = FILE_META.get(filename)
+
+        if fm and "topics" in fm and "load_priority" in fm:
+            topics = fm["topics"]
+            load_priority = fm["load_priority"]
+        elif fallback:
+            topics = fallback["topics"]
+            load_priority = fallback["load_priority"]
+        else:
+            # Unknown file with no frontmatter — auto-derive
+            topics = [filename.replace(".md", "").replace("-", " ")]
+            load_priority = "on_demand"
 
         stat = md_file.stat()
         last_updated = datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc).strftime(
@@ -138,11 +177,11 @@ def build_index() -> dict:
             {
                 "filename": filename,
                 "path": f"active/{filename}",
-                "topics": meta["topics"],
+                "topics": topics,
                 "last_updated": last_updated,
                 "summary": get_summary(md_file),
                 "token_estimate": estimate_tokens(md_file),
-                "load_priority": meta["load_priority"],
+                "load_priority": load_priority,
             }
         )
 
@@ -151,6 +190,20 @@ def build_index() -> dict:
         "generated": datetime.now(tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
         "files": files,
     }
+
+
+def truncate_changelog():
+    """Keep only the last CHANGELOG_MAX_LINES lines of the changelog."""
+    if not CHANGELOG.exists():
+        return
+    lines = CHANGELOG.read_text(encoding="utf-8").splitlines()
+    if len(lines) <= CHANGELOG_MAX_LINES:
+        return
+    kept = lines[-CHANGELOG_MAX_LINES:]
+    tmp = CHANGELOG.with_suffix(".jsonl.tmp")
+    tmp.write_text("\n".join(kept) + "\n", encoding="utf-8")
+    tmp.rename(CHANGELOG)
+    print(f"Truncated changelog: {len(lines)} -> {CHANGELOG_MAX_LINES} lines")
 
 
 def main():
@@ -169,6 +222,9 @@ def main():
         print(
             f"  {entry['filename']:30s} priority={entry['load_priority']:12s} tokens={entry['token_estimate']}"
         )
+
+    # Truncate changelog if needed
+    truncate_changelog()
 
 
 if __name__ == "__main__":

@@ -79,8 +79,12 @@ daily_whitelist() {
         active/historian-digest.md \
         active/week-calendar.md \
         active/cron-health.md \
+        active/changelog.jsonl \
         business/marketing/channel-tracker.md \
         business/marketing/adoption-metrics.md \
+        business/network/contacts.json \
+        business/sales/pipeline.json \
+        core/indexes/cross-references.json \
         archive/index.json \
         deliverables/news/ \
         drafts/social/ \
@@ -89,7 +93,7 @@ daily_whitelist() {
 }
 
 daily_allowed_prefixes() {
-    echo "active/ business/marketing/ archive/ deliverables/news/ drafts/social/"
+    echo "active/ business/marketing/ business/network/contacts.json business/sales/pipeline.json core/indexes/cross-references.json archive/ deliverables/news/ drafts/social/"
 }
 
 # --- Per-job whitelists ---

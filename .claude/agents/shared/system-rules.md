@@ -159,3 +159,9 @@
     - Out-of-scope writes require Governor approval with justification logged to `core/history/decisions.md`.
     - The root orchestrator (main conversation context) is not bound by this matrix — it can write anywhere.
     - This matrix is enforced by convention and Governor review, not by mechanical file permissions.
+31. **Frontmatter preservation.** When editing active state files that have YAML frontmatter (the `---` block at the top), preserve the frontmatter block. Do not delete the `---` delimiters or the metadata between them. If you are rewriting the file, include the original frontmatter at the top of your output.
+32. **Cross-session changelog.** After modifying any file in `active/`, `business/network/contacts.md`, or `business/sales/pipeline.md`, append a single JSON line to `active/changelog.jsonl`:
+    ```
+    {"ts": "YYYY-MM-DDTHH:MM:SSZ", "file": "relative/path.md", "action": "update", "summary": "one-line description", "session": "interactive"}
+    ```
+    For cron outputs, the session field is `"cron"`. This is advisory — partial compliance is still valuable. The changelog is truncated daily to 500 lines by `build-active-index.py`.

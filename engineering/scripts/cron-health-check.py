@@ -33,6 +33,8 @@ CRON_JOBS = [
     ("Index Rebuild", "/tmp/mega-os-index.log", 10, "daily", None, 9),
     ("Briefing Archive", "/tmp/mega-os-archive.log", 10, "daily", None, 9),
     ("Historian Digest", "/tmp/mega-os-historian-digest.log", 10, "daily", "active/historian-digest.md", 9),
+    ("Tabular JSON", "/tmp/mega-os-tabular.log", 10, "daily", "business/network/contacts.json", 9),
+    ("Cross-Ref Index", "/tmp/mega-os-xref.log", 10, "daily", "core/indexes/cross-references.json", 9),
     ("Cron Health", "/tmp/mega-os-cron-health.log", 0, "daily", None, 9),  # Self — may not exist yet
     ("Content Pipeline", "/tmp/mega-os-content-pipeline.log", 50, "monday", None, 8),
     ("Weekly Review", "/tmp/mega-os-weekly-review.log", 100, "sunday", None, 10),
@@ -135,6 +137,13 @@ def main():
     day_name = today.strftime("%A")
 
     lines = [
+        "---",
+        "title: Cron Health Report",
+        "owner: cron-health-check",
+        "topics: [cron, health, monitoring, automation]",
+        "load_priority: on_demand",
+        "---",
+        "",
         "# Cron Health Report",
         "",
         f"**Generated:** {now} ({day_name})",

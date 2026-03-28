@@ -57,10 +57,10 @@ Then show the commands overview:
 |---------|-------------|
 | `/setup` | This wizard (re-run anytime to reconfigure) |
 | `/add-agent` | Create a new custom agent |
-| `/improvement-audit` | Deep system audit with rotating daily focus |
+| `/improvement-audit` | Deep system audit with rotating daily focus *(create with `/add-skill` if not present)* |
 | `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
-| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
+| `/metrics-scan` | Fetch PyPI, GitHub, and website metrics *(create with `/add-skill` if not present)* |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 
 **Deployment & Updates:**
@@ -89,7 +89,7 @@ Run these checks silently and report a summary:
    - `audits.md`, `coherence-metrics.md`, `freshness-log.md`, `freshstate-report.md`
    - `daily-digest.md`, `news-briefing.md`, `news-briefing-state.md`
    - `improvement-audit.md`, `workflow-review.md`, `system-evaluation.md`
-   - `cron-health.md`, `codex-metrics.md`, `dream-report.md`
+   - `cron-health.md`, `coherence-metrics.md`, `dream-report.md`
    - Also verify `active/index.json` exists (critical — SessionStart hook depends on it)
    - Create any missing files with the placeholder templates from the public repo (empty tables, zero counters, "No items yet" stubs). If `index.json` is missing, create it with the starter manifest listing all 19 active files.
 4. **Core directories check** — Verify `core/standards/`, `core/templates/`, `core/indexes/`, `core/history/` exist. Create any missing directories.
