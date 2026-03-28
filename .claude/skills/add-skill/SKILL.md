@@ -74,7 +74,9 @@ Create a new skill and update all references so everything stays in sync.
    ```
    If it reports mismatches, fix them before proceeding.
 
-9. **Commit** — Stage all changed files and offer to commit:
+9. **Cross-check** — Suggest running `/framework-sync --validate-only` to verify all cross-references are consistent after the skill addition.
+
+10. **Commit** — Stage all changed files and offer to commit:
    ```
    system: add /<name> skill for <description>
    ```

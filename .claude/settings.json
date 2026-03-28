@@ -59,6 +59,17 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash engineering/scripts/detect-framework-changes.sh"
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
