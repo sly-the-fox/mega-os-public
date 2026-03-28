@@ -107,15 +107,15 @@ Reference schedule:
 
 | Day | Channels |
 |-----|----------|
-| Mon | Twitter, TikTok, Dev.to, Reddit |
-| Tue | Twitter (thread), TikTok, LinkedIn, Substack (defer to `/write-content`) |
-| Wed | Twitter, TikTok, Dev.to, Reddit |
-| Thu | Twitter, TikTok, Dev.to, LinkedIn |
-| Fri | Twitter, TikTok |
-| Sat | Twitter, TikTok, Dev.to |
-| Sun | Twitter, TikTok |
+| Mon | Twitter, Dev.to, Reddit |
+| Tue | Twitter (thread), LinkedIn, Substack (defer to `/write-content`) |
+| Wed | Twitter, Dev.to, Reddit |
+| Thu | Twitter, Dev.to, LinkedIn |
+| Fri | Twitter |
+| Sat | Twitter, Dev.to |
+| Sun | Twitter |
 
-> **Note:** Discord is paused (no traction). TikTok scripts accumulate until account is created.
+> **Note:** Discord is paused (no traction). TikTok is paused (2026-03-26) — re-add when account is created and strategy decided.
 
 If `--channels` is provided, use only those channels (overrides schedule).
 If a channel is "Substack," respond with: "Use `/write-content` for long-form Substack articles."
