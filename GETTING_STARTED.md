@@ -34,6 +34,7 @@ That's it. On startup, Claude Code will:
 - Run the SessionStart hook (loads `active/now.md` and `active/priorities.md`)
 - Discover all 39 agents via symlinks in `.claude/agents/`
 - Enable agent teams via `.claude/settings.json`
+- Load agent capability profiles for optimized routing
 
 You're ready to work.
 

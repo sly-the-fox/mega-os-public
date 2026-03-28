@@ -5,7 +5,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ## What You Get
 
 - **39 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
-- **26 slash commands** for daily operations, building, system management, and deployment
+- **28 slash commands** for daily operations, building, system management, and deployment
 - **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -104,6 +104,7 @@ Your personal data (`active/`, `business/`, `products/`, etc.) is protected by `
 | `/coherence` | Invoke the Coherence perspective (harmonic awareness) |
 | `/workflow-review` | Analyze workflow patterns and operational friction |
 | `/evolution-loop` | Run the full self-improvement cycle (Evaluator → Coherence → Improver) |
+| `/framework-sync` | Reconcile docs and sync after framework file changes (auto-triggered on commit) |
 | `/metrics-scan` | Fetch PyPI, GitHub, and website metrics for your packages |
 | `/polish` | Convert markdown to polished DOCX/PDF |
 
@@ -125,7 +126,7 @@ mega-os/
       technical/       # architect, engineer, executor, reviewer, qa, debugger, devops, security-expert, designer, visual-designer, api-designer
       business/        # strategist, marketer, seller, financier, proposal-writer, client-manager, content-strategist, growth-hacker
       evolution/       # improver, evaluator, coherence, parallax
-      shared/          # system rules, collaboration protocol, templates
+      shared/          # system rules, collaboration protocol, templates, agent capability taxonomy
     skills/            # slash commands (setup, add-agent, project-kickoff, bug-triage, daily-scan, etc.)
   active/              # living task board (loaded every session)
     now.md             # current focus and active work
@@ -134,7 +135,7 @@ mega-os/
     blockers.md        # active blockers
     risks.md           # risk register
     improvements.md    # improvement proposals
-  core/                # standards, templates, indexes, project history
+  core/                # standards (14), templates, indexes, project history, trace data
   products/            # product codebases
   engineering/         # scripts, automations, infrastructure
   business/            # assets, clients, finance, marketing, operations
