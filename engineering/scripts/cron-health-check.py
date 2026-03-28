@@ -103,10 +103,14 @@ def check_log(log_path: str, min_bytes: int, today: date) -> dict:
                     result["exit_code"] = code
                     result["exit_ok"] = code == 0
                     result["timed_out"] = code == 124
+                    result["oom_killed"] = code == 137
                 break
-        # If no explicit exit line, check if content exists and is recent
-        if result["exit_code"] is None and result["modified_today"] and result["size_ok"]:
-            result["exit_ok"] = True  # Assume OK if log is fresh and has content
+        # If no explicit exit line but log exists and is fresh
+        if result["exit_code"] is None:
+            if result["modified_today"] and result["size_ok"]:
+                result["exit_ok"] = True  # Assume OK if log is fresh and has content
+            elif result["modified_today"] and not result["size_ok"]:
+                result["no_exit_line"] = True  # Log exists but no exit code — likely killed
     except OSError:
         pass
 
@@ -166,9 +170,15 @@ def main():
             elif health["timed_out"]:
                 status = "TIMEOUT"
                 failures.append(f"{name}: timed out (exit 124)")
+            elif health.get("oom_killed"):
+                status = "OOM KILLED"
+                failures.append(f"{name}: killed by OOM (exit 137)")
             elif not health["exit_ok"] and health["exit_code"] is not None:
                 status = "FAILED"
                 failures.append(f"{name}: exit code {health['exit_code']}")
+            elif health.get("no_exit_line"):
+                status = "NO EXIT"
+                failures.append(f"{name}: log exists but no exit code found — process may have been killed")
             elif not health["size_ok"]:
                 status = "EMPTY"
                 warnings.append(f"{name}: log suspiciously small (<{min_bytes}b)")
