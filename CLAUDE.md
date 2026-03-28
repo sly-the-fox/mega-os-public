@@ -41,7 +41,8 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 - **Active Index:** `active/index.json` — machine-readable manifest with load priorities
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
 - **Archive:** `archive/` — aged content organized by type and ISO week (`archive/index.json` is the manifest)
-- **Standards:** `core/standards/` — naming, documentation, coding, review checklist
+- **Standards:** `core/standards/` — naming, documentation, coding, review checklist, trace-schema, tool-validation, mcp-integration, tool-chaining
+- **Trace Data:** `core/history/traces/` — workflow, timing, and event JSONL logs (gitignored, rebuilt at runtime)
 - **History:** `core/history/` — decisions, current state, timeline
 - **Templates:** `core/templates/` — decision, spec, SOP, handoff
 
@@ -202,10 +203,10 @@ On the first non-trivial request of any session:
 Workflow summaries are below. Full definitions with triggers, severity classification, and detailed steps are in `.claude/agents/shared/workflows.md`.
 
 ### Planning
-Planner → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → Visual Designer (if frontend/UI) → PM → Specialists → QA → Reviewer → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
+Planner → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → Router → Governor → Sentinel (if risk) → Auditor (pre-execution) → Designer (if UX) → Visual Designer (if frontend/UI) → PM → Specialists → QA → Reviewer → **Framework Sync (if framework files changed)** → Documenter → Librarian → **Custodian** → Historian → Evaluator (at completion)
 
 ### Technical
-Architect → API-Designer (if API) → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Visual Designer (if frontend/UI) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
+Architect → API-Designer (if API) → **Coherence+Parallax Checkpoint** → DevOps (if infra) → Designer (if frontend) → Security-Expert (threat model) → Engineer → Security-Expert (code review) → Engineer (fix + extend) → Visual Designer (if frontend/UI) → Security-Expert (second pass) → Sentinel (if scope drift) → Auditor (post-execution) → QA → Reviewer → **Framework Sync (if framework files changed)** → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
 
 For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API boundaries), a single security pass after coding suffices and Coherence Checkpoint is skipped. Security-Expert is **mandatory** for auth, crypto, secrets, input validation, API boundaries, or data access. Parallelizable steps (Security+Engineer, Auditor+QA) may use worktree isolation — see workflows.md.
 

@@ -87,7 +87,7 @@ Use the Agent tool with `subagent_type` set to the agent's filename (without `.m
 - `subagent_type: pm` — invoke the project manager agent
 - `subagent_type: security-expert` — invoke the security expert agent
 
-Each agent file lives under `.claude/agents/<category>/` with YAML frontmatter and standardized sections: Role, Mission, Responsibilities, Inputs, Outputs, Boundaries, Escalate When, Collaboration.
+Each agent file lives under `.claude/agents/<category>/` with YAML frontmatter including `capabilities:` (primary/secondary/domain) and standardized sections: Role, Mission, Responsibilities, Inputs, Outputs, Boundaries, Escalate When, Collaboration. See `.claude/agents/shared/agent-capabilities.md` for the capability taxonomy.
 
 ## Agent Spawning Rules
 
@@ -98,3 +98,13 @@ Each agent file lives under `.claude/agents/<category>/` with YAML frontmatter a
 4. **Exceptions for standalone Agent tool:** (a) Read-only research/exploration (including Coherence+Parallax checkpoints). (b) Worktree-isolated agents for parallel, independent work (spawned with `isolation: "worktree"`). Prefer teams when agents need to coordinate mid-task.
 5. **Agent discovery is flat.** Claude Code only finds agents at `.claude/agents/*.md` (top level). Category subdirectories have symlinks at the top level.
 6. **File write fallback.** Prefer writing files from the main context. If a subagent write fails, retry once. If it fails again, include content inline so nothing is silently lost.
+
+## Capability-Based Routing
+
+All 39 agents have structured capability profiles in their frontmatter (`capabilities:` field). The Router uses these for enhanced dispatch:
+
+1. **Domain match** — technical task routes to technical domain agents first
+2. **Primary capability match** — analysis task routes to agents with `analysis` as primary
+3. **Secondary capability match** — fallback if no primary match
+
+This supplements workflow-based routing. Capabilities refine which agent is best suited; workflows define the sequence. See `.claude/agents/shared/agent-capabilities.md`.

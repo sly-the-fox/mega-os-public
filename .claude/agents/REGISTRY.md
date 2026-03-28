@@ -79,6 +79,11 @@ Use individual agent files for role-specific behavior. Use `shared/` files for s
 | `shared/escalation-rules.md` | When and how to escalate |
 | `shared/workflows.md` | Standard workflow sequences and evolution loop |
 | `shared/definitions.md` | Key terms and concepts |
+| `shared/agent-capabilities.md` | Capability taxonomy for routing (10 categories, 6 domains) |
+
+## Capability Profiles
+
+All agents have structured capability profiles in their frontmatter (`capabilities:` field with `primary`, `secondary`, and `domain` keys). The Router uses these for capability-based routing. See `shared/agent-capabilities.md` for the taxonomy.
 
 ## Agent Count
 
