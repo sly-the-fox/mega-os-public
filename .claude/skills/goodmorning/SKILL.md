@@ -24,159 +24,29 @@ Auto-detect which crons ran today, read their outputs, and present a structured 
      - `active/workflow-review.md` — Workflow Review (Sunday only)
    - A file counts as "ran today" if its modification date matches today's date.
    - Print a status line for each expected job: checkmark if ran, X if not.
+   - **Check for notification failures:** Scan `active/cron-health.md` for lines containing `NOTIFICATION_FAILED` from the last 24 hours. If found, surface as a warning: "N Telegram notification(s) failed overnight — check cron-health.md for details."
 
-2. **Lane 1: Dream**
-   - Read `active/dream-report.md`.
-   - Extract the blockquoted question (line starting with `>`).
-   - Display in a blockquote. If file is stale or missing, note "Dream did not run."
+2. **Present 7 lanes** from overnight outputs. Each lane is a separate `###` section.
 
-3. **Lane 2: Action Items (Daily Digest)**
-   - Read `active/daily-digest.md`.
-   - Extract the Critical and Needs Review sections.
-   - List items numbered, preserving severity.
-   - If digest is stale, note "Daily scan has not run yet today."
+   | Lane | Source | Key Content |
+   |------|--------|-------------|
+   | Dream | active/dream-report.md | Blockquoted question |
+   | Action Items | active/daily-digest.md | Critical + Needs Review items |
+   | Improvement Audit | active/improvement-audit.md | Focus area, HIGH findings |
+   | News Intelligence | active/news-briefing.md | HIGH-significance headlines |
+   | System Health | freshstate + cron-health + metrics | Compact dashboard |
+   | Content Pipeline | channel-tracker.md | Today's schedule + overdue |
+   | Workflow Review | active/workflow-review.md | Mon only or if updated today |
 
-4. **Lane 3: Improvement Audit**
-   - Read `active/improvement-audit.md`.
-   - Extract: Focus area, finding counts (HIGH/MEDIUM/LOW), executive summary.
-   - List HIGH-severity findings with one-line descriptions.
-   - IMPORTANT: Never merge this lane with Workflow Review. They are always separate.
+   > See `references/lane-definitions.md` for detailed extraction rules per lane.
 
-5. **Lane 4: News Intelligence**
-   - Read `active/news-briefing.md`.
-   - Extract: total story count, HIGH-significance count.
-   - List top 5 HIGH-significance headlines with one-line summaries.
+3. **Generate Suggested Plan** from `active/now.md` and `active/priorities.md`. Categorize into 4 parts: Fix (critical items, 30 min), Review (human judgment, 20 min), Create (dev/content work), Outreach (revenue actions, contact follow-ups, content posting).
 
-6. **Lane 5: System Health**
-   - Read `active/freshstate-report.md` — extract stale count, violation count.
-   - Read `active/cron-health.md` — extract failure/warning counts.
-   - Read `business/marketing/adoption-metrics.md` — extract the last row from "Sigil Notary" section.
-   - Read `active/system-evaluation.md` if it exists — extract latest evaluation summary.
-   - Combine into a compact health dashboard.
+   > See `references/lane-definitions.md` — "Suggested Plan Generation" section for full source files, sorting rules, and contact/channel-tracker extraction logic.
 
-7. **Lane 6: Content Pipeline**
-   - Read `business/marketing/channel-tracker.md`.
-   - Extract today's scheduled content (by date in "Upcoming Content" section).
-   - List items with pipeline status: "drafted", "not started", "posted".
-   - Flag any items in "drafted" status that are >2 days old as "OVERDUE".
+4. **Present output** using the structured template. Each lane gets its own `###` section with `---` separators. Never combine lanes. Never skip lanes that have data. Missing/stale lanes show the header with a note.
 
-8. **Lane 7: Workflow Review (conditional)**
-   - Only display this lane on Mondays or if `active/workflow-review.md` was updated today.
-   - Read `active/workflow-review.md`.
-   - Extract: focus area, key findings, action items.
-   - IMPORTANT: This is always a separate lane from the Improvement Audit.
-
-9. **Generate Suggested Plan**
-   - Read `active/now.md` — extract all unchecked items (`- [ ]`).
-   - Read `active/priorities.md` — understand P1/P2/P3 ranking.
-   - Categorize unchecked items into:
-     - **Part 1 — Fix (30 min):** Critical items from daily digest that can be resolved quickly.
-     - **Part 2 — Review (20 min):** Items needing human judgment (needs-review items, improvement proposals).
-     - **Part 3 — Create (flexible):** Scheduled creative/development work from now.md.
-     - **Part 4 — Outreach (flexible):** Revenue-generating actions, contact follow-ups, and content posting.
-       - From `active/now.md`: extract cold calls, LinkedIn DMs, cold connection requests, community outreach.
-       - From `business/network/contacts.md`: pull rows where Follow-Up column <= today.
-         - Show overdue first (sorted by days overdue descending), then due today.
-         - Format: `[Platform]: Follow up with [Name] — [Next Action]`
-         - Place after revenue outreach items, before content posting.
-       - From `business/marketing/channel-tracker.md`: for each platform with today's content in "drafted" or "content ready" status, add: "Post [topic] to [platform] (`draft-path`)"
-       - Platforms to check: Twitter/X, TikTok, Dev.to, Reddit, LinkedIn, Discord, Substack, HN
-       - Order: revenue outreach first (calls, DMs), then contact follow-ups, then content posting by platform.
-   - Prioritize P1 items and revenue-generating tasks.
-
-10. **Present output**
-    - Use the format below. Each lane is its own `###` section with a `---` separator.
-    - Do NOT combine lanes. Do NOT skip lanes that have data.
-    - If a lane has no data (file missing or stale), show the lane header with a note.
-
-## Output Format
-
-```markdown
-## Good Morning — YYYY-MM-DD (Day of Week)
-
-### What Ran Today
-✓ Dream (5:30 AM) ✓ Improvement Audit (7:30 AM) ✓ News Briefing (8:45 AM)
-✓ Daily Scan (9:10 AM) ✓ Freshstate (9:17 AM) ✗ Content Gen (FAILED)
-
----
-
-### Lane 1: Dream
-> [The question]
-
----
-
-### Lane 2: Action Items
-**Critical (N)**
-1. [item — source file, age]
-2. ...
-
-**Needs Review (N)**
-3. [item — source file, age]
-...
-
----
-
-### Lane 3: Improvement Audit
-Focus: [area] ([day] rotation)
-Findings: N HIGH / N MEDIUM / N LOW
-Theme: [executive summary one-liner]
-
-HIGH findings:
-- [finding 1]
-- [finding 2]
-...
-
----
-
-### Lane 4: News Intelligence
-Stories: N total, N HIGH significance
-- [headline 1]
-- [headline 2]
-- [headline 3]
-- [headline 4]
-- [headline 5]
-
----
-
-### Lane 5: System Health
-- Freshstate: N files checked, N stale, N violations
-- Cron Health: N failures, N warnings
-- Sigil: ~N downloads, N stars
-
----
-
-### Lane 6: Content Pipeline
-Today's schedule: [channels]
-Drafted: [list]
-Overdue (>2 days in drafted): [list or "none"]
-
----
-
-### Lane 7: Workflow Review (if applicable)
-[findings and action items]
-
----
-
-### Suggested Plan
-
-**Part 1 — Fix (30 min)**
-- [ ] [critical item 1]
-- [ ] [critical item 2]
-
-**Part 2 — Review (20 min)**
-- [ ] [review item 1]
-- [ ] [review item 2]
-
-**Part 3 — Create (flexible)**
-- [ ] [development/content task]
-
-**Part 4 — Outreach (flexible)**
-- [ ] [cold call / DM / connection request]
-- [ ] [Platform]: Follow up with [Name] — [next action]
-- [ ] Post [topic] to Twitter/X (`drafts/social/...`)
-- [ ] Post [topic] to Dev.to (`drafts/social/...`)
-- [ ] Post [topic] to Reddit (`drafts/social/...`)
-```
+   > See `references/output-template.md` for the full markdown template.
 
 ## Key Rules
 

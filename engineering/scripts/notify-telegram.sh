@@ -36,8 +36,8 @@ BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}"
 CHAT_ID="${NOTIFY_CHAT_ID:-${ALLOWED_CHAT_IDS%%,*}}"  # Use first allowed chat ID as default
 
 if [[ -z "$BOT_TOKEN" || -z "$CHAT_ID" ]]; then
-    echo "ERROR: TELEGRAM_BOT_TOKEN or NOTIFY_CHAT_ID/ALLOWED_CHAT_IDS not set" >&2
-    exit 1
+    echo "SKIP: TELEGRAM_BOT_TOKEN or NOTIFY_CHAT_ID/ALLOWED_CHAT_IDS not set" >&2
+    exit 2  # Exit 2 = skipped (not configured), distinct from exit 1 (failed)
 fi
 
 JOB_NAME="${1:?Usage: notify-telegram.sh <job-name> <exit-code> [log-file]}"
@@ -72,9 +72,25 @@ $LOG_TAIL"
     fi
 fi
 
-# Send via Telegram Bot API
-curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-    -d chat_id="$CHAT_ID" \
-    -d text="$MSG" \
-    -d parse_mode="" \
-    > /dev/null 2>&1 || echo "WARN: Telegram notification failed" >&2
+# Send via Telegram Bot API (with single retry on failure)
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+HEALTH_FILE="$REPO_ROOT/active/cron-health.md"
+
+send_telegram() {
+    curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+        -d chat_id="$CHAT_ID" \
+        -d text="$MSG" \
+        -d parse_mode="" \
+        > /dev/null 2>&1
+}
+
+if ! send_telegram; then
+    echo "WARN: Telegram notification failed, retrying in 30s..." >&2
+    sleep 30
+    if ! send_telegram; then
+        echo "ERROR: Telegram notification failed after retry" >&2
+        # Fallback: log to persistent cron-health file (survives reboots, read by /goodmorning)
+        echo "| $(date '+%Y-%m-%d %H:%M') | NOTIFICATION_FAILED | $JOB_NAME (exit: $EXIT_CODE) | Telegram unreachable after retry |" >> "$HEALTH_FILE" 2>/dev/null
+        exit 1
+    fi
+fi

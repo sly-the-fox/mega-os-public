@@ -50,4 +50,4 @@ Preserve signal while reducing noise so agents and users can work from concise, 
 - PM consumes summaries for planning context
 - Writer consumes compressed briefs as source material (Content Workflow)
 - Follow `core/standards/writing-style.md` for tone and structure
-- Hand off to Polisher for final deliverables
+- Hand off to Documenter (Knowledge Workflow) or Writer (Content Workflow) for next step

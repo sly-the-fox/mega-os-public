@@ -37,7 +37,7 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 
 - **Agent Registry:** `.claude/agents/REGISTRY.md` — canonical directory of all agents
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
-- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, audits.md, daily-digest.md, dream-report.md, news-briefing.md, news-briefing-state.md, freshness-log.md, freshstate-report.md, cron-health.md, historian-digest.md, improvement-audit.md, workflow-review.md, system-evaluation.md, coherence-metrics.md, codex-metrics.md (index.json is the canonical manifest)
+- **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, audits.md, daily-digest.md, dream-report.md, news-briefing.md, news-briefing-state.md, freshness-log.md, freshstate-report.md, cron-health.md, historian-digest.md, improvement-audit.md, workflow-review.md, system-evaluation.md, coherence-metrics.md (index.json is the canonical manifest)
 - **Active Index:** `active/index.json` — machine-readable manifest with load priorities
 - **Indexes:** `core/indexes/` — project map, canonical files, context map
 - **Archive:** `archive/` — aged content organized by type and ISO week (`archive/index.json` is the manifest)
@@ -212,7 +212,7 @@ For small changes (< 3 files modified, no auth/crypto/input handling/secrets/API
 For all technical work, follow `core/standards/coding-standards.md`. Reviewer uses `core/standards/review-checklist.md` as the gate checklist.
 
 ### Business
-Strategist → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
+Strategist → MECE Research (if needed) → **Coherence+Parallax Checkpoint** → Designer (if brand/product) → Marketer / Seller / Financier → Growth-Hacker (if growth/distribution) → Content-Strategist (if content strategy) → Sentinel (if financial/reputational risk) → Auditor (post-execution) → Reviewer → Operator (if new processes) → **Custodian** → Historian → Evaluator (at milestone)
 
 ### Incident
 Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engineer → QA → Auditor (if significant) → Operator (if process gaps) → Documenter → Librarian → **Custodian** → Historian
@@ -221,7 +221,7 @@ Debugger → Sentinel (blast radius) → Security-Expert (if security) → Engin
 Librarian → MECE Research (if needed) → Summarizer → Documenter → Polisher (if external) → Reviewer → Librarian (catalog final output) → **Custodian** → Historian
 
 ### Content Creation
-Librarian → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher (DOCX/PDF to `deliverables/`) → Reviewer → Librarian (catalog) → **Custodian** → Historian
+Librarian → Content-Strategist (if campaign/new initiative) → Summarizer (if extensive research) → Writer → Editor → Writer (revise, repeat as needed) → Editor (final approval) → Polisher (DOCX/PDF to `deliverables/`) → Reviewer → Growth-Hacker (if distribution) → Librarian (catalog) → **Custodian** → Historian
 
 **Mandatory:** The Editor and Polisher steps are NEVER skipped. Writer saves drafts to `drafts/`. Editor edits drafts in place. Polisher produces final DOCX/PDF to `deliverables/`. Content agents (Writer, Editor, Polisher) MUST be spawned as an agent team using TeamCreate, NOT as individual subagents. Team members get full file access; standalone subagents do not.
 
@@ -243,6 +243,11 @@ Librarian → Summarizer (if extensive research) → Writer → Editor → Write
 **If in doubt, run it through the flow.** Never generate publishable text in a raw response without applying the style guide.
 
 **Trigger:** See "User-Voice Content Gate" in the Conversational Triage section above. That gate ensures style enforcement fires BEFORE generation, not as a post-hoc check.
+
+### Site Build
+Strategist → Designer → Visual Designer → Writer → Marketer → Content-Strategist (if messaging strategy) → Editor → Architect → Engineer → Visual Designer (polish) → QA → Security-Expert → Reviewer → Growth-Hacker (if conversion/distribution) → DevOps (if deploy) → Documenter → Librarian → **Custodian** → Historian
+
+Triggered by `/build-site`. Visual Designer gets a dedicated polish pass after Engineer implementation. Full definition in `workflows.md`.
 
 ### Evolution Loop
 Evaluator + Improver feedback cycle. Full definition with triggers, approval flow, and state management in `workflows.md`.

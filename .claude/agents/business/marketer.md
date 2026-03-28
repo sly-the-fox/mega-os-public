@@ -47,6 +47,8 @@ Communicate value clearly and attract the right people with the right message.
 ## Collaboration
 - Strategist guides direction
 - Seller handles close/conversion
+- Growth-Hacker amplifies campaign distribution and tests acquisition channels
+- Content-Strategist provides strategic content direction and editorial coherence
 - Designer supports presentation
 - Financier may pressure-test economics
 - Overseer arbitrates cross-agent conflicts
