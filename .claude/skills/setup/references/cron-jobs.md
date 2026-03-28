@@ -20,21 +20,23 @@
 | 5 | News briefing | 8:45 AM | AI/tech intelligence briefing with optional Telegram delivery |
 | 6 | Daily system scan | 9:10 AM | Scans all active state for stale/overdue items, produces `active/daily-digest.md` |
 | 7 | Freshstate scan | 9:17 AM | Checks document freshness, alerts on stale docs via Telegram |
+| 8 | Tabular JSON rebuild | 9:23 AM | Rebuilds `contacts.json` + `pipeline.json` from markdown sources (zero cost) |
+| 9 | Cross-reference index | 9:24 AM | Rebuilds entity mention index across all files (zero cost) |
 
 **Weekly:**
 | # | Name | Schedule | Description |
 |---|------|----------|-------------|
-| 8 | Content pipeline status | Mon 8:03 AM | Weekly content pipeline check with Telegram summary |
-| 9 | Risk staleness alert | Wed 9:07 AM | Flags risks unmaintained >14 days |
-| 10 | Weekly review | Sun 10:13 AM | Comprehensive system review + state updates |
-| 11 | Revenue check-in | Sun 10:27 AM | Reviews revenue tracker, sends Telegram status |
-| 12 | Index maintenance | Sun 10:47 AM | Verifies core/indexes/ consistency with filesystem |
+| 10 | Content pipeline status | Mon 8:03 AM | Weekly content pipeline check with Telegram summary |
+| 11 | Risk staleness alert | Wed 9:07 AM | Flags risks unmaintained >14 days |
+| 12 | Weekly review | Sun 10:13 AM | Comprehensive system review + state updates |
+| 13 | Revenue check-in | Sun 10:27 AM | Reviews revenue tracker, sends Telegram status |
+| 14 | Index maintenance | Sun 10:47 AM | Verifies core/indexes/ consistency with filesystem |
 
 **Monthly:**
 | # | Name | Schedule | Description |
 |---|------|----------|-------------|
-| 13 | System evaluation | 1st & 15th, 11:03 AM | Evaluator assessment of system health |
-| 14 | Competitor monitoring | 1st of month, 9:03 AM | Scans for news about competitors |
+| 15 | System evaluation | 1st & 15th, 11:03 AM | Evaluator assessment of system health |
+| 16 | Competitor monitoring | 1st of month, 9:03 AM | Scans for news about competitors |
 
 **Step 3 — Ask the user to pick:**
 - Numbers (e.g., "1, 6, 10")

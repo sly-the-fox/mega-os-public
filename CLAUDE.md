@@ -39,7 +39,9 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 - **Shared Rules:** `.claude/agents/shared/system-rules.md`
 - **Active State:** `active/` — now.md, priorities.md, inbox.md, blockers.md, risks.md, improvements.md, audits.md, daily-digest.md, dream-report.md, news-briefing.md, news-briefing-state.md, freshness-log.md, freshstate-report.md, cron-health.md, historian-digest.md, improvement-audit.md, workflow-review.md, system-evaluation.md, coherence-metrics.md (index.json is the canonical manifest)
 - **Active Index:** `active/index.json` — machine-readable manifest with load priorities
-- **Indexes:** `core/indexes/` — project map, canonical files, context map
+- **Indexes:** `core/indexes/` — project map, canonical files, context map, cross-references
+- **Cross-Reference Index:** `core/indexes/cross-references.json` — entity mention map across all files (rebuilt daily 9:24 AM)
+- **Changelog:** `active/changelog.jsonl` — cross-session file modification log (see system-rules.md rule 32)
 - **Archive:** `archive/` — aged content organized by type and ISO week (`archive/index.json` is the manifest)
 - **Standards:** `core/standards/` — naming, documentation, coding, review checklist, trace-schema, tool-validation, mcp-integration, tool-chaining
 - **Trace Data:** `core/history/traces/` — workflow, timing, and event JSONL logs (gitignored, rebuilt at runtime)
