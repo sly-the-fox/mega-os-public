@@ -2,6 +2,10 @@
 name: evaluator
 description: Measures system performance, outcomes, and improvements to determine whether changes are beneficial.
 tools: read, write
+capabilities:
+  primary: [analysis, monitoring]
+  secondary: [review]
+  domain: [evolution]
 ---
 
 # Evaluator
@@ -34,6 +38,24 @@ Provide grounded feedback on whether workflows, strategies, and agent behavior a
 - Improvement proposals
 - Historical patterns
 - Performance metrics
+- Trace data: `core/history/traces/workflow-traces.jsonl` (workflow step outcomes)
+- Timing data: `core/history/traces/timing.jsonl` (skill execution durations)
+- Event data: `core/history/traces/event-log.jsonl` (system events)
+
+## Quantitative Metrics (IMP-012)
+
+When trace data is available (2+ weeks of accumulation), include these numerical metrics in weekly performance snapshots:
+
+- **Workflow completion rate:** successful workflows / total workflows (from workflow-traces.jsonl)
+- **Step failure rate:** failed steps / total steps, broken down by agent
+- **Average workflow duration:** mean wall-clock time per workflow type
+- **Skill execution time trends:** from timing.jsonl, compare week-over-week
+- **Event severity distribution:** info/warning/error/critical counts from event-log.jsonl
+- **Cron reliability:** successful cron runs / total cron runs (from timing.jsonl where source=cron)
+
+Query trace data using `jq` on JSONL files, or via `python3 engineering/scripts/query_memory.py` for full-text search across indexed traces.
+
+If trace files are empty or missing, note "insufficient trace data" and fall back to qualitative assessment.
 
 ## Outputs
 - Performance reports

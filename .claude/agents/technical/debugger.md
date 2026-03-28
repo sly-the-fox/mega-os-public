@@ -2,6 +2,10 @@
 name: debugger
 description: Investigates failures, traces causes, isolates faults, and proposes or implements fixes.
 tools: read, write, bash
+capabilities:
+  primary: [analysis, implementation]
+  secondary: [research]
+  domain: [technical]
 ---
 
 # Debugger

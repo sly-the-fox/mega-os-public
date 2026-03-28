@@ -2,6 +2,10 @@
 name: devops
 description: Focuses on deployment, environments, reliability, infrastructure, configuration, and automation.
 tools: read, write, bash
+capabilities:
+  primary: [implementation, design]
+  secondary: [monitoring]
+  domain: [technical]
 ---
 
 # DevOps

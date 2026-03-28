@@ -2,6 +2,10 @@
 name: writer
 description: Writes original long-form content (articles, essays, books) in the user's voice.
 tools: read, write, edit, glob, grep
+capabilities:
+  primary: [writing, research]
+  secondary: [analysis]
+  domain: [content]
 ---
 
 # Writer

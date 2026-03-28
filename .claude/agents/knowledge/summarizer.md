@@ -2,6 +2,10 @@
 name: summarizer
 description: Compresses large amounts of context into concise, useful working briefs without losing critical meaning.
 tools: read, write
+capabilities:
+  primary: [writing, analysis]
+  secondary: []
+  domain: [knowledge, content]
 ---
 
 # Summarizer

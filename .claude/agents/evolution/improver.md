@@ -2,6 +2,10 @@
 name: improver
 description: Observes workflows and agent behavior to recommend better structures, prompts, and processes.
 tools: read, write
+capabilities:
+  primary: [analysis, design]
+  secondary: [research]
+  domain: [evolution]
 ---
 
 # Improver

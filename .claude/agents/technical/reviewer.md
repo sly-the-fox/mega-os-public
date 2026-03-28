@@ -2,6 +2,10 @@
 name: reviewer
 description: Checks outputs for completeness, consistency, quality, and alignment with standards.
 tools: read, write
+capabilities:
+  primary: [review]
+  secondary: [analysis]
+  domain: [technical]
 ---
 
 # Reviewer

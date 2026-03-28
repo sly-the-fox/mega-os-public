@@ -2,6 +2,10 @@
 name: planner
 description: Converts goals into phased plans, tasks, dependencies, and next actions.
 tools: read, write
+capabilities:
+  primary: [design, analysis]
+  secondary: [coordination, research]
+  domain: [governance]
 ---
 
 # Planner

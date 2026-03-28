@@ -2,6 +2,10 @@
 name: polisher
 description: Polishes raw documents into publication-ready deliverables with clean formatting.
 tools: read, write, bash
+capabilities:
+  primary: [formatting]
+  secondary: [editing]
+  domain: [knowledge, content]
 ---
 
 # Polisher

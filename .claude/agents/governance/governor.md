@@ -2,6 +2,10 @@
 name: governor
 description: Enforces task boundaries, permissions, constraints, and execution limits to prevent scope creep.
 tools: read, write
+capabilities:
+  primary: [monitoring, review]
+  secondary: [coordination]
+  domain: [governance]
 ---
 
 # Governor

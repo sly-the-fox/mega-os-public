@@ -2,6 +2,10 @@
 name: historian
 description: Maintains timelines, decisions, state summaries, and handoff memory across projects.
 tools: read, write
+capabilities:
+  primary: [writing, coordination]
+  secondary: [analysis]
+  domain: [knowledge]
 ---
 
 # Historian

@@ -2,6 +2,10 @@
 name: executor
 description: Performs clearly scoped work efficiently and completely across domains.
 tools: read, write, bash
+capabilities:
+  primary: [implementation, coordination]
+  secondary: []
+  domain: [technical]
 ---
 
 # Executor

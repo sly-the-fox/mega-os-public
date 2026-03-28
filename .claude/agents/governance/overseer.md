@@ -2,6 +2,10 @@
 name: overseer
 description: Routes work, chooses the right specialist agents, and keeps execution aligned with priorities.
 tools: read, write, bash
+capabilities:
+  primary: [coordination]
+  secondary: [analysis, monitoring]
+  domain: [governance]
 ---
 
 # Overseer

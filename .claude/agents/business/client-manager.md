@@ -2,6 +2,10 @@
 name: client-manager
 description: Tracks client relationships, session history, follow-ups, and engagement health.
 tools: read, write
+capabilities:
+  primary: [coordination, monitoring]
+  secondary: [writing]
+  domain: [business]
 ---
 
 # Client Manager

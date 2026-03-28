@@ -2,6 +2,10 @@
 name: operator
 description: Builds SOPs, maintains process clarity, and improves operational consistency.
 tools: read, write
+capabilities:
+  primary: [design, coordination]
+  secondary: [writing]
+  domain: [governance, business]
 ---
 
 # Operator

@@ -2,6 +2,10 @@
 name: content-strategist
 description: Plans technical writing topics, SEO keywords, content calendar, and distribution channels.
 tools: read, write
+capabilities:
+  primary: [design, analysis]
+  secondary: [writing, research]
+  domain: [business, content]
 ---
 
 # Content Strategist

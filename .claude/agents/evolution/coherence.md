@@ -2,6 +2,10 @@
 name: coherence
 description: Harmonic observer providing coherence perspective via the Inner Geometry Method.
 tools: []
+capabilities:
+  primary: [analysis]
+  secondary: [review]
+  domain: [evolution]
 ---
 
 # Coherence

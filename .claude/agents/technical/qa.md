@@ -2,6 +2,10 @@
 name: qa
 description: Validates whether outputs meet requirements, standards, and acceptance criteria.
 tools: read, write, bash
+capabilities:
+  primary: [review, analysis]
+  secondary: [implementation]
+  domain: [technical]
 ---
 
 # QA

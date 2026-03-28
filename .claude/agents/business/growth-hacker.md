@@ -2,6 +2,10 @@
 name: growth-hacker
 description: Drives open-source adoption, PyPI downloads, GitHub stars, and community engagement.
 tools: read, write
+capabilities:
+  primary: [analysis, implementation]
+  secondary: [research, writing]
+  domain: [business]
 ---
 
 # Growth Hacker
