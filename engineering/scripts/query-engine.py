@@ -23,6 +23,8 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+SCRIPTS = ROOT / "engineering" / "scripts"
+DB_PATH = ROOT / "engineering" / "memory.db"
 TODAY = date.today()
 
 XREF_PATH = ROOT / "core" / "indexes" / "cross-references.json"
@@ -306,9 +308,173 @@ def query_decisions() -> str:
     return "\n".join(lines)
 
 
+def query_fts5_search(query_str: str) -> str:
+    """Run FTS5 full-text search against memory.db."""
+    # Parse optional --cat flag
+    category = None
+    parts = query_str.split()
+    cleaned = []
+    i = 0
+    while i < len(parts):
+        if parts[i] in ("--cat", "--category") and i + 1 < len(parts):
+            category = parts[i + 1]
+            i += 2
+        else:
+            cleaned.append(parts[i])
+            i += 1
+    search_term = " ".join(cleaned).strip().strip('"').strip("'")
+
+    if not search_term:
+        return "Usage: search <query> [--cat <category>]"
+
+    if not DB_PATH.exists():
+        return "FTS5 index not built. Run: python3 engineering/scripts/index-memory.py"
+
+    import sqlite3
+    conn = sqlite3.connect(str(DB_PATH))
+    sql = """SELECT path, title, snippet(documents, 2, '>>', '<<', '...', 40),
+             category, modified, rank
+             FROM documents WHERE documents MATCH ?"""
+    params = [search_term]
+    if category:
+        sql += " AND category = ?"
+        params.append(category)
+    sql += " ORDER BY rank LIMIT 10"
+
+    try:
+        rows = conn.execute(sql, params).fetchall()
+    except sqlite3.OperationalError:
+        escaped = search_term.replace('"', '""')
+        params[0] = f'"{escaped}"'
+        try:
+            rows = conn.execute(sql, params).fetchall()
+        except sqlite3.OperationalError:
+            conn.close()
+            return f"FTS5 query error for: {search_term}"
+    conn.close()
+
+    if not rows:
+        return f"No FTS5 results for: {search_term}"
+
+    cat_label = f" (category: {category})" if category else ""
+    lines = [f"## FTS5 Search: \"{search_term}\"{cat_label} ({len(rows)} results)", ""]
+    for i, (path, title, snip, cat, mod, rank) in enumerate(rows, 1):
+        snip_clean = snip.strip().replace("\n", " ")[:200]
+        lines.append(f"[{i}] `{path}` ({mod}, {cat})")
+        lines.append(f"    {snip_clean}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def query_semantic(query_str: str) -> str:
+    """Run semantic (embedding) search against memory.db."""
+    # Parse optional --cat flag
+    category = None
+    parts = query_str.split()
+    cleaned = []
+    i = 0
+    while i < len(parts):
+        if parts[i] in ("--cat", "--category") and i + 1 < len(parts):
+            category = parts[i + 1]
+            i += 2
+        else:
+            cleaned.append(parts[i])
+            i += 1
+    search_term = " ".join(cleaned).strip().strip('"').strip("'")
+
+    if not search_term:
+        return "Usage: semantic <query> [--cat <category>]"
+
+    sys.path.insert(0, str(SCRIPTS))
+    try:
+        from semantic_search import semantic_search
+        results = semantic_search(search_term, top_k=10, category=category)
+    except ImportError:
+        return "Semantic search unavailable. Run: pip install fastembed"
+    except Exception as e:
+        return f"Semantic search error: {e}"
+
+    if not results:
+        return f"No semantic results for: {search_term}"
+
+    cat_label = f" (category: {category})" if category else ""
+    lines = [f"## Semantic Search: \"{search_term}\"{cat_label} ({len(results)} results)", ""]
+    for i, r in enumerate(results, 1):
+        snippet = r["chunk_text"].strip().replace("\n", " ")[:160]
+        chunk_tag = f" [chunk {r['chunk_index']}]" if r["chunk_index"] > 0 else ""
+        lines.append(f"[{i}] `{r['path']}`{chunk_tag} (score: {r['score']}, "
+                     f"{r['modified']}, {r['category']})")
+        lines.append(f"    {snippet}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def query_context(query_str: str) -> str:
+    """Run context relevance ranking for smart file loading."""
+    parts = query_str.split()
+    budget = 15000
+    cleaned = []
+    i = 0
+    while i < len(parts):
+        if parts[i] == "--budget" and i + 1 < len(parts):
+            try:
+                budget = int(parts[i + 1])
+            except ValueError:
+                pass
+            i += 2
+        else:
+            cleaned.append(parts[i])
+            i += 1
+    search_term = " ".join(cleaned).strip().strip('"').strip("'")
+
+    if not search_term:
+        return "Usage: context <query> [--budget <tokens>]"
+
+    sys.path.insert(0, str(SCRIPTS))
+    try:
+        from importlib import import_module
+        rank_mod = import_module("rank-context")
+        result = rank_mod.rank_context(search_term, budget=budget)
+    except Exception as e:
+        return f"Context ranking error: {e}"
+
+    files = result["files"][:15]
+    recommended = [f for f in files if f.get("recommended")]
+
+    lines = [
+        f"## Context Ranking: \"{search_term}\"",
+        f"Budget: {result['budget']} tokens, used: {result['budget_used']}",
+        f"Recommended files: {len(recommended)}",
+        "",
+    ]
+
+    for i, f in enumerate(files, 1):
+        tag = " **[ALWAYS]**" if f["is_always"] else (" **[LOAD]**" if f.get("recommended") else "")
+        lines.append(f"[{i}] `{f['path']}`{tag}")
+        lines.append(f"    relevance={f['relevance_score']}  tokens={f['token_cost']}  "
+                     f"(fts5={f['fts5_score']}, embed={f['embed_score']})")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
 def route_query(query: str) -> str:
     """Route a query string to the appropriate handler."""
     q = query.lower().strip()
+
+    # FTS5 full-text search
+    if q.startswith("search "):
+        return query_fts5_search(query[7:])
+
+    # Semantic (embedding) search
+    if q.startswith("semantic "):
+        return query_semantic(query[9:])
+
+    # Context relevance ranking
+    if q.startswith("context "):
+        return query_context(query[8:])
 
     # Overdue / follow-ups
     if any(kw in q for kw in ["overdue", "follow-up", "followup", "due today", "due this week"]):
@@ -359,6 +525,10 @@ def main():
         print('  "stale files"')
         print('  "P1 priorities"')
         print('  "pending decisions"')
+        print('  "search revenue tracker"           # FTS5 full-text search')
+        print('  "search revenue --cat active"      # FTS5 with category filter')
+        print('  "semantic how does agent routing work"  # embedding search')
+        print('  "context revenue forecasting"       # context relevance ranking')
         sys.exit(1)
 
     query = " ".join(sys.argv[1:])
