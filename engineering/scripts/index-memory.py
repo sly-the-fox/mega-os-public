@@ -4,7 +4,12 @@
 Creates engineering/memory.db indexing markdown across core/history, active,
 archive, business, and agent definitions, plus JSONL trace files.
 
-Usage: python3 engineering/scripts/index-memory.py
+Supports incremental mode: skips rebuild if no files changed since last run.
+Full rebuild on Sundays or with --force flag.
+
+Usage:
+    python3 engineering/scripts/index-memory.py           # incremental
+    python3 engineering/scripts/index-memory.py --force    # full rebuild
 """
 
 import json
@@ -12,6 +17,7 @@ import os
 import re
 import sqlite3
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -34,8 +40,6 @@ EXCLUDE_EXT = {".env", ".key", ".pem", ".db", ".sqlite", ".png", ".jpg",
 
 
 def should_skip(path):
-    if any(p in SKIP_DIRS for p in path.parts if p != "archive"):
-        pass  # don't skip archive dir itself
     if path.name in EXCLUDE_FILES:
         return True
     if path.suffix.lower() in EXCLUDE_EXT:
@@ -81,14 +85,42 @@ def collect_traces():
     return [f for f in d.rglob("*.jsonl") if f.is_file() and f.stat().st_size <= MAX_SIZE]
 
 
-def main():
-    print(f"Building FTS5 index: {DB_PATH}")
-    md_files = collect_md()
-    trace_files = collect_traces()
-    print(f"Found {len(md_files)} markdown, {len(trace_files)} trace files")
+def get_last_rebuild(conn):
+    """Get timestamp of last successful rebuild."""
+    try:
+        row = conn.execute("SELECT value FROM index_meta WHERE key='last_rebuild'").fetchone()
+        return float(row[0]) if row else 0
+    except sqlite3.OperationalError:
+        return 0
 
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(str(DB_PATH))
+
+def set_last_rebuild(conn):
+    """Record current time as last rebuild."""
+    conn.execute("CREATE TABLE IF NOT EXISTS index_meta (key TEXT PRIMARY KEY, value TEXT)")
+    conn.execute("INSERT OR REPLACE INTO index_meta VALUES ('last_rebuild', ?)",
+                 (str(time.time()),))
+    conn.commit()
+
+
+def any_file_newer(md_files, trace_files, last_rebuild):
+    """Check if any indexed file has been modified since last rebuild."""
+    for f, _ in md_files:
+        try:
+            if f.stat().st_mtime > last_rebuild:
+                return True
+        except OSError:
+            return True
+    for f in trace_files:
+        try:
+            if f.stat().st_mtime > last_rebuild:
+                return True
+        except OSError:
+            return True
+    return False
+
+
+def full_rebuild(conn, md_files, trace_files):
+    """Drop and recreate the FTS5 index from scratch."""
     conn.execute("DROP TABLE IF EXISTS documents")
     conn.execute("""CREATE VIRTUAL TABLE documents USING fts5(
         path, title, content, category, modified,
@@ -129,12 +161,47 @@ def main():
             trace_count += 1
 
     conn.commit()
+    return md_count, trace_count
+
+
+def main():
+    force = "--force" in sys.argv
+    is_sunday = datetime.now().weekday() == 6
+
+    md_files = collect_md()
+    trace_files = collect_traces()
+    print(f"Found {len(md_files)} markdown, {len(trace_files)} trace files")
+
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(str(DB_PATH))
+
+    # Incremental: skip rebuild if no files changed
+    if not force and not is_sunday:
+        last_rebuild = get_last_rebuild(conn)
+        if last_rebuild > 0 and not any_file_newer(md_files, trace_files, last_rebuild):
+            try:
+                total = conn.execute("SELECT COUNT(*) FROM documents").fetchone()[0]
+            except sqlite3.OperationalError:
+                total = 0
+            if total > 0:
+                print(f"Index up to date ({total} docs). Skipping rebuild.")
+                conn.close()
+                return
+
+    reason = "forced" if force else ("weekly full rebuild" if is_sunday else "files changed")
+    print(f"Rebuilding FTS5 index ({reason})...")
+
+    md_count, trace_count = full_rebuild(conn, md_files, trace_files)
+    set_last_rebuild(conn)
+
     total = md_count + trace_count
     size = DB_PATH.stat().st_size
     sz = f"{size/1024:.1f} KB" if size < 1_000_000 else f"{size/1_048_576:.1f} MB"
 
     print(f"\nIndexed: {md_count} markdown + {trace_count} traces = {total} docs ({sz})")
-    for cat, cnt in conn.execute("SELECT category, COUNT(*) FROM documents GROUP BY category ORDER BY category"):
+    for cat, cnt in conn.execute(
+        "SELECT category, COUNT(*) FROM documents GROUP BY category ORDER BY category"
+    ):
         print(f"  {cat}: {cnt}")
     conn.close()
 
