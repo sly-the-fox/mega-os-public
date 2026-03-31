@@ -41,7 +41,8 @@
     "engineering/scripts/fetch-metrics.py",
     ".claude/skills/news-briefing/references/output-template.md",
     ".claude/skills/news-briefing/references/search-topics.md",
-    "core/standards/deployment-checklist.md"
+    "core/standards/deployment-checklist.md",
+    "engineering/scripts/match-contacts.py"
   ],
   "exclude_patterns": [
     ".venv/",
