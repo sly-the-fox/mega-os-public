@@ -61,3 +61,6 @@ core/history/traces/archive/
 
 # Memory index (rebuilt by cron)
 engineering/memory.db
+
+# Generated connection matches (regenerable)
+business/network/connection-matches.json
