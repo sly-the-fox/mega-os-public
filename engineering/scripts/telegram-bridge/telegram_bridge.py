@@ -318,6 +318,60 @@ def extract_and_send_files(chat_id: int, text: str, reply_to: int | None = None)
     return sent
 
 
+# --- Inbound File Handling ---
+
+INBOUND_DIR = Path("/tmp/telegram-inbound")
+
+
+def download_telegram_file(file_id: str, suffix: str = ".jpg") -> str | None:
+    """Download a file from Telegram servers and return the local path."""
+    try:
+        INBOUND_DIR.mkdir(parents=True, exist_ok=True)
+        result = telegram_request("getFile", {"file_id": file_id})
+        file_path = result.get("result", {}).get("file_path", "")
+        if not file_path:
+            return None
+        download_url = f"https://api.telegram.org/file/bot{TELEGRAM_BOT_TOKEN}/{file_path}"
+        response = _http_client.get(download_url)
+        response.raise_for_status()
+        # Use original extension if available, fall back to suffix
+        ext = Path(file_path).suffix or suffix
+        ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        local_path = INBOUND_DIR / f"telegram-{ts}{ext}"
+        local_path.write_bytes(response.content)
+        logger.info(f"Downloaded inbound file: {local_path} ({len(response.content)} bytes)")
+        return str(local_path)
+    except Exception as e:
+        logger.error(f"Failed to download telegram file {file_id}: {e}")
+        return None
+
+
+def extract_inbound_files(message: dict) -> tuple[list[str], str]:
+    """Extract files from a Telegram message. Returns (file_paths, caption)."""
+    file_paths = []
+    caption = message.get("caption", "").strip()
+
+    # Photos — Telegram sends multiple sizes, grab the largest (last)
+    if "photo" in message:
+        photos = message["photo"]
+        if photos:
+            largest = photos[-1]
+            path = download_telegram_file(largest["file_id"], ".jpg")
+            if path:
+                file_paths.append(path)
+
+    # Documents (PDFs, images sent as files, etc.)
+    if "document" in message:
+        doc = message["document"]
+        file_name = doc.get("file_name", "file")
+        ext = Path(file_name).suffix or ".bin"
+        path = download_telegram_file(doc["file_id"], ext)
+        if path:
+            file_paths.append(path)
+
+    return file_paths, caption
+
+
 def handle_builtin_command(chat_id: int, command: str) -> bool | str:
     """Handle built-in commands. Returns True if handled, 'restart' to signal restart."""
     if command == "/status":
@@ -377,6 +431,7 @@ def handle_builtin_command(chat_id: int, command: str) -> bool | str:
                 "/restart — Restart the bridge (requires re-auth)\n"
                 "/help — Show this help\n\n"
                 "Sessions persist automatically — follow-up messages continue the conversation.\n"
+                "You can send photos and documents — they'll be downloaded and passed to Claude.\n"
                 "Timeout: 10 minutes per request.",
             )
         except Exception as e:
@@ -495,13 +550,34 @@ def main():
         for update in updates:
             offset = update["update_id"] + 1
             message = update.get("message")
-            if not message or "text" not in message:
+            if not message:
+                continue
+
+            # Determine if this message has content we can process
+            has_text = "text" in message
+            has_files = "photo" in message or "document" in message
+            if not has_text and not has_files:
                 continue
 
             chat_id = message["chat"]["id"]
-            text = message["text"].strip()
+            text = message.get("text", "").strip()
             msg_id = message["message_id"]
             user = message.get("from", {}).get("username", "unknown")
+
+            # Handle inbound files (photos, documents)
+            inbound_paths = []
+            if has_files:
+                inbound_paths, caption = extract_inbound_files(message)
+                if not text and caption:
+                    text = caption
+                if inbound_paths:
+                    file_refs = "\n".join(
+                        f"[Attached file: {p}]" for p in inbound_paths
+                    )
+                    if text:
+                        text = f"{text}\n\n{file_refs}"
+                    else:
+                        text = f"The user sent these files. Please view and acknowledge them.\n\n{file_refs}"
 
             # Access control — chat ID allowlist
             if allowed and chat_id not in allowed:
