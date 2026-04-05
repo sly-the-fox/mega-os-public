@@ -32,6 +32,9 @@ Complete inventory of available skills (slash commands). All skills live under `
 | 26 | Outreach | `/outreach` | `.claude/skills/outreach/` | LinkedIn outreach CRM — capture, message, track, follow up |
 | 27 | Query | `/query` | `.claude/skills/query/` | Structured queries over active state, contacts, pipeline, and cross-references |
 | 28 | Framework Sync | `/framework-sync` | `.claude/skills/framework-sync/` | Reconcile documentation cross-references after framework file changes |
+| 29 | Refract | `/refract` | `.claude/skills/refract/` | AI use-case discovery: map a profession's workflow, score AI opportunities, generate custom interactive demo |
+| 30 | Connect | `/connect` | `.claude/skills/connect/` | Find relevant network connections, explain matches, draft introductions |
+| 31 | Animekai Download | `/animekai-download` | `.claude/skills/animekai-download/` | Download anime episodes from animekai.to via Playwright MCP |
 
 ## Skill Structure
 
