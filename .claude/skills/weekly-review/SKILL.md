@@ -79,6 +79,14 @@ Review the current state of the system, scan for stale items, cross-reference pa
     - Review existing proposals in `active/improvements.md` — update status of any in-progress items.
     - Archive completed improvements (verified/ineffective) to `core/history/improvements.md`.
 
+12. **Audit finding triage** (IMP-016)
+    - Read `active/audits.md`
+    - **TTL enforcement** (same rules as improvement-audit Phase 7 step 4 — double-check catches anything the daily run missed):
+      - Low >14d → auto-archive. Medium >30d → auto-archive. High >60d → auto-defer. Partial/Deferred exempt.
+    - **Consolidation:** Look for findings with the same root cause across different dates (same file + same gap category). Merge into a single finding: keep the **oldest ID** and **highest severity**, note related IDs in the Finding column, update date to most recent occurrence.
+    - **Escalation review:** Any Medium finding >21 days old with no remediation activity → flag for promotion to High in the weekly summary.
+    - **Report:** Include "Audit Health" section in weekly summary: total open, TTL-archived this week, new this week, oldest unresolved, cap headroom.
+
 13. **Optional: Archive Trend Analysis**
     If `archive/index.json` exists and has entries:
     1. Read the index (not the files)

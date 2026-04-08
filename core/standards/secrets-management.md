@@ -7,14 +7,11 @@
 | TELEGRAM_BOT_TOKEN | notify-telegram.sh, send-telegram.py, telegram-bridge | `.env` (project root), `engineering/scripts/telegram-bridge/.env` | Quarterly |
 | NOTIFY_CHAT_ID / ALLOWED_CHAT_IDS | notify-telegram.sh, send-telegram.py, telegram-bridge | `.env` (project root) | Static (chat ID) |
 | GITHUB_TOKEN | fetch-metrics.py | Environment variable | Per GitHub expiry |
-| CLOUDFLARE_API_TOKEN | deploy-sigil-site.sh (via wrangler) | Environment variable | Quarterly |
 | ANTHROPIC_API_KEY | Claude Code runtime | Environment variable | Per Anthropic policy |
 
-## Committed Secret Alert
+## Telegram Token Note
 
-**`engineering/scripts/telegram-bridge/.env`** contains an actual bot token committed to git. This file should be gitignored and the token rotated. The `.env.example` file in the same directory is the correct pattern.
-
-**Remediation:** Rotate the Telegram bot token via BotFather, update `.env`, and add `engineering/scripts/telegram-bridge/.env` to `.gitignore` if not already covered.
+**`engineering/scripts/telegram-bridge/.env`** is gitignored (`.env*` pattern covers all directories). Not currently tracked by git. The token may have been committed historically — consider rotating via BotFather as a precaution. The `.env.example` file in the same directory is the correct pattern for new setups.
 
 ## Policy
 
