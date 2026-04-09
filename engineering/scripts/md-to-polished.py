@@ -77,6 +77,47 @@ def extract_bold_runs(text: str):
     return runs
 
 
+def parse_metadata(md_text: str):
+    """Extract Title/Subtitle/Platform/Week metadata from the top of the document.
+
+    Supports two formats:
+    1. Key: Value lines at the very top (before any blank line or ---)
+    2. YAML-style frontmatter between --- fences
+    """
+    meta = {}
+    lines = md_text.split('\n')
+    i = 0
+
+    # Check for YAML frontmatter (--- delimited)
+    if lines and lines[0].strip() == '---':
+        i = 1
+        while i < len(lines) and lines[i].strip() != '---':
+            m = re.match(r'^(\w[\w\s-]*?):\s*(.+)', lines[i])
+            if m:
+                meta[m.group(1).strip().lower()] = m.group(2).strip()
+            i += 1
+        consumed = i + 1  # skip closing ---
+    else:
+        # Key: Value lines at top (stop at blank line or ---)
+        while i < len(lines):
+            stripped = lines[i].strip()
+            if not stripped or re.match(r'^-{3,}$', stripped):
+                break
+            m = re.match(r'^(\w[\w\s-]*?):\s*(.+)', stripped)
+            if m:
+                meta[m.group(1).strip().lower()] = m.group(2).strip()
+                i += 1
+            else:
+                break
+        consumed = i
+
+    # Skip any trailing blank lines or --- separator after metadata
+    while consumed < len(lines) and (not lines[consumed].strip() or re.match(r'^-{3,}$', lines[consumed].strip())):
+        consumed += 1
+
+    return meta, '\n'.join(lines[consumed:])
+
+
 def parse_markdown(md_text: str):
     """Parse markdown into structured blocks."""
     blocks = []
@@ -180,7 +221,7 @@ def add_formatted_text(paragraph, text: str):
         run.bold = is_bold
 
 
-def build_docx(title: str, blocks: list, output_path: Path):
+def build_docx(title: str, blocks: list, output_path: Path, subtitle: str = None):
     """Build a DOCX document from parsed blocks."""
     doc = Document()
 
@@ -226,6 +267,17 @@ def build_docx(title: str, blocks: list, output_path: Path):
         run.font.size = Pt(28)
         run.font.name = 'Calibri'
         run.bold = True
+
+        if subtitle:
+            sub_para = doc.add_paragraph()
+            sub_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            sub_para.paragraph_format.space_before = Pt(0)
+            sub_para.paragraph_format.space_after = Pt(24)
+            run = sub_para.add_run(subtitle)
+            run.font.size = Pt(14)
+            run.font.name = 'Calibri'
+            run.italic = True
+            run.font.color.rgb = RGBColor(0x44, 0x44, 0x44)
 
         date_para = doc.add_paragraph()
         date_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -341,9 +393,14 @@ def main():
 
     # Read and parse
     md_text = input_path.read_text(encoding='utf-8')
-    title, blocks = parse_markdown(md_text)
+    meta, body_text = parse_metadata(md_text)
+    title, blocks = parse_markdown(body_text)
+    # Prefer metadata title over H1
+    if meta.get('title'):
+        title = meta['title']
     if not title:
         title = input_path.stem.replace('-', ' ').title()
+    subtitle = meta.get('subtitle', None)
 
     # Prepare output
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -355,7 +412,7 @@ def main():
     # Generate DOCX
     if args.format in ('docx', 'both'):
         docx_path = args.output_dir / f"{base_name}.docx"
-        build_docx(title, blocks, docx_path)
+        build_docx(title, blocks, docx_path, subtitle=subtitle)
         size = docx_path.stat().st_size / 1024
         print(f"DOCX: {docx_path} ({size:.1f} KB)")
         results.append(docx_path)
@@ -365,7 +422,7 @@ def main():
         # Need DOCX first for PDF conversion
         if args.format == 'pdf':
             docx_path = args.output_dir / f"{base_name}.docx"
-            build_docx(title, blocks, docx_path)
+            build_docx(title, blocks, docx_path, subtitle=subtitle)
 
         pdf_path = convert_to_pdf(docx_path, args.output_dir)
         if pdf_path:
