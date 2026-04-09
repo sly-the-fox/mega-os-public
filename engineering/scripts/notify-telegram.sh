@@ -6,7 +6,7 @@
 #
 # Examples:
 #   # Inline after a cron command:
-#   3 7 * * * cd ~/mega-os && claude -p "..." > /tmp/job.log 2>&1; /home/abzu/mega-os/engineering/scripts/notify-telegram.sh "Content Gen" $? /tmp/job.log
+#   3 7 * * * cd ~/mega-os && claude -p "..." > /tmp/job.log 2>&1; ~/mega-os/engineering/scripts/notify-telegram.sh "Content Gen" $? /tmp/job.log
 #
 #   # Or wrap a command:
 #   notify-telegram.sh "Daily Scan" 0

@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-REPO="/home/abzu/mega-os"
+REPO="${MEGA_OS_HOME:-$HOME/mega-os}"
 cd "$REPO"
 
 TODAY=$(date +%F)

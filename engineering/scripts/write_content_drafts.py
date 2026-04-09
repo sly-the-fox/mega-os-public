@@ -2,7 +2,7 @@
 """One-time script to write 2026-03-24 content drafts."""
 import pathlib
 
-base = pathlib.Path("/home/abzu/mega-os/drafts/social")
+base = pathlib.Path.home() / "mega-os" / "drafts" / "social"
 
 # Twitter thread
 twitter = [

@@ -3,11 +3,13 @@
 # Full Writer → Editor → Polisher pipeline via /write-content
 set -euo pipefail
 
-cd /home/abzu/mega-os
+REPO="${MEGA_OS_HOME:-$HOME/mega-os}"
+cd "$REPO"
 LOG=/tmp/mega-os-substack.log
 
+CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1 \
-  timeout 1200 /home/abzu/.local/bin/claude -p \
+  timeout 1200 "$CLAUDE_BIN" -p \
   "Read business/marketing/content-calendar.md and find this week's Substack article. Run /write-content with the title from the calendar. The full Writer → Editor → Polisher pipeline must run. Draft goes to drafts/, PDF and DOCX deliverables go to deliverables/. Update business/marketing/channel-tracker.md with the draft status. Send a Telegram notification with the article title and deliverable paths." \
   --permission-mode auto > "$LOG" 2>&1
 SUB_EXIT=$?
@@ -22,5 +24,5 @@ else
   echo "PDF deliverable: NOT updated (stale)" >> "$LOG"
 fi
 
-/home/abzu/mega-os/engineering/scripts/notify-telegram.sh "Substack Article" $SUB_EXIT "$LOG"
-/home/abzu/mega-os/engineering/scripts/cron-autocommit.sh --job substack >> /tmp/mega-os-autocommit.log 2>&1
+"$REPO/engineering/scripts/notify-telegram.sh" "Substack Article" $SUB_EXIT "$LOG"
+"$REPO/engineering/scripts/cron-autocommit.sh" --job substack >> /tmp/mega-os-autocommit.log 2>&1

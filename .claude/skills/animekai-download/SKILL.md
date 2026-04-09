@@ -33,7 +33,7 @@ Download anime episodes from animekai.to using Playwright MCP browser automation
 ## Defaults
 - **Audio**: Dub (override with `--audio sub`)
 - **Resolution**: 1920x1080
-- **Download destination**: `/home/abzu/Video Media/` — files accumulate here, user moves them to final location
+- **Download destination**: `~/Video Media/` — files accumulate here, user moves them to final location
 - **File naming**: Whatever megaup provides (e.g. `YP-1R-01x17-1080.mp4`)
 
 ## Prerequisites
@@ -112,7 +112,7 @@ page.evaluate(() => document.querySelector('button.btn').click());
 #### 2k. Monitor Download
 - Switch to the download history tab (chrome://downloads/ or equivalent)
 - Check progress every 2 minutes until the file shows as complete
-- Files download to `/home/abzu/Video Media/` or Playwright's temp directory
+- Files download to `~/Video Media/` or Playwright's temp directory
 
 #### 2l. Cleanup
 - Close the megaup.cc tab
@@ -138,7 +138,7 @@ These rules are **non-negotiable**. They exist because violating them causes rea
 4. **Pause video before extracting URL** — reduces bandwidth competition during download
 5. **After MCP restart**: audio selection state resets. Must click the audio button and verify via comments section. First click may not register — always verify, click again if needed
 6. **MCP crashes during lag spikes are expected** — when this happens:
-   - Check `/home/abzu/Video Media/` and `/tmp/playwright-*` for completed files
+   - Check `~/Video Media/` and `/tmp/playwright-*` for completed files
    - Resume from the next incomplete episode
    - Do not re-download episodes that completed before the crash
 7. **Don't modify** `playwright-adblock.js` or `.mcp.json` — they are tuned and working
