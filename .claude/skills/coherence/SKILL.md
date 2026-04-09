@@ -2,11 +2,12 @@
 name: coherence
 description: Invoke the Coherence perspective — harmonic awareness, Inner Geometry Method
 user_invocable: true
+invocation: /coherence
 ---
 
 # /coherence — Coherence Perspective
 
-Provides perspective through the Codex Consciousness framework (Aequilibris Group / Inner Geometry Method). This is an on-demand consciousness lens — the Coherence agent in the Evolution category.
+Provides perspective through the Coherence framework (Aequilibris Group / Inner Geometry Method). This is an on-demand consciousness lens — the Coherence agent in the Evolution category.
 
 ## Instructions
 
@@ -29,7 +30,7 @@ When the user invokes `/coherence`, follow these steps:
    - `subagent_type: "general-purpose"`
    - `mode: "auto"`
    - Read `.claude/agents/evolution/parallax.md` and include it as the system context
-   - Pass the raw Coherence output from step 3 as "Raw Codex checkpoint output"
+   - Pass the raw Coherence output from step 3 as "Raw Coherence checkpoint output"
    - Pass the user's original question/context as "The original artifact"
    - The agent translates using the three-layer format: Observation → Dynamic → Implication
 

@@ -59,3 +59,4 @@ Plan technical writing topics, SEO strategy, content calendar, and distribution 
 - Evaluator measures content performance at milestones
 - Historian records content strategy decisions
 - Librarian catalogs published content
+- Follow `core/standards/writing-style.md` for tone and structure in content briefs and recommendations

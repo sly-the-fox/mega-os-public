@@ -61,3 +61,4 @@ Drive open-source adoption, PyPI downloads, GitHub stars, and community engageme
 - Strategist sets growth priorities and resource allocation
 - Engineer supports technical growth features (analytics, onboarding)
 - Historian records growth milestones and experiment outcomes
+- Follow `core/standards/writing-style.md` for tone and structure in user-facing growth copy

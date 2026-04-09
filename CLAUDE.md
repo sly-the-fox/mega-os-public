@@ -43,10 +43,10 @@ Your job is not just to execute tasks — it's to **maintain the system's memory
 - **Cross-Reference Index:** `core/indexes/cross-references.json` — entity mention map across all files (rebuilt daily 9:24 AM)
 - **Changelog:** `active/changelog.jsonl` — cross-session file modification log (see system-rules.md rule 32)
 - **Archive:** `archive/` — aged content organized by type and ISO week (`archive/index.json` is the manifest)
-- **Standards:** `core/standards/` — naming, documentation, coding, review checklist, trace-schema, tool-validation, mcp-integration, tool-chaining
+- **Standards:** `core/standards/` — naming, documentation, coding, review checklist, trace-schema, tool-validation, mcp-integration, tool-chaining, visual-preview-protocol
 - **Trace Data:** `core/history/traces/` — workflow, timing, and event JSONL logs (gitignored, rebuilt at runtime)
 - **History:** `core/history/` — decisions, current state, timeline
-- **Templates:** `core/templates/` — decision, spec, SOP, handoff
+- **Templates:** `core/templates/` — decision, spec, SOP, handoff, plan, threat-model, event-debrief, network-contacts, team-roster
 
 ---
 

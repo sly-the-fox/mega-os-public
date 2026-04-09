@@ -42,6 +42,7 @@
     3. If no time frame, search the 2-3 most recent week buckets.
     4. Read the specific archived file(s).
     5. Never preload archive content.
+24. **Immediate state persistence.** When a state change occurs during a session (task completed, priority shifted, decision made, contact updated), persist it to the relevant `active/` file immediately in that session. Do not defer to session close, Historian, or Librarian workflows. Those are secondary recording mechanisms, not primary ones.
 25. **Uncertainty Escalation Protocol.** When an agent team member encounters genuine uncertainty that could lead to materially wrong output, they must escalate rather than guess.
 
     **Escalate when:**

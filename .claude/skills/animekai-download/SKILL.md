@@ -1,3 +1,10 @@
+---
+name: animekai-download
+description: Download anime episodes from animekai.to using Playwright MCP browser automation.
+invocation: /animekai-download
+user_invocable: true
+---
+
 # Anime Download — animekai.to via Playwright MCP
 
 Download anime episodes from animekai.to using Playwright MCP browser automation.

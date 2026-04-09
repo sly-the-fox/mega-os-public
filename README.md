@@ -5,7 +5,7 @@ A personal operating system for builders, powered by Claude Code. Mega-OS organi
 ## What You Get
 
 - **39 AI agents** in 5 categories (Governance, Knowledge, Technical, Business, Evolution) with defined roles and handoff protocols
-- **28 slash commands** for daily operations, building, system management, and deployment
+- **30 slash commands** for daily operations, building, system management, and deployment
 - **8 automated workflows** (Planning, Technical, Business, Incident, Knowledge, Content, Site Build, Evolution)
 - **Optional cron automations** for daily scans, news briefings, and system self-improvement
 - **A living task board** in `active/` that persists your context across every session
@@ -80,6 +80,7 @@ Your personal data (`active/`, `business/`, `products/`, etc.) is protected by `
 | `/weekly-review` | End-of-week retrospective with progress summary and priority updates |
 | `/news-briefing` | AI-curated intelligence briefing for your domain |
 | `/dream` | Generate a reflective prompt from the week's context |
+| `/connect` | Find relevant connections in your network and draft introductions |
 
 **Building & Creating:**
 
@@ -92,6 +93,7 @@ Your personal data (`active/`, `business/`, `products/`, etc.) is protected by `
 | `/deep-research` | MECE-structured research (web, local codebase, or hybrid) |
 | `/generate-content` | Generate short-form social content per channel schedule |
 | `/draw` | Generate visual diagrams and images |
+| `/refract` | AI use-case discovery: map a workflow, score opportunities, generate a custom demo |
 
 **System Management:**
 
@@ -127,7 +129,7 @@ mega-os/
       business/        # strategist, marketer, seller, financier, proposal-writer, client-manager, content-strategist, growth-hacker
       evolution/       # improver, evaluator, coherence, parallax
       shared/          # system rules, collaboration protocol, templates, agent capability taxonomy
-    skills/            # slash commands (setup, add-agent, project-kickoff, bug-triage, daily-scan, etc.)
+    skills/            # slash commands (29 total — setup, refract, build-site, deep-research, etc.)
   active/              # living task board (loaded every session)
     now.md             # current focus and active work
     priorities.md      # ordered priority list
@@ -135,7 +137,7 @@ mega-os/
     blockers.md        # active blockers
     risks.md           # risk register
     improvements.md    # improvement proposals
-  core/                # standards (14), templates, indexes, project history, trace data
+  core/                # standards (17), templates (9), indexes, project history, trace data
   products/            # product codebases
   engineering/         # scripts, automations, infrastructure
   business/            # assets, clients, finance, marketing, operations

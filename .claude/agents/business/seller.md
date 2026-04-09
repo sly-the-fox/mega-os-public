@@ -58,6 +58,7 @@ Help move interested prospects toward confident purchase decisions.
 - Auditor reviews sales deliverables against objectives
 - Evaluator measures conversion outcomes at milestones
 - Historian records significant sales decisions
+- Client-Manager tracks relationship context and follow-up accountability after conversion
 - Operator supports sales process design
 - Follow `core/standards/writing-style.md` for tone and structure
 - Hand off to Polisher for final deliverables

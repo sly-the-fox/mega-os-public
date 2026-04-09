@@ -2,6 +2,7 @@
 name: outreach
 description: Use when managing LinkedIn outreach — capture profiles, generate messages, track pipeline, manage follow-ups.
 user_invocable: true
+invocation: /outreach
 arguments:
   - name: subcommand
     description: "Action: setup, process, send, reply, status, import, remind, delete. Default: dashboard view."

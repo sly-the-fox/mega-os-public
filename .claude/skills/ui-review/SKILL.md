@@ -2,7 +2,8 @@
 name: ui-review
 description: Use when auditing a product's frontend visuals — reviews CSS, typography, color, spacing, animations, and responsive behavior.
 user_invocable: true
-args: "[--product <name>] [--focus <area>]"
+invocation: /ui-review
+args: "[--product <name>] [--focus <area>] [--live]"
 ---
 
 # /ui-review
@@ -20,6 +21,7 @@ Run a visual craft audit on a product's frontend code. Spawns Visual Designer to
 ### Arguments
 - `--product <name>` — Target product under `products/`. If omitted, attempts to detect from current context.
 - `--focus <area>` — Narrow the review to a specific area: `typography`, `color`, `spacing`, `animations`, `responsive`, or `system` (design tokens/variables). If omitted, reviews all areas.
+- `--live` — Navigate to the running site using Playwright and take screenshots at multiple viewports, supplementing code-only review with actual rendered verification.
 
 ## What Gets Reviewed
 
@@ -51,6 +53,12 @@ Run a visual craft audit on a product's frontend code. Spawns Visual Designer to
    - Are animations performant (prefer `transform`/`opacity`, avoid layout triggers)?
    - Does every breakpoint look intentional, not just "not broken"?
 
+   If `--live` is set:
+   - Navigate to the site URL using `mcp__playwright__browser_navigate`
+   - Take screenshots at desktop (1280x800), tablet (768x1024), and mobile (375x812) per `core/standards/visual-preview-protocol.md`
+   - Visual Designer reviews screenshots alongside code, producing findings grounded in actual rendered behavior
+   - Screenshots are referenced in the report alongside file paths and line numbers
+
 4. **Produce report.** Save findings to `drafts/reviews/ui-review-<product>-<date>.md` with:
    - Summary score (1-5) per area
    - Specific findings with file paths and line numbers
@@ -71,3 +79,4 @@ Run a visual craft audit on a product's frontend code. Spawns Visual Designer to
 - For implementation of fixes, route findings to Engineer via the Technical Workflow.
 - Can be run repeatedly as a quality gate during frontend development.
 - Pairs well with `/simplify` for code quality + visual quality coverage.
+- With `--live`, findings are backed by actual browser screenshots. Pairs well with the standard code-only review for comprehensive visual quality assessment.

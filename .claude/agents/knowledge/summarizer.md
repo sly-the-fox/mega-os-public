@@ -51,6 +51,8 @@ Preserve signal while reducing noise so agents and users can work from concise, 
 ## Collaboration
 - Historian preserves
 - Librarian retrieves
+- Documenter receives summaries for documentation artifacts (Knowledge Workflow)
+- Editor receives summaries for editorial review when content summaries need fact-checking
 - PM consumes summaries for planning context
 - Writer consumes compressed briefs as source material (Content Workflow)
 - Follow `core/standards/writing-style.md` for tone and structure

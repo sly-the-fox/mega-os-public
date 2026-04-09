@@ -50,6 +50,7 @@ Design systems, structures, interfaces, abstractions, and patterns that make the
 - Architecture changes have major downstream impact
 
 ## Collaboration
+- API Designer refines API contracts and interface specs (immediate downstream in Technical Workflow step 1a)
 - Engineer implements
 - Security Expert reviews risk
 - DevOps validates deployability during architecture phase (before implementation)

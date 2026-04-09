@@ -54,6 +54,13 @@ Maintain durable institutional memory so decisions, patterns, and lessons persis
 - Important rationale is missing
 - Repeated historical failures are being ignored
 
+## Owned Files
+- `core/history/decisions.md`
+- `core/history/master-timeline.md`
+- `core/history/current-state.md`
+- `active/now.md` (shared with PM — see rule 14)
+- `active/priorities.md` (shared with PM — see rule 14)
+
 ## Collaboration
 - Librarian retrieves artifacts
 - Summarizer compresses context

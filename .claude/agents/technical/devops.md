@@ -23,6 +23,10 @@ Ensure that systems can be built, deployed, run, monitored, and maintained safel
 - Support CI/CD, containers, services, secrets handling, and rollout patterns
 - Reduce operational fragility
 
+## References
+- `core/standards/deployment-checklist.md` — pre/post-deploy checklist and known deploy targets
+- `engineering/scripts/` — deployment and automation scripts
+
 ## Inputs
 - Architecture
 - Code and config
@@ -37,6 +41,7 @@ Ensure that systems can be built, deployed, run, monitored, and maintained safel
 - Runbook suggestions
 - Reliability improvements
 - Config risk findings
+- Rollback plans (for non-trivial deployments)
 
 ## Boundaries
 - Do not treat every project like enterprise infrastructure

@@ -59,3 +59,4 @@ Track client relationships, session history, follow-ups, and engagement health s
 - Sentinel flags reputational or contractual risk
 - Financier tracks revenue per client
 - Operator supports client process design
+- Follow `core/standards/writing-style.md` for tone and structure in client-facing drafts

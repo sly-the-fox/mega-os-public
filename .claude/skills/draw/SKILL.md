@@ -2,6 +2,7 @@
 name: draw
 description: Use when generating diagrams, charts, custom graphics, or manipulating images.
 user_invocable: true
+invocation: /draw
 arguments:
   - name: description
     description: What to draw/create/manipulate
@@ -42,7 +43,8 @@ Analyze the user's description and route to the correct rendering lane. If `--ty
    bash engineering/scripts/draw-mermaid.sh drafts/visuals/<name>.mmd <output-path>
    ```
 6. Read the output file to confirm it was created successfully
-7. Report: source file path, output file path, and what was rendered
+7. **Visual Preview:** Wrap SVG output in HTML per `core/standards/visual-preview-protocol.md` (SVG wrapper template). Navigate in Playwright, take screenshot, verify rendering. Fix and re-render if issues found (max 2 iterations).
+8. Report: source file path, output file path, and what was rendered
 
 ### Lane 2: Chart (matplotlib)
 
@@ -62,7 +64,8 @@ Analyze the user's description and route to the correct rendering lane. If `--ty
    python3 drafts/visuals/<name>.py
    ```
 6. Confirm output file exists
-7. Report: source script path, output file path, and what was rendered
+7. **Visual Preview:** Wrap PNG output in HTML per `core/standards/visual-preview-protocol.md` (image wrapper template). Navigate in Playwright, take screenshot, verify rendering.
+8. Report: source script path, output file path, and what was rendered
 
 ### Lane 3: Custom Graphic (SVG/HTML/CSS)
 
@@ -76,7 +79,8 @@ Analyze the user's description and route to the correct rendering lane. If `--ty
    - Apply appropriate colors, gradients, and typography
    - For HTML-based graphics, include inline CSS
 4. Save a copy of the source to `drafts/visuals/<kebab-name>.svg` if it differs from output
-5. Report: output file path and what was created
+5. **Visual Preview:** If SVG output, wrap in HTML using SVG wrapper template. If HTML output, navigate directly. Take screenshot per `core/standards/visual-preview-protocol.md`, verify rendering.
+6. Report: output file path and what was created
 
 ### Lane 4: Image Manipulation (ImageMagick)
 
@@ -95,7 +99,8 @@ Analyze the user's description and route to the correct rendering lane. If `--ty
    ```
    Fall back to `convert` if `magick` is not found.
 5. Confirm output file exists
-6. Report: command used, output file path, and result
+6. **Visual Preview:** Wrap output image in HTML per `core/standards/visual-preview-protocol.md` (image wrapper template). Navigate in Playwright, take screenshot, verify result.
+7. Report: command used, output file path, and result
 
 ## Output Conventions
 
@@ -110,6 +115,19 @@ Analyze the user's description and route to the correct rendering lane. If `--ty
 - If Mermaid syntax fails, fix the syntax and retry once
 - If matplotlib script errors, fix and retry once
 - If the output file is not created after the command runs, report the error clearly
+
+## Visual Preview
+
+All rendering lanes include a visual preview step. Follow the RSV (Render-Screenshot-Verify) chain from `core/standards/visual-preview-protocol.md`.
+
+**Key rules:**
+- SVG and image outputs MUST be wrapped in HTML before screenshotting — Playwright cannot render raw SVG/image files
+- Build wrapper HTML using the templates from the protocol, write to `/tmp/mega-os-preview-<name>.html`
+- Base64-encode and navigate to `data:text/html;base64,<encoded>` (file:// is blocked by Playwright MCP)
+- Take screenshot and review the rendered output
+- Max 2 fix-and-retry iterations if rendering issues found
+- Clean up temp wrapper files after verification
+- If Playwright unavailable: report file path for manual review, do not block
 
 ## Examples
 

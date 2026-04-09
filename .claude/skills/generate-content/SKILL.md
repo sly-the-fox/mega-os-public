@@ -2,6 +2,7 @@
 name: generate-content
 description: Use when generating short-form social content — runs full research → writer → editor → polisher pipeline.
 user_invocable: true
+invocation: /generate-content
 arguments:
   - name: date
     description: Target date (YYYY-MM-DD). Default today.

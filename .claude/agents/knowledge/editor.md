@@ -5,7 +5,7 @@ tools: read, write, edit, glob, grep
 capabilities:
   primary: [editing, review]
   secondary: [writing]
-  domain: [content]
+  domain: [content, knowledge]
 ---
 
 # Editor

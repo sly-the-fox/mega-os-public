@@ -24,6 +24,7 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 - Check formatting consistency (heading hierarchy, list style, paragraph flow)
 - Invoke `engineering/scripts/md-to-polished.py` to produce DOCX/PDF output
 - Output polished markdown and/or DOCX/PDF to `deliverables/`
+- After generating DOCX/PDF, trigger visual preview: convert source markdown to HTML using `markdown-it-py` (already installed as a dependency), wrap in the markdown preview template, and screenshot to verify formatting per `core/standards/visual-preview-protocol.md`
 
 ## Inputs
 - Raw markdown documents
@@ -52,4 +53,6 @@ Produce polished documents free of markdown artifacts, consistent in tone and fo
 - Editor provides approved drafts (Content Workflow)
 - Marketer and Strategist provide business documents
 - Reviewer checks final quality
+- Historian records significant deliverables and publication decisions
 - Follow `core/standards/writing-style.md` for tone and structure
+- QA or Visual Designer performs browser preview of polished output when visual verification is warranted

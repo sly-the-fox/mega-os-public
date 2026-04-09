@@ -39,10 +39,11 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 2. **DevOps** — validates deployability constraints (if architecture has infrastructure implications)
 3. **Designer** — reviews UX/interface design (if frontend or user-facing). Architect confirms design completion before proceeding.
 4. **Security-Expert** — threat model / review plan. For auth, crypto, API boundary, and data access changes, use `core/templates/threat-model-template.md` (STRIDE framework). For full security hardening, Security-Expert may invoke `/deep-research --source local --axis security` before threat modeling.
-5. **Engineer** — first implementation pass
+5. **Engineer** or **Executor** — implementation. Use **Executor** for bounded, well-scoped tasks with clear inputs/outputs (migrations, config changes, scripted operations). Use **Engineer** for design decisions, ambiguous requirements, or specialist depth.
 6. **Security-Expert** — code security review. For comprehensive code review, may use `/deep-research --source local --axis security`.
 7. **Engineer** — fix security issues + add more features. Optionally invoke `/simplify` to review changed code for reuse, quality, and efficiency.
 7a. **Visual Designer** — CSS/visual polish pass (if task involves frontend or UI changes). Reviews typography, color usage, spacing, animation quality, and responsive behavior. Engineer implements Visual Designer's refinements before proceeding.
+7b. **Visual Designer** — Visual Preview (if task produced visual output: HTML, CSS changes, SVG, images). Render in browser and screenshot per `core/standards/visual-preview-protocol.md`. Fix visual issues before proceeding to security review. Skip if no visual artifacts produced.
 8. **Security-Expert** — second security pass
 9. **Sentinel** — checks for scope drift (if implementation expanded beyond original plan)
 10. **Auditor** — post-execution audit: compares implementation against architecture/plan, flags gaps and omissions. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
@@ -50,6 +51,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 12. **Reviewer** — final review
 12a. **Framework Sync** — if any changed files are framework files (match against sync-manifest include paths), invoke `/framework-sync` to reconcile documentation cross-references
 13. **DevOps** — deploy (if needed)
+13a. **DevOps** — post-deploy verification: verify live endpoint, spot-check functionality, confirm rollback path (per `core/standards/deployment-checklist.md` Post-Deploy section)
 14. **Documenter** — update docs
 15. **Librarian** — catalogs technical artifacts and updates indexes
 16. **Custodian** — verifies all agent checklists completed and cross-references are consistent
@@ -72,6 +74,7 @@ Standard workflow sequences. Not every task requires all steps — skip stages t
 3. **Marketer / Seller / Financier** — execute in their domains
 3a. **Growth-Hacker** (if growth/distribution) — amplify outputs from step 3
 3b. **Content-Strategist** (if content strategy needed) — editorial coherence for business content
+3c. **Visual Designer** — Visual Preview (if any step produced visual artifacts: charts, pitch decks, marketing graphics, HTML demos). Render in browser and screenshot per `core/standards/visual-preview-protocol.md`. Skip if no visual artifacts produced.
 4. **Sentinel** — flags financial or reputational risk (if significant exposure)
 5. **Auditor** — post-execution audit: reviews deliverables against business objectives. For broad gap analysis (3+ files), Auditor may invoke `/deep-research --source local` before producing findings.
 6. **Reviewer** — validates alignment with strategy
@@ -108,6 +111,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 2. **Summarizer** — distills into concise summaries
 3. **Documenter** — produces formal documentation
 4. **Polisher** — refines for publication (if external-facing)
+4a. **QA** — Visual Preview (if output is external-facing visual content). Verify rendered appearance via browser screenshot per `core/standards/visual-preview-protocol.md`. Skip for internal-only documentation.
 5. **Reviewer** — quality check on final output
 6. **Librarian** — catalogs final output and updates indexes
 7. **Custodian** — verifies all agent checklists completed and cross-references are consistent
@@ -123,6 +127,7 @@ The discovering agent hands off to Debugger with: what failed, when, reproductio
 5. **Writer** — revises based on editorial feedback (repeat 4-5 as needed)
 6. **Editor** — grants editorial approval to advance
 7. **Polisher** — formats approved content for publication (DOCX/PDF)
+7a. **QA** — Visual Preview (if polished output is visual: HTML deliverable, styled document, formatted PDF). Verify rendered appearance via browser screenshot per `core/standards/visual-preview-protocol.md`. Skip for text-only content (social posts, emails).
 8. **Reviewer** — final quality check
 8a. **Growth-Hacker** (if distribution/amplification) — channel strategy for published content. Skip for internal or cron content.
 9. **Librarian** — catalogs published artifact and updates indexes
@@ -274,6 +279,7 @@ Full workflow definition is in `.claude/skills/build-site/SKILL.md`. Summary of 
 7. **Architect** — validates component structure and config schema compatibility
 8. **Engineer** — implements pages, components, configuration
 9. **Visual Designer** — CSS review and polish pass (typography, color, spacing, animations, responsive)
+9a. **Visual Designer** — Visual Preview (required). Navigate to built pages in browser. Take screenshots at desktop (1280x800), tablet (768x1024), and mobile (375x812) viewports per `core/standards/visual-preview-protocol.md`. Fix visual issues before QA. This is not optional — it proves the site looks right, not just that the code is right.
 10. **QA** — tests breakpoints, accessibility, content accuracy
 11. **Security-Expert** — reviews for XSS, injection, CSP, dependency vulnerabilities
 12. **Reviewer** — final quality gate against `core/standards/review-checklist.md`
@@ -315,7 +321,7 @@ For simple, single-domain tasks that don't warrant the full workflow pipeline. L
 
 | Workflow | Core Team | Conditional Additions |
 |----------|-----------|----------------------|
-| Technical | Engineer | + Visual Designer (if frontend/UI) + Security-Expert (if auth/crypto/input/secrets/API) + Coherence (if >3 files) |
+| Technical | Engineer | + Visual Designer (if frontend/UI — includes visual preview per visual-preview-protocol.md) + Security-Expert (if auth/crypto/input/secrets/API) + Coherence (if >3 files) |
 | Business | Relevant specialist (Marketer/Seller/Financier) | + Coherence (if strategic decision) |
 | Content | Writer + Editor (always, never skip) | + Polisher (if external-facing) |
 | Planning | Planner | + Coherence (if >3 files) |

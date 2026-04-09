@@ -2,6 +2,7 @@
 name: build-site
 description: Use when building a website from concept to deployment — orchestrates strategy, design, content, implementation, and quality phases.
 user_invocable: true
+invocation: /build-site
 args: "<description> [--product <name>] [--deploy]"
 ---
 
@@ -72,6 +73,7 @@ Run content and architecture work in parallel within the team.
 |------|-------------|
 | QA | Test across breakpoints, validate links, check accessibility (contrast, alt text, ARIA), verify content matches approved copy |
 | Security Expert | Review for XSS, injection, CSP headers, dependency vulnerabilities |
+| Visual Designer | Browser preview: navigate to built pages in Playwright, take screenshots at desktop (1280x800), tablet (768x1024), and mobile (375x812) viewports per `core/standards/visual-preview-protocol.md`. Review screenshots for visual quality, layout issues, responsive behavior. Flag issues for Engineer to fix before proceeding. |
 | Reviewer | Final quality gate — check against `core/standards/review-checklist.md`, verify all phases delivered |
 
 **Output:** Quality report with pass/fail and remediation items.
